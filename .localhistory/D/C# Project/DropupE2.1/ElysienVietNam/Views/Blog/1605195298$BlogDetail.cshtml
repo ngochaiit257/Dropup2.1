@@ -1,0 +1,548 @@
+﻿@model Data.blog
+@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "BlogDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_my_pham = new ProductProvider().getByCategoryIdOnSite(55);
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">@Model.blog_title</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/blogs">Blog</a></li>
+                        <li>@Model.blog_title</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop Category Area End -->
+<div class="shop-category-area single-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <div class="blog-posts">
+                    <div class="single-blog-post blog-grid-post">
+                        <div class="blog-post-media">
+                            <div class="blog-image single-blog">
+                                <a href="/blogs/@Model.blog_seo_alias"><img class="lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@Model.blog_image" alt="@Model.blog_alt_image" /></a>
+                            </div>
+                        </div>
+                        <div class="blog-post-content-inner">
+                            <h4 class="blog-title"><a href="/blogs/@Model.blog_seo_alias">@Model.blog_title</a></h4>
+                            <ul class="blog-page-meta">
+                                <li>
+                                    <a><i class="ion-person"></i> @Model.user.username</a>
+                                </li>
+                                <li>
+                                    <a><i class="ion-calendar"></i> @Model.show_datetime.Value.ToString("dd/MM/yyyy")</a>
+                                </li>
+                            </ul>
+                            <p>@Model.blog_summary</p>
+                        </div>
+                        <div class="single-post-content">
+                            @if (list_my_pham.Count > 0)
+                            {
+                                <section class="best-sells-area mb-30px mt-40">
+                                    <div class="container">
+                                        <!-- Best Sell Slider Carousel Start -->
+                                        <div class="best-sell-slider owl-carousel owl-nav-style">
+                                            <!-- Single Item -->
+                                            @foreach (var product in list_my_pham)
+                                            {
+                                                <article class="list-product mb-30px">
+                                                    <div class="img-block img-my-pham">
+                                                        <a href="/@product.seo_alias" class="thumbnail">
+                                                            <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                            @if (img_more != null)
+                                                            {
+                                                                <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <ul class="product-flag">
+                                                            <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                                        </ul>
+                                                    }
+
+                                                    <div class="product-decs">
+                                                        @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                        @if (category != null)
+                                                        {
+                                                            <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                                        }
+                                                        <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                        <div class="rating-product">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                        </div>
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                                {
+                                                                    <li class="old-price showNumeric">@product.price</li>
+                                                                }
+                                                                <li class="current-price showNumeric">@product.promotion_price</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-to-link">
+                                                        <ul>
+                                                            <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </article>
+                                            }
+
+                                        </div>
+                                        <!-- Best Sells Carousel End -->
+                                    </div>
+                                </section>
+                            }
+
+                            @Html.Raw(Model.blog_content)
+                        </div>
+                    </div>
+                    <!-- single blog post -->
+                </div>
+                <div class="blog-single-tags-share d-sm-flex justify-content-between">
+                    @if (list_tag.Count > 0)
+                    {
+                        <div class="blog-single-tags d-flex">
+                            <span class="title">Tags: </span>
+                            <ul class="tag-list">
+                                @foreach (var tag in list_tag)
+                                {
+                                    <li><a href="/search/q=@tag.tag_name">Fashion</a></li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="blog-single-share d-flex">
+                        <span class="title">Share:</span>
+                        <ul class="social">
+                            <li>
+                                <a href="#"><i class="ion-social-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-google"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-related-post">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <!-- Section Title -->
+                            <div class="section-title underline-shape">
+                                <h2>Related Post</h2>
+                            </div>
+                            <!-- Section Title -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-res-md-30px mb-res-sm-30px">
+                            <div class="blog-post-media">
+                                <div class="blog-image single-blog">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-1.jpg" alt="blog" /></a>
+                                </div>
+                            </div>
+                            <div class="blog-post-content-inner">
+                                <h4 class="blog-title"><a href="#">This is Third Post For XipBlog</a></h4>
+                                <ul class="blog-page-meta">
+                                    <li>
+                                        <a href="#"><i class="ion-person"></i> Admin</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-res-md-30px mb-res-sm-30px">
+                            <div class="blog-post-media">
+                                <div class="blog-image single-blog">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-2.jpg" alt="blog" /></a>
+                                </div>
+                            </div>
+                            <div class="blog-post-content-inner">
+                                <h4 class="blog-title"><a href="#">This is Third Post For XipBlog</a></h4>
+                                <ul class="blog-page-meta">
+                                    <li>
+                                        <a href="#"><i class="ion-person"></i> Admin</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="blog-post-media">
+                                <div class="blog-image single-blog">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-3.jpg" alt="blog" /></a>
+                                </div>
+                            </div>
+                            <div class="blog-post-content-inner">
+                                <h4 class="blog-title"><a href="#">This is Third Post For XipBlog</a></h4>
+                                <ul class="blog-page-meta">
+                                    <li>
+                                        <a href="#"><i class="ion-person"></i> Admin</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-area">
+                    <h2 class="comment-heading">3 Comments</h2>
+                    <div class="review-wrapper">
+                        <div class="single-review">
+                            <div class="review-img">
+                                <img src="../Assets/images/testimonial-image/1.png" alt="" />
+                            </div>
+                            <div class="review-content">
+                                <div class="review-top-wrap">
+                                    <div class="review-left">
+                                        <div class="review-name">
+                                            <h4>White Lewis</h4>
+                                            <span class="date">February 16, 2020 at 1:38 am</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-left">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <div class="review-bottom">
+                                    <p>
+                                        Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-review child-review">
+                            <div class="review-img">
+                                <img src="../Assets/images/testimonial-image/2.png" alt="" />
+                            </div>
+                            <div class="review-content">
+                                <div class="review-top-wrap">
+                                    <div class="review-left">
+                                        <div class="review-name">
+                                            <h4>White Lewis</h4>
+                                            <span class="date">February 16, 2020 at 1:38 am</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-left">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <div class="review-bottom">
+                                    <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-review">
+                            <div class="review-img">
+                                <img src="../Assets/images/testimonial-image/1.png" alt="" />
+                            </div>
+                            <div class="review-content">
+                                <div class="review-top-wrap">
+                                    <div class="review-left">
+                                        <div class="review-name">
+                                            <h4>White Lewis</h4>
+                                            <span class="date">February 16, 2020 at 1:38 am</span>
+                                        </div>
+                                    </div>
+                                    <div class="review-left">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <div class="review-bottom">
+                                    <p>
+                                        Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-comment-form">
+                    <h2 class="comment-heading">Leave a Reply</h2>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="single-form">
+                                <label>Your Review:</label>
+                                <textarea placeholder="Write a review"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single-form">
+                                <label>Name:</label>
+                                <input type="text" placeholder="Name" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single-form">
+                                <label>Email:</label>
+                                <input type="email" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single-form">
+                                <label>Website:</label>
+                                <input type="email" placeholder="Website" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="single-form">
+                                <input type="submit" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 col-md-12 mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget">
+                        <div class="main-heading">
+                            <h2>Search</h2>
+                        </div>
+                        <div class="search-widget">
+                            <form action="#">
+                                <input placeholder="Search entire store here ..." type="text" />
+                                <button type="submit"><i class="ion-ios-search-strong"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Categories</h2>
+                        </div>
+                        <div class="category-post">
+                            <ul>
+                                <li><a href="#">Dresses (20)</a></li>
+                                <li><a href="#">Jackets & Coats (9)</a></li>
+                                <li><a href="#">Sweaters (5)</a></li>
+                                <li><a href="#">Jeans (11)</a></li>
+                                <li><a href="#">Blouses & Shirts (3)</a></li>
+                                <li><a href="#">Electronic Cigarettes (6)</a></li>
+                                <li><a href="#">Bags & Cases (4)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Recent Post</h2>
+                        </div>
+                        <div class="recent-post-widget">
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-1.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="#">This Is First Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 24, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-2.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="#">This Is Secound Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 25, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-3.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="#">This Is Third Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 26, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side m-0px">
+                                    <a href="#"><img src="../Assets/images/blog-image/blog-4.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="#">This Is Fourth Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 27, 2020</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (ViewData["ListDacBiet"] != null)
+                    {
+                        <!-- Sidebar single item -->
+                        <div class="sidebar-widget mt-40">
+                            <div class="main-heading">
+                                <h2>Sản phẩm bán chạy</h2>
+                            </div>
+                            <div class="sidebar-widget-tag">
+                                <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                    @foreach (var product in ViewData["ListDacBiet"] as List<product>)
+                                    {
+                                        if (product.product_id % 2 != 0)
+                                        {
+                                            <!-- Single Item -->
+                                            <div class="feature-slider-item feature-slider-item-sidebar">
+                                                <article class="list-product mb-30px">
+                                                    <div class="img-block">
+                                                        <a href="/@product.seo_alias" class="thumbnail">
+                                                            <img class="first-img" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                            @if (img_more != null)
+                                                            {
+                                                                <img class="second-img" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                            }
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product-decs">
+                                                        @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                        @if (category != null)
+                                                        {
+                                                            <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                                        }
+                                                        <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                        <div class="rating-product">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                        </div>
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                                {
+                                                                    <li class="old-price showNumeric">@product.price</li>
+                                                                }
+                                                                <li class="current-price showNumeric">@product.promotion_price</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                    @foreach (var product in ViewData["ListDacBiet"] as List<product>)
+                                    {
+                                        if (product.product_id % 2 == 0)
+                                        {
+                                            <!-- Single Item -->
+                                            <div class="feature-slider-item feature-slider-item-sidebar">
+                                                <article class="list-product mb-30px">
+                                                    <div class="img-block">
+                                                        <a href="/@product.seo_alias" class="thumbnail">
+                                                            <img class="first-img" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                            @if (img_more != null)
+                                                            {
+                                                                <img class="second-img" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                            }
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product-decs">
+                                                        @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                        @if (category != null)
+                                                        {
+                                                            <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                                        }
+                                                        <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                        <div class="rating-product">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                        </div>
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                                {
+                                                                    <li class="old-price showNumeric">@product.price</li>
+                                                                }
+                                                                <li class="current-price showNumeric">@product.promotion_price</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sidebar single item -->
+                    }
+
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>
+<!-- Shop Category Area End -->

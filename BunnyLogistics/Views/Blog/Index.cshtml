@@ -1,0 +1,50 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | Bunny Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Bunny Việt Nam";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Bunny Việt Nam";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>Tin tức và Sự kiện</h2>
+            <ul>
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                <li>Tin tức</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Blog Section Start -->
+<section class="blog-section blog-style-three pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <span>Tin tức</span>
+            <h2>Bài viết mới nhất</h2>
+            <p>Chúng tôi chia sẻ tới bạn đọc những thông tin hữu ích, chuyên môn và kiến thức của các dịch vụ mà chúng tôi cung cấp.</p>
+        </div>
+        <div id="data_table">
+            @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

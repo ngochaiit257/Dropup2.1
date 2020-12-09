@@ -1,0 +1,87 @@
+﻿@using Data;
+@using Data.Providers;
+@using ElysienVietNam.Models;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Title = "Shopping cart | Elysien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Giỏ hàng</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>Giỏ hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- cart area start -->
+<div class="cart-main-area mtb-60px">
+    <div class="container">
+        <h3 class="cart-page-title">Danh sách sản phẩm</h3>
+        <div class="show_when_cart_empty" style="display:none">
+            @*<div class="cart-empty-img">
+                <img src="~/Assets/images/svg/cart-is-empty.svg" alt="cart-is-empty" />
+            </div>*@
+            <div class="cart-empty-content">
+                <p>Giỏ hàng trống.</p>
+                <p>Tiếp tục mua hàng, <a href="/" class="text-info">nhấn vào đây</a>.</p>
+            </div>
+        </div>
+        <div id="data_table">
+
+        </div>
+    </div>
+</div>
+<!-- cart area end -->
+
+<script>
+    $(document).ready(function () {
+        loadCart();
+    });
+
+    function loadCart() {
+        if (Cookies.get("ELYSIEN_CART") == null || Cookies.get("ELYSIEN_CART") == undefined || $.parseJSON(Cookies.get("ELYSIEN_CART")).length == 0) {
+            $('.show_when_cart_empty').css({ display: 'block' });
+            $('#data_table').empty();
+        } else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("ELYSIEN_CART"));
+            var list_in_cart = [];
+            $.each(list_product_variation_in_cart, function (index, value) {
+                var obj = {};
+                obj.id = value.id;
+                obj.quantity = value.quantity;
+                list_in_cart.push(obj);
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetAllInCart",
+                data: {
+                    list_in_cart: list_in_cart,
+                },
+                context: document.body,
+                dataType: "html",
+                success: function (data) {
+                    console.log('ok')
+                    $("#data_table").html(data);
+                },
+                error: function (xhr) {
+                    console.log('Error')
+                }
+            });
+        }
+        getNumOfItemInCart();
+    }
+</script>

@@ -1,0 +1,42 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var project in Model)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <div class="team-item">
+                    <div>
+                        <img src="@urlCMS/@project.product_image" alt="@project.alt_image">
+                    </div>
+                    <div class="bottom">
+                        <h3>
+                            <a href="/@project.seo_alias">@project.product_name</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+}

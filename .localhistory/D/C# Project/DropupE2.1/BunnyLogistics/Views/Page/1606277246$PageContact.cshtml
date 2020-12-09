@@ -1,0 +1,204 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "Liên hệ Bunny Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Bunny Việt Nam";
+    ViewBag.Description = "Liên hệ với Bunny Việt Nam để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>Tin tức và Sự kiện</h2>
+            <ul>
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                <li>@Model.page_title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Contact Card Section Start -->
+<div class="contact-card-section pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <div class="contact-card">
+                    <i class="icofont-phone"></i>
+                    <a href="tel:@contact.phone_number">@contact.phone_number</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="contact-card">
+                    <i class="icofont-ui-message"></i>
+                    <a href="mailto:@contact.email">@contact.email</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 offset-lg-0 offset-sm-3">
+                <div class="contact-card">
+                    <i class="icofont-location-pin"></i>
+                    <ul>
+                        <li>@contact.address</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Card Section End -->
+<!-- Contact Section Start -->
+<section class="contact-section contact-style-two pb-100">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Ask Any Question</h2>
+            <p>Found parents would couldn't said on. That, feedback there made he was may blind you simple, its yet a own blind you ago hand.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="contact-area">
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" id="name" class="form-control" required data-error="Please enter your name" placeholder="Your Name">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control" required data-error="Please enter your email" placeholder="Your Email">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="number" id="number" class="form-control" required data-error="Please enter your number" placeholder="Phone Number">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="subject" id="subject" class="form-control" required data-error="Please enter your subject" placeholder="Your Subject">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <textarea name="message" class="message-field" id="message" cols="30" rows="5" required data-error="Please type your message" placeholder="Write Message"></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 text-center">
+                                <button type="submit" class="default-btn contact-btn">
+                                    Send Message
+                                </button>
+                                <div id="msgSubmit" class="h3 alert-text text-center hidden"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+<script>
+    function sendMessage() {
+        var cphone = $("#cphone").val();
+        var cemail = $("#cemail").val();
+        var cname = $("#cname").val();
+        var cmessage = $('#cmessage').val();
+        var csubject = "Yêu cầu tư vấn";
+        if (cname == "" || cname == null) {
+            alert("Yêu cầu nhập tên trước khi gửi");
+        }
+        else if (cemail == "" || cemail == null) {
+            alert("Yêu cầu nhập email trước khi gửi");
+        }
+        else if (!isEmail(cemail)) {
+            alert("Email không đúng định dạng");
+        }
+        else if (cphone == "") {
+            alert("Yêu cầu nhập số điện thoại trước khi gửi");
+        }
+        else if (!phonenumber(cphone)) {
+            alert("Số điện thoại không đúng định dạng");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Page/SendMessage",
+                data: {
+                    sender_name: cname,
+                    sender_phone_number: cphone,
+                    sender_email: cemail,
+                    sender_subject: csubject,
+                    sender_message: cmessage,
+                },
+                context: document.body,
+                dataType: "html",
+                beforeSend: function () {
+                    $('#btn_send_mess').prop('disabled', true);
+                    $('#btn_send_mess').text("Loading...");
+                },
+                success: function (data) {
+                    closeRightMenu();
+                    $("#cname").val("");
+                    $("#cmail").val("");
+                    $("#cphone").val("");
+                    $("#cmessage").val("");
+                    alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                complete: function (xhr, status) {
+                    $('#btn_send_mess').text("Gửi thông tin");
+                    $('#btn_send_mess').prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    function phonenumber(inputtxt) {
+        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        if (inputtxt.match(phoneno)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+</script>

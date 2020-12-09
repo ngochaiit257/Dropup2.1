@@ -1,0 +1,18 @@
+﻿.banner-slider-area {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.container-slider{
+    max-width: 1920px;
+    padding: 0;
+}
+
+.banner-slider-area .banner-contant .banner-slider .slider-item .br-30 {
+    border-radius: 0;
+}
+
+.eoda-nav .navbar .navbar-nav .nav-item a {
+    font-weight: 600;
+    text-transform: capitalize;
+}

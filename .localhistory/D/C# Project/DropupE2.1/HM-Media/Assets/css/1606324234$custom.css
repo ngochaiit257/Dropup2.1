@@ -1,0 +1,42 @@
+﻿.section-title h2 {
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.main-nav nav .navbar-nav .nav-item a {
+    font-weight: 700;
+}
+
+.logo-area .logo-text h3 {
+    text-transform: capitalize;
+}
+
+.section-title .sub-title {
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.section-title .sub-title-su-menh {
+    color: #fff;
+}
+
+.work-area .work-item ul li h3 {
+    text-transform:capitalize;
+}
+
+.banner-content h1 {
+    font-weight: 800;
+}
+
+.about-area .about-img .years h3 {
+    margin-bottom: 0;
+    font-size: 40px;
+    color: #ffffff;
+    margin-top: 50px;
+}
+
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1300px;
+    }
+}

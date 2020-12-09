@@ -1,0 +1,80 @@
+﻿@model Data.store_contact
+@using Data;
+@using Data.Providers;
+
+@{ 
+    ViewBag.StoreContactId = Model.store_contact_id;
+}
+
+<form id="form_update_store_contact">
+    <div class="form-group mt-10">
+        <label>Địa chỉ</label>
+        <input type="text" class="form-control" placeholder="Nhập địa chỉ" value="@Model.address" id="sc_address">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" placeholder="Nhập email" value="@Model.email" id="sc_email">
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone_number" id="sc_phone_number">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label>Khung giờ làm việc</label>
+                <input type="text" class="form-control" placeholder="Nhập khung giờ làm việc" value="@Model.working_hour" id="sc_working_hour">
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label>Ngày làm việc</label>
+                <input type="text" class="form-control" placeholder="Nhập ngày làm việc" value="@Model.working_day" id="sc_working_day">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fb">Nhúng bản đồ</label>
+        <div class="mb-2">
+            <textarea class="form-control" id="sc_map" name="" rows="5" maxlength="550">@Model.map</textarea>
+        </div>
+    </div>
+</form>
+
+<script>
+    function updateStoreContact() {
+        var address = $('#sc_address').val();
+        var email = $('#sc_email').val();
+        var phone_number = $('#sc_phone_number').val();
+        var working_hour = $('#sc_working_hour').val();
+        var working_day = $('#sc_working_day').val();
+        var map = $('#sc_map').val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateStoreContact", "Configuration")',
+            data: {
+                address: address,
+                email: email,
+                phone_number: phone_number,
+                working_hour: working_hour,
+                working_day: working_day,
+                map: map
+            },
+            context: document.body,
+            dataType: "html",
+            success: function (data) {
+                showToast("success", "Thông tin liên hệ đã được cập nhật.", "Cập nhật thành công");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+                
+        });
+    }
+</script>

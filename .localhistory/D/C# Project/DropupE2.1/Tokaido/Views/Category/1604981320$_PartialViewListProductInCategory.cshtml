@@ -1,0 +1,52 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+
+@if (check_box_count == 0)
+{
+    <div class=" center-div">
+        <p>Không tìm thấy sản phẩm nào.</p>
+    </div>
+}
+else
+{
+    foreach (var product in Model)
+    {
+        <div class="col-sm-3 col-xs-6">
+            <div class="product effect1">
+                <div class="box-wrap">
+                    <div class="box-image">
+                        <a href="/@product.seo_alias">
+                            <img src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                        </a>
+                    </div>
+                    <div class="box-content">
+                        @if (num_category_child > 0)
+                        {
+                            <h5><a href="/collections/@category.seo_alias">@category.category_name</a></h5>
+                        }
+                        else
+                        {
+                            <h5><a href="/products/@category.seo_alias">@category.category_name</a></h5>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="pagination center-div">
+            <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+            @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder, supplier_id = ViewBag.SupplierId}),
+                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+        </div>
+    </div>
+}

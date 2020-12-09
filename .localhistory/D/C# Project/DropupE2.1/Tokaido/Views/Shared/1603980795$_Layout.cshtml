@@ -1,0 +1,260 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="author" content="Diwe.vn">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="../Assets/css/bootstrap.css">
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="../Assets/css/style.css">
+
+    <!-- Responsive -->
+    <link rel="stylesheet" type="text/css" href="../Assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/css/jquery.datetimepicker.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../Assets/css/colors/color1.css" id="colors">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="../Assets/css/animate.css">
+    <link href="../Assets/css/custom.css" rel="stylesheet" />
+
+    <!-- Favicon and touch icons  -->
+    <link href="../Assets/icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon" sizes="48x48">
+    <link href="../Assets/icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="../Assets/icon/favicon.png" rel="shortcut icon">
+
+    <!--[if lt IE 9]>
+        <script src="../Assets/js/html5shiv.js"></script>
+        <script src="../Assets/js/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body class="">
+    <section class="loading-overlay">
+        <div class="Loading-Page">
+            <h2 class="loader">Loading</h2>
+        </div>
+    </section>
+
+    <div class="box">
+        <header id="header" class="header clearfix">
+            <div class="header-wrap clearfix">
+                <div class="container">
+                    <div class="logo-mobi"><a href="#"> <img src="../Assets/images/logo.png" alt="image"></a></div>
+                    <div class="btn-menu">
+                        <span></span>
+                    </div>
+                    <nav id="mainnav" class="mainnav">
+                        <ul class="menu">
+                            <li class="has-sub">
+                                <a href="/">Trang chủ</a>
+                            </li>
+                            <li>
+                                <a href="/pages/ve-chung-toi">Về chúng tôi</a>
+                            </li>
+                            <li> <a href="/collections/all">Sản phẩm </a></li>
+                            <li class="logo">
+                                <a href="/"> <img src="../Assets/images/logo.png" alt="image"></a>
+                            </li>
+                            <li class="has-sub"> <a href="about.html">Đại lý và cửa hàng</a></li>
+                            <li class="has-sub">
+                                <a href="blog.html">Blog</a>
+                                <ul class="submenu right-sub-menu ">
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="blog-single.html">Blog Single</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-sub"> <a href="about.html">Liên hệ</a></li>
+                        </ul><!--/.menu -->
+                    </nav><!--/.mainnav -->
+                </div><!--/.container -->
+            </div><!--/.header-wrap -->
+        </header><!--/.header -->
+       
+        @RenderBody()
+
+        <footer class="footer">
+            <div class="footer-widgets">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="widget widget_text">
+                                <h3 class="widget-title">TOKAIDO</h3>
+                                <div class="textwidget">
+                                    <p>Chuyên phân phối các dòng sản phẩm đồ gia dụng, đồ dùng sinh hoạt,... tới đại lý.</p>
+                                    <ul class="footer-info">
+                                        <li class="address">
+                                            203, Envato Labs, Behind Alis Steet,
+                                            Melbourne, Australia.
+                                        </li>
+                                        <li class="email">Email us: company@domain.com</li>
+                                        <li class="phone">Call us: 0084 962 216 601</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!-- /.col-md-3 -->
+
+                        <div class="col-md-3">
+                            <div class="widget widget_recent_posts">
+                                <h3 class="widget-title">Latest Posts</h3>
+                                <ul>
+                                    <li class="clearfix">
+                                        <div class="thumb flat-hover-images">
+                                            <a href="#"><img src="../Assets/images/blog/5.jpg" alt="image"></a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="title"><a href="#">Whole Wheat & Soy Waffles Cake </a></h5>
+                                            <div class="meta">19 September, 2016</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="clearfix">
+                                        <div class="thumb flat-hover-images">
+                                            <a href="#"><img src="../Assets/images/blog/6.jpg" alt="image"></a>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="title"><a href="#">Whole Wheat & Soy Waffles Cake</a></h5>
+                                            <div class="meta">19 September, 2016</div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div><!-- /.widget_recent_entries -->
+                        </div><!-- /.col-md-3 -->
+
+                        <div class="col-md-3">
+                            <div class="widget widget-link clearfix">
+                                <h3 class="widget-title">User Links </h3>
+
+                                <ul class="links">
+                                    <li><a href="#.">About Us</a></li>
+                                    <li><a href="#.">Blog</a></li>
+                                    <li><a href="#.">Courses </a></li>
+                                    <li><a href="#.">FAQs</a></li>
+                                    <li><a href="#.">Events</a></li>
+                                    <li><a href="#.">Support</a></li>
+                                </ul>
+
+
+                                <div class="social-links">
+                                    <a href="#"><i class="fa fa-facebook-square"></i>Facebok</a>
+                                    <a href="#"><i class="fa fa-twitter-square"></i>Twitter</a>
+                                    <a href="#"><i class="fa fa-google-plus-square"></i>Google+</a>
+                                    <a href="#"><i class="fa fa-linkedin-square"></i>Linkedin</a>
+                                    <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+                                    <a href="#"><i class="fa fa-pinterest-square"></i>Pinterest</a>
+                                </div>
+                            </div>
+                        </div><!-- /.col-md-3 -->
+
+                        <div class="col-md-3">
+                            <div class="widget widget_instagram">
+                                <h3 class="widget-title">Instagram</h3>
+
+                                <ul class="clearfix">
+                                    <li>
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/1.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/2.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="last">
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/3.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="last">
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/4.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="last">
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/5.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="last">
+                                        <div class="thumb images-hover flat-hover-images">
+                                            <a href="#">
+                                                <span><img src="../Assets/images/instagram/6.jpg" alt="image"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div><!-- /.widget_instagram -->
+                        </div><!-- /.col-md-3 -->
+                    </div><!-- /.row -->
+                </div><!-- /.container -->
+            </div><!-- /.footer-widgets -->
+
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <div class="copyright-content">
+                                    Copyright © 2017. Designer by <a href="themesflat.html"> NthPsd</a>. All Rights Reserved
+                                </div>
+                            </div>
+                            <!-- Go Top -->
+                            <a class="go-top-v1"> <i class="fa fa-arrow-up"></i>  &nbsp;Back to Top</a>
+                        </div><!-- /.col-md-12 -->
+                    </div><!-- /.row -->
+                </div><!-- /.container -->
+            </div><!-- /.footer-content -->
+        </footer>
+
+    </div><!--box -->
+    <!-- Javascript -->
+    <script type="text/javascript" src="../Assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.easing.js"></script>
+    <script type="text/javascript" src="../Assets/js/imagesloaded.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery-waypoints.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../Assets/js/parallax.js"></script>
+    @*<script type="text/javascript" src="../Assets/js/smoothscroll.js"></script>*@
+    <script type="text/javascript" src="../Assets/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="../Assets/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery-validate.js"></script>
+    <!-- <script type="text/javascript" src="../Assets/js/switcher.js"></script> -->
+    @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvV0EE3yFozGhjmUv3BgoyviVdXzCwHlk"></script>*@
+    <script type="text/javascript" src="../Assets/js/gmap3.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="../Assets/js/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script type="text/javascript" src="../Assets/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="../Assets/js/slider.js"></script>
+
+</body>
+</html>

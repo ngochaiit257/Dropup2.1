@@ -1,0 +1,241 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_img_more = new ImageMoreProvider().getByProductId(Model.product_id);
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@Model.product_name</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            @if (category_parent != null && category_parent.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1 != null && category_child_1.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+
+                            @if (category_child_2 != null && category_child_2.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                            }
+                            <li class="breadcrumb-item active" aria-current="page">@Model.product_name</li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<!-- Flat row -->
+<div class="flat-row flat-wooc">
+    <div class="container">
+        <div class="row">
+            <div class="woocommerce-page clearfix">
+                <div class="col-md-6">
+                    <div class="flat-product-single-slider">
+                        <div id="flat-product-flexslider">
+                            <ul class="slides">
+                                <li><img width="570" height="570" alt="product-single" src="@urlCMS/@Model.product_image" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" /></li>
+                                @if (list_img_more.Count > 0)
+                                {
+                                    foreach (var img_more in list_img_more)
+                                    {
+                                        <li><img width="570" height="570" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" /></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div id="flat-product-carousel">
+                            <ul class="slides">
+                                <li><img width="100" height="100" alt="product-single" src="@urlCMS/@Model.product_image" /></li>
+                                @if (list_img_more.Count > 0)
+                                {
+                                    foreach (var img_more in list_img_more)
+                                    {
+                                        <li><img width="100" height="100" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" /></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div><!-- /.flat-portfolio-single-slider -->
+                </div><!--/.col-md-6 -->
+
+                <div class="col-md-6">
+                    <div class="entry-summary">
+                        <h2 class="product_title">@Model.product_name</h2>
+
+                        <ul class="favorite">
+                            <li>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                            </li>
+                        </ul>
+
+                        <p class="price">Giá: <strong>Liên hệ</strong></p>
+
+                        <div class="description">
+                            @Html.Raw(Model.description)
+                        </div>
+
+                        <form class="cart clearfix" method="post">
+                            <div class="quantity">
+                                <input type="number" step="1" min="1" name="quantity" value="4" title="Qty" class="input-text qty text" size="4">
+                            </div>
+                            <input type="hidden" name="add-to-cart" value="191">
+
+                            <button type="submit" class="single_booking_button">Booking now</button>
+
+                            <button type="submit" class="single_add_to_cart_button border">add to cart</button>
+                        </form>
+
+
+                        <ul class="flat-socials">
+                            <li>Share link: </li>
+                            <li class="twitter">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="facebook">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li class="instagram">
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <li class="linkin">
+                                <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div><!-- /.entry-summary -->
+                </div><!--/.col-md-8 -->
+            </div><!--/.woocommerce-page -->
+        </div><!--/.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flat-accordion">
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title active">DESCRIPTION</h4>
+                        <div class="toggle-content">
+                            <p>
+                                Phasellus pulvinar fringilla sapien eu maximus. Pellentesque nibh risus, ultrices sit amet efficitur eu, ullamcorper ut tortor. Proin libero felis, imperdiet sed aliquet suscipit, feugiat et lectus. Mauris libero ante, elementum eget dapibus eu, fermentum nec libero. Aliquam luctus neque eu nunc molestie placerat.<br />
+                                Ingredients<br />
+                                Phasellus malesuada facilisis purus, vitae lobortis dui dapibus volutpat. Aenean eget aliquet massa. Sed bibendum sed elit vel pretium.<br />
+                                Nutritions<br />
+                                Calories: 550KcalCholesterol: 2mgFiber: 5gSodium: 130mgCarbohydrates: 4.5gFat: 3.0gProtein: 23g
+                            </p>
+                        </div>
+                    </div><!-- /toggle -->
+
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title">ASSITIONAL INFORMATION</h4>
+                        <div class="toggle-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div><!-- /toggle -->
+
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title">CUSTOMER REVIEWS <span>(19)</span></h4>
+                        <div class="toggle-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div><!-- /toggle -->
+
+
+                </div><!-- /.flat-accordion -->
+            </div><!--/.col-md-12 -->
+        </div><!--/.row -->
+        <!--  <div class="flat-divider d62px"></div> -->
+    </div><!--/.container -->
+</div><!--/.flat-row -->
+
+<div class="related products-row">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section style5">
+                    <h1 class="title">Related Products</h1>
+                </div>
+            </div><!--/.col-md-12-->
+        </div>
+
+        <div class="row">
+            <div class="related products clearfix">
+                <div class="col-sm-3 col-xs-6 style2">
+                    <div class="product effect1">
+                        <div class="box-wrap">
+                            <div class="box-image">
+                                <a href="#"><img src="images/imagebox/4.jpg" alt="images"></a>
+                            </div>
+                            <div class="box-content">
+                                <h6>ITALIAN SOURCE MUSHROOM</h6>
+                                <ul>
+                                    <li>$19.9</li>
+                                    <li>
+                                        <i class="fa fa-heart"></i>
+                                        <i class="fa fa-heart"></i>
+                                        <i class="fa fa-heart"></i>
+                                        <i class="fa fa-heart"></i>
+                                        <i class="fa fa-heart"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.related products -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>

@@ -1,0 +1,125 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Elysien";
+    ViewBag.Description = "Liên hệ với Elysien để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Liên hệ</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>Liên hệ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- contact area start -->
+<div class="contact-area mtb-60px">
+    <div class="container">
+
+        <div class="custom-row-2">
+            <div class="col-lg-4 col-md-5">
+                <div class="contact-info-wrap">
+                    <div class="single-contact-info">
+                        <div class="contact-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="contact-info-dec">
+                            <p>@contact.phone_number</p>
+                        </div>
+                    </div>
+                    <div class="single-contact-info">
+                        <div class="contact-icon">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <div class="contact-info-dec">
+                            <p><a href="mailto:@contact.email">@contact.email</a></p>
+                        </div>
+                    </div>
+                    <div class="single-contact-info">
+                        <div class="contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="contact-info-dec">
+                            <p>@contact.address</p>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <h3>Theo dõi chúng tôi</h3>
+                        <div class="social-info">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="ion-social-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="ion-social-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="ion-social-youtube"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="ion-social-google"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="ion-social-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="contact-form">
+                    <div class="contact-title mb-30">
+                        <h2>Để lại lời nhắn cho chúng tôi</h2>
+                    </div>
+                    <form class="contact-form-style" id="contact-form">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input name="name" placeholder="Tên của bạn *" type="text" />
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="email" placeholder="Email*" type="email" />
+                            </div>
+                            <div class="col-lg-6">
+                                <input name="" placeholder="Số điện thoại*" type="text" />
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" placeholder="Lời nhắn*"></textarea>
+                                <button class="submit" type="button">Gửi</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="form-messege"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-map mb-10">
+            @Html.Raw(contact.map)
+        </div>
+    </div>
+</div>
+<!-- contact area end -->

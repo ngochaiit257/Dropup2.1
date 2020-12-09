@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Sản phẩm đã thực hiện của HM Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+     var list_service = new CategoryProvider().getByTypeNameOnSite("Danh mục dịch vụ");
+    var list_category_project = new CategoryProvider().getByTypeNameOnSite("Danh mục dự án");
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>Sản phẩm đã thực hiện</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>Sản phẩm đã thực hiện</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services Details -->
+<div class="service-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="details-item">
+                    <select id="select_project" class="select_option">
+                        <option value="all" selected>Tất cả dự án</option>
+                        <option value="Option 2">2nd Option</option>
+                        <option value="Option 3">Option Number 3</option>
+                    </select>
+                    <div id="data_table">
+                        @{Html.RenderAction("GetProductByCategory", "Category", new { page_num = ViewBag.page_num, category_id = ViewBag.CategoryId });}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="widget-area">
+
+                    <div class="services widget-item">
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/@service.seo_alias">
+                                        @service.category_name
+                                        <i class='bx bx-chevron-right'></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="report widget-item">
+                        <ul>
+                            <li>
+                                <i class='bx bx-download'></i>
+                                <a href="/">Download Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="touch widget-item">
+                        <h3>Để lại lời nhắn</h3>
+                        <p>Chúng tôi sẽ liên hệ với bạn sớm.</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="your-message" rows="6" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn common-btn">
+                                    Xác Nhận
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Services Details -->

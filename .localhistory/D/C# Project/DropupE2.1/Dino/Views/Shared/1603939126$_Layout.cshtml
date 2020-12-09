@@ -1,0 +1,1007 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string youtube_link = System.Configuration.ConfigurationManager.AppSettings["youtube_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+
+    string currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+    TempData["CurrentUrl"] = currentUrl;
+
+    long user_id_loged = 0;
+    string email_loged = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+        email_loged = username;
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+}
+
+<!doctype html>
+<html class="no-js" lang="vi">
+<head>
+
+    <link rel="shortcut icon" href="@urlCMS/@favicon.image" type="image/png" />
+    <meta charset="utf-8" />
+    <title>
+        @ViewBag.Title
+    </title>
+
+    <link rel="canonical" href="/" />
+    <meta name="robots" content="index,follow" />
+    <meta name="revisit-after" content="1 day" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="HandheldFriendly" content="true">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0' name='viewport' />
+
+    @Styles.Render("~/bundles/styleCore")
+    @Scripts.Render("~/bundles/jsCoreFirst")
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=vietnamese" rel="stylesheet">
+
+    <!--+++++++++++++++++++++++++  CSS ++++++++++++++++++++++++-->
+    @*<link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href='../Assets/css/jquery.fancybox.min8cea.css' rel='stylesheet' type='text/css' media='all' />
+        <link href='../Assets/css/flexslider8cea.css' rel='stylesheet' type='text/css' media='all' />
+        <link href='../Assets/css/styles8cea.css' rel='stylesheet' type='text/css' media='all' />
+        <link href='../Assets/css/swiper.min8cea.css' rel='stylesheet' type='text/css' media='all' />
+        <link href="~/Assets/css/icon.css" rel="stylesheet" />
+        <link href="~/Assets/css/custom.css" rel="stylesheet" />*@
+
+    <!--+++++++++++++++++++++++++  JS ++++++++++++++++++++++++-->
+    @*<script src='../Assets/js/jquery.min.1.11.08cea.js' type='text/javascript'></script>*@
+
+
+</head>
+<body id="lama-theme" class="index">
+    <div class="main-body">
+        <div id="topbar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 topbar-content">
+                        <p>Miễn phí giao hàng toàn quốc với đơn hàng trên 500k</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 topbar-hotline">
+                        <a class="phone-num" href="tel:@contact.phone_number">
+                            <span class="circle-phone"><i class="fa fa-phone"></i></span>
+                            <span class="text-phone">Hotline: @contact.phone_number</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <header id="site-header" class="main-header">
+            <div class="header-mid wrap-flex-align">
+                <!-- <div class="visible-lg visible-md col-header-mid"></div> -->
+                <div class="menu-icon" style="display:flex">
+                    <span id="site-menu-handle" class="hamburger-menu  hidden-lg hidden-md" aria-hidden="true"><span class="bar"></span></span>
+                    <span id="site-menu-handle" class="hamburger-menu visible-sm visible-xs " aria-hidden="true" style="opacity: 0"><span class="bar"></span></span>
+
+                </div>
+                <div class="wrap-logo">
+                    <a href="/">
+                        <img src="@urlCMS/@logo_header.image" alt="DINO STORE" class="img-responsive logoimg hidden-xs" />
+                        <img src="@urlCMS/@logo_mobile.image" alt="DINO STORE" class="img-responsive logoimg visible-xs" />
+                    </a>
+                </div>
+                <div class="menu-desktop hidden-sm hidden-xs">
+                    <div id="nav">
+                        <nav class="main-nav text-center">
+                            <ul class="clearfix">
+                                <li class="">
+                                    <a href="javascript:void(0)" title="SẢN PHẨM">
+                                        SẢN PHẨM
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    </a>
+                                    <ul class="sub_menu">
+                                        @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                        {
+                                            if (c_parent.type_of_category_id == 1)
+                                            {
+                                                if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                                {
+                                                    var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                                                    if (list_child_1.Count > 0)
+                                                    {
+                                                        <li class="">
+                                                            <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                                @c_parent.category_name.ToUpper() <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                                            </a>
+                                                            <ul class="sub_menu">
+                                                                @foreach (var child_1 in list_child_1)
+                                                                {
+                                                                    <li class="">
+                                                                        <a href="/collections/@child_1.seo_alias" title="@child_1.category_name">
+                                                                            @child_1.category_name.ToUpper()
+                                                                        </a>
+                                                                    </li>
+
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="">
+                                                            <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                                @c_parent.category_name.ToUpper()
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+
+                                @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                {
+                                    if (c_parent.type_of_category_id == 2)
+                                    {
+                                        if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                        {
+                                            <li class="">
+                                                <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                    @c_parent.category_name.ToUpper()
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+
+
+                                <li class="">
+                                    <a href="/pages/lien-he" title="ĐỊA CHỈ STORE">
+                                        ĐỊA CHỈ STORE
+                                    </a>
+                                </li>
+                                @if (list_page_parent.Count > 0)
+                                {
+                                    foreach (var pp in list_page_parent)
+                                    {
+                                        if (pp.mount_on_header_menu_status == true)
+                                        {
+                                            var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                            if (list_page_child.Count > 0)
+                                            {
+                                                <li class="">
+                                                    <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                        @pp.page_title.ToUpper()
+                                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                                    </a>
+
+                                                    <ul class="sub_menu">
+                                                        @foreach (var pc in list_page_child)
+                                                        {
+                                                            <li class="">
+                                                                <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                    @pc.page_title.ToUpper()
+                                                                </a>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="">
+                                                    <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                        @pp.page_title.ToUpper()
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                <li class="">
+                                    <a href="/blogs" title="NEWS">
+                                        NEWS
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="header-wrap-icon">
+                    <span class="icon-account" aria-label="Tài khoản" title="Tài khoản">
+                        <a href="/account">
+                            <span class="account-menu" aria-hidden="true">
+                                <svg class="svg-account" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="510px" height="510px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510;" xml:space="preserve">
+                                <g><g id="account-circle">
+                                <path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+												 c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+												 c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"></path>
+								</g></g>
+						    </svg>
+                            </span>
+                        </a>
+                    </span>
+                    <span id="site-search-handle" class="icon-search" aria-label="Tìm kiếm" title="Tìm kiếm">
+                        <a href="/search">
+                            <span class="search-menu" aria-hidden="true">
+                                <svg version="1.1" class="svg-search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z" /><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8" /></svg>
+                            </span>
+                        </a>
+                    </span>
+                    <span id="site-cart-handle" class="icon-cart" aria-label="Open cart" title="Giỏ hàng">
+                        <a href="javascript:void(0)">
+                            <span class="cart-menu" aria-hidden="true">
+                                <svg version="1.1" class="svg-cart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"> <g> <path d="M0,6v21h24V6H0z M22,25H2V8h20V25z" /> </g> <g> <path d="M12,2c3,0,3,2.3,3,4h2c0-2.8-1-6-5-6S7,3.2,7,6h2C9,4.3,9,2,12,2z" /> </g> </svg>
+                                <span class="count-holder"><span class="count cart-count-item"></span></span>
+                            </span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="search-bar-mobile">
+            <div class="search-box wpo-wrapper-search">
+                <form class="searchform searchform-categoris">
+                    <div class="wpo-search-inner">
+                        <input value="@ViewBag.SearchString" required id="input_search_mobile" name="q" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
+                    </div>
+                    <a onclick="searchMobile()" class="btn-search btn">
+                        <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg>
+                    </a>
+                </form>
+            </div>
+        </div>
+
+        <main class="main-index">
+            <h1 class="hidden">DINO STORE</h1>
+            @RenderBody()
+        </main>
+        <footer class="footer  ">
+            <div class="main-footer collapse in" id="fter-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg">
+                            <div class="footer-col footer-content1">
+                                <h4 class="footer-title">
+                                    DINO STORE
+                                </h4>
+                                <div class="footer-content">
+                                    <p>
+                                        DINO STORE Chuỗi cửa hàng bán lẻ thời trang nam với xu hướng thời trang hiện đại luôn luôn cập nhật nhanh nhất những trend thời trang mới trên thế giới. <br>
+                                        Chúng tôi là đại lý phân phối các thương hiệu chính hãng như: ICON DENIM, RUNPOW, NOMOUS ESSENTIALS, ...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg">
+                            <div class="footer-col footer-block">
+                                <h4 class="footer-title">
+                                    Chính sách
+                                </h4>
+                                <div class="footer-content toggle-footer">
+                                    <ul>
+                                        @foreach (var page in list_page_link)
+                                        {
+                                            if (page.mount_on_footer_menu_status == true)
+                                            {
+                                                <li class="item">
+                                                    <a href="/pages/@page.page_seo_alias" title="@page.page_title">@page.page_title</a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg">
+                            <div class="footer-col footer-block">
+                                <h4 class="footer-title">
+                                    Cửa hàng
+                                </h4>
+                                <div class="footer-content toggle-footer">
+                                    <ul>
+                                        <li class="item">
+                                            <a>SĐT: @contact.phone_number</a>
+                                        </li>
+                                        <li class="item">
+                                            <a>Email: @contact.email</a>
+                                        </li>
+                                        <li class="item">
+                                            <a>Ngày mở cửa: @contact.working_day</a>
+                                        </li>
+                                        <li class="item">
+                                            <a>Giờ mở cửa: @contact.working_hour</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 hasPhone col-sm-6 col-md-2 col-lg">
+                            <div class="hasPhone">
+                                <p class="title">Tư vấn bán hàng  (9:00-21:30)</p>
+                                <p class="number_phone"><a href="tel:@contact.phone_number"><i class="fa fa-phone "></i> @contact.phone_number</a></p>
+                                <p class="moreinfo">Tất cả các ngày trong tuần</p>
+                            </div>
+                            <div class="social">
+                                <h4 class="footer-title">
+                                    Kết nối với Dino Store
+                                </h4>
+                                <ul class="navbar-social">
+                                    <li class="social-face">
+                                        <a href="@fb_link" target="_blank" rel="nofollow">
+                                            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@instagram_link" target="_blank" rel="nofollow">
+                                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@youtube_link" target="_blank" rel="nofollow">
+                                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@zalo_link" target="_blank" rel="nofollow">
+                                            <i class="fa fa-zalo" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 hasPhone col-sm-6 col-md-3 col-lg">
+                            <div class="hasPhone">
+                                <p class="title">Chăm Sóc Khách Hàng (9:00-21:00)</p>
+                                <p class="number_phone"><a href="tel:@contact.phone_number"><i class="fa fa-phone "></i> @contact.phone_number</a></p>
+                                <p class="moreinfo">Tất cả các ngày trong tuần</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+        <div class="back-to-top">
+            <a href="javascript:void(0);">
+                <div class="btt-back">
+                    <img src="~/Assets/image/icon/top28cea.png" alt="icon back to top" />
+                </div>
+            </a>
+        </div>
+    </div>
+
+    @*MENU MOBILE*@
+    <div id="site-nav--mobile" class="site-nav style--sidebar">
+        <div id="site-navigation" class="site-nav-container">
+            <div class="site-nav-container-last">
+                <p class="title">Menu</p>
+                <div class="main-navbar">
+                    <nav class="primary-menu">
+                        <ul class="menu-collection">
+                            <li class="navi1 has-sub level0 active">
+                                <a href="javascript:void(0)">SẢN PHẨM</a>
+                                <span class="icon-subnav"><i class="fa fa-angle-down"></i></span>
+                                <ul class=" submenu subnav-children" style="display: block;">
+                                    @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                    {
+                                        if (c_parent.type_of_category_id == 1)
+                                        {
+                                            if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                            {
+                                                var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                                                if (list_child_1.Count > 0)
+                                                {
+                                                    <li class="navi2 has-sub level1 active">
+                                                        <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                            @c_parent.category_name.ToUpper()
+                                                        </a>
+                                                        <span class="icon-subnav"><i class="fa fa-angle-down"></i></span>
+                                                        <ul class="submenu subnav-child" style="display: block;">
+                                                            @foreach (var child_1 in list_child_1)
+                                                            {
+                                                                <li class="">
+                                                                    <a href="/collections/@child_1.seo_alias" title="@child_1.category_name">
+                                                                        @child_1.category_name.ToUpper()
+                                                                    </a>
+                                                                </li>
+
+                                                            }
+                                                        </ul>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="navi2">
+                                                        <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                            @c_parent.category_name.ToUpper()
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+
+                            @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                            {
+                                if (c_parent.type_of_category_id == 2)
+                                {
+                                    if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                    {
+                                        <li class="navi1">
+                                            <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                @c_parent.category_name.ToUpper()
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            }
+
+                            <li class="navi1 has-sub level0">
+                                <a href="/pages/lien-he">ĐỊA CHỈ STORE</a>
+                            </li>
+
+                            @if (list_page_parent.Count > 0)
+                            {
+                                foreach (var pp in list_page_parent)
+                                {
+                                    if (pp.mount_on_header_menu_status == true)
+                                    {
+                                        var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                        if (list_page_child.Count > 0)
+                                        {
+                                            <li class="navi1 has-sub level0">
+                                                <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                    @pp.page_title.ToUpper()
+                                                </a>
+                                                <span class="icon-subnav"><i class="fa fa-angle-down"></i></span>
+                                                <ul class="submenu subnav-children">
+                                                    @foreach (var pc in list_page_child)
+                                                    {
+                                                        <li class="navi2 has-sub level1">
+                                                            <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                @pc.page_title.ToUpper()
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="">
+                                                <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                    @pp.page_title.ToUpper()
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            <li class="navi1"><a href="/blogs"><span>NEWS</span></a></li>
+                        </ul>
+                        <ul class="menu-about">
+                            <li class="login">
+                                <a href="/account">
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="to-bottom-content">
+                    <div class="site-copyright">
+                        <p class="copy">Copyright &copy; 2020 <a href="/">Dino Store</a></p>
+                        <p class="powered hidden"><a target='_blank' href='https://diwe.vn/'>Design by Diwe</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="site-cart" class="site-nav-container" tabindex="-1">
+            <div class="site-nav-container-last">
+                <p class="title">Giỏ hàng</p>
+                <div class="cart-content-loader hidden">
+                    <img src="~/Assets/image/loader/cart-loader.gif" width="50%" />
+                </div>
+                <div class="cart-view clearfix" id="cart_table">
+
+                </div>
+                <div class="show_when_cart_empty_quick_view_cart" style="display:none">
+                    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                </div>
+            </div>
+        </div>
+        <div id="site-search" class="site-nav-container" tabindex="-1">
+            <div class="site-nav-container-last">
+                <p class="title">Tìm kiếm</p>
+                <div class="search-box wpo-wrapper-search">
+                    <form class="searchform searchform-categoris navbar-form">
+                        <div class="wpo-search-inner">
+                            <input id="input_search_desktop" maxlength="40" autocomplete="off" class="searchinput input-search search-input" type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
+                        </div>
+                        <a onclick="searchDesktop()" class="btn-search btn">
+                            <svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg>
+                        </a>
+                    </form>
+                </div>
+            </div>
+            <script>
+                function searchMobile() {
+                    var keyword = $('#input_search_mobile').val();
+                    search(keyword);
+                }
+
+                function searchDesktop() {
+                    var keyword = $('#input_search_desktop').val();
+                    search(keyword);
+                }
+
+                $('#input_search_desktop').keypress(function (e) {
+                    if (e.which == 13) {
+                        var keyword = $(this).val();
+                        search(keyword);
+                    }
+                });
+
+                function search(keyword) {
+                    if (keyword == "" || keyword == null) {
+                        alert("Vui lòng nhập từ khóa tìm kiếm");
+                    } else {
+                        location.href = '/search/keyword=' + keyword;
+                    }
+                }
+            </script>
+        </div>
+
+        <button id="site-close-handle" class="site-close-handle" aria-label="Đóng" title="Đóng">
+            <span class="hamburger-menu active" aria-hidden="true"><span class="bar animate"></span></span>
+        </button>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            animation_check();
+        }, 100);
+        function animation_check() {
+            var scrollTop = $(window).scrollTop() - 300;
+            $('.animation-tran').each(function () {
+                if ($(this).offset().top < scrollTop + $(window).height()) {
+                    $(this).addClass('active');
+                }
+            })
+        }
+        $(window).scroll(function () {
+            //setTimeout(function(){
+            animation_check();
+            //}, 500);
+        })
+    </script>
+
+    <script>
+        (function ($) {
+            'use strict'
+            //IMAGE VERTICAL PARALLAX
+            if ($('.wrapbox-shadow .parallax-img').length > 0) {
+                var img = $('.wrapbox-shadow .parallax-img');
+                var imgParent = $('.wrapbox-shadow .parallax-img').parent();
+                function parallaxImg() {
+                    var $this = $(window);
+                    var speed = 1;
+                    var imgY = imgParent.offset().top;
+                    var winY = $this.scrollTop();
+                    var winH = $this.height();
+                    var parentH = imgParent.innerHeight();
+                    var winBottom = winY + winH;
+                    var imgPercent = 0;
+                    if (winBottom > imgY && winY < imgY + parentH) {
+                        // Number of pixels shown after block appear
+                        var imgBottom = ((winBottom - imgY) * speed);
+                        // Max number of pixels until block disappear
+                        var imgTop = winH + parentH;
+                        // Porcentage between start showing until disappearing
+                        imgPercent = (((imgBottom / imgTop) * 100) + (50 - (speed * 50))) - 50;
+                    }
+                    img.css({
+                        //			top: imgPercent + '%',
+                        transform: 'translate(0%, -' + imgPercent + '%)'
+                    });
+                }
+                $(document).on({
+                    scroll: function () {
+                        parallaxImg();
+                    }, ready: function () {
+                        parallaxImg();
+                    }
+                });
+            }
+            //VERTICAL IMAGE PARALLAX END
+        })(jQuery);
+    if ($('.section-support').length > 0) {
+        $(window).scroll(function () {
+            setTimeout(function () {
+                $('.column-wrap').each(function () {
+                    if ($(this).offset().top < $(window).scrollTop() + $(window).height()) {
+                        $(this).addClass('active-ani');
+                    }
+                })
+            }, 100);
+        })
+    }
+    </script>
+
+    <div id="hrv-loyalty-webfloating">
+        <div class="hrv-loyalty-popup">
+            <button onclick="onClickShowPopup()" class="button-popup-loyalty" type="button" data-toggle="modal" data-target="#exampleModal11">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d)">
+                        <circle cx="40" cy="40" r="30" fill="white"></circle>
+                    </g>
+                    <g clip-path="url(#haraloyalty_3)" class="icon-heart">
+                        <rect x="21" y="21" width="38" height="38" rx="19" fill="#EC5569"></rect>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M30.7084 23.4231C27.1859 26.872 25 31.6808 25 37C25 47.4934 33.5066 56 44 56C47.3751 56 50.5446 55.12 53.2916 53.5769C49.8652 56.9318 45.1741 59 40 59C29.5066 59 21 50.4934 21 40C21 32.8817 24.9145 26.6776 30.7084 23.4231Z" fill="#E63950"></path>
+                        <path d="M49.406 32.6457C47.2806 30.4514 43.8348 30.4514 41.7093 32.6457L40.5088 33.8852C40.2225 34.1807 39.7583 34.1807 39.4721 33.8852L38.2907 32.6655C36.1653 30.4712 32.7195 30.4712 30.594 32.6655C28.4687 34.8598 28.4687 38.4174 30.594 40.6117L39.4728 49.7784C39.759 50.0739 40.2232 50.0739 40.5095 49.7784L49.4059 40.5919C51.5314 38.3976 51.5313 34.84 49.406 32.6457Z" fill="#FFF5F5"></path>
+                        <path d="M33.4409 40.6117C31.3155 38.4175 31.3155 34.8599 33.4409 32.6655C34.138 31.9458 34.9777 31.4636 35.8657 31.2162C34.0463 30.7089 32.0221 31.191 30.594 32.6655C28.4687 34.8598 28.4687 38.4174 30.594 40.6117L39.4728 49.7784C39.759 50.0739 40.2232 50.0739 40.5095 49.7784L41.4145 48.8439L33.4409 40.6117Z" fill="#DCE6EB"></path>
+                    </g>
+                    <defs>
+                        <filter id="filter0_d" x="0" y="0" width="80" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
+                            <feOffset></feOffset>
+                            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0.129412 0 0 0 0 0.129412 0 0 0 0 0.129412 0 0 0 0.1 0"></feColorMatrix>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"></feBlend>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"></feBlend>
+                        </filter>
+                        <clipPath id="clip100">
+                            <rect width="38" height="38" fill="white" transform="translate(21 21)"></rect>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
+            <script>
+                function onClickShowPopup() {
+                    let popup = $('.hrv-loyalty-modal');
+                    popup.removeClass('hrv-loyalty-close-popup');
+                    popup.addClass('hrv-loyalty-open-popup');
+                }
+
+                function onClickClosePopup() {
+                    let popup = $('.hrv-loyalty-modal');
+                    popup.removeClass('hrv-loyalty-open-popup');
+                    popup.addClass('hrv-loyalty-close-popup');
+                }
+            </script>
+        </div>
+        <div class="hrv-loyalty-modal hrv-loyalty-close-popup" id="hrv-loyalty-open">
+            <div style="height: 56%" class="hrv-loyalty-include" id="hrv-loyalty-include-popup">
+                <div class="hrv-loyalty-header">
+                    <svg style="cursor:pointer" onclick="onClickClosePopup()" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#9E9E9E"></path>
+                    </svg>
+                </div>
+                <div class="hrv-loyalty-header-noData">
+                    <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#haraloyalty_1)">
+                            <rect width="76" height="76" rx="38" fill="#EC5569"></rect>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.4167 4.84619C12.3717 11.7441 8 21.3615 8 32C8 52.9869 25.0132 70 46 70C52.7501 70 59.0891 68.24 64.5833 65.1539C57.7305 71.8636 48.3483 76 38 76C17.0132 76 0 58.9869 0 38C0 23.7633 7.82909 11.3552 19.4167 4.84619Z" fill="#E63950"></path>
+                            <path d="M56.812 23.2914C52.5613 18.9029 45.6695 18.9029 41.4186 23.2914L39.0175 25.7704C38.445 26.3614 37.5166 26.3614 36.9441 25.7704L34.5814 23.331C30.3307 18.9425 23.4389 18.9425 19.188 23.331C14.9373 27.7195 14.9373 34.8347 19.188 39.2235L36.9455 57.5567C37.518 58.1478 38.4465 58.1478 39.0189 57.5567L56.8118 39.1838C61.0627 34.7951 61.0627 27.6801 56.812 23.2914Z" fill="#FFF5F5"></path>
+                            <path d="M24.882 39.2234C20.6313 34.8349 20.6313 27.7196 24.882 23.3309C26.2763 21.8914 27.9556 20.9272 29.7316 20.4322C26.0928 19.4178 22.0445 20.382 19.1883 23.3309C14.9376 27.7195 14.9376 34.8347 19.1883 39.2234L36.9458 57.5566C37.5183 58.1477 38.4467 58.1477 39.0192 57.5566L40.8292 55.6876L24.882 39.2234Z" fill="#DCE6EB"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0">
+                                <rect width="76" height="76" fill="white"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="hrv-loyalty-title-noData">
+                    <h2>Chào mừng đến với chương <br> trình khách hàng thân thiết</h2>
+                    <p>Hãy đăng nhập ngay để xem những ưu đãi <br> hiện đang có của bạn!</p>
+                </div>
+                <div class="hrv-loyalty-button-noData">
+                    <a href="/account">Đăng nhập</a>
+                </div>
+                <div class="hrv-loyalty-footer-noData">
+                    <p>Chưa có tài khoản?</p>
+                    <a style="color:#2979FF;padding:10px 30px;" href="/account">Đăng ký ngay </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="site-overlay" class="site-overlay"></div>
+
+    <script>
+        $('body').on('click', 'a.linktocart.button.dark', function () {
+            $('button#site-close-handle').trigger('click');
+        })
+
+        jQuery('.title_block').click(function () {
+            $(this).next().slideToggle('medium');
+        });
+
+        if ($(window).width() < 481) {
+            jQuery('.title_block').trigger('click');
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+                $('.cart-count-item').text(0);
+            } else {
+                getNumOfItemInCart();
+            }
+            $("img.lazyload").lazyload();
+
+            loadQuickViewCart();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+
+        function loadQuickViewCart() {
+            if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+                $('.show_when_cart_empty_quick_view_cart').css({ display: 'block' });
+                $('#cart_table').empty();
+            } else {
+                $('.show_when_cart_empty_quick_view_cart').css({ display: 'none' });
+                var list_product_variation_in_cart = $.parseJSON(Cookies.get("DINO_CART"));
+                var list_in_cart = [];
+                $.each(list_product_variation_in_cart, function (index, value) {
+                    var obj = {};
+                    obj.id = value.id;
+                    obj.quantity = value.quantity;
+                    list_in_cart.push(obj);
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/GetAllInCartForQuickViewCart",
+                    data: {
+                        list_in_cart: list_in_cart,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    beforeSend: function () {
+                        $('#cart_table').empty();
+                        $('.cart-content-loader').removeClass('hidden');
+                    },
+                    success: function (data) {
+                        $("#cart_table").html(data);
+                    },
+                    error: function (xhr) {
+                        alert("Error! Please reload page.");
+                    },
+                    complete: function (xhr, status) {
+                        $('.cart-content-loader').addClass('hidden');
+                    }
+                });
+            }
+            getNumOfItemInCart();
+        }
+
+
+        function getNumOfItemInCart() {
+            var number_in_order = 0;
+            if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+                number_in_order = 0;
+            } else {
+                $.each(JSON.parse(Cookies.get("DINO_CART")), function (index, value) {
+                    number_in_order += parseInt(value.quantity);
+                });
+            }
+            $('.cart-count-item').text(number_in_order);
+        }
+
+        function updateCartForUserLoged() {
+            if (@user_id_loged > 0) {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                if (Cookies.get("DINO_CART") != null || Cookies.get("DINO_CART") != undefined) {
+                    $.each(JSON.parse(Cookies.get("DINO_CART")), function (index, value) {
+                        var obj = {};
+                        obj.id = value.id;
+                        obj.quantity = value.quantity;
+                        list_from_cookie.push(obj);
+                    });
+                }
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: @user_id_loged,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function () {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        function updateCookieCartWhenLogin(user_id) {
+            if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+                //Lấy giỏ hàng từ db ra áp vào cookie
+                $.ajax({
+                    url: '/Cart/GetCartFromDbToUpdateCookie/',
+                    data: {
+                        user_id: user_id,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        var data_json = JSON.parse(data);
+                        var list_product_variation_in_cart = [];
+                        $.each(data_json.list_return, function (i, model) {
+                            var product_variation_add_to_cart = {};
+                            product_variation_add_to_cart.id = model.id;
+                            product_variation_add_to_cart.quantity = model.quantity;
+                            list_product_variation_in_cart.push(product_variation_add_to_cart);
+                        });
+                        var date_obj = new Date();
+                        var minutes = 525600;
+                        date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                        var obj_cart = JSON.stringify(list_product_variation_in_cart)
+                        Cookies.set("DINO_CART", obj_cart, { expires: date_obj, path: '/' });
+                    },
+                    error: function (xhr) {
+                        //alert("Có lỗi xảy ra.");
+                    }
+                });
+            } else {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                $.each(JSON.parse(Cookies.get("DINO_CART")), function (index, value) {
+                    var obj = {};
+                    obj.id = value.id;
+                    obj.quantity = value.quantity;
+                    list_from_cookie.push(obj);
+                });
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: user_id,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+
+
+        $(window).scroll(function () {
+            scroll = $(window).scrollTop();
+
+            if (scroll >= 10) {
+                $('.header-area').addClass('fixed');
+            }
+            else {
+                $('.header-area').removeClass('fixed');
+            }
+        });
+
+        $('.show-modal-login').on('click', function () {
+            $('.login-wrap-active').addClass('inside');
+        });
+
+
+        //LOGIN WITH FACEBOOK ACCOUNT
+        function loginFacebook() {
+            @*$.ajax({
+                url: '/User/Facebook',
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                data: {
+                },
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    updateCookieCartWhenLogin(data_json.user_id);
+                    window.location.href = '@TempData["CurrentUrl"]';
+                },
+                error: function (xhr) {
+                    alert("Có lỗi xảy ra.");
+                }
+            });*@
+            document.location = '@Url.Action("Facebook", "User")';
+        }
+
+    </script>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=664509467832505&autoLogAppEvents=1" nonce="6k4vHywK"></script>
+    @*<div class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="true" data-use-continue-as="false" data-width=""></div>
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '{your-app-id}',
+                    cookie: true,
+                    xfbml: true,
+                    version: '{api-version}'
+                });
+
+                FB.AppEvents.logPageView();
+
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+        </script>*@
+
+    @Scripts.Render("~/bundles/jsCoreSecond")
+    @*<script src="~/Assets/js/jquery.cookie.js"></script>
+        <script src='../Assets/js/swiper.min8cea.js' type='text/javascript'></script>
+        <script src='../Assets/js/jquery.fancybox.min8cea.js' type='text/javascript'></script>
+        <script src='../Assets/js/jquery.flexslider8cea.js' type='text/javascript'></script>
+        <script src='../Assets/js/plugins8cea.js' type='text/javascript'></script>
+        <script src='../Assets/js/scripts8cea.js' type='text/javascript'></script>
+        <script src="~/Assets/js/autoNumeric.js"></script>
+        <script src="~/Assets/js/jquery.lazyload.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+</body>
+</html>

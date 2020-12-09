@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Data.category>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Sản phẩm đã thực hiện của HM Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="title-shape">
+        <img src="../Assets/img/title/title-bg-shape.png" alt="Shape">
+    </div>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.category_name</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>@Model.category_name</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

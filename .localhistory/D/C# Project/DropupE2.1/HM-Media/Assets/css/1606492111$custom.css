@@ -1,0 +1,92 @@
+﻿.section-title h2 {
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.main-nav nav .navbar-nav .nav-item a {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.logo-area .logo-text h3 {
+    text-transform: capitalize;
+}
+
+.section-title .sub-title {
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.section-title .sub-title-su-menh {
+    color: #fff;
+}
+
+.work-area .work-item ul li h3 {
+    text-transform:capitalize;
+}
+
+.banner-content h1 {
+    font-weight: 800;
+}
+
+.about-area .about-img .years:before {
+    border: 2px dotted #ffffff;
+}
+
+.about-area .about-img .years h3 {
+    color: #ffffff;
+}
+
+.about-area .about-content {
+    max-width: unset;
+    margin-left: unset;
+}
+
+.logo-area .logo-text h3 {
+    font-size: 26px;
+}
+
+.logo-area .logo-item img {
+    max-width: 127px;
+}
+
+.projects-item .inner {
+    max-width: 320px;
+}
+
+.projects-item img{
+    height: 275px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.blog-item a img {
+    width: 100%;
+    margin-bottom: 15px;
+    height: 275px;
+    object-fit: cover;
+}
+
+.blog-item h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    min-height: 91.2px;
+}
+
+.blog-item p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1300px;
+    }
+}

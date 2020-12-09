@@ -1,0 +1,61 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Dino Store";
+    ViewBag.Description = "Liên hệ với Dino Store để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<div class="blogStore">
+    <div class="listStore">
+        <div class="sectionTitleStore">
+            <h1>Địa chỉ cửa hàng</h1>
+        </div>
+        <div class="sectionListStore clearfix">
+            <div class="leftColStore">
+                <h4 class="titleStorePage firstTitleStorePage active" data-store="store">LIÊN HỆ VỚI CỬA HÀNG</h4>
+                <div class="resultStoreBig">
+                    <div class="resultStore">
+                        <div class="innerResultStore">
+                            <div class="itemStore">
+                                <div class="addressStore">
+                                    <a href="/">
+                                        <span class="infoAddres">@contact.address</span>
+                                        <span class="infoTime">Giở mở cửa: @contact.working_hour</span>
+                                    </a>
+                                    <span class="infoLocation">
+                                        <span>
+                                            <a target="_blank" href="javascript:void(0)" data-href="Số 2 ngõ 232 Tôn Đức Thắng, P.Hàng Bột, Q.Đống Đa, Hà Nội">
+                                                <i class="fa fa-map-signs"></i>
+                                                <span class="guideWay">Chỉ đường</span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightColStore">
+                <div id="map_embed">
+                    @Html.Raw(contact.map)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+

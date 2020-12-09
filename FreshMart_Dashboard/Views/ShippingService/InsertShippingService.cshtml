@@ -1,0 +1,1081 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Cấu hình vận chuyển";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Cấu hình vận chuyển</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Vận chuyển
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Cấu hình vận chuyển</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+
+<div id="show_recommend">
+
+</div>
+
+<div class="row">
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Khu vực vận chuyển</h4>
+                    </div>
+                    <div class="note-for-card-title">
+                        <a>
+                            Thêm phí vận chuyển cho các khu vực vận chuyển khác nhau.
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div class="form-group bs-select-1">
+                            <label for="ddlCountry">Quốc gia</label>
+                            <select class="custom-select" id="ddlCountry" style="border-radius: .25rem;" disabled>
+                                <option value="" selected="">Việt Nam </option>
+
+                            </select>
+                        </div>
+                        <div class="form-group bs-select-1">
+                            <label for="ddlProvince">Tỉnh Thành <span class="requirement-star-text">&ast;</span></label>
+                            <select class="custom-select" id="province_id" style="border-radius: .25rem;">
+                                <option value="-1" selected disabled>-- Chọn Tỉnh/Thành phố -- </option>
+                                <option value="0">Tất cả Tỉnh/Thành phố</option>
+                                @foreach (var province in ViewData["ListProvince"] as List<province>)
+                                {
+                                    <option value="@province.Id">@province.Name</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback" id="province_id_feedback">
+                                Yêu cầu chọn Tỉnh/Thành phố.
+                            </div>
+                            <div class="invalid-feedback" id="province_id_dupplicate_feedback">
+                                Khu vực này đã có cấu hình vận chuyển. <br /> Vui lòng chọn khu vực khác.
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <a href="javascript:void(0);" class="btn btn-outline-primary" id="btn_add_local_shipping_service" onclick="addNewShippingService()">Thêm khu vực</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-body" id="div_table_local_shipping">
+
+            </div>
+        </div>
+        <div class="card card-statistics">
+            <div class="card-body" id="div_table_local_shipping">
+                @foreach (var local_shipping_service in ViewData["ListLocalShippingService"] as List<local_shipping_service>)
+                {
+                    <div class="table-responsive table_element_lss table_local_shipping_service_@local_shipping_service.local_shipping_service_id" id="table_local_shipping_service_@local_shipping_service.local_shipping_service_id">
+                        <table class="table table-hover mb-0">
+                            <tbody>
+                                <tr>
+                                    <td width="60%">
+                                        <a onclick="showCostOfLocalShipping('@local_shipping_service.local_shipping_service_id')" class="font-bold" id="title_local_shipping_@local_shipping_service.local_shipping_service_id" href="javascript:void(0)" position: absolute">@local_shipping_service.province.Name &nbsp; <span id="icon_local_shipping_@local_shipping_service.local_shipping_service_id" class="fa fa-caret-right rotate"></span></a> <br />
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="text-primary" onclick="deleteLocalShippingService('@local_shipping_service.local_shipping_service_id')" href="javascript:void(0)" id="remove_local_shipping_@local_shipping_service.local_shipping_service_id"><i class="fa fa-remove"></i>&nbsp; Xóa khu vực</a>
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="text-primary" onclick="insertCostOfLocalShipping('@local_shipping_service.local_shipping_service_id')" href="javascript:void(0)" id="add_price_of_cost_@local_shipping_service.local_shipping_service_id"><i class="fa fa-plus-circle"></i>&nbsp; Thêm phí vận chuyển cho khu vực</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    foreach (var cost_of_local_shipping in new ShippingServiceProvider().getAllCostOfLocalShippingByLocalShippingServiceId(local_shipping_service.local_shipping_service_id))
+                    {
+                        <div class="table-responsive table_cost_of_local_shipping_in_local_shipping_service_@local_shipping_service.local_shipping_service_id hidden_element" id="table_cost_of_local_shipping_@cost_of_local_shipping.cost_of_local_shipping_id">
+                            <table class="table table-primary table-hover mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td width="80%">
+                                            <a class="text-primary font-bold" onclick="actionTitleAndStandard('@cost_of_local_shipping.cost_of_local_shipping_id')" href="javascript:void(0)" id="edit_cost_of_local_shipping_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.name_of_cost</a> &nbsp; <a class="text-primary font-bold"><i class="fa fa-pencil-square-o" onclick="actionTitleAndStandard('@cost_of_local_shipping.cost_of_local_shipping_id')"></i></a> <br />
+                                            <a id="title_standard_of_local_shipping_@cost_of_local_shipping.cost_of_local_shipping_id">
+                                                @cost_of_local_shipping.standard_for_shipping.standard_name:
+                                            </a>
+                                            <span id="description_value_of_standard_@cost_of_local_shipping.cost_of_local_shipping_id">
+                                                @if (cost_of_local_shipping.standard_for_shipping_id == 2)
+                                                {
+                                                    if (cost_of_local_shipping.min_value_for_standard == 0 && cost_of_local_shipping.max_value_for_standard == 0)
+                                                    {
+                                                        <span>Từ 0 gam trở lên</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="showNumericWeight" id="min_value_for_standard_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.min_value_for_standard</span><span> - </span><span class="showNumericWeight" id="max_value_for_standard_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.max_value_for_standard</span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (cost_of_local_shipping.min_value_for_standard == 0 && cost_of_local_shipping.max_value_for_standard == 0)
+                                                    {
+                                                        <span>Từ 0 ₫ trở lên</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="showNumeric" id="min_value_for_standard_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.min_value_for_standard</span><span> - </span><span class="showNumeric" id="max_value_for_standard_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.max_value_for_standard</span>
+                                                    }
+                                                }
+                                            </span>
+
+                                        </td>
+                                        <td align="right">
+                                            <a href="javascript:void(0);" onclick="actionUpdateCostShipping('@cost_of_local_shipping.cost_of_local_shipping_id')" class="btn btn-primary" id="btn_edit_price_of_cost_@cost_of_local_shipping.cost_of_local_shipping_id"><span class="showNumeric" id="show_price_of_cost_in_btn_@cost_of_local_shipping.cost_of_local_shipping_id">@cost_of_local_shipping.price_of_cost</span> &nbsp; <i class="fa fa-pencil-square-o"></i></a>
+                                        </td>
+                                        <td align="right">
+                                            <a href="javascript:void(0);" onclick="deleteCostOfLocalShipping('@cost_of_local_shipping.cost_of_local_shipping_id')" class="btn btn-secondary" id="remove_price_cost_@cost_of_local_shipping.cost_of_local_shipping_id">Xóa giá này &nbsp; <i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="line_div"></div>
+<div class="row">
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title nvck">Nhà vận chuyển khác</h4>
+                    </div>
+                    <div class="note-for-card-title">
+                        <a>
+                            Thêm các nhà vận chuyển đã kết nối sẵn hoặc có thể thêm nhà vận chuyển mới.
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+    </div>
+</div>
+
+@*Modal UPDATE Title and Standard*@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalUpdateTitleAndStandard" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_update_title_and_standard"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelUpdateTitleAndStandard();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form_modal_update_title_and_standard">
+                    <div class="form-group">
+                        <label class="control-label" for="">Tên giá vận chuyển <span class="requirement-star-text">&ast;</span></label>
+                        <div class="mb-2">
+                            <input type="text" class="form-control" id="name_of_cost_in_modal_update" placeholder="Nhập tên giá vận chuyển">
+                            <input type="text" class="form-control hidden_element" id="input_id_modal_update_title_and_standard">
+                            <div class="invalid-feedback" id="name_of_cost_in_modal_update_feedback">
+                                Yêu cầu nhập tên giá vận chuyển.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group bs-select-1">
+                                    <label class="control-label" for="select_standard_for_shipping_id_in_modal">Tiêu chuẩn tính phí</label>
+                                    <select class="custom-select" id="select_standard_for_shipping_id_in_modal" style="border-radius: .25rem;">
+                                        @foreach (var standard in ViewData["ListStandardShipping"] as List<standard_for_shipping>)
+                                        {
+                                            <option value="@standard.standard_for_shipping_id">@standard.standard_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label class="control-label" id="label_input_value_from_in_modal_title_and_standard">Giá trị đơn hàng từ</label>
+                                            <input type="text" class="form-control autoNumericInput" value="0" placeholder=" ₫" id="input_value_from_in_modal_title_and_standard">
+                                            <div class="invalid-feedback" id="value_range_in_modal_update_feedback">
+                                                Giá trị tối thiểu không được lớn hơn giá trị tối đa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label class="control-label" id="label_input_value_to_in_modal_title_and_standard">Đến</label>
+                                            <input type="text" class="form-control autoNumericInput" value="0" placeholder=" ₫" id="input_value_to_in_modal_title_and_standard">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelUpdateTitleAndStandard();">Hủy</button>
+                <button type="button" class="btn btn-success" id="btn_update_title_and_standard">Thêm giá vận chuyển</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal UPDATE Cost*@
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalUpdateCostShipping" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_modal_update_cost_shipping"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="text" class="form-control hidden_element" id="input_id_modal_update_cost_shipping">
+                    <div class="form-group">
+                        <label class="control-label" for="">Giá vận chuyển cố định <span class="requirement-star-text">&ast;</span></label>
+                        <div class="mb-2">
+                            <input type="text" class="form-control showNumeric" name="price_of_cost_for_cols" placeholder=" ₫">
+                            <div class="invalid-feedback" id="cost_of_local_shipping_feedback">
+                                Yêu cầu nhập giá vận chuyển cố định.
+                            </div>
+                        </div>
+                    </div>
+                    <label id="label_cost_for_district_common"></label>
+                    <br />
+                    <small id="small_cost_for_district_common">Có thể cấu hình vận chuyển cho từng Quận/Huyện thuộc khu vực này</small>
+
+                    <div class="scrollbar scroll_dark pt-0" style="max-height: 350px;">
+                        <table class="table table-borderless table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 10%"></th>
+                                    <th scope="col" style="width: 20%">Quận/Huyện</th>
+                                    <th scope="col" style="width: 45%">Giá điều chỉnh</th>
+                                    <th scope="col" style="width: 25%">Giá cuối cùng</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_cost_for_district_shipping"></tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btn_update_cost">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal DELETE Cost of local shipping*@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDeleteCostOfLocalShipping" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_delete_cost_of_local_shipping"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control hidden_element" id="input_id_modal_delete_cost_of_local_shipping">
+                <a id="content_delete_cost_of_local_shipping">
+
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" id="btn_delete_cost_of_local_shipping">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal DELETE Local Shipping Service*@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDeleteLocalShippingService" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_delete_local_shipping_service"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control hidden_element" id="input_id_modal_delete_local_shipping_service">
+                <a id="content_delete_local_shipping_service">
+
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" id="btn_delete_local_shipping_service" data-dismiss="modal">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal INSERT cost of local shipping*@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalInsertCostOfLocalShipping" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_insert_cost_of_local"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelInsertCostOfLocalShipping();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form_modal_insert_cost_of_local_shipping">
+                    <div class="form-group">
+                        <label class="control-label" for="">Tên giá vận chuyển <span class="requirement-star-text">&ast;</span></label>
+                        <div class="mb-2">
+                            <input type="text" class="form-control" id="name_of_cost" placeholder="Nhập tên giá vận chuyển">
+                            <input type="text" class="form-control hidden_element" id="input_id_modal_insert_cost_of_local_shipping">
+                            <div class="invalid-feedback" id="name_of_cost_feedback">
+                                Yêu cầu nhập tên giá vận chuyển.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-group bs-select-1">
+                                    <label class="control-label" for="select_standard_for_shipping_id">Tiêu chuẩn tính phí</label>
+                                    <select class="custom-select" id="select_standard_for_shipping_id" style="border-radius: .25rem;">
+                                        @foreach (var standard in ViewData["ListStandardShipping"] as List<standard_for_shipping>)
+                                        {
+                                            <option value="@standard.standard_for_shipping_id">@standard.standard_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label class="control-label" id="label_input_value_from">Giá trị đơn hàng từ</label>
+                                            <input type="text" class="form-control autoNumericInput" value="0" placeholder=" ₫" id="input_value_from">
+                                            <div class="invalid-feedback" id="value_range_feedback">
+                                                Giá trị tối thiểu không được lớn hơn giá trị tối đa.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label class="control-label" id="label_input_value_to">Đến</label>
+                                            <input type="text" class="form-control autoNumericInput" value="0" placeholder=" ₫" id="input_value_to">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="">Giá vận chuyển</label>
+                        <div class="mb-2">
+                            <input type="text" class="form-control autoNumericInput" value="0" placeholder="Nhập tên giá vận chuyển" id="price_of_cost">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelInsertCostOfLocalShipping();">Hủy</button>
+                <button type="button" class="btn btn-success" id="btn_insert_cost_of_local_shipping">Thêm giá vận chuyển</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#shipping_service').addClass('active');
+        $('#setting_shipping_service').addClass('active');
+
+        $('form').trigger('reset');
+        $(".showNumericWeight").autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+    });
+
+    function showCostOfLocalShipping(local_shipping_service_id) {
+        $('.table_cost_of_local_shipping_in_local_shipping_service_' + local_shipping_service_id).removeClass('hidden_element');
+        $('#icon_local_shipping_' + local_shipping_service_id).toggleClass("down");
+        $('#title_local_shipping_' + local_shipping_service_id).addClass("active");
+
+        //$('#title_local_shipping_' + local_shipping_service_id + '.active').click(function () {
+        //    $('#icon_local_shipping_' + local_shipping_service_id).toggleClass("up");
+        //    $('.table_cost_of_local_shipping_in_local_shipping_service_' + local_shipping_service_id).addClass('hidden_element');
+        //    $('#title_local_shipping_' + local_shipping_service_id).removeClass("active");
+        //});
+    }
+
+    var checkStatus = true;
+    $('select#province_id').on('change', function (e) {
+        var province_id = this.value;
+        $.ajax({
+            url: "/ShippingService/checkDuplicateProvinceShipping",
+            data: {
+                province_id: province_id,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                if (data != "True") {
+                    checkStatus = true;
+                    $("#province_id").removeClass('is-invalid');
+
+                    $("#province_id_dupplicate_feedback").css('display', 'none');
+                    $("#province_id_feedback").css('display', 'none');
+
+                    $('#btn_add_local_shipping_service').removeClass('disabled');
+                }
+                else {
+                    checkStatus = false;
+
+                    $("#province_id").addClass('is-invalid');
+                    $("#province_id_dupplicate_feedback").css('display', 'block');
+                    $("#province_id_feedback").css('display', 'none');
+
+                    $('#btn_add_local_shipping_service').addClass('disabled');
+                }
+            },
+            error: function (xhr, status) {
+                $("#valid-feedback").val("Lỗi");
+            },
+            complete: function (xhr, status) {
+                //$('#showresults').slideDown('slow')
+            }
+        });
+    });
+
+    function addNewShippingService() {
+        var province_id = $('#province_id').val();
+        if (province_id == null) {
+            $('#province_id').addClass('is-invalid');
+            $('#province_id_feedback').css({ display: 'block' });
+            $("#province_id_dupplicate_feedback").css('display', 'none');
+        }
+        else {
+            $.ajax({
+                url: "/ShippingService/InsertShippingService",
+                data: { province_id: province_id },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (result) {
+                    var data = JSON.parse(result);
+                    toastSuccess();
+                    $('#div_table_local_shipping').append('<div class="table-responsive table_element_lss table_local_shipping_service_' + data.lssm.local_shipping_service_id + '" id="table_local_shipping_service_' + data.lssm.local_shipping_service_id + '"><table class="table table-hover mb-0"><tbody><tr><td width="60%"><a class="font-bold" id="title_local_shipping_' + data.lssm.local_shipping_service_id + '" href="javascript:void(0)" position: absolute">' + data.lssm.province_name + ' &nbsp;<div id="icon_local_shipping_' + data.lssm.local_shipping_service_id + '" class="fa fa-caret-right rotate"></div></a><br /></td><td class="text-right"><a class="text-primary" href="javascript:void(0)" id="remove_local_shipping_' + data.lssm.local_shipping_service_id + '"><i class="fa fa-remove"></i>&nbsp;Xóa khu vực</a></td><td class="text-right"><a class="text-primary" href="javascript:void(0)" id="add_price_of_cost_' + data.lssm.local_shipping_service_id + '"><i class="fa fa-plus-circle"></i>&nbsp;Thêm phí vận chuyển cho khu vực</a></td></tr></tbody></table></div>');
+                    $('#div_table_local_shipping').append('<div class="table-responsive table_cost_of_local_shipping_in_local_shipping_service_' + data.lssm.local_shipping_service_id + '" id="table_cost_of_local_shipping_' + data.colsm.cost_of_local_shipping_id + '"><table class="table table-primary table-hover mb-0"><tbody><tr><td width="80%"><a class="text-primary font-bold" href="javascript:void(0)" id="edit_cost_of_local_shipping_' + data.colsm.cost_of_local_shipping_id + '">' + data.colsm.name_of_cost + '</a> &nbsp; <a class="text-primary font-bold"><i class="fa fa-pencil-square-o" id="icon_edit_cost_of_local_shipping_' + data.colsm.cost_of_local_shipping_id + '"></i></a><br /><a id="title_standard_of_local_shipping_' + data.colsm.cost_of_local_shipping_id + '">' + data.sfsm.standard_name + ' : </a><a id="description_value_of_standard_' + data.colsm.cost_of_local_shipping_id + '">Từ 0 ₫ trở lên</a></td><td align="right"><a href="javascript:void(0);" class="btn btn-primary" id="btn_edit_price_of_cost_' + data.colsm.cost_of_local_shipping_id + '"><span class="showNumeric" id="show_price_of_cost_in_btn_' + data.colsm.cost_of_local_shipping_id + '">0</span> &nbsp; <i class="fa fa-pencil-square-o"></i></a></td><td align="right"><a href="javascript:void(0);" class="btn btn-secondary" id="remove_price_cost_' + data.colsm.cost_of_local_shipping_id + '">Xóa giá này &nbsp;<i class="fa fa-trash"></i></a></td></tr></tbody></table></div>');
+                    $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                    $('html, body').animate({
+                        scrollTop: $("#table_local_shipping_service_" + data.lssm.local_shipping_service_id).offset().top
+                    }, 600);
+
+                    $('#btn_edit_price_of_cost_' + data.colsm.cost_of_local_shipping_id).click(function () {
+                        actionUpdateCostShipping(data.colsm.cost_of_local_shipping_id);
+                    });
+
+                    $('#add_price_of_cost_' + data.lssm.local_shipping_service_id).click(function () {
+                        insertCostOfLocalShipping(data.lssm.local_shipping_service_id);
+                    });
+
+                    $('#remove_price_cost_' + data.colsm.cost_of_local_shipping_id).click(function () {
+                        deleteCostOfLocalShipping(data.colsm.cost_of_local_shipping_id);
+                    });
+
+                    $("#remove_local_shipping_" + data.lssm.local_shipping_service_id).click(function () {
+                        deleteLocalShippingService(data.colsm.local_shipping_service_id);
+                    });
+
+                    $("#edit_cost_of_local_shipping_" + data.colsm.cost_of_local_shipping_id).click(function () {
+                        actionTitleAndStandard(data.colsm.cost_of_local_shipping_id);
+                    });
+
+                    $("#icon_edit_cost_of_local_shipping_" + data.colsm.cost_of_local_shipping_id).click(function () {
+                        actionTitleAndStandard(data.colsm.cost_of_local_shipping_id);
+                    });
+
+
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    }
+
+    function actionTitleAndStandard(cost_of_local_shipping_id) {
+        $('#modalUpdateTitleAndStandard').modal('show');
+        $('#input_id_modal_update_title_and_standard').val(cost_of_local_shipping_id);
+        $.ajax({
+            url: "/ShippingService/GetInfoCostOfLocalShipping",
+            data: { cost_of_local_shipping_id: cost_of_local_shipping_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                $('#title_update_title_and_standard').text("Cập nhật Tên và Tiêu chuẩn vận chuyển " + data_json.cols_model.name_of_cost + " - " + data_json.province_name);
+                $('#name_of_cost_in_modal_update').val(data_json.cols_model.name_of_cost);
+                $('#select_standard_for_shipping_id_in_modal').val(data_json.cols_model.standard_for_shipping_id);
+                $('#input_value_from_in_modal_title_and_standard').autoNumeric('set', data_json.cols_model.min_value_for_standard);
+                $('#input_value_to_in_modal_title_and_standard').autoNumeric('set', data_json.cols_model.max_value_for_standard);
+                if (data_json.cols_model.standard_for_shipping_id == 1) {
+                    $('#input_value_from_in_modal_title_and_standard').autoNumeric('destroy');
+                    $('#input_value_to_in_modal_title_and_standard').autoNumeric('destroy');
+                    $('#input_value_from_in_modal_title_and_standard').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                    $('#input_value_to_in_modal_title_and_standard').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                } else {
+                    $('#input_value_from_in_modal_title_and_standard').autoNumeric('destroy');
+                    $('#input_value_to_in_modal_title_and_standard').autoNumeric('destroy');
+                    $('#input_value_from_in_modal_title_and_standard').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                    $('#input_value_to_in_modal_title_and_standard').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                }
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    $('#btn_update_title_and_standard').click(function () {
+        var cost_of_local_shipping_id = $('#input_id_modal_update_title_and_standard').val();
+        var name_of_cost = $('#name_of_cost_in_modal_update').val();
+        var standard_for_shipping_id = $('#select_standard_for_shipping_id_in_modal').val();
+        var min_value_for_standard = $('#input_value_from_in_modal_title_and_standard').autoNumeric('get');
+        var max_value_for_standard = $('#input_value_to_in_modal_title_and_standard').autoNumeric('get');
+        if (name_of_cost == "" || name_of_cost == null) {
+            $('#name_of_cost_in_modal_update_feedback').css({ display: 'block' });
+            $('#name_of_cost_in_modal_update').addClass('is-invalid');
+        }
+        else if ((parseInt)(min_value_for_standard) > (parseInt)(max_value_for_standard)) {
+            $('#value_range_in_modal_update_feedback').css({ display: 'block' });
+            $('#input_value_from_in_modal_title_and_standard').addClass('is-invalid');
+            $('#input_value_to_in_modal_title_and_standard').addClass('is-invalid');
+        }
+        else {
+            $.ajax({
+                url: "/ShippingService/UpdateTitleAndStandard",
+                data: {
+                    cost_of_local_shipping_id: cost_of_local_shipping_id,
+                    name_of_cost: name_of_cost,
+                    standard_for_shipping_id: standard_for_shipping_id,
+                    min_value_for_standard: min_value_for_standard,
+                    max_value_for_standard: max_value_for_standard
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    showToast("success", "Đã cập nhật tên và tiêu chuẩn vận chuyển", "Cập nhật thành công");
+                    $('#edit_cost_of_local_shipping_' + cost_of_local_shipping_id).text(name_of_cost);
+                    var name_of_standard = $("#select_standard_for_shipping_id_in_modal option:selected").text();
+                    if (standard_for_shipping_id == 1) {
+                        if (min_value_for_standard == 0 && max_value_for_standard == 0) {
+                            $('#title_standard_of_local_shipping_' + cost_of_local_shipping_id).text(name_of_standard + ":");
+                            $('#description_value_of_standard_' + cost_of_local_shipping_id).text("Từ 0 ₫ trở lên");
+                        } else {
+                            $('#title_standard_of_local_shipping_' + cost_of_local_shipping_id).text(name_of_standard + ":");
+                            $('#description_value_of_standard_' + cost_of_local_shipping_id).html(
+                                '<span class= "showNumeric" id = "min_value_for_standard_' + cost_of_local_shipping_id + '">' + min_value_for_standard + '</span>' +
+                                '<span> - </span> ' +
+                                '<span class= "showNumeric" id = "max_value_for_standard_' + cost_of_local_shipping_id + '">' + max_value_for_standard + '</span> ' +
+                                '</span>');
+                            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                        }
+                    } else {
+                        if (min_value_for_standard == 0 && max_value_for_standard == 0) {
+                            $('#title_standard_of_local_shipping_' + cost_of_local_shipping_id).text(name_of_standard + ":");
+                            $('#description_value_of_standard_' + cost_of_local_shipping_id).text("Từ 0 gam trở lên");
+                        } else {
+                            $('#title_standard_of_local_shipping_' + cost_of_local_shipping_id).text(name_of_standard + ":");
+                            $('#description_value_of_standard_' + cost_of_local_shipping_id).html(
+                                '<span class= "showNumeric" id = "min_value_for_standard_' + cost_of_local_shipping_id + '">' + min_value_for_standard + '</span>' +
+                                '<span> - </span> ' +
+                                '<span class= "showNumeric" id = "max_value_for_standard_' + cost_of_local_shipping_id + '">' + max_value_for_standard + '</span> ' +
+                                '</span>');
+                            $(".showNumeric").autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                        }
+                    }
+                    $('#modalUpdateTitleAndStandard').modal('hide');
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    });
+
+    //UPDATE COST
+    var list_cost_for_district_id = [];
+    function actionUpdateCostShipping(cost_of_local_shipping_id) {
+        $('#modalUpdateCostShipping').modal('show');
+        //debugger;
+        $('#input_id_modal_update_cost_shipping').val(cost_of_local_shipping_id);
+        $("input[name='price_of_cost_for_cols']").prop('id', 'price_of_cost_' + cost_of_local_shipping_id);
+        $.ajax({
+            url: "/ShippingService/GetInfoCostOfLocalShipping",
+            data: { cost_of_local_shipping_id: cost_of_local_shipping_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                $('#title_modal_update_cost_shipping').text(data_json.cols_model.name_of_cost + " - " + data_json.province_name);
+                $('#price_of_cost_' + cost_of_local_shipping_id).autoNumeric('set', data_json.cols_model.price_of_cost);
+                $('#label_cost_for_district_common').text("Phí vận chuyển Quận/Huyện thuộc khu vực " + data_json.province_name);
+                $('#table_cost_for_district_shipping').empty();
+                $.each(data_json.list_cost_for_district, function (i, district) {
+                    list_cost_for_district_id.push(district.cost_for_district_shipping_id);
+                    $('#table_cost_for_district_shipping').append('<tr>' +
+                        '<td>' +
+                        (district.status_district_shipping == true ?
+                            '<div class="form-check"><input class="form-check-input" type="checkbox" value="' + district.status_district_shipping + '" id="check_status_district_shipping_' + district.cost_for_district_shipping_id + '" checked><label class="form-check-label" for="check_status_district_shipping_' + district.cost_for_district_shipping_id + '"></label></div>'
+                            : '<div class="form-check"><input class="form-check-input" type="checkbox" value="' + district.status_district_shipping + '" id="check_status_district_shipping_' + district.cost_for_district_shipping_id + '"><label class="form-check-label" for="check_status_district_shipping_' + district.cost_for_district_shipping_id + '"></label></div>') +
+                        '</td>' +
+                        '<td>' + district.district_name + '</td>' +
+
+                        (district.status_district_shipping == true ?
+                            '<td><div class="form-group"><div class="mb-2"><input type="text" class="form-control showNumeric" name="price_district_shipping_ajust_' + district.cost_for_district_shipping_id + '" id="price_district_shipping_ajust_' + district.cost_for_district_shipping_id + '" value="' + district.price_for_district_shipping_adjust + '"></div></div></td>'
+                            : '<td><div class="form-group"><div class="mb-2"><input type="text" class="form-control showNumeric hidden_element" name="price_district_shipping_ajust_' + district.cost_for_district_shipping_id + '" id="price_district_shipping_ajust_' + district.cost_for_district_shipping_id + '" value="' + district.price_for_district_shipping_adjust + '"></div></div></td>') +
+
+                        (district.status_district_shipping == true ?
+                        '<td><div id="ok_ship_' + district.cost_for_district_shipping_id + '"><span class="showNumeric sum_cost_common_' + cost_of_local_shipping_id + '" id="sum_cost_' + district.cost_for_district_shipping_id + '">' + district.price_for_district_shipping_final + ' </span> (<span class="showNumeric text-info" id="ajust_cost_' + district.cost_for_district_shipping_id + '">' + district.price_for_district_shipping_adjust + '</span>)</div><a id="not_ship_' + district.cost_for_district_shipping_id + '" class="text-info hidden_element">Không giao hàng</a></td>'
+                        : '<td><div id="ok_ship_' + district.cost_for_district_shipping_id + '" class="hidden_element"><span class="showNumeric sum_cost_common_' + cost_of_local_shipping_id + '" id="sum_cost_' + district.cost_for_district_shipping_id + '">' + district.price_for_district_shipping_final + ' </span> (<span class="showNumeric text-info" id="ajust_cost_' + district.cost_for_district_shipping_id + '">' + district.price_for_district_shipping_adjust + '</span>)</div><a id="not_ship_' + district.cost_for_district_shipping_id + '" class="text-info">Không giao hàng</a></td>') +
+                        '</tr>');
+                    $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                    //$('#sum_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', data_json.cols_model.price_of_cost);
+
+                    $('#price_of_cost_' + cost_of_local_shipping_id).keyup(function () {
+                        var cost_shipping = $('#price_of_cost_' + cost_of_local_shipping_id).autoNumeric('get');
+                        var cost_ajust = $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).autoNumeric('get');
+                        if (cost_shipping == null || cost_shipping == "") {
+                            cost_shipping = 0;
+                        }
+                        if (cost_ajust == null || cost_ajust == "") {
+                            cost_ajust = 0;
+                        }
+                        var cost_final = (parseInt)(cost_shipping) + (parseInt)(cost_ajust);
+                        $('#sum_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_final);
+                        //$('.sum_cost_common_' + cost_of_local_shipping_id).autoNumeric('set', cost_final);
+
+                        //$('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).keyup(function () {
+                        //    var cost_shipping = $('#price_of_cost_' + cost_of_local_shipping_id).autoNumeric('get');
+                        //    var cost_ajust = $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).autoNumeric('get');
+                        //    if (cost_shipping == null || cost_shipping == "") {
+                        //        cost_shipping = 0;
+                        //    }
+                        //    if (cost_ajust == null || cost_ajust == "") {
+                        //        cost_ajust = 0;
+                        //    }
+                        //    var cost_final = (parseInt)(cost_shipping) + (parseInt)(cost_ajust);
+                        //    $('#sum_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_final);
+                        //    $('#ajust_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_ajust);
+                        //});
+                    });
+
+                    $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).keyup(function () {
+                        var cost_shipping = $('#price_of_cost_' + cost_of_local_shipping_id).autoNumeric('get');
+                        var cost_ajust = $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).autoNumeric('get');
+                        if (cost_shipping == null || cost_shipping == "") {
+                            cost_shipping = 0;
+                        }
+                        if (cost_ajust == null || cost_ajust == "") {
+                            cost_ajust = 0;
+                        }
+                        var cost_final = (parseInt)(cost_shipping) + (parseInt)(cost_ajust);
+                        $('#sum_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_final);
+                        $('#ajust_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_ajust);
+
+                        //$('#price_of_cost_' + cost_of_local_shipping_id).keyup(function () {
+                        //    var cost_shipping = $(this).autoNumeric('get');
+                        //    var cost_ajust = $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).autoNumeric('get');
+                        //    if (cost_shipping == null || cost_shipping == "") {
+                        //        cost_shipping = 0;
+                        //    }
+                        //    if (cost_ajust == null || cost_ajust == "") {
+                        //        cost_ajust = 0;
+                        //    }
+                        //    var cost_final = (parseInt)(cost_shipping) + (parseInt)(cost_ajust);
+                        //    $('#sum_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_final);
+                        //    $('#ajust_cost_' + district.cost_for_district_shipping_id).autoNumeric('set', cost_ajust);
+                        //});
+                    });
+
+                    $('input[id="check_status_district_shipping_' + district.cost_for_district_shipping_id + '"]').change(function () {
+                        if ($(this).is(":checked")) {
+                            $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).removeClass('hidden_element');
+                            $('#ok_ship_' + district.cost_for_district_shipping_id).removeClass('hidden_element');
+                            $('#not_ship_' + district.cost_for_district_shipping_id).addClass('hidden_element');
+                        }
+                        else {
+                            $('#price_district_shipping_ajust_' + district.cost_for_district_shipping_id).addClass('hidden_element');
+                            $('#ok_ship_' + district.cost_for_district_shipping_id).addClass('hidden_element');
+                            $('#not_ship_' + district.cost_for_district_shipping_id).removeClass('hidden_element');
+                        }
+                    });
+                });
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    //UPDATE COST
+    $('#btn_update_cost').click(function () {
+        var list_cost_for_district_shipping = [];
+        var cost_of_local_shipping_id = $('#input_id_modal_update_cost_shipping').val();
+        var price_of_cost = $('#price_of_cost_' + cost_of_local_shipping_id).autoNumeric('get');
+        if (price_of_cost == null || price_of_cost == "") {
+            $('#cost_of_local_shipping_feedback').css({ display: 'block' });
+            $('#price_of_cost_' + cost_of_local_shipping_id).addClass('is-invalid');
+        } else {
+            $.each(list_cost_for_district_id, function (i, cost_for_district_shipping_id) {
+                var price_district_shipping_ajust = $('#price_district_shipping_ajust_' + cost_for_district_shipping_id).autoNumeric('get');
+                if (price_district_shipping_ajust == null || price_district_shipping_ajust == "") {
+                    price_district_shipping_ajust = 0;
+                }
+                var status_district_shipping = true;
+                if ($('#check_status_district_shipping_' + cost_for_district_shipping_id).is(":checked")) {
+                    status_district_shipping = true;
+                } else {
+                    status_district_shipping = false;
+                    price_district_shipping_ajust = 0;
+                }
+                //var price_for_district_shipping_final = price_of_cost + price_district_shipping_ajust;
+
+                var cost_for_district_shipping = {};
+                cost_for_district_shipping.cost_for_district_shipping_id = cost_for_district_shipping_id;
+                cost_for_district_shipping.status_district_shipping = status_district_shipping;
+                cost_for_district_shipping.price_for_district_shipping_adjust = price_district_shipping_ajust;
+                //cost_for_district_shipping.price_for_district_shipping_final = price_for_district_shipping_final;
+                list_cost_for_district_shipping.push(cost_for_district_shipping);
+            });
+            $.ajax({
+                url: "/ShippingService/UpdateCostForLocalShippingAndCostForDistrictShipping",
+                data: {
+                    cost_of_local_shipping_id: cost_of_local_shipping_id,
+                    price_of_cost: price_of_cost,
+                    list_cost_for_district_shipping: list_cost_for_district_shipping
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    showToast("success", "Đã cập nhật giá vận chuyển cho dịch vụ " + data_json.name_of_cost + " - " + data_json.province_name, "Cập nhật thành công");
+                    $('#show_price_of_cost_in_btn_' + cost_of_local_shipping_id).autoNumeric('set', data_json.price_of_cost);
+                    $('#modalUpdateCostShipping').modal('hide');
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    });
+
+    function deleteCostOfLocalShipping(cost_of_local_shipping_id) {
+        $('#modalConfirmDeleteCostOfLocalShipping').modal('show');
+        $('#input_id_modal_delete_cost_of_local_shipping').val(cost_of_local_shipping_id);
+        $.ajax({
+            url: "/ShippingService/GetInfoCostOfLocalShipping",
+            data: { cost_of_local_shipping_id: cost_of_local_shipping_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                $('#title_delete_cost_of_local_shipping').text("Xóa " + data_json.cols_model.name_of_cost + " - " + data_json.province_name + "?");
+                $('#content_delete_cost_of_local_shipping').html("Thao tác này sẽ xóa giá của dịch vụ " + "<strong>" + data_json.cols_model.name_of_cost + "</strong>" + " thuộc khu vực Tỉnh/Thành phố " + "<strong>" + data_json.province_name + "</strong>." + "</br>" + "Thao tác này không thể khôi phục.");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    $('#btn_delete_cost_of_local_shipping').click(function () {
+        var cost_of_local_shipping_id = $('#input_id_modal_delete_cost_of_local_shipping').val();
+        $.ajax({
+            url: "/ShippingService/DeleteCostOfLocalShipping",
+            data: { cost_of_local_shipping_id: cost_of_local_shipping_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                showToast("success", "Dịch vụ vận chuyển " + data_json.name_of_cost + " đã được xóa", "Xóa thành công");
+                $('#table_cost_of_local_shipping_' + cost_of_local_shipping_id).remove();
+                if (data_json.count_in_list == 0) {
+                    $('.table_local_shipping_service_' + data_json.local_shipping_service_id).remove();
+                }
+                $('#modalConfirmDeleteCostOfLocalShipping').modal('hide');
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    });
+
+    function deleteLocalShippingService(local_shipping_service_id) {
+        $('#modalConfirmDeleteLocalShippingService').modal('show');
+        $('#input_id_modal_delete_local_shipping_service').val(local_shipping_service_id);
+        var classes = $('#btn_delete_local_shipping_service').attr('class').split(' ');
+        for (var i = 0; i < classes.length; i++) {
+            if (classes[i].slice(0, 10) === 'btn_delete') {
+                $('#btn_delete_local_shipping_service').removeClass(classes[i]);
+            }
+        }
+        $.ajax({
+            url: "/ShippingService/getInforLocalShippingService",
+            data: { local_shipping_service_id: local_shipping_service_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                $('#btn_delete_local_shipping_service').addClass('btn_delete_local_shipping_service_' + local_shipping_service_id);
+                var data_json = JSON.parse(data);
+                $('#title_delete_local_shipping_service').text("Xóa dịch vụ vận chuyển thuộc khu vực " + data_json.province_name + "?");
+                $('#content_delete_local_shipping_service').html("Thao tác này sẽ xóa toàn bộ các giá của dịch vụ vận chuyển thuộc khu vực Tỉnh/Thành phố " + "<strong>" + data_json.province_name + "</strong>." + "</br>" + "Thao tác này không thể khôi phục.");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    $('#btn_delete_local_shipping_service').click(function () {
+        var local_shipping_service_id = $('#input_id_modal_delete_local_shipping_service').val();
+        $.ajax({
+            url: "/ShippingService/DeleteLocalShippingService",
+            data: { local_shipping_service_id: local_shipping_service_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                showToast("success", "Dịch vụ vận chuyển thuộc khu vực " + data_json.province_name + " đã được xóa", "Xóa thành công");
+                $('.table_local_shipping_service_' + local_shipping_service_id).remove();
+                $('.table_cost_of_local_shipping_in_local_shipping_service_' + local_shipping_service_id).remove();
+                $('#modalConfirmDeleteLocalShippingService').modal('hide');
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    });
+
+    function cancelUpdateTitleAndStandard() {
+        $('form.form_modal_update_title_and_standard').trigger('reset');
+    }
+
+    //INSERT COST OF LOCAL SHIPPING
+    function cancelInsertCostOfLocalShipping() {
+        $('form.form_modal_insert_cost_of_local_shipping').trigger('reset');
+    }
+
+    function insertCostOfLocalShipping(local_shipping_service_id) {
+        $('#modalInsertCostOfLocalShipping').modal('show');
+        $('#input_id_modal_insert_cost_of_local_shipping').val(local_shipping_service_id);
+        $.ajax({
+            url: "/ShippingService/getInforLocalShippingService",
+            data: { local_shipping_service_id: local_shipping_service_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                $('#title_insert_cost_of_local').text("Thêm giá vận chuyển cho khu vực " + data_json.province_name);
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    $('#btn_insert_cost_of_local_shipping').click(function () {
+        var name_of_cost = $('#name_of_cost').val();
+        var standard_for_shipping_id = $('#select_standard_for_shipping_id').val();
+        var min_value_for_standard = $('#input_value_from').autoNumeric('get');
+        var max_value_for_standard = $('#input_value_to').autoNumeric('get');
+        var price_of_cost = $('#price_of_cost').autoNumeric('get');
+        var local_shipping_service_id_current = $('#input_id_modal_insert_cost_of_local_shipping').val();
+        if (name_of_cost == "" || name_of_cost == null) {
+            $('#name_of_cost_feedback').css({ display: 'block' });
+            $('#name_of_cost').addClass('is-invalid');
+        }
+        else if ((parseInt)(min_value_for_standard) > (parseInt)(max_value_for_standard)) {
+            $('#value_range_feedback').css({ display: 'block' });
+            $('#input_value_from').addClass('is-invalid');
+            $('#input_value_to').addClass('is-invalid');
+        }
+        else {
+            $('#name_of_cost_feedback').css({ display: 'none' });
+            $('#name_of_cost').removeClass('is-invalid');
+            $('#value_range_feedback').css({ display: 'none' });
+            $('#input_value_from').removeClass('is-invalid');
+            $('#input_value_to').removeClass('is-invalid');
+            $.ajax({
+                url: "/ShippingService/InsertCostOfLocalShipping",
+                data: {
+                    local_shipping_service_id: local_shipping_service_id_current,
+                    name_of_cost: name_of_cost,
+                    standard_for_shipping_id: standard_for_shipping_id,
+                    min_value_for_standard: min_value_for_standard,
+                    max_value_for_standard: max_value_for_standard,
+                    price_of_cost: price_of_cost
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    $('#modalInsertCostOfLocalShipping').modal('hide');
+                    var data_json = JSON.parse(data);
+                    showToast("success", "Đã thêm giá vận chuyển mới cho khu vực " + data_json.province_name, "Thêm thành công");
+                    $('.table_local_shipping_service_' + local_shipping_service_id_current).append('<div class="table-responsive table_cost_of_local_shipping_in_local_shipping_service_' + local_shipping_service_id_current + '" id="table_cost_of_local_shipping_' + data_json.cost_of_local_shipping_id + '"><table class="table table-primary table-hover mb-0"><tbody><tr><td width="80%"><a class="text-primary font-bold" href="javascript:void(0)" id="edit_cost_of_local_shipping_' + data_json.cost_of_local_shipping_id + '">' + name_of_cost + ' &nbsp;<i class="fa fa-pencil-square-o"></i></a><br /><a id="title_standard_of_local_shipping_' + data_json.cost_of_local_shipping_id + '">' + data_json.standard_name + ' : </a><span id="description_value_of_standard_' + data_json.cost_of_local_shipping_id + '"><span class="showNumeric" id="min_value_for_standard_' + data_json.cost_of_local_shipping_id + '">' + min_value_for_standard + '</span> - <span class="showNumeric" id="max_value_for_standard_' + data_json.cost_of_local_shipping_id + '">' + max_value_for_standard + '</span></span></td><td align="right"><a href="javascript:void(0);" class="btn btn-primary" id="btn_edit_price_of_cost_' + data_json.cost_of_local_shipping_id + '"><span class="showNumeric" id="show_price_of_cost_' + data_json.cost_of_local_shipping_id + '">' + price_of_cost + '</span> &nbsp; <i class="fa fa-pencil-square-o"></i></a></td><td align="right"><a href="javascript:void(0);" class="btn btn-secondary" id="remove_price_cost_' + data_json.cost_of_local_shipping_id + '">Xóa giá này &nbsp;<i class="fa fa-trash"></i></a></td></tr></tbody></table></div>');
+                    $('#show_price_of_cost_' + data_json.cost_of_local_shipping_id).autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+                    if (standard_for_shipping_id == 1) {
+                        if (min_value_for_standard != 0 && max_value_for_standard != 0) {
+                            $('#min_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('destroy');
+                            $('#max_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('destroy');
+                            $('#min_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                            $('#max_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                        }
+                        else {
+                            $('#description_value_of_standard_' + data_json.cost_of_local_shipping_id).text("Từ 0 ₫ trở lên");
+                        }
+                    }
+                    else {
+                        if (min_value_for_standard != 0 && max_value_for_standard != 0) {
+                            $('#min_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('destroy');
+                            $('#max_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('destroy');
+                            $('#min_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                            $('#max_value_for_standard_' + data_json.cost_of_local_shipping_id).autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                        }
+                        else {
+                            $('#description_value_of_standard_' + data_json.cost_of_local_shipping_id).text("Từ 0 gam trở lên");
+                        }
+                    }
+
+                    $('#btn_edit_price_of_cost_' + data_json.cost_of_local_shipping_id).click(function () {
+                        actionUpdateCostShipping(data_json.cost_of_local_shipping_id);
+                    });
+
+                    $('#edit_cost_of_local_shipping_' + data_json.cost_of_local_shipping_id).click(function () {
+                        actionTitleAndStandard(data_json.cost_of_local_shipping_id);
+                    });
+
+                    $('#remove_price_cost_' + data_json.cost_of_local_shipping_id).click(function () {
+                        deleteCostOfLocalShipping(data_json.cost_of_local_shipping_id);
+                    });
+
+                    $("#remove_local_shipping_" + data_json.cost_of_local_shipping_id).click(function () {
+                        deleteLocalShippingService(data_json.cost_of_local_shipping_id);
+                    });
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    });
+
+    //SELECT CHANGE
+    $('#select_standard_for_shipping_id').change(function () {
+        var selected = $(this).val();
+        if (selected == 1) {
+            $('#input_value_from').autoNumeric('destroy');
+            $('#input_value_to').autoNumeric('destroy');
+            $('#input_value_from').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#input_value_to').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#label_input_value_from').text("Giá trị đơn hàng từ");
+            $('#input_value_from').attr('placeholder', ' ₫');
+            $('#input_value_to').attr('placeholder', ' ₫');
+        }
+        else {
+            $('#input_value_from').autoNumeric('destroy');
+            $('#input_value_to').autoNumeric('destroy');
+            $('#input_value_from').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#input_value_to').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#label_input_value_from').text("Khối lượng từ");
+            $('#input_value_from').attr('placeholder', ' gam');
+            $('#input_value_to').attr('placeholder', ' gam');
+        }
+    });
+
+    $('#select_standard_for_shipping_id_in_modal').change(function () {
+        var selected = $(this).val();
+        if (selected == 1) {
+            $('#input_value_from_in_modal_title_and_standard').autoNumeric('destroy');
+            $('#input_value_to_in_modal_title_and_standard').autoNumeric('destroy');
+            $('#input_value_from_in_modal_title_and_standard').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#input_value_to_in_modal_title_and_standard').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#label_input_value_from_in_modal_title_and_standard').text("Giá trị đơn hàng từ");
+            $('#input_value_from_in_modal_title_and_standard').attr('placeholder', ' ₫');
+            $('#input_value_to_in_modal_title_and_standard').attr('placeholder', ' ₫');
+        }
+        else {
+            $('#input_value_from_in_modal_title_and_standard').autoNumeric('destroy');
+            $('#input_value_to_in_modal_title_and_standard').autoNumeric('destroy');
+            $('#input_value_from_in_modal_title_and_standard').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#input_value_to_in_modal_title_and_standard').autoNumeric('init', { aSign: ' gam', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#label_input_value_from_in_modal_title_and_standard').text("Khối lượng từ");
+            $('#input_value_from_in_modal_title_and_standard').attr('placeholder', ' gam');
+            $('#input_value_to_in_modal_title_and_standard').attr('placeholder', ' gam');
+        }
+    });
+
+</script>
+

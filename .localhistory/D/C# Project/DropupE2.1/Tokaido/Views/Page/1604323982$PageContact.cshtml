@@ -1,0 +1,65 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Tokaido";
+    ViewBag.Description = "Liên hệ với Tokaido để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">Liên hệ</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="/">Trang chủ </a></li>
+                            <li><a>Liên hệ</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+<section class="flat-row contact-1 ">
+    <div class="container">
+        <div class="row">
+            <div class="flat-information col-sm-4">
+                <span class="fa fa-map-marker" aria-hidden="true"></span>
+                <h5 class="information-title">ĐỊA CHỈ</h5>
+                <p class="address">@contact.address</p>
+            </div>
+            <div class="flat-information email col-sm-4">
+                <span class="fa fa-envelope" aria-hidden="true"></span>
+                <h5 class="information-title">EMAIL</h5>
+                <a href="mailto:@contact.email">@contact.email</a><br />
+            </div>
+            <div class="flat-information phone col-sm-4">
+                <span class="fa fa-phone" aria-hidden="true"></span>
+                <h5 class="information-title">HOTLINE</h5>
+                <a href="tel:@contact.phone_number">@contact.phone_number</a>
+            </div>
+        </div><!--  ./row -->
+    </div><!-- ./container -->
+</section>
+
+<!-- Google Map -->
+<div id="flat-map">
+    @Html.Raw(contact.map)
+
+</div><!--flat-map -->

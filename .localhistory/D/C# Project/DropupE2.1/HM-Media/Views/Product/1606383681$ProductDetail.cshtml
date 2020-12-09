@@ -1,0 +1,42 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog = new BlogProvider().getIsShowing().Take(4);
+    var newest_blog = list_blog.FirstOrDefault();
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="title-shape">
+        <img src="../Assets/img/title/title-bg-shape.png" alt="Shape">
+    </div>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>Service Details</h2>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>Service Details</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

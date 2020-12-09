@@ -1,0 +1,29 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+
+@if (check_box_count == 0)
+{
+    <div class=" center-div">
+        <p>Không tìm thấy sản phẩm nào.</p>
+    </div>
+}
+else
+{
+    @foreach (var product in Model)
+    {
+
+    }
+    @foreach (var product in Model)
+    {
+
+    }
+}

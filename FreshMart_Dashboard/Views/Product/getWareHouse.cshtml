@@ -1,0 +1,329 @@
+﻿@model IEnumerable<Data.product>
+@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "getWareHouse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listExport = new List<product>();
+    foreach (var item in Model)
+    {
+        listExport.Add(item);
+    }
+
+
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Quản lý kho</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Sản phẩm
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Quản lý kho</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div class="gr-btn-action">
+    <a href="@Url.Action("ExportToExcel", "Product")" class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;">Export &nbsp;<i class="nav-icon ti ti-download"></i></a>
+    <a class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;" data-toggle="modal" data-target="#modalImportExcel">Import &nbsp;<i class="nav-icon ti ti-upload"></i></a>
+
+
+    <div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalImportExcel" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nhập danh sách sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="file" id="importExcel" name="importExcel" style="display: none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <label for="importExcel" class="btn btn-primary">Chọn tệp .xlsx</label>
+                        <a id="fileName">Không có tệp nào được chọn.</a>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        Tải file mẫu nhập danh sách sản phẩm <a href="~/Assets/file/form-import-product.xlsx" download class="text-info font-weight-bold">tại đây</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success">Nhập danh sách sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div>
+                    <div class="input-group mb-3">
+                        <div class="btn-group">
+                            <select class="custom-select" id="select-filter">
+                                <option disabled selected="">Lọc sản phẩm theo</option>
+                                <option value="1">Danh mục sản phẩm</option>
+                                <option value="2">Nhà cung cấp</option>
+                            </select>
+
+                            <select class="custom-select" id="filter-by-category" style="display: none">
+                                <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                @foreach (var category in new CategoryProvider().getAll())
+                                {
+                                    <option value="@category.category_id">@category.category_name</option>
+                                }
+                            </select>
+
+                            <select class="custom-select" id="filter-by-supplier" style="display: none">
+                                <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                @foreach (var supplier in new SupplierProvider().getAll())
+                                {
+                                    <option value="@supplier.supplier_id">@supplier.supplier_name</option>
+                                }
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="search_input" name="search_input" placeholder="Tìm kiếm sản phẩm, nhà cung cấp..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="button-addon2">
+                                <i class="nav-icon ti ti-search"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="" id="data-table">
+                    <div class="datatable-wrapper table-responsive" id="includeTable">
+                        <table id="datatable" class="display compact table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th align="center" scope="col" style="width:5%; padding: 0rem 0.75rem;" id="checkHeader">
+                                        <div class="form-check">
+                                            <input class="form-check-input checkbox" type="checkbox" value="" id="checkAll1">
+                                            <label class="form-check-label checkbox-table" for="checkAll1"></label>
+                                            <div class="form-group" style="display: none; margin-bottom: -25px;">
+                                                <select class="form-control form-control-sm select_action" id="checkToAction">
+                                                    <option selected disabled>Action</option>
+                                                    <option>Cập nhật số lượng trong kho</option>
+                                                    <option>Ẩn sản phẩm</option>
+                                                    <option>Xóa sản phẩm</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Trạng thái
+                                    </th>
+                                    <th scope="col" style="width:40%">
+                                        Sản phẩm
+                                    </th>
+                                    <th align="center" scope="col" style="width:10%">Mã SKU</th>
+                                    <th scope="col" style="width:35%">Nhà cung cấp</th>
+                                    <th align="center" scope="col" style="width:5%">Số lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_data">
+
+                                @foreach (var product in Model)
+                                {
+                                    <tr>
+                                        <td align="center">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkbox" type="checkbox" value="@product.product_id" id="Check_@product.product_id" style="border: 1px solid #dee2e6;">
+                                                <label class="form-check-label checkbox-table" for="Check_@product.product_id"></label>
+                                            </div>
+                                        </td>
+                                        @if (product.status == true)
+                                        {
+                                            <td align="center">
+                                                <span class="nav-label label label-success">Đang hiển thị</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td align="center">
+                                                <span class="nav-label label label-success">Đang Ẩn</span>
+                                            </td>
+                                        }
+                                        <td>
+                                            <span class="bg-img m-auto ">
+                                                <img src="@product.product_image" class="img-fluid bg-img" alt="@product.product_name">
+                                            </span>
+                                            &nbsp; @product.product_name
+                                        </td>
+                                        <td>@product.product_code</td>
+                                        <td>
+                                            <span class="bg-img m-auto ">
+                                                <img src="@product.supplier.supplier_image" class="img-fluid bg-img" alt="@product.supplier.supplier_name">
+                                            </span>
+                                            &nbsp; @product.supplier.supplier_name
+                                        </td>
+                                        <td align="center">@product.view_count</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th align="center" scope="col" style="width:10%">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                                            <label class="form-check-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" style="width:10%">
+                                        Trạng thái
+                                    </th>
+                                    <th scope="col" style="width:35%">
+                                        Sản phẩm
+                                    </th>
+                                    <th align="center" scope="col" style="width:10%">Mã SKU</th>
+                                    <th scope="col" style="width:30%">Nhà cung cấp</th>
+                                    <th align="center" scope="col" style="width:5%">Số lượng</th>
+                                    @*<th scope="col" style="width:5%" id="columnAction">Action</th>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        $('#product').addClass('active');
+        $('#warehouse').addClass('active');
+
+        $('#checkToAction').removeClass('sorting_asc');
+
+        $('#search_input').keyup(function () {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#datatable tr').each(function () {
+                var found = 'false';
+                $(this).each(function () {
+                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        found = 'true';
+                    }
+                });
+                if (found == 'true') {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        $('input[type="file"]').change(function (e) {
+            var fileName = e.target.files[0].name;
+            $('#fileName').text('' + fileName);
+        });
+
+    });
+
+    $('#select-filter').on('change', function () {
+        var filter_value_parent = this.value;
+        if (filter_value_parent == 1 || filter_value_parent == "1") {
+            $('#filter-by-category').css('display', 'block');
+            $('#filter-by-supplier').css('display', 'none');
+        }
+        else if (filter_value_parent == 2 || filter_value_parent == "2") {
+            $('#filter-by-supplier').css('display', 'block');
+            $('#filter-by-category').css('display', 'none');
+        }
+        else {
+            $('#filter-by-supplier').css('display', 'none');
+            $('#filter-by-category').css('display', 'none');
+        }
+    });
+
+    $('#filter-by-category').on('change', function () {
+        var filter_value = $("#filter-by-category option:selected").text();
+        var search_value = $('#search_input').val();
+        $('.progressLoading').css('display', 'block');
+        $.ajax({
+            url: "/Product/getWareHouse",
+            data: {
+                search_string: search_value,
+                filter_value: filter_value
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data-table").html($(data).find("#includeTable"));
+                $('#dataTable').attr("class", "dataTable");
+                $('#dataTable').attr("role", "grid");
+                $('#dataTable').attr("aria-describedby", "datatable_info");
+                $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                $('.progressLoading').css('display', 'none');
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    });
+
+    $('#filter-by-supplier').on('change', function () {
+        var filter_value = $("#filter-by-supplier option:selected").text();
+        var search_value = $('#search_input').val();
+        $('.progressLoading').css('display', 'block');
+        $.ajax({
+            url: "/Product/getWareHouse",
+            data: {
+                search_string: search_value,
+                filter_value: filter_value
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data-table").html($(data).find("#includeTable"));
+                $('#dataTable').attr("class", "dataTable");
+                $('#dataTable').attr("role", "grid");
+                $('#dataTable').attr("aria-describedby", "datatable_info");
+                $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                $('.progressLoading').css('display', 'none');
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    });
+
+
+    $('input[type="checkbox"]').change(function () {
+        alert($(this).val());
+        $('#checkToAction').css('display', 'block');
+    });
+</script>

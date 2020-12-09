@@ -1,0 +1,163 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+
+}
+
+<div class="table-responsive data-grid">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:10%; text-align:center" align="center">
+                        <p class="th_table">Trạng thái</p>
+                    </th>
+                    <th scope="col" style="width:60%">
+                        <p class="th_table">Sản phẩm</p>
+                    </th>
+                    <th scope="col" style="width:10%; text-align:center">
+                        <p class="th_table">Tồn kho</p>
+                    </th>
+                    <th scope="col" style="width:20%;">
+                        <p class="th_table">Nhà cung cấp</p>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        @if (product.status == true)
+                        {
+                            <td align="center">
+                                <p><span class="badge badge-success-inverse px-2 py-1 mt-1">Đang hiển thị</span></p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td align="center">
+                                <p><span class="badge badge-danger-inverse px-2 py-1 mt-1">Đang ẩn</span></p>
+                            </td>
+                        }
+                        <td>
+                            <div class="accordion" id="accordionsimpleborder">
+                                <div class="mb-2 acd-group">
+                                    <div class="rounded-0">
+                                        <h5 class="mb-0">
+                                            <a onclick="productDetail('@product.product_id')" class="btn-block text-left acd-heading text-primary go_to_product_detail" data-toggle="collapse" aria-expanded="true">@product.product_name</a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse_product_@product.product_id" class="collapse show" data-parent="#accordionsimpleborder" style="">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        @foreach (var product_variation in new ProductVariationProvider().getByProductId(product.product_id))
+                                                        {
+                                                            <tr>
+                                                                <td style="display: none" class="product_name_@product_variation.product_variation_id">
+                                                                    @product.product_name
+                                                                </td>
+                                                                @*<td style="display: none" class="product_unit_@product_variation.product_variation_id">
+                                                                    @product.unit.unit_name
+                                                                </td>*@
+                                                                <td>
+                                                                    <span class="bg-img m-auto ">
+                                                                        <img src="@product_variation.product_variation_image" class="img-fluid bg-img img_product_in_order" alt="@product_variation.product_variation_image_alt" id="img_@product_variation.product_variation_id">
+                                                                    </span>
+                                                                </td>
+                                                                <td id="product_variation_name_@product_variation.product_variation_id">
+                                                                    @{var list_ev = new ElementVariationProvider().getByProductVariationId(product_variation.product_variation_id);}
+                                                                </td>
+                                                                <td class="showNumeric" id="price_@product_variation.product_variation_id">@product_variation.product_variation_price</td>
+                                                                <td></td>
+                                                                <td align="center">
+                                                                    <form>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@product_variation.product_variation_id" id="check_to_select_product_variation_@product_variation.product_variation_id" style="border: 1px solid #dee2e6;">
+                                                                            <label class="form-check-label checkbox-table check-table" for="check_to_select_product_variation_@product_variation.product_variation_id"></label>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            @product.view_count
+                        </td>
+                        <td>
+                            <a href="/Supplier/SupplierDetail?id=@product.supplier_id" class="text-primary">@product.supplier.supplier_name</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+<div style="text-align:center">
+    <h3>Không có kết quả nào được tìm thấy.</h3>
+    <img src="~/Assets/images/image_system/not_found.png" style="width:50%" />
+</div>
+    <script>
+        $('#label_for_select_all').css({ display: 'none' });
+    </script>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'block' });
+    </script>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetProductVariation", new { page_num, search_string = ViewBag.FilterValue, quick_filter = ViewBag.QuickFilter, quick_filter_value = ViewBag.QuickFilterValue, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table_product_variation" }))
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            var tootlTips = jQuery(".tooltip-wrapper");
+            if (tootlTips.length > 0) {
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        $('input[name="checkbox"]').change(function () {
+            if ($(this).is(":checked")) {
+                var index = this.value;
+                list_product_variation_id_selected.push(index);
+            }
+            else {
+                var index = this.value;
+                list_product_variation_id_selected = list_product_variation_id_selected.filter(function (elem) {
+                    return elem != index;
+                });
+            }
+        });
+
+        $.each(list_product_variation_id_selected, function (index, value) {
+            $("#check_to_select_product_variation_" + value).prop('checked', true);
+        });
+
+        $('.go_to_product_detail').attr("href", "javascript:void(0)");
+    });
+    
+</script>

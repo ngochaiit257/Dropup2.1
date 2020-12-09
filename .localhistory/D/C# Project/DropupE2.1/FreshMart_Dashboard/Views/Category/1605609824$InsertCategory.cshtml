@@ -1,0 +1,913 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Thêm danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = System.Configuration.ConfigurationManager.AppSettings["urlPresentationFreshMart"];
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Thêm mới danh mục</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Danh mục sản phẩm
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Thêm danh mục</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div id="show_recommend">
+
+</div>
+
+
+<div class="row">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin danh mục</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="control-label" for="label_categoryName">Tên danh mục <span class="requirement-star-text">&ast;</span></label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Nhập tên danh mục" onchange="checkNameCategory()">
+                                <div class="invalid-feedback" id="category_name_feedback">
+                                    Yêu cầu nhập tên danh mục.
+                                </div>
+                                <div class="invalid-feedback" id="category_name_check_duplicate_false">
+                                    Tên danh mục đã có trong cơ sở dữ liệu. Vui lòng chọn tên khác.
+                                </div>
+                                <div class="valid-feedback" id="category_name_check_duplicate_true">
+                                    Tên danh mục có thể sử dụng được.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="label_categoryName">Mô tả</label>
+                            <div class="mb-2">
+                                <div id="summernote" class="summernote"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title" id="title_condition">Chọn sản phẩm</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form id="form_check_add_product">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="add_product_checkbox" id="add_product_checkbox1" value="false" checked>
+                            <label class="form-check-label" for="add_product_checkbox1">
+                                Thêm sản phẩm thủ công
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="add_product_checkbox" id="add_product_checkbox2" value="true">
+                            <label class="form-check-label" for="add_product_checkbox2">
+                                Thêm sản phẩm tự động
+                            </label>
+                        </div>
+                    </form>
+
+                    <form class="form-horizontal" id="form_condition" novalidate="novalidate" style="display: none">
+                        <div class="row">
+                            <div class="col-md-4 text-condition">
+                                <label id="text_condition">Sản phẩm phải thỏa mãn:</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="condition" id="condition_all" value="" checked>
+                                    <label class="form-check-label" for="condition_all">
+                                        Tất cả các điều kiện
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="condition" id="condition_or" value="">
+                                    <label class="form-check-label" for="condition_or">
+                                        Một trong các điều kiện
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Append Condition*@
+                        <div id="div_condition">
+                            <div class="row" id="div_condition_children_1">
+                                <div class="col-md-4">
+                                    <div class="form-group bs-select-1">
+                                        <select class="custom-select" style="border-radius: .25rem;" id="select_condition_type_1">
+                                            <option value="product_price" selected>Giá sản phẩm</option>
+                                            <option value="product_name">Tên sản phẩm</option>
+                                            <option value="product_supplier">Nhà cung cấp</option>
+                                            <option value="product_tag">Tag sản phẩm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group bs-select-1">
+                                        <select class="custom-select" style="border-radius: .25rem;" id="select_condition_1">
+                                            <option value="equal">Bằng</option>
+                                            <option value="more">Lớn hơn</option>
+                                            <option value="less">Nhỏ hơn</option>
+                                            <option value="contain">Chứa từ</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="div_price_condition_1" style="float: left; width: 85%;">
+                                        <input type="text" name="condition_price_value_1" class="form-control autoNumericInput" id="condition_price_value_1" placeholder="0đ">
+                                        <input type="text" name="condition_product_name_value_1" class="form-control" id="condition_product_name_value_1" placeholder="Nhập từ cần chứa" style="display: none; font-size: 13px">
+                                    </div>
+                                    <div id="div_remove_condition" style="float: right; font-size: 25px;">
+                                        <a class="text-primary disabled" href="javascript:void(0)" id="remove_condition_1"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="div_add_condition" style="padding-top: 15px;">
+                            <a href="javascript:void(0)" class="btn btn-primary" id="btn_add_condition">Thêm điều kiện</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Xem trước kết quả tìm kiếm</h4>
+                        </div>
+                        <div class="col-md-6 div-card-title-right">
+                            <a class="card-title text-primary" href="javascript:void(0)" id="seo_custom"><i class="fa fa-pencil"></i>&nbsp; Tùy chỉnh SEO</a>
+                        </div>
+                    </div>
+                    <div class="note-for-card-title">
+                        <a>
+                            Xin hãy nhập Tiêu đề và Mô tả để xem trước kết quả tìm kiếm của danh mục này
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="display: none" id="body_of_seo_category">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_header">Tiêu đề trang</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_header"> 70</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" maxlength="70" class="form-control" id="seo_header" name="seo_header" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_description">Thẻ mô tả</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_description"> 320</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <textarea class="form-control" id="seo_description" name="seo_description" rows="3" maxlength="320"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="seo_alias">Đường dẫn / Alias</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">@url/</span>
+                                </div>
+                                <input type="text" class="form-control" name="seo_alias" id="seo_alias" aria-describedby="basic-addon3" maxlength="150">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Trạng thái </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="set_time_show" id="show" value="true" checked>
+                            <label class="form-check-label" for="show">
+                                Hiển thị
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="set_time_show" id="hidden" value="false">
+                            <label class="form-check-label" for="hidden">
+                                Ẩn
+                            </label>
+                        </div>
+                        <div class="div_show_datetime_title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="javascript:void:(0)" class="card-title text-primary show_datetime_title" style="display:none">Đặt lịch hiển thị</a>
+                                </div>
+                                <div class="col-md-6" style="text-align:right">
+                                    <span>
+                                        <a id="icon_remove_set_time_show" style="display:none" href="javascript:void:(0)" class="text-primary"><i class="fa fa-remove"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="div_show_datetime" style="display:none">
+                            <div class="form-group">
+                                <div class="input-group date" id="datepicker-bottom-left">
+                                    <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="category_date_to_show" name="category_date_to_show" placeholder="Nhập ngày hiển thị">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-append">
+                                    <input class="form-control inputmask sel-time-am" type="text" id="category_time_to_show" name="category_time_to_show" placeholder="Nhập giờ hiển thị">
+                                    <span class="input-group-addon open_clock_face">
+                                        <i class="fe fe-clock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Ảnh danh mục</h4>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <div class="displayImageUpload" style="display: none">
+                        <img id="pictureUpload" />
+
+                        <div class="row" id="bottomImageupload">
+                            <div class="col-md-4">
+                                <a href="javascript:void(0);" class="text-primary" id="edit_image_btn">Sửa ảnh</a>
+                            </div>
+                            <div class="col-md-4" style="text-align: center">
+                                <label for="file">
+                                    <a class="text-primary">Đổi ảnh</a>
+                                </label>
+                            </div>
+                            <div class="col-md-4" style="text-align: right">
+                                <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa ảnh</a>
+                            </div>
+                        </div>
+
+                        <div style="display: none" id="div_alt_image">
+                            <label class="control-label" for="alt_image">Alt của hình ảnh</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="alt_image" name="alt_image" placeholder="Nhập alt của hình ảnh">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" id="file" accept="image/*" hidden>
+                    <div class="custom-card-body custom-file">
+                        <div>
+                            <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                        </div>
+                        <div>
+                            <label for="file" class="btn btn-warning custom-btn-file">
+                                Upload ảnh
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Phân loại</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div>
+                            <div class="form-group bs-select-1">
+                                <label for="select_type_of_category">Loại danh mục sản phẩm</label>
+                                <select class="custom-select input_slect_border" id="select_type_of_category">
+                                    <option selected="" disabled>Chọn loại danh mục sản phẩm</option>
+                                    @if (ViewData["ListTypeOfCategory"] != null)
+                                    {
+                                        foreach (var toc in ViewData["ListTypeOfCategory"] as List<type_of_category>)
+                                        {
+                                            <option value="@toc.type_of_category_id">@toc.type_of_category_name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="true" id="check_has_category_parent">
+                                <label class="form-check-label" for="check_has_category_parent">
+                                    Danh mục này có danh mục cha
+                                </label>
+                            </div>
+                            <div class="form-group bs-select-1">
+                                <select class="custom-select input_slect_border hidden_element" id="select_category_parent">
+                                    <option selected="" disabled>Chọn danh mục cha</option>
+                                    @*@if (ViewData["ListCategoryParent"] != null)
+                                        {
+                                            foreach (var c in ViewData["ListCategoryParent"] as List<category>)
+                                            {
+                                                <option value="@c.category_id">@c.category_name</option>
+                                            }
+                                        }*@
+
+                                    @foreach (var c in new CategoryProvider().getAll())
+                                    {
+                                        <option value="@c.category_id">@c.category_name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Gắn thẻ danh mục</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div class="form-group mb-0 bs-select-1">
+                            <input type="text" class="bs-input" value="" placeholder="Nhập thẻ tag" data-role="tagsinput" id="tag_category" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</a>
+            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert">Xác nhận</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalConfirmExit" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Rời khỏi trang?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a id="fileName">
+                    Nếu bạn rời khỏi trang này, tất cả thay đổi chưa lưu sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang này?
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" id="confirmExit">Rời khỏi trang này</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#category').addClass('active');
+        $('#add_category').addClass('active');
+        $(".autoNumericInput").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        $('#category_time_to_show').clockface({
+            format: 'HH:mm',
+        });
+
+        $('.open_clock_face').click(function (e) {
+            //e.stoppropagation();
+            $('#category_time_to_show').clockface('toggle');
+        });
+
+        $.fn.noMask = function (regex) {
+            this.on("keypress", function (e) {
+                if (regex.test(String.fromCharCode(e.which))) {
+                    return false;
+                }
+            });
+        }
+
+        $("#category_time_to_show").noMask(/[a-zA-Z]/);
+
+        //$('form').dirrty({
+        //    preventLeaving: true
+        //}).on("dirty", function () {
+        //    //$("#btn_insert").removeClass("disabled");
+        //}).on("clean", function () {
+        //    //$("#btn_insert").addClass("disabled");
+        //    });
+
+
+        //Condition
+        $('#remove_condition_1').css('display', 'none');
+        $('#div_price_condition_1').css('width', '100%');
+
+        startPageCondition();
+        $('#select_condition_type_1').on('change', function () {
+            startPageCondition();
+        });
+
+        $('form, .summernote').trigger("reset");
+        $('#summernote').summernote({
+            fontSizes: ['8', '9', '10', '11', '12', '14', '15', '16', '17','18','19','20','21','22','23' ,'24','25', '36', '48', '64', '82', '150'],
+            followingToolbar: false,
+            height: 245,
+            toolbar: [
+                ['undo', ['undo',]],
+                ['redo', ['redo',]],
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['table', ['bootstrap-grid']],
+                ['strikethrough', ['strikethrough']],
+                ['superscript', ['superscript']],
+                ['subscript', ['subscript']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']],
+            ],
+            callbacks: {
+                onKeyup: function (e) {
+                    form_has_changed = true;
+                    var category_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+
+                    if (category_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+
+                    $('#seo_description').val(category_description.slice(0, 320));
+
+                    var textlenght = maxLengthDescription - category_description.length;
+                    $('#count_seo_description').text(textlenght);
+                    if (category_description.length > 320) {
+                        $('#count_seo_description').text("0");
+                    }
+                },
+                onPaste: function () {
+                    var category_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+                    if (category_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+                },
+            }
+        });
+
+        $('#select_condition_type_' + 1).on('change', function () {
+            var value = $('#select_condition_type_' + 1).val();
+            if (value !== "product_price") {
+                $('#condition_price_value_' + 1).css('display', 'none');
+                $('#condition_product_name_value_' + 1).css('display', 'block');
+
+                $("#select_condition_" + 1 + " option[value=equal]").attr('disabled', 'disabled');
+                $("#select_condition_" + 1 + " option[value=more]").attr('disabled', 'disabled');
+                $("#select_condition_" + 1 + " option[value=less]").attr('disabled', 'disabled');
+
+                $("#select_condition_" + 1 + " option[value=contain]").removeAttr('disabled');
+                $("#select_condition_" + 1 + " option[value=contain]").attr('selected', 'selected');
+            }
+            else {
+                $('#condition_price_value_' + 1).css('display', 'block');
+                $('#condition_product_name_value_' + 1).css('display', 'none');
+
+                $("#select_condition_" + 1 + " option[value=equal]").removeAttr('disabled');
+                $("#select_condition_" + 1 + " option[value=more]").removeAttr('disabled');
+                $("#select_condition_" + 1 + " option[value=less]").removeAttr('disabled');
+
+                $("#select_condition_" + 1 + " option[value=contain]").attr('disabled', 'disabled');
+                $("#select_condition_" + 1 + " option[value=equal]").attr('selected', 'selected');
+                $(".autoNumericInput").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            }
+        });
+    });
+
+
+
+    function startPageCondition() {
+        var value = $('#select_condition_type_1').val();
+        if (value !== "product_price") {
+            $('#condition_price_value_1').css('display', 'none');
+            $('#condition_product_name_value_1').css('display', 'block');
+
+            $("#select_condition_1 option[value=equal]").attr('disabled', 'disabled');
+            $("#select_condition_1 option[value=more]").attr('disabled', 'disabled');
+            $("#select_condition_1 option[value=less]").attr('disabled', 'disabled');
+
+            $("#select_condition_1 option[value=contain]").removeAttr('disabled');
+            $("#select_condition_1 option[value='contain']").prop('selected', true);
+        }
+        else {
+            $('#condition_price_value_1').css('display', 'block');
+            $('#condition_product_name_value_1').css('display', 'none');
+
+            $("#select_condition_1 option[value=equal]").removeAttr('disabled');
+            $("#select_condition_1 option[value=more]").removeAttr('disabled');
+            $("#select_condition_1 option[value=less]").removeAttr('disabled');
+
+            $("#select_condition_1 option[value=contain]").attr('disabled', 'disabled');
+            $("#select_condition_1 option[value='equal']").prop('selected', true);
+            $(".autoNumericInput").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        }}
+
+    $('#edit_image_btn').click(function () {
+        $('#div_alt_image').css('display', 'block');
+    });
+
+    $('input:radio[name="add_product_checkbox"]').change(function () {
+        if (this.checked && this.value == 'false') {
+            $('#form_condition').css('display', 'none');
+            $('#title_condition').text('Chọn sản phẩm');
+        }
+        else {
+            $('#form_condition').css('display', 'block');
+            $('#title_condition').text('Điều kiện');
+        }
+    });
+
+    $('input:radio[name="set_time_show"]').change(function () {
+        if (this.checked && this.value == 'true') {
+            $('.div_show_datetime').css('display', 'none');
+            $('.show_datetime_title').css('display', 'none');
+            $('#icon_remove_set_time_show').css('display', 'none');
+        }
+        else {
+            //$('.div_show_datetime').css('display', 'block');
+            $('.show_datetime_title').css('display', 'block');
+        }
+    });
+
+    $('.show_datetime_title').click(function () {
+        $('#icon_remove_set_time_show').css('display', 'block');
+        $('.div_show_datetime').css('display', 'block');
+    });
+
+    $('#icon_remove_set_time_show').click(function () {
+        $('.div_show_datetime').css('display', 'none');
+        $('#icon_remove_set_time_show').css('display', 'none');
+
+        $('form#div_show_datetime_title').trigger("reset");
+    });
+
+    function imageIsLoaded(e) {
+        $('#pictureUpload').attr('src', e.target.result);
+        $('.displayImageUpload').css({
+            display: 'block',
+        });
+        $('.custom-card-body').css({
+            display: 'none'
+        });
+    };
+
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+                form_has_changed = true;
+            }
+        });
+    });
+
+    function deleteImg() {
+        $('.displayImageUpload').css({
+            display: 'none',
+        });
+        $('.custom-card-body').css({
+            display: 'block'
+        });
+        $('#file').val("");
+        $("#pictureUpload").attr("src", "");
+
+    }
+
+    $('#seo_custom').click(function () {
+        $('#body_of_seo_category').css('display', 'block');
+    });
+
+    var checkStatus = true;
+    function checkNameCategory() {
+        var category_name = $("#category_name").val().trim();
+        if (category_name == null || category_name == "") {
+            $("#category_name_feedback").css('display', 'block');
+            $("#category_name").addClass('is-invalid');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'none');
+        }
+        else {
+            $.ajax({
+                url: "/Category/checkDuplicate",
+                data: {
+                    category_name: category_name,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    if (data != "True") {
+                        checkStatus = true;
+                        $("#btn_insert").removeClass("disabled");
+
+                        $("#category_name").removeClass('is-invalid');
+                        $("#category_name").addClass('is-valid');
+
+                        $("#category_name_check_duplicate_true").css('display', 'block');
+                        $("#category_name_check_duplicate_false").css('display', 'none');
+
+                        $("#category_name_feedback").css('display', 'none');
+                    }
+                    else {
+                        $("#btn_insert").addClass("disabled");
+
+                        $("#category_name").removeClass('is-valid');
+                        $("#category_name").addClass('is-invalid');
+
+                        $("#category_name_check_duplicate_true").css('display', 'none');
+                        $("#category_name_check_duplicate_false").css('display', 'block');
+
+                        $("#category_name_feedback").css('display', 'none');
+                    }
+                },
+                error: function (xhr, status) {
+                    $("#valid-feedback").val("Lỗi");
+                },
+                complete: function (xhr, status) {
+                    //$('#showresults').slideDown('slow')
+                }
+            });
+        }
+    }
+
+    var maxLength = 70;
+    $('input[id=category_name]').keyup(function () {
+        var category_name = $('#category_name').val().trim();
+
+        $("#seo_header").val(category_name.slice(0, 70));
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+        if (category_name.length > 70) {
+            $('#count_seo_header').text("0");
+        }
+
+        $("#seo_alias").val(ConvertToSeoTitle(category_name));
+        $("#alt_image").val(ConvertToSeoTitle(category_name));
+        $("#category_name").removeClass('is-invalid');
+        $("#category_name").removeClass('is-valid');
+
+        $("#category_name_check_duplicate_true").css('display', 'none');
+        $("#category_name_check_duplicate_false").css('display', 'none');
+
+        $("#category_name_feedback").css('display', 'none');
+    });
+
+    $('input[id=seo_header]').keyup(function () {
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+    });
+
+    var maxLengthDescription = 320;
+    $('textarea#seo_description').keyup(function () {
+        var textlenght = maxLengthDescription - $('textarea#seo_description').val().length;
+        $('#count_seo_description').text(textlenght);
+    });
+
+
+    var form_has_changed = false;
+    //$(window).bind('beforeunload', function () {
+    //    if (form_has_changed) {
+    //        return false;
+    //    }
+    //});
+
+    //Condition
+    var conditon_index = 1;
+    var array_index = [];
+    array_index.push(conditon_index);
+
+    $('#btn_add_condition').click(function () {
+        if (array_index.length == 1) {
+            $.each(array_index, function (index, value) {
+                $('#remove_condition_' + value).css('display', 'block');
+                $('#div_price_condition_' + value).css('width', '85%');
+            });
+        }
+        conditon_index++;
+        array_index.push(conditon_index);
+        $('#div_condition').append('<div class="row" id="div_condition_children_' + conditon_index + '" style="border-top: 1px solid #ebedf2; padding-top: 20px;"><div class="col-md-4"><div class="form-group bs-select-1"><select class="custom-select" style="border-radius: .25rem;" id="select_condition_type_' + conditon_index + '"><option value="product_price" selected>Giá sản phẩm</option><option value="product_name">Tên sản phẩm</option><option value="product_supplier">Nhà cung cấp</option><option value="product_tag">Tag sản phẩm</option></select></div></div><div class="col-md-4"><div class="form-group bs-select-1"><select class="custom-select" style="border-radius: .25rem;" id="select_condition_' + conditon_index + '"><option value="equal">Bằng</option><option value="more">Lớn hơn</option><option value="less">Nhỏ hơn</option><option value="contain">Chứa từ</option></select></div></div><div class="col-md-4"><div id="div_price_condition' + conditon_index + '" style="float: left; width: 85%;"><input type="text" name="condition_price_value_" class="form-control autoNumericInput" id="condition_price_value_' + conditon_index + '" placeholder="0đ"><input type="text" name="condition_product_name_value_' + conditon_index + '" class="form-control" id="condition_product_name_value_' + conditon_index + '" placeholder="Nhập từ cần chứa" style="display: none; font-size: 13px""></div><div id="div_remove_condition' + conditon_index + '" style="float: right; font-size: 25px;"><a class="text-primary disabled" href="javascript:void(0)" id="remove_condition_' + conditon_index + '"><i class="fa fa-trash"></i></a></div></div></div>')
+
+        console.log(array_index);
+
+        loopArray(array_index);
+
+    });
+
+    function loopArray(array_index) {
+        $.each(array_index, function (index, value) {
+            $('#select_condition_type_' + (index + 1)).on('change', function () {
+                var value = $('#select_condition_type_' + (index + 1)).val();
+                if (value !== "product_price") {
+                    $('#condition_price_value_' + (index + 1)).css('display', 'none');
+                    $('#condition_product_name_value_' + (index + 1)).css('display', 'block');
+
+                    $("#select_condition_" + (index + 1) + " option[value=equal]").attr('disabled', 'disabled');
+                    $("#select_condition_" + (index + 1) + " option[value=more]").attr('disabled', 'disabled');
+                    $("#select_condition_" + (index + 1) + " option[value=less]").attr('disabled', 'disabled');
+
+                    $("#select_condition_" + (index + 1) + " option[value=contain]").removeAttr('disabled');
+                    $("#select_condition_" + (index + 1) + " option[value='contain']").prop('selected', true);
+                }
+                else {
+                    $('#condition_price_value_' + (index + 1)).css('display', 'block');
+                    $('#condition_product_name_value_' + (index + 1)).css('display', 'none');
+
+                    $("#select_condition_" + (index + 1) + " option[value=equal]").removeAttr('disabled');
+                    $("#select_condition_" + (index + 1) + " option[value=more]").removeAttr('disabled');
+                    $("#select_condition_" + (index + 1) + " option[value=less]").removeAttr('disabled');
+
+                    $("#select_condition_" + (index + 1) + " option[value=contain]").attr('disabled', 'disabled');
+                    $("#select_condition_" + (index + 1) + " option[value='equal']").prop('selected', true);
+                    $(".autoNumericInput").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                }
+            });
+
+            $('#remove_condition_' + (index + 1)).click(function () {
+                if (array_index.length > 1) {
+
+                    $('#div_condition_children_' + (index + 1)).remove();
+
+                    for (var i = 0; i < array_index.length; i++) {
+                        if (array_index[i] == (index + 1)) {
+                            array_index.splice(i, 1);
+                        }
+                    }
+
+                }
+                if (array_index.length == 1) {
+                    $.each(array_index, function (index, valueLast) {
+                        $('#remove_condition_' + valueLast).css('display', 'none');
+                        $('#div_price_condition_' + valueLast).css('width', '100%');
+                    });
+                }
+
+            });
+
+        });
+
+    }
+
+    $('#check_has_category_parent').change(function () {
+        if (this.checked) {
+            $('#select_category_parent').removeClass('hidden_element');
+        } else {
+            $('#select_category_parent').addClass('hidden_element');
+        }
+    });
+
+    $('#btn_insert').click(function () {
+        var fileData = new FormData();
+        var fileUpload = $("#file").get(0);
+        var files = fileUpload.files;
+        var category_name = $('#category_name').val().trim();
+        var list_tag_category = $("#tag_category").tagsinput('items');
+
+        for (var i = 0; i < list_tag_category.length; i++) {
+            fileData.append("tags[" + i + "]", list_tag_category[i]);
+        }
+        fileData.append("category_image", files[0]);
+        fileData.append("category_name", $("#category_name").val().trim());
+        fileData.append("description", $('#summernote').summernote('code'));
+        fileData.append("seo_alias", $("#seo_alias").val());
+        fileData.append("seo_description", $("#seo_description").val());
+        fileData.append("seo_header", $("#seo_header").val());
+        fileData.append("alt_image", $("#alt_image").val());
+        fileData.append("type_of_category_id", $("#select_type_of_category").val());
+        if ($('#check_has_category_parent').is(':checked') && $('#select_category_parent').val() != null) {
+            fileData.append("category_parent_id", $("#select_category_parent").val());
+        }
+
+        if ($("input[name='set_time_show']:checked").val() == "false" || $("input[name='set_time_show']:checked").val() == false) {
+            fileData.append("category_date_to_show", $("#category_date_to_show").val().trim());
+            fileData.append("category_time_to_show", $('#category_time_to_show').clockface('getTime').trim());
+        }
+
+        if (category_name == null || category_name == "") {
+            $("#category_name_feedback").css('display', 'block');
+            $("#category_name").addClass('is-invalid');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'none');
+            $('html, body').animate({
+                scrollTop: $("#category_name_check_duplicate_false").offset().top
+            }, 600);
+        } else {
+            $("#category_name_feedback").css('display', 'none');
+            $("#category_name").removeClass('is-invalid');
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertCategory", "Category", null)',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                     //var data_json = JSON.parse(data);
+                    var date_obj = new Date();
+                    var minutes = 30;
+                    date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+
+                    Cookies.set("insert_category_success", "" + data.category_id, { expires: date_obj });
+                    var url = '/Category/CategoryDetail?id=' + data.category_id;
+                    window.location.href = url;
+                },
+                error: function (xhr) {
+                    toastError();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                }
+            });
+        }
+        return false;
+    });
+
+</script>
+
+

@@ -1,0 +1,537 @@
+﻿@using Data;
+@using Data.Providers;
+@using Data.Models;
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+    }
+    //else
+    //{
+    //    Response.Redirect("/User/Login");
+    //}
+
+    DateTime current_datetime = System.DateTime.Now;
+    string url = System.Configuration.ConfigurationManager.AppSettings["urlPresentationFreshMart"];
+
+}
+
+
+<div class="row">
+    @*<div class="col-md-12">
+            <div class="alert border-0 alert-primary bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert">
+                Xin chào <strong>@userLoged.role.value @userLoged.firstname @userLoged.lastname</strong>! Bạn chưa có danh sách công việc cần làm ngày hôm nay.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ti ti-close"></i>
+                </button>
+            </div>
+        </div>*@
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-lg-flex flex-nowrap align-items-center">
+            <div class="page-title mr-4 pr-4 border-right">
+                <h1>Tổng quan</h1>
+            </div>
+            <div class="breadcrumb-bar align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="@url"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Tổng quan</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="ml-auto d-flex align-items-center secondary-menu text-center">
+                <a href="javascript:void(0);" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Todo list">
+                    <i class="fe fe-edit btn btn-icon text-primary"></i>
+                </a>
+                <a href="javascript:void(0);" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Projects">
+                    <i class="fa fa-lightbulb-o btn btn-icon text-success"></i>
+                </a>
+                <a href="javascript:void(0);" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Task">
+                    <i class="fa fa-check btn btn-icon text-warning"></i>
+                </a>
+                <a href="javascript:void(0);" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calendar">
+                    <i class="fa fa-calendar-o btn btn-icon text-cyan"></i>
+                </a>
+                <a href="javascript:void(0);" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Analytics">
+                    <i class="fa fa-bar-chart-o btn btn-icon text-danger"></i>
+                </a>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-sm-12 col-xxl-4">
+        <div class="card card-statistics ecommerce-contant overflow-h">
+            <div class="card-body p-0">
+                <div class="d-flex m-b-0 ecommerce-contant-text h-100">
+                    <div class="w-100">
+                        <div class="row p-3">
+                            <div class="col">
+                                <h4 class="mb-0">@ViewBag.GetNumberOfOrdersByThisMonth</h4>
+                                <small class="d-block">@current_datetime.Month/@current_datetime.Year</small>
+                            </div>
+                            <div class="col text-right">
+                                <h5 class="text-muted mb-0">Hóa đơn/Tháng</h5>
+                                @if (ViewBag.GetNumberOfOrdersByLastMonth == 0)
+                                {
+                                    <strong class="text-danger m-t-5"><i class="font-weight-bold"></i>--</strong>
+                                }
+                                else
+                                {
+                                    if (ViewBag.GetNumberOfOrdersByThisMonth > ViewBag.GetNumberOfOrdersByLastMonth)
+                                    {
+                                        <strong class="text-danger m-t-5"><i class="zmdi zmdi-long-arrow-up font-weight-bold"></i> @ViewData["Growth"]%</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong class="text-danger m-t-5"><i class="zmdi zmdi-long-arrow-down font-weight-bold"></i> @ViewData["Growth"]%</strong>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="apexchart-wrapper">
+                            <img src="~/Assets/element/rolling.svg" id="loading_request_chart_order" class="hidden_element loading_chart_home" />
+                            <div id="order_chart" class="chart-fit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-xxl-4">
+        <div class="card card-statistics ecommerce-contant overflow-h">
+            <div class="card-body p-0">
+                <div class="d-flex ecommerce-contant-text m-b-0 h-100">
+                    <div class="w-100">
+                        <div class="row p-3">
+                            <div class="col">
+                                <h4 class="mb-0 showNumeric">@ViewBag.GetRevenueThisMonth</h4>
+                                <small class="d-block">Tháng @current_datetime.Month/@current_datetime.Year</small>
+                            </div>
+                            <div class="col text-right">
+                                <h5 class="text-muted mb-0">Doanh thu/tháng</h5>
+                                @if (ViewBag.GetRevenueLastMonth == 0)
+                                {
+                                    <strong class="text-primary m-t-5"><i class="font-weight-bold"></i>--</strong>
+                                }
+                                else
+                                {
+                                    if (ViewBag.GetRevenueThisMonth > ViewBag.GetRevenueLastMonth)
+                                    {
+                                        <strong class="text-orange m-t-5"><i class="zmdi zmdi-long-arrow-up font-weight-bold"></i> @ViewData["GrowthRevenueThisMonth"]%</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong class="text-orange m-t-5"><i class="zmdi zmdi-long-arrow-down font-weight-bold"></i> @ViewData["GrowthRevenueThisMonth"]%</strong>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="apexchart-wrapper">
+                            <img src="~/Assets/element/rolling.svg" id="loading_request_chart_revenue" class="hidden_element loading_chart_home" />
+                            <div id="revenue_this_month_chart" class="chart-fit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-xxl-4">
+        <div class="card card-statistics ecommerce-contant overflow-h">
+            <div class="card-body p-0">
+                <div class="d-flex m-b-0 ecommerce-contant-text h-100">
+                    <div class="w-100">
+                        <div class="w-100">
+                            <div class="row p-3">
+                                <div class="col">
+                                    <h4 class="mb-0">@ViewBag.AllOrder</h4>
+                                    <small class="d-block">Tổng số hóa đơn</small>
+                                </div>
+                                <div class="col text-right">
+                                    <h5 class="text-muted mb-0">Hóa đơn/Giờ</h5>
+                                    <strong class="text-primary m-t-5"><i class="font-weight-bold"></i>--</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="apexchart-wrapper">
+                            <img src="~/Assets/element/rolling.svg" id="loading_request_chart_order_by_hour" class="hidden_element loading_chart_home" />
+                            <div id="order_by_hour_chart" class="chart-fit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-sm-12 col-xxl-4">
+        <div class="card card-statistics ecommerce-contant overflow-h">
+            <div class="card-body p-0">
+                <div class="d-flex m-b-0 ecommerce-contant-text h-100">
+                    <div class="w-100">
+                        <div class="row p-3">
+                            <div class="col">
+                                <h4 class="mb-0">5,687</h4>
+                                <small class="d-block">Last 3 months</small>
+                            </div>
+                            <div class="col text-right">
+                                <h5 class="text-muted mb-0">Purchases</h5>
+                                <strong class="text-success m-t-5"><i class="zmdi zmdi-long-arrow-up font-weight-bold"></i> 9.89%</strong>
+                            </div>
+                        </div>
+                        <div class="apexchart-wrapper">
+                            <div id="ecommercedemo4" class="chart-fit"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+</div>
+
+<div class="row">
+    <div class="col-xxl-8 m-b-30">
+        <div class="card card-statistics h-100 mb-0">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="card-heading">
+                    <h4 class="card-title">Top 10 sản phẩm bán chạy nhất</h4>
+                </div>
+                <div class="dropdown">
+                    <a class="btn btn-xs" href="#!">Export <i class="zmdi zmdi-download pl-1"></i> </a>
+                </div>
+            </div>
+            <div class="card-body scrollbar scroll_dark pt-0" id="div_top_10_product_sale">
+                <img src="~/Assets/element/rolling.svg" id="loading_request" class="hide" />
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-4 m-b-30">
+        <div class="card card-statistics h-100 mb-0">
+            <div class="card-header d-flex justify-content-between">
+                <div class="card-heading">
+                    <h4 class="card-title">Nhật ký hoạt động</h4>
+                </div>
+                <div class="dropdown">
+                    <a class="p-2" href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fe fe-more-horizontal"></i>
+                    </a>
+                    <div class="dropdown-menu custom-dropdown dropdown-menu-right p-4">
+                        <h6 class="mb-1">Action</h6>
+                        <a class="dropdown-item" href="#!"><i class="fa fa-refresh pr-2"></i>Cập nhật nhật ký</a>
+                        <a class="dropdown-item" href="#!"><i class="fa fa-list-alt pr-2"></i>Hiển thị tất cả nhật ký</a>
+                        <h6 class="mb-1 mt-3">Export</h6>
+                        <a class="dropdown-item" href="#!"><i class="fa-fw fa fa-file-pdf-o pr-2"></i>Export file PDF</a>
+                        <a class="dropdown-item" href="#!"><i class="fa-fw fa fa-file-excel-o pr-2"></i>Export file Excel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body scrollbar scroll_dark" style="max-height:780px">
+                <ul class="activity">
+                    @foreach (var log in ViewData["SystemLog"] as List<system_log>)
+                    {
+                        <li class="activity-item secondary">
+                            <div class="activity-info">
+                                <h5 class="mb-0">
+                                    @if (log.user_id > 0)
+                                    {
+                                        <a class="text-info" href="/User/UserDetail?id=@log.user_id">@log.user.username </a>
+                                    }
+                                    @if (log.system_log_object_id != null)
+                                    {
+                                        <a href="@log.system_log_url?id=@log.system_log_object_id">@log.system_log_description</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@log.system_log_url">@log.system_log_description</a>
+                                    }
+
+                                </h5>
+                                @if (log.system_log_time.Date == current_datetime.Date)
+                                {
+                                    <span class="time-log-system">Hôm nay @log.system_log_time.ToString("HH:mm")</span>
+                                }
+                                else if (log.system_log_time.Date == current_datetime.Date.AddDays(1))
+                                {
+                                    <span class="time-log-system">Ngày mai @log.system_log_time.ToString("HH:mm")</span>
+                                }
+                                else if (log.system_log_time.Date == current_datetime.Date.AddDays(-1))
+                                {
+                                    <span class="time-log-system">Hôm qua @log.system_log_time.ToString("HH:mm")</span>
+                                }
+                                else
+                                {
+                                    <span class="time-log-system">Ngày @log.system_log_time.ToString("dd/M/yyyy") @log.system_log_time.ToString("HH:mm")</span>
+                                }
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#dashboard').addClass('active');
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        $('.apexcharts-tooltip-text-value').addClass('showNumeric');
+        LoadChartNumOrder();
+        LoadChartRevenue();
+        LoadChartOrderByHour();
+
+        $('.td_instock').css('cursor', 'pointer');
+        loadTop10ProductSale();
+    });
+
+    function loadTop10ProductSale() {
+        $.ajax({
+            url: "/Home/GetTop10ProductVariationSale",
+            data: {},
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            beforeSend: function () {
+                $('#loading_request').removeClass('hide');
+            },
+            success: function (data) {
+                $('#div_top_10_product_sale').html(data);
+            },
+            error: function (xhr) {
+                alert('Có lỗi xảy ra');
+            },
+            complete: function (xhr, status) {
+                $('#loading_request').addClass('hide');
+            }
+        });
+    }
+
+    function LoadChartNumOrder() {
+        $.ajax({
+            url: "/Home/GetNumberOfOrdersByTimeLine",
+            data: {},
+            context: document.body,
+            type: "GET",
+            beforeSend: function () {
+                $('#loading_request_chart_order').removeClass('hidden_element');
+            },
+            success: function (data) {
+                var order_chart = jQuery('#order_chart');
+                if (order_chart.length > 0) {
+                    // data for the sparklines that appear below header area
+                    var options = {
+                        chart: {
+                            type: 'area',
+                            height: 100,
+                            sparkline: {
+                                enabled: true,
+                                offsetY: 25,
+                                offsetX: 25,
+                            },
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            width: 3
+                        },
+                        fill: {
+                            opacity: 0.3,
+                            gradient: {
+                                enabled: true,
+                                shadeIntensity: 0.1,
+                                inverseColors: false,
+                                opacityFrom: 0.6,
+                                opacityTo: 0.2,
+                                stops: [20, 100, 100, 100]
+                            },
+                        },
+                        series: [{
+                            name: 'Số lượng',
+                            data: data
+                        }],
+                        yaxis: {
+                            min: 0
+                        },
+                        colors: ['#e3324c'],
+                        tooltip: {
+                            x: {
+                                formatter: (value) => { return value + "/" + month + "/" + now.getFullYear() },
+                            },
+                        }
+                    }
+
+                    var chart = new ApexCharts(
+                        document.querySelector("#order_chart"),
+                        options
+                    );
+
+                    chart.render();
+                }
+            },
+            error: function (xhr) {
+                alert('Có lỗi xảy ra');
+            },
+            complete: function (xhr, status) {
+                $('#loading_request_chart_order').addClass('hidden_element');
+            }
+        });
+    }
+
+    function LoadChartRevenue() {
+        $.ajax({
+            url: "/Home/GetRevenueByTimeLine",
+            data: {},
+            context: document.body,
+            type: "GET",
+            beforeSend: function () {
+                $('#loading_request_chart_revenue').removeClass('hidden_element');
+            },
+            success: function (data) {
+                var order_chart = jQuery('#revenue_this_month_chart');
+                if (order_chart.length > 0) {
+                    // data for the sparklines that appear below header area
+                    var options = {
+                        chart: {
+                            type: 'area',
+                            height: 100,
+                            sparkline: {
+                                enabled: true,
+                                offsetY: 25,
+                                offsetX: 25,
+                            },
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            width: 3
+                        },
+                        fill: {
+                            opacity: 0.3,
+                            gradient: {
+                                enabled: true,
+                                shadeIntensity: 0.1,
+                                inverseColors: false,
+                                opacityFrom: 0.6,
+                                opacityTo: 0.2,
+                                stops: [20, 100, 100, 100]
+                            },
+                        },
+                        series: [{
+                            name: 'Doanh thu',
+                            data: data
+                        }],
+                        yaxis: {
+                            min: 0
+                        },
+                        colors: ['#fbaf54'],
+                        tooltip: {
+                            x: {
+                                formatter: (value) => { return value + "/" + month + "/" + now.getFullYear() },
+                            },
+                            y: {
+                                formatter: (value) => { return formatNumber(value) + " ₫" },
+                            },
+                        }
+                    }
+
+                    var chart = new ApexCharts(
+                        document.querySelector("#revenue_this_month_chart"),
+                        options
+                    );
+                    chart.render();
+                }
+            },
+            error: function (xhr) {
+                alert('Có lỗi xảy ra');
+            },
+            complete: function (xhr, status) {
+                $('#loading_request_chart_revenue').addClass('hidden_element');
+            }
+        });
+    }
+
+    function LoadChartOrderByHour() {
+        $.ajax({
+            url: "/Home/GetOrderByHour",
+            data: {},
+            context: document.body,
+            type: "GET",
+            beforeSend: function () {
+                $('#loading_request_chart_order_by_hour').removeClass('hidden_element');
+            },
+            success: function (data) {
+                var order_chart = jQuery('#revenue_this_month_chart');
+                if (order_chart.length > 0) {
+                    // data for the sparklines that appear below header area
+                    var options = {
+                        chart: {
+                            type: 'area',
+                            height: 100,
+                            sparkline: {
+                                enabled: true,
+                                offsetY: 25,
+                                offsetX: 25,
+                            },
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            width: 3
+                        },
+                        fill: {
+                            opacity: 0.3,
+                            gradient: {
+                                enabled: true,
+                                shadeIntensity: 0.1,
+                                inverseColors: false,
+                                opacityFrom: 0.6,
+                                opacityTo: 0.2,
+                                stops: [20, 100, 100, 100]
+                            },
+                        },
+                        series: [{
+                            name: 'Số lượng',
+                            data: data
+                        }],
+                        yaxis: {
+                            min: 0
+                        },
+                        colors: ['#8E54E9'],
+                        tooltip: {
+                            x: {
+                                formatter: (value) => { return value + " giờ" },
+                            },
+                        }
+                    }
+
+                    var chart = new ApexCharts(
+                        document.querySelector("#order_by_hour_chart"),
+                        options
+                    );
+                    chart.render();
+                }
+            },
+            error: function (xhr) {
+                alert('Có lỗi xảy ra');
+            },
+            complete: function (xhr, status) {
+                $('#loading_request_chart_order_by_hour').addClass('hidden_element');
+            }
+        });
+    }
+
+
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+</script>

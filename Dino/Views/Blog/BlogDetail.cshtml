@@ -1,0 +1,151 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+
+<div id="article">
+    <div class="container-fluid">
+        <div class="row breadcrumb-shop">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5 blog-breadcrumb ">
+                <ol class="breadcrumb breadcrumb-arrows">
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+                    <li><a href="/blogs">News</a></li>
+                    <li class="active"><span>@Model.blog_title</span></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row wrapper-row pd-page">
+            <div class="col-md-3 col-sm-12 col-xs-12 ">
+                <div class="sidebar-blog">
+                    <div class="news-latest  clearfix">
+                        <div class="sidebarblog-title title_block">
+                            <h2>Bài viết mới nhất<span class="fa fa-angle-down"></span></h2>
+                        </div>
+                        <div class="list-news-latest layered">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <div class="item-article clearfix abc">
+                                    <div class="post-image">
+                                        <a href="/blogs/@blog.blog_seo_alias"><img class="lazyload" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image" /></a>
+                                    </div>
+                                    <div class="post-content">
+                                        <h3>
+                                            <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                        </h3>
+                                        <span class="author">
+                                            <a href="/blogs/@blog.blog_seo_alias">@blog.user.username</a>
+                                        </span>
+                                        <span class="date">
+                                            @blog.show_datetime.Value.ToString("dd/MM/yyyy")
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="content-page">
+                    <div class="article-content">
+                        <div class="box-article-heading clearfix">
+                            <h1 class="sb-title-article"><b>@Model.blog_title</b></h1>
+                            <ul class="article-info-more">
+                                <li><time pubdate datetime="@Model.show_datetime.Value.ToString("dd/MM/yyyy")">@Model.show_datetime.Value.ToString("dd/MM/yyyy")</time></li>
+                                <li><i class="fa fa-file-text-o"></i><a href="#"> @Model.blog_category.blog_category_name</a> </li>
+
+                            </ul>
+                        </div>
+                        <div class="article-pages">
+                            <div id="ega-uti-editable-content">
+                                @Html.Raw(Model.blog_content)
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (list_blog_related.Count > 0)
+                    {
+                        <div class="extra_blogs">
+                            <h4>Tin cùng danh mục</h4>
+                            <div class="related_articles">
+                                @foreach (var blog in list_blog_related)
+                                {
+                                    <div class="article_loop">
+                                        <div class="col-md-12">
+                                            <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <a href="/blogs/@blog.blog_seo_alias" title="@blog.blog_title">
+                                                @blog.blog_title
+                                                <p>	(@blog.show_datetime.Value.ToString("dd/MM/yyyy") @blog.show_datetime.Value.ToString("HH:mm"))</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('.related_articles').owlCarousel({
+            items: 3,
+            nav: true,
+            autoplay: true,
+            navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+            dots: false,
+            lazyLoad: true,
+            touchDrag: true,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                768: {
+                    items: 2
+                },
+                1024: {
+                    items: 3
+                }
+            }
+        });
+    })
+
+
+</script>
+

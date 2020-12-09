@@ -1,0 +1,205 @@
+﻿@model IPagedList<Data.category>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Danh mục sản phẩm</h1>
+
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Danh mục sản phẩm
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Danh sách danh mục</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div class="gr-btn-action row" id="">
+    <div class="btn-group-left col-md-6">
+        <a href="/Product/ExportToExcel" class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;">Export &nbsp;<i class="nav-icon ti ti-download"></i></a>
+        <a class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;" data-toggle="modal" data-target="#modalImportExcel">Import &nbsp;<i class="nav-icon ti ti-upload"></i></a>
+    </div>
+    <div class="btn-group-right col-md-6" style="text-align: right">
+        <a class="btn btn-square btn-primary" href="@Url.Action("InsertCategory", "Category")">Tạo danh mục &nbsp;<i class="nav-icon ion ion-md-arrow-round-forward"></i></a>
+    </div>
+
+    <div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalImportExcel" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nhập danh sách sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="file" id="importExcel" name="importExcel" style="display: none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <label for="importExcel" class="btn btn-primary">Chọn tệp .xlsx</label>
+                        <a id="fileName">Không có tệp nào được chọn.</a>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        Tải file mẫu nhập danh sách sản phẩm <a href="/Assets/file/form-import-product.xlsx" download="" class="text-info font-weight-bold">tại đây</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success">Nhập danh sách sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="input-group mb-3">
+            <form id="form_filter">
+                <div class="btn-group">
+                    <select class="custom-select" id="select-filter">
+                        <option selected="" value="-1">Lọc danh mục theo</option>
+                        <option value="1">Trạng thái danh mục</option>
+                    </select>
+
+                    <select class="custom-select" id="filter-by-category-status" style="display: none">
+                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                        <option value="hidden">Đang ẩn</option>
+                        <option value="show">Đang hiển thị</option>
+                    </select>
+                </div>
+            </form>
+            <input type="text" class="form-control" id="search_input" value="@ViewBag.FilterValue" name="search_input" placeholder="Tìm kiếm danh mục sản phẩm..." aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="button-addon2">
+                    <i class="nav-icon ti ti-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" style="text-align:right">
+        <form>
+            <div class="btn-group">
+                <select class="custom-select">
+                    <option selected="" value="-1" disabled>Sắp xếp thứ tự theo</option>
+                    <option value="1">Tên danh mục: A -> Z</option>
+                    <option value="2">Tên danh mục: Z -> A</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="data_table">
+    @{Html.RenderAction("GetCategory", "Category", new { page_num = ViewBag.page_num, search_string = ViewBag.FilterValue });}
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#category').addClass('active');
+        $('#list_category').addClass('active');
+
+        $('#form_filter').trigger("reset");
+    });
+
+
+    $('#select-filter').on('change', function () {
+        var filter_value = this.value;
+        var search_string = $('#search_input').val().trim();
+        if (filter_value == -1 || filter_value == "-1") {
+            $('#filter-by-category-status').css('display', 'none');
+            $.ajax({
+                url: "/Category/Index",
+                data: {
+                    search_string: search_string,
+                    page_num: 1,
+                },
+                context: document.body,
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                },
+                complete: function (xhr, status) {
+                    //$('#showresults').slideDown('slow')
+                }
+            });
+        }
+        else if (filter_value == 1 || filter_value == "1") {
+            $('#filter-by-category-status').css('display', 'block');
+        }
+    });
+
+    $('#filter-by-category-status').on('change', function () {
+        var quick_filter_value = this.value;
+        var search_string = $('#search_input').val().trim();
+        $.ajax({
+            url: "/Category/Index",
+            data: {
+                search_string: search_string,
+                page_num: 1,
+                quick_filter_value: quick_filter_value
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+                //$('#showresults').slideDown('slow')
+            }
+        });
+    });
+
+    $('#search_input').keypress(function (e) {
+        if (e.which == 13) {
+            var search_string = $('#search_input').val().trim();
+            var quick_filter_value = '@ViewBag.QuickFilter';
+            $.ajax({
+                url: "/Category/Index",
+                data: {
+                    search_string: search_string,
+                    page_num: 1,
+                    quick_filter_value: quick_filter_value
+                },
+                context: document.body,
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        }
+    });
+
+</script>
+

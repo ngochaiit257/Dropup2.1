@@ -1,0 +1,23 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | Bunny Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Dino Store, Thời trang Dino";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Dino Store";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<h2>Index</h2>
+

@@ -1,0 +1,52 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="row center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row row align-items-center">
+        @foreach (var blog in Model)
+        {
+            <div class="col-lg-3">
+                <div class="blog-item">
+                    <a href="blog-details.html">
+                        <img src="assets/img/blog/blog2.jpg" alt="Blog">
+                    </a>
+                    <ul>
+                        <li>
+                            <i class='bx bxs-calendar'></i>
+                            <span>12 Oct, 2020</span>
+                        </li>
+                        <li>
+                            <i class='bx bxs-user'></i>
+                            <span>By:</span>
+                            <a href="#">Admin</a>
+                        </li>
+                        <li>
+                            <i class='bx bxs-comment-detail'></i>
+                            <a href="#">2 Comments</a>
+                        </li>
+                    </ul>
+                    <h3>
+                        <a href="blog-details.html">How To Increase Financial Investment  & Skill In Your Business Without Money</a>
+                    </h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, omnis accusamus magni quisquam deserunt quis impedit enim, iure atque eveniet cumque</p>
+                    <a class="blog-btn" href="#">Read More</a>
+                </div>
+            </div>
+        }
+    </div>
+}

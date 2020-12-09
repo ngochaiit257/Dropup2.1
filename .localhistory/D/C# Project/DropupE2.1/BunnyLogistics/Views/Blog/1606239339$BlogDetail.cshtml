@@ -1,0 +1,117 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>Tin tức và Sự kiện</h2>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li><a href="/blogs">Tin tức</a></li>
+                <li>@Model.blog_title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Service Details Section Start -->
+<section class="service-details-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="service-post-area">
+                    <div class="service-details-img">
+                        <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                    </div>
+                    <h2>@Model.product_name</h2>
+                    @Html.Raw(Model.content)
+                </div>
+            </div>
+
+            <div class="col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="service-sidebar">
+                    <div class="sidebar-widget">
+                        <h3>Danh mục dịch vụ</h3>
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/@service.seo_alias">
+                                        <i class="icofont-check-circled"></i>
+                                        @service.product_name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Thông tin liên hệ</h3>
+                        <ul>
+                            <li>
+                                <a href="tel:@contact.phone_number">
+                                    <i class="icofont-phone"></i>
+                                    @contact.phone_number
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@contact.email">
+                                    <i class="icofont-ui-message"></i>
+                                    @contact.email
+                                </a>
+                            </li>
+                            <li>
+                                <i class="icofont-location-pin"></i>
+                                @contact.address
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Download Brochures</h3>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-file-alt"></i>
+                                    Bunny Profile
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Service Details Section End -->

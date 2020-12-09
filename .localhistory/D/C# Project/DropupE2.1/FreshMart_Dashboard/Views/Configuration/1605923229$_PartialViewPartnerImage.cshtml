@@ -1,0 +1,154 @@
+﻿@model List<store_partner>
+@using Data;
+@using Data.Providers;
+<div class="row">
+    <div class="col-md-4">
+        <div class="scrollbar scroll_dark pt-0" style="max-height: 500px;">
+            <div class="list-group" id="list-tab" role="tablist">
+                @if (Model.Count() > 0)
+                {
+                    foreach (var sp in Model)
+                    {
+                        <a class="list-group-item list-group-item-action" id="aria_labelledby_scs_@sp.store_partner_id" data-toggle="list" href="#id_scs_@sp.store_partner_id" role="tab">
+                            <span class="bg-img mr-10" style="line-height: unset">
+                                <img src="@sp.image" alt="@sp.alt" style="width: 30px;height: 30px;object-fit: contain;" />
+                            </span>
+                            @sp.name
+                        </a>
+                    }
+                }
+            </div>
+            <div class="line_div"></div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" style="width:100%" onclick="showModalCreatePartner()">Thêm đối tác</button>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="tab-content" id="nav-tabContent">
+            @if (Model.Count() > 0)
+            {
+                foreach (var sp in Model)
+                {
+                    <div class="tab-pane fade" id="id_scs_@sp.store_partner_id" role="tabpanel" aria-labelledby="aria_labelledby_scs_@sp.store_partner_id">
+                        <form id="form_create_store_partner">
+                            <div class="">
+                                <label>Hình ảnh</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="partner_img_client_site">
+                                        <img src="@sp.image" alt="@sp.alt" />
+                                    </div>
+                                    <input type="file" id="input_file_img_partner_detail" accept="image/*" hidden>
+                                    <div class="ml-3">
+                                        <label for="input_file_img_partner_detail">
+                                            <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                        </label>
+                                        &nbsp;&nbsp;
+                                        <a class="font-16 text-info" href="javascript:void(0)"><i class="fa fa-trash"></i> Xóa đối tác này</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-10">
+                                <label for="fb">Tên đối tác</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên" value="@sp.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="fb">Link</label>
+                                <input type="text" class="form-control" placeholder="Nhập link" value="@sp.link_url">
+                            </div>
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            var scrollbar = jQuery(".scrollbar");
+            if (scrollbar.length > 0) {
+                $('.scroll_dark').mCustomScrollbar({
+                    theme: "minimal-dark",
+                    setHeight: false,
+                    mouseWheel: {
+                        normalizeDelta: true,
+                        scrollAmount: '200px',
+                        contentTouchScroll: true,
+                        deltaFactor: '200px'
+                    },
+                    advanced: {
+                        autoScrollOnFocus: 'a[tabindex]'
+                    }
+                });
+            }
+        });
+    });
+
+    function showModalCreatePartner() {
+        $('#modalCreatePartner').modal('show');
+    }
+
+    function hideModalCreatePartner() {
+        $('#modalCreatePartner').modal('hide');
+        $('#modalPartnerImage').modal('show');
+    }
+
+    //Thêm đối tác
+    $(function () {
+        $("#input_file_img_partner").change(function () {
+            if (this.files && this.files[0]) {
+                if (this.files[0].size > (3 * 1024000)) {
+                    showToast("error", "Hình ảnh vượt quá kích thước cho phép. Giới hạn là 3Mb.", "Lỗi upload hình ảnh");
+                } else {
+                    var reader = new FileReader();
+                    reader.onload = imagePartnerIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            }
+        });
+    });
+
+    function imagePartnerIsLoaded(e) {
+        $('#show_img_partner').attr('src', e.target.result);
+    };
+
+    function createPartner() {
+        var fileData = new FormData();
+        var fileUpload = $("#input_file_img_partner").get(0);
+        var files = fileUpload.files;
+
+        if (files.length == 0) {
+            showToast("error", "Yêu cầu chọn hình ảnh.", "Lỗi thêm hình ảnh");
+        }
+        else {
+            fileData.append("image", files[0]);
+            fileData.append("name", $("#partner_name").val().trim());
+            fileData.append("link_url", $("#partner_link").val().trim());
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreatePartner", "Configuration")',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    updateStorePartner();
+                    $('#show_img_partner').attr('src', '../Assets/images/Icon/iconImg.png');
+                    $('#form_create_store_partner').trigger('reset');
+                    $('#modalCreatePartner').modal('hide');
+                    $('#modalPartnerImage').modal('show');
+                    showToast("success", "Thông tin hình ảnh đối tác đã được thêm.", "Thêm thành công");
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    }
+
+
+</script>

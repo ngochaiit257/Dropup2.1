@@ -1,0 +1,383 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+    TempData["CurrentUrl"] = currentUrl;
+
+    var list_delivery_address = new List<delivery_address>();
+    var list_order = new List<order>();
+    var customer = new customer();
+
+    long user_id_loged = 0;
+    string email_loged = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+        email_loged = username;
+
+        customer = new CustomerProvider().getByUserId(user_id_loged);
+        list_delivery_address = new DeliveryAddressProvider().getByCustomerId(customer.customer_id);
+        list_order = new OrderProvider().getByCustomerId(customer.customer_id);
+    }
+    else
+    {
+        userLoged = null;
+    }
+}
+
+@if (userLoged == null)
+{
+    <div class="layout-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="wrapbox-content-account">
+                    <div>
+                        <h2 class="mg-0 style-bold text-center">
+                            <strong>
+                                ĐĂNG NHẬP VỚI MẠNG XÃ HỘI
+                            </strong>
+                        </h2>
+                        <p class="mg-0 style-bold text-center">
+                            (ĐỂ NHẬN NGAY ƯU ĐÃI TỪ NGÀY HÔM NAY)
+                        </p>
+                    </div>
+                    <div id="customer-login">
+                        <div id="login" class="userbox">
+                            <div class="last-login">
+                                <div class="frame_social">
+                                    <button onclick="loginGoogle()" id="btn-google-login" class="login-facebook"><i style="font-size: 23px;color: #ff0000;float:left" class="fa fa-google" aria-hidden="true"></i> Google +</button>
+                                    <button onclick="loginFacebook()" id="btn-facebook-login" class="login-google"><i style="font-size: 23px;color: #38579b;float:left" class="fa fa-facebook-official" aria-hidden="true"></i>Facebook</button>
+
+                                    <script>
+                                        //LOGIN WITH FACEBOOK ACCOUNT
+                                        function loginFacebook() {
+                                            document.location = '@Url.Action("Facebook", "User")';
+                                            }
+
+                                         //LOGIN WITH GOOGLE
+                                        var OAUTHURL = 'https://accounts.google.com/o/oauth2/auth?';
+                                        var VALIDURL = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
+                                        var SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+                                        var CLIENTID = '214924800829-1bv2tohqjg0tav0upfflmmdtnmn13bur.apps.googleusercontent.com';
+                                        var REDIRECT = 'http://localhost:60972/';
+                                        var LOGOUT = 'http://localhost:60972/';
+                                        var TYPE = 'token';
+                                        var _url = OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
+                                        var acToken;
+                                        var tokenType;
+                                        var expiresIn;
+                                        var user;
+                                        var loggedIn = false;
+
+                                        function loginGoogle() {
+                                            var win = window.open(_url, "windowname1", 'width=800, height=600');
+                                            var pollTimer = window.setInterval(function () {
+                                                try {
+                                                    //console.log(win.document.URL);
+                                                    if (win.document.URL.indexOf(REDIRECT) != -1) {
+                                                        window.clearInterval(pollTimer);
+                                                        var url = win.document.URL;
+                                                        acToken = gup(url, 'access_token');
+                                                        tokenType = gup(url, 'token_type');
+                                                        expiresIn = gup(url, 'expires_in');
+
+                                                        win.close();
+                                                        validateToken(acToken);
+                                                    }
+                                                }
+                                                catch (e) {
+
+                                                }
+                                            }, 500);
+                                        }
+
+                                        function gup(url, name) {
+                                            namename = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                                            var regexS = "[\\#&]" + name + "=([^&#]*)";
+                                            var regex = new RegExp(regexS);
+                                            var results = regex.exec(url);
+                                            if (results == null)
+                                                return "";
+                                            else
+                                                return results[1];
+                                        }
+
+                                        function validateToken(token) {
+                                            getUserInfo();
+                                            $.ajax(
+                                                {
+                                                    url: VALIDURL + token,
+                                                    data: null,
+                                                    success: function (responseText) {
+                                                    },
+                                                });
+                                        }
+
+                                        function getUserInfo() {
+                                            $.ajax({
+                                                url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + acToken,
+                                                data: null,
+                                                success: function (resp) {
+                                                    var user = resp;
+                                                    $.ajax({
+                                                        url: '/User/GoogleLogin/',
+                                                        context: document.body,
+                                                        type: "POST",
+                                                        dataType: "html",
+                                                        data: {
+                                                            email: user.email,
+                                                            first_name: user.family_name,
+                                                            last_name: user.given_name,
+                                                            avatar_url: user.picture,
+                                                        },
+                                                        success: function (data) {
+                                                            var data_json = JSON.parse(data);
+                                                            updateCookieCartWhenLogin(data_json.user_id);
+                                                            window.location.href = '@currentUrl';
+                                                        },
+                                                    });
+
+                                                },
+                                            });
+                                        }
+                                        //END LOGIN GOOGLE
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="layout-info-account">
+        <div class="title-infor-account text-center">
+            <h1>Tài khoản của bạn </h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 sidebar-account">
+                    <div class="AccountSidebar">
+                        <h3 class="AccountTitle titleSidebar">Tài khoản</h3>
+                        <div class="AccountContent">
+                            <div class="AccountList">
+                                <ul class="list-unstyled">
+                                    <li class="last"><a href="#" onclick="logout()">Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9">
+                    <div class="row">
+                        <div class="col-xs-12" id="customer_sidebar">
+                            <div class="col-xs-12">
+                                <p class="title-detail">Thông tin tài khoản</p>
+                                <form id='update_customer'>
+                                    <div class="phone clearfix large_form">
+                                        <label class="label phone">Account</label>
+                                        <input autocomplete="false" type="text" value="@userLoged.username" class="text email" disabled size="30" />
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 customer-table-wrap" id="customer_orders">
+                            <div class="customer_order customer-table-bg">
+                                @if (list_order.Count > 0)
+                                {
+                                    <table class="table table-cart" id="my-orders-table">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">#</th>
+                                                <th width="10%">Ngày</th>
+                                                <th width="35%">Giao hàng đến</th>
+                                                <th width="10%">Giá trị</th>
+                                                <th width="20%">TT giao hàng</th>
+                                                <th width="20%">TT thanh toán</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var order in list_order)
+                                            {
+                                                decimal sum_cost = new OrderProvider().getSumCostByOrderId(order.order_id);
+                                                <tr class="first odd">
+                                                    <td><a href="#">#@order.order_id</a></td>
+                                                    <td>@order.create_datetime.ToString("dd/MM/yyy")</td>
+                                                    <td>@order.delivery_address.address_detail - @order.delivery_address.ward.Name - @order.delivery_address.district.Name - @order.delivery_address.province.Name</td>
+                                                    <td><span class="price showNumeric">@sum_cost</span></td>
+                                                    <td>
+                                                        @{ var transport = new TransportProvider().getByOrderId(order.order_id);}
+                                                        @if (transport == null)
+                                                        {
+                                                            <a>
+                                                                Chờ xác nhận
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a>
+                                                                @transport.shipping_status.shipping_status_description
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (order.payment_status == true)
+                                                        {
+                                                            <a>
+                                                                Đã thanh toán <br />
+                                                                <small>@order.payment_method.payment_method_description</small>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a>
+                                                                Chưa thanh toán<br />
+                                                                <small>@order.payment_method.payment_method_description</small>
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p>Bạn chưa đặt mua sản phẩm.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            if (Cookies.get("DINO_CART") != null) {
+                Cookies.remove("DINO_CART");
+            }
+            document.location = '@Url.Action("Logout","User")';
+        }
+    </script>
+
+    <style>
+        p.title-detail {
+            margin-bottom: 20px !important;
+        }
+
+        form#update_customer input[type="text"] {
+            width: 40%;
+            height: 45px;
+            border: 1px solid transparent;
+            background: #ededed;
+            color: #221e20;
+            padding: 0 20px;
+            font-weight: 500;
+            -webkit-appearance: none;
+        }
+
+        form#update_customer .large_form {
+            margin-bottom: 18px;
+        }
+
+        form#update_customer #gender ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        #customer_sidebar form#update_customer label.label {
+            display: block;
+            color: #000 !important;
+            text-align: left;
+            font-size: 14px;
+            padding-left: 0px !important;
+            margin-bottom: 0px !important;
+            font-weight: initial;
+            width: 120px;
+            float: left;
+            line-height: 38px;
+        }
+
+        form#update_customer #gender ul li label {
+            font-weight: initial;
+        }
+
+        form#update_customer div {
+            display: block !important;
+            width: 100%;
+            clear: both;
+        }
+
+        form#update_customer #gender ul {
+            margin: 10px 0px 20px;
+            float: left;
+        }
+
+        form#update_customer .phone {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        $('form#update_customer .updateAccount').click(function () {
+            sessionStorage.setItem("loadInfo", true);
+            sessionStorage.setItem("gender", $('#gender input[type="radio"]:checked').val());
+            sessionStorage.setItem("birthday", $('input#datepicker').val());
+            sessionStorage.setItem("firstName", $('input#first_name').val());
+            sessionStorage.setItem("lastName", $('input#last_name').val());
+
+            $.post('/account', {
+                form_type: "update_customer",
+                utf8: "✓",
+                "customer": {
+                    "last_name": $('input#last_name').val(),
+                    "first_name": $('input#first_name').val(),
+                    "gender": $('#gender input[type="radio"]:checked').val(),
+                    "birthday": $('input#datepicker').val(),
+                    "phone": $('input.text.phone').val()
+                }
+            })
+
+            var urlAddressUpdate = '/account/addresses/' + 1057776534;
+            $.post(urlAddressUpdate, {
+                form_type: "customer_address",
+                utf8: "✓",
+                "address": {
+                    "last_name": $('input#last_name').val(),
+                    "first_name": $('input#first_name').val(),
+                    "phone": $('input.text.phone').val()
+                }
+            })
+            alert("Cập nhật thông tin thành công");
+            /*$('.customer_address.edit_address [name="address[first_name]').val($('input#first_name').val());
+                $('.customer_address.edit_address [name="address[last_name]"]').val($('input#last_name').val());
+                $('.customer_address.edit_address [name="address[phone]"').val($('input.text.phone').val());
+                $('.customer_address.edit_address form').trigger('submit');*/
+        })
+        if (sessionStorage.getItem("loadInfo") == 'true') {
+            if (sessionStorage.getItem("gender") != undefined) {
+                $('#gender input[type="radio"]').prop('checked', false);
+            }
+            var genderClick = '#gender input#radio' + sessionStorage.getItem("gender");
+            $(genderClick).trigger('click');
+            $('input#datepicker').val(sessionStorage.getItem("birthday"));
+            $('input#last_name').val(sessionStorage.getItem("lastName"));
+            $('input#first_name').val(sessionStorage.getItem("firstName"));
+            sessionStorage.setItem("loadInfo", false);
+        }
+    </script>
+}
+

@@ -1,0 +1,39 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog = new BlogProvider().getIsShowing().Take(4);
+    var newest_blog = list_blog.FirstOrDefault();
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.product_name</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>@Model.product_name</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

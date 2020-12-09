@@ -1,0 +1,96 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | Tokaido Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_category_parent = new CategoryProvider().getListParentCategory();
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Tokaido, Thời trang Dino";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Tokaido";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+<!-- Page Title -->
+<div class="page-title flat_strech parallax parallax1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@Model.blog_title</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="/">Trang chủ </a></li>
+                            <li><a>Blog </a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<div class="main-content blog-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="content-wrap">
+                    @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+                </div><!-- /.content-wrap -->
+            </div><!-- /.col-md-9 -->
+
+            <div class="col-md-4">
+                <div class="sidebars">
+                    <div class="sidebars-wrap">
+                        <div class="sidebar">
+                            <div class="widget widget_categories">
+                                <h3 class="widget-title">Danh mục</h3>
+                                <ul>
+                                    @foreach (var category_parent in list_category_parent)
+                                    {
+                                        if (category_parent.status == true && category_parent.show_datetime <= DateTime.Now)
+                                        {
+                                            <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div><!-- /.widget_categories -->
+
+                            <div class="widget widget_recent_entries clearfix">
+                                <h3 class="widget-title">Bài viết mới nhất</h3>
+                                <ul class="recent-post clearfix">
+                                    @foreach (var blog in list_blog_newest)
+                                    {
+                                        if (blog.blog_id != Model.blog_id)
+                                        {
+                                            <li>
+                                                <div class="thumb">
+                                                    <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                                </div>
+                                                <div class="text">
+                                                    <h4><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                                    <p>@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</p>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div><!-- /.widget_recent_entries -->
+                        </div><!-- .sidebar -->
+                    </div><!-- /.sidebars-wrap -->
+                </div><!-- /.sidebars -->
+            </div><!-- /.col-md-3 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>

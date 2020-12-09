@@ -1,0 +1,297 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tokaido Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_category_parent = new CategoryProvider().getListParentCategory();
+    var list_blog = new BlogProvider().getIsShowing().Take(3);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+}
+
+<!-- Slider -->
+@if (list_slide.Count > 0)
+{
+    int i = 0;
+
+    <div class="flat-sliders-container">
+        <div class="tp-banner-container">
+            <div class="tp-banner">
+                <ul>
+                    @foreach (var slide in list_slide)
+                    {
+                        <li data-transition="random-static" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on">
+                            <img src="../Assets/images/slides/2.jpg" alt="slider-image" />
+
+                            <div class="tp-caption sfl title-slide style6" data-x="140" data-y="320" data-speed="1500" data-start="1500" data-easing="Sine.easeInOut"> Sumi</div>
+
+                            <div class="tp-caption sfr description-slider style1" data-x="140" data-y="450" data-speed="1000" data-start="1500" data-easing="Power3.easeInOut">
+                                Restaurant
+
+                            </div>
+                            <div class="tp-caption sft desc-slide blue-color center  style3" data-x="40" data-y="250" data-speed="1000" data-start="1500" data-easing="Power3.easeInOut">
+                                <span>Wellcome to</span> <br>
+
+                                Sumi is a restaurant, bar and <br>coffee roastery located on a <br> busy corner site in
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div id="slider-counter">
+                <a href="#" data-id="0"><span>01</span></a>
+                <a href="#" data-id="1"><span>02</span></a>
+                <a href="#" data-id="2"><span>03</span></a>
+            </div>
+        </div>
+        <div class="flat-vertical social-links">
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+
+            <span>THEO DÕI TOKAIDO</span>
+        </div>
+        <div class="flat-vertical reservation">
+            <a href="/pages/lien-he">LIÊN HỆ</a>
+        </div>
+    </div>
+}
+
+
+<section class="flat-row flat-our">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="../Assets/images/imagebox/1.png" alt="images">
+            </div><!--col-md-6-->
+
+            <div class="col-md-6">
+                <div class="flat-divider d96px"></div>
+                <div class="wrap-content-story">
+                    <div class="title-section style2 ">
+                        <h1 class="title">Thư ngỏ</h1>
+                    </div>
+                    <p class="content-story">
+                        Bạn thân mến, căn bếp luôn được coi là linh hồn của mỗi căn nhà, là nơi gia đình quây quần, mang đến năng lượng, sự hạnh phúc; hơi ấm từ căn bếp còn giữ ngọn lửa yêu thương cho mọi gia đình.
+                    </p>
+                    <p class="content-story">
+                        Để việc vào bếp mỗi ngày luôn đầy cảm hứng, trước hết căn bếp của bạn phải đầy đủ dụng cụ và thiết bị, hơn nữa cần chọn lựa phù hợp với thiết kế, màu sắc, đem đến một tổng thể hài hòa tùy phong cách dễ thương hay thanh lịch.
+                    </p>
+                    <p class="content-story">
+                        Tokaido vốn dĩ là tên một con đường ven biển dài nối liền những thành phố lớn. Chúng tôi quan niệm cuộc đời mỗi con người cũng là một con đường dài, hạnh phúc hay không là do cách chúng ta ngẫm nhìn và cảm nhận nó.
+                        Tokaido - Happiness way of our life, chúng tôi cùng bạn tạo nên con đường hạnh phúc!
+                    </p>
+                </div>
+            </div><!--/.col-md-6-->
+        </div><!--/.row-->
+    </div><!--/.container -->
+</section>
+
+@foreach (var category_parent in list_category_parent)
+{
+    if (category_parent.status == true && category_parent.show_datetime <= DateTime.Now)
+    {
+        <section class="flat-row flat-imagebox index-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-section style2 ">
+                            <div class="top-section">
+                                <p>Tokaido Category</p>
+                            </div>
+                            <h1 class="title">@category_parent.category_name</h1>
+                        </div>
+                    </div><!--col-md-12-->
+                </div><!--row-->
+
+                <div class="row">
+                    <div class="flat-divider d10px"></div>
+
+                    @{ var list_category_child = new CategoryProvider().getByCategoryParentId(category_parent.category_id).Take(12).ToList();}
+
+                    @if (list_category_child.Count > 0)
+                    {
+                        foreach (var category_child in list_category_child)
+                        {
+                            var num_count_product_of_this_category = new ProductProvider().getByCategoryIdOnSite(category_child.category_id).Count;
+                            int num_category_child = new CategoryProvider().getCategoryChildByCategoryId(category_child.category_id).Count;
+
+                            <div class="item">
+                                <div class="imagebox effect1">
+                                    <div class="box-wrap">
+                                        <div class="box-image">
+                                            @if (num_category_child > 0)
+                                            {
+                                                <a href="/collections/@category_child.seo_alias">
+                                                    <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/products/@category_child.seo_alias">
+                                                    <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                </a>
+                                            }
+                                        </div>
+                                        <div class="box-content">
+                                            @if (num_category_child > 0)
+                                            {
+                                                <h5><a href="/collections/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                            }
+                                            else
+                                            {
+                                                <h5><a href="/products/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div><!--row-->
+                <div class="read-more view-all">
+                    <a href="/collections/@category_parent.seo_alias">XEM THÊM</a>
+                </div>
+            </div><!--container -->
+        </section>
+    }
+}
+
+<!-- Flat testimonial -->
+<section class="flat-row flat-testimonial index-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margb-27px">
+                    <h1 class="title">Phản hồi từ khách hàng</h1>
+                </div>
+            </div><!--col-md-12-->
+        </div><!--row-->
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="flat-carousel">
+                    <div class="owl-carousel-services">
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Sản phẩm của Tokaido thiết kế gọn gàng nhưng đầy đủ chức năng mà mình cần đến. Mình ở nhà chăm con nhỏ và vẫn có thể sử dụng các món đồ thông minh này để nấu những bữa cơm ngon cho cả nhà"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title"><a>Chị Nga</a></h6>
+                                <p>Nội trợ</p>
+                            </div>
+                        </div>
+
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Mình thấy giá các sản phẩm của Tokaido không mắc nhưng chất lượng thì hơn cả mong đợi. Thiết kế nhìn rất chỉn chu, chất liệu chắc chắn, phối màu cực xinh mà vẫn sang, hợp rơ với căn bếp của mình"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title-post"><a>Chị Ánh</a></h6>
+                                <p>Nhân viên văn phòng</p>
+                            </div>
+                        </div>
+
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Vợ mình rất thích làm bếp núc nên mình hay mua đồ ở Tokaido tặng vợ. Từ khi biết đến mấy món đồ này, ngày lễ tết hay dịp đặc biệt nào cũng chỉ muốn mình chạy đi xem đồ của Tokaido để mua thôi"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title-post"><a>Anh Huy</a></h6>
+                                <p>Chuyên viên Bảo hiểm</p>
+                            </div>
+                        </div>
+
+                    </div><!--/.owl-carousel-services-v2-->
+                </div><!--/.flat-carousel-v2-->
+            </div><!--/.col-md-12-->
+        </div><!--/.row-->
+    </div><!--/.container -->
+</section>
+
+
+<!-- Flat latest new -->
+<section class="flat-row flat-latest-new">
+    <div class="container">
+        <div class="row">
+            <div class="blog-shortcode blog-slist">
+
+                <article class="post col-md-6 clearfix">
+                    <div class="title-section style4">
+                        <h1 class="title"><span>Blogs</span> Mới nhất</h1>
+                        <p>Được Tokaido cập nhật liên tục để chia sẻ tới bạn đọc.  </p>
+                    </div>
+
+                    <div class="content-post">
+                        <div class="entry-meta">@newest_blog.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</div>
+
+                        <h3 class="title-post"><a href="/blogs/@newest_blog.blog_seo_alias">@newest_blog.blog_title</a></h3>
+
+                        <div class="entry-post excerpt">
+                            <p>@newest_blog.blog_summary</p>
+                            <div class="read-more">
+                                <a href="/blogs/@newest_blog.blog_seo_alias">
+                                    Đọc thêm
+                                </a>
+                            </div>
+                        </div>
+                    </div><!-- /.content-post -->
+                </article>
+
+                <article class="post col-md-6 clearfix">
+                    <div class="flat-video-fancybox">
+                        <!--  <div class="overlay"></div> -->
+                        <a class="fancybox" data-type="" href="/blogs/@newest_blog.blog_seo_alias">
+                            <img src="@urlCMS/@newest_blog.blog_image" alt="@newest_blog.blog_alt_image">
+                        </a>
+                    </div>
+                </article>
+
+                @foreach (var blog in list_blog)
+                {
+                    if (blog.blog_id != newest_blog.blog_id)
+                    {
+                        <article class="post col-md-6 clearfix">
+                            <div class="featured-post">
+                                <img src="@urlCMS/@blog.blog_image" alt="@newest_blog.blog_alt_image">
+                            </div>
+
+                            <div class="content-post bgffff">
+                                <div class="entry-meta">@blog.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</div>
+
+                                <h3 class="title-post"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h3>
+
+                                <div class="entry-post excerpt">
+                                    <p>@blog.blog_summary</p>
+                                    <div class="read-more">
+                                        <a href="/blogs/@blog.blog_seo_alias">
+                                            Đọc thêm
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- /.content-post -->
+                        </article>
+                    }
+                }
+            </div>
+        </div><!--row-->
+    </div><!--container -->
+</section>
+

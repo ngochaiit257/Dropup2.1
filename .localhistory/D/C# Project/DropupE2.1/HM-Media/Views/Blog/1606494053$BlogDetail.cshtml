@@ -1,0 +1,198 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Page Title -->
+<div class="page-title-area title-bg-six">
+    <div class="title-shape">
+        <img src="../Assets/img/title/title-bg-shape.png" alt="Shape">
+    </div>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.blog_title</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-chevron-right'></i>
+                        </li>
+                        <li>
+                            <span>@Model.blog_title</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title -->
+<!-- Blog Details -->
+<div class="blog-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="details-item">
+
+                    <div class="details-img">
+                        <img src="assets/img/blog/blog-details1.jpg" alt="Details">
+                        <ul>
+                            <li>
+                                <span>@Model.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">@Model.blog_category.blog_category_name</a>
+                            </li>
+                            <li>
+                                <span>By:</span>
+                                <a href="javascript:void(0)">@Model.user.username</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="details-quote">
+                        <blockquote>
+                            <i class='bx bxs-quote-right'></i>
+                            <h4>@Model.blog_summary</h4>
+                        </blockquote>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div>
+
+                    <div class="details-text">
+                        @Html.Raw(Model.blog_content)
+                    </div>
+
+                    <div class="details-tag">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6"></div>
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="right">
+                                    <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="details-comments">
+                        <h3>Bình luận</h3>
+                        <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-numposts="10" data-width="100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="widget-area">
+                    <div class="recent widget-item">
+                        <h3>Bài viết liên quan</h3>
+                        @foreach (var blog in list_blog_related)
+                        {
+                            <div class="inner">
+                                <ul class="align-items-center">
+                                    <li>
+                                        <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                    </li>
+                                    <li>
+                                        <span><i class='bx bx-calendar'></i> @blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                                        <h4>
+                                            <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                        </h4>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="categories widget-item">
+                        <h3>Dịch vụ của chúng tôi</h3>
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/@service.seo_alias">@service.product_name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    @if (list_tag.Count > 0)
+                    {
+                        <div class="tags widget-item">
+                            <h3>Tags</h3>
+                            <ul>
+                                @foreach (var tag in list_tag)
+                                {
+                                    <li>
+                                        <a href="javascript:void(0)">@tag.tag_name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+
+                    <div class="touch widget-item">
+                        <h3>Get In Touch</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="your-message" rows="6" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn common-btn">
+                                    Send Message
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Blog Details -->

@@ -1,0 +1,557 @@
+﻿@model List<store_slide>
+@using Data;
+@using Data.Providers;
+
+@{
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+
+    var banner_collection = new StoreBannerProvider().getbyId(1);
+    var about_us = new PageProvider().getById(1);
+}
+
+<div class="col-12">
+    <div class="card card-statistics">
+        <div class="card-body p-0">
+            <div class="row no-gutters">
+                <div class="col-xl-3 pb-xl-0 pb-5 border-right">
+                    <div class="page-account-form">
+                        <div class="form-titel border-bottom p-3">
+                            <h5 class="mb-0 py-2">Logo - Favicon</h5>
+                        </div>
+                        <div class="p-4">
+                            <div class="div_content_logo_favicon" style="min-height: 500px;">
+                                <div class="">
+                                    <label>Favicon</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="logo_client_site">
+                                            <img src="@favicon.image" class="width_logo" alt="@favicon.alt" id="show_favicon" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="favicon" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-3">
+                                            <label for="favicon">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="div_change_client_site_logo">
+                                    <label>Logo đầu trang</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="logo_client_site">
+                                            <img src="@logo_header.image" class="width_logo" id="show_logo_header" alt="@logo_header.alt" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="input_logo_header" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-3">
+                                            <label for="input_logo_header">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="div_change_client_site_logo">
+                                    <label>Logo chân trang</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="logo_client_site">
+                                            <img src="@logo_footer.image" class="width_logo" alt="@logo_footer.alt" id="show_logo_footer" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="input_logo_footer" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-3">
+                                            <label for="input_logo_footer">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="div_change_client_site_logo">
+                                    <label>Logo Mobile</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="logo_client_site">
+                                            <img src="@logo_footer.image" class="width_logo" id="show_logo_mobile" alt="@logo_footer.alt" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="input_logo_mobile" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-3">
+                                            <label for="input_logo_mobile">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer_form_info_slide">
+                                <button type="submit" class="btn btn-success" style="width:100%" onclick="updateStoreLogo()" disabled id="btn_save_logo">Lưu lại Logo & Favicon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-md-6 col-12 border-t border-right">
+                    <div class="page-account-form">
+                        <div class="form-titel border-bottom p-3">
+                            <h5 class="mb-0 py-2">SLIDE - Trình chiếu</h5>
+                        </div>
+                        <div class="p-4">
+                            <div class="scrollbar scroll_dark pt-0" style="max-height: 500px;">
+                                @if (Model.Count() > 0)
+                                {
+                                    int i = 0;
+                                    foreach (var slide in Model)
+                                    {
+                                        <div class="dive_info_slide">
+                                            <div class="form-group">
+                                                <div class="checkbox checbox-switch switch-success">
+                                                    <label>
+                                                        @{i++;}
+                                                        SLIDE @i
+                                                        @if (slide.is_showing == true)
+                                                        {
+                                                            <input type="checkbox" id="switch_@slide.store_slide_id" name="switch_@slide.store_slide_id" checked="" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" id="switch_@slide.store_slide_id" name="switch_@slide.store_slide_id" />
+                                                        }
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="slide_client_site">
+                                                    <img id="show_image_slide_@slide.store_slide_id" src="@slide.image" alt="@slide.alt" />
+                                                </div>
+                                                <form>
+                                                    <input onchange="imageSlideDetailChange('@slide.store_slide_id')" type="file" id="file_slide_@slide.store_slide_id" accept="image/*" hidden>
+                                                </form>
+                                                <div class="ml-10">
+                                                    <label for="file_slide_@slide.store_slide_id">
+                                                        <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                                    </label>
+                                                    &nbsp;
+                                                    <a onclick="showModalDeleteSlide('@slide.store_slide_id')" class="font-16 text-info" href="javascript:void(0)"><i class="fa fa-trash"></i> Xóa</a>
+                                                </div>
+                                            </div>
+                                            <form>
+                                                <div class="form_info_slide row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="fb">Alt</label>
+                                                            <input id="slide_alt_@slide.store_slide_id" type="text" class="form-control" placeholder="Nhập Alt SLIDE" value="@slide.alt">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="fb">Link</label>
+                                                            <input id="slide_link_@slide.store_slide_id" type="text" class="form-control" placeholder="Nhập link SLIDE" value="@slide.link_url">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fb">Text chính</label>
+                                                    <input id="slide_main_text_@slide.store_slide_id" type="text" class="form-control" placeholder="Nhập Text chính" value="@slide.main_text">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fb">Text con 1</label>
+                                                    <input id="slide_child_text_1_@slide.store_slide_id" type="text" class="form-control" placeholder="Nhập Text con 1" value="@slide.child_text_1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fb">Text con 2</label>
+                                                    <input id="slide_child_text_2_@slide.store_slide_id" type="text" class="form-control" placeholder="Nhập Text con 2" value="@slide.child_text_2">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="line_div"></div>
+                                    }
+                                }
+                            </div>
+                            <div class="footer_form_info_slide">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <button type="submit" class="btn btn-primary" data-dismiss="modal" style="width:100%" onclick="showModalCreateSlide()">Thêm mới SLIDE</button>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <button type="submit" class="btn btn-success" style="width:100%" onclick="saveUpdateSlide()">Lưu lại Slide</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 border-t col-12">
+                    <div class="page-account-form">
+                        <div class="form-titel border-bottom p-3">
+                            <h5 class="mb-0 py-2">Banner trang chủ</h5>
+                        </div>
+                        <div class="p-4">
+                            <div class="scrollbar scroll_dark pt-0" style="max-height: 500px; min-height: 500px;">
+                                <div class="dive_info_slide">
+                                    @*<div class="form-group">
+                                            <div class="checkbox checbox-switch switch-success">
+                                                <label>
+                                                    Banner Collection
+                                                    <input type="checkbox" name="switch8" checked="" />
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>*@
+                                    <div class="d-flex align-items-center">
+                                        <div class="slide_client_site">
+                                            <img src="@banner_collection.image" alt="@banner_collection.alt" id="show_image_banner_collection" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="input_file_banner_collection" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-10">
+                                            <label for="input_file_banner_collection">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <form>
+                                        <div class="form_info_slide row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="fb">Alt</label>
+                                                    <input id="banner_alt" type="text" class="form-control" placeholder="Nhập Alt" value="@banner_collection.alt">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="fb">Link/URL Video</label>
+                                                    <input id="banner_video_url" type="text" class="form-control" placeholder="Nhập link" value="@banner_collection.video_url">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fb">Text chính</label>
+                                            <input id="banner_main_text" type="text" class="form-control" placeholder="Nhập Text chính" value="@banner_collection.main_text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fb">Text con</label>
+                                            <input id="banner_child_text" type="text" class="form-control" placeholder="Nhập Text con" value="@banner_collection.child_text">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="line_div"></div>
+
+                                <div class="dive_info_slide">
+                                    <label>Banner giới thiệu</label>
+                                    <div class="d-flex align-items-center">
+                                        <div class="slide_client_site">
+                                            <img src="@about_us.page_image" alt="@about_us.page_image_alt" id="show_image_about_us" />
+                                        </div>
+                                        <form>
+                                            <input type="file" id="input_file_about_us" accept="image/*" hidden>
+                                        </form>
+                                        <div class="ml-10">
+                                            <label for="input_file_about_us">
+                                                <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-10">
+                                        <label for="fb">Giới thiệu tổng quan</label>
+                                        <div class="mb-2">
+                                            <textarea class="form-control" id="about_us_summary" name="" rows="3" maxlength="500">@about_us.page_summary</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="line_div"></div>
+                            </div>
+                            <div class="footer_form_info_slide">
+                                <button type="submit" class="btn btn-success" style="width:100%" onclick="saveBannerUpdate()">Lưu lại Banner</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            var scrollbar = jQuery(".scrollbar");
+            if (scrollbar.length > 0) {
+                $('.scroll_dark').mCustomScrollbar({
+                    theme: "minimal-dark",
+                    setHeight: false,
+                    mouseWheel: {
+                        normalizeDelta: true,
+                        scrollAmount: '200px',
+                        contentTouchScroll: true,
+                        deltaFactor: '200px'
+                    },
+                    advanced: {
+                        autoScrollOnFocus: 'a[tabindex]'
+                    }
+                });
+            }
+        });
+    });
+
+    function faviconIsLoaded(e) {
+        $('#show_favicon').attr('src', e.target.result);
+    };
+
+    $("#favicon").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (1 * 1024000)) {
+                showToast("error", "Favicon không được vượt quá 1Mb.", "Lỗi upload Facivon");
+                $('#favicon').trigger('reset');
+            } else {
+                $('#btn_save_logo').prop('disabled', false);
+                var reader = new FileReader();
+                reader.onload = faviconIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+    });
+
+    function logoHeaderIsLoaded(e) {
+        $('#show_logo_header').attr('src', e.target.result);
+    };
+
+    $("#input_logo_header").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Logo Header không được vượt quá 3Mb.", "Lỗi upload Logo Header");
+                $('#input_logo_header').trigger('reset');
+            } else {
+                $('#btn_save_logo').prop('disabled', false);
+                var reader = new FileReader();
+                reader.onload = logoHeaderIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+
+        }
+    });
+
+    function logoFooterIsLoaded(e) {
+        $('#show_logo_footer').attr('src', e.target.result);
+    };
+
+    $("#input_logo_footer").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Logo Footer không được vượt quá 3Mb.", "Lỗi upload Logo Footer");
+                $('#input_logo_footer').trigger('reset');
+            } else {
+                $('#btn_save_logo').prop('disabled', false);
+                var reader = new FileReader();
+                reader.onload = logoFooterIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+    });
+
+    function logoMobileIsLoaded(e) {
+        $('#show_logo_mobile').attr('src', e.target.result);
+    };
+
+    $("#input_logo_mobile").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Logo Mobile không được vượt quá 3Mb.", "Lỗi upload Logo Mobile");
+                $('#input_logo_mobile').trigger('reset');
+            } else {
+                $('#btn_save_logo').prop('disabled', false);
+                var reader = new FileReader();
+                reader.onload = logoMobileIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+    });
+
+    function updateStoreLogo() {
+        var fileData = new FormData();
+        var get_favicon = $("#favicon").get(0);
+        var favicon = get_favicon.files;
+        var get_logo_header = $("#input_logo_header").get(0);
+        var logo_header = get_logo_header.files;
+        var get_logo_footer = $("#input_logo_footer").get(0);
+        var logo_footer = get_logo_footer.files;
+        var get_logo_mobile = $("#input_logo_mobile").get(0);
+        var logo_mobile = get_logo_mobile.files;
+
+        fileData.append("favicon", favicon[0]);
+        fileData.append("logo_header", logo_header[0]);
+        fileData.append("logo_footer", logo_footer[0]);
+        fileData.append("logo_mobile", logo_mobile[0]);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateStoreLogo", "Configuration", null)',
+            data: fileData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                showToast("success", "Logo và Favicon cửa hàng đã được cập nhật", "Cập nhật thành công");
+                $('#btn_save_logo').prop('disabled', true);
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    function showModalCreateSlide() {
+        $('#modalCreateSlide').modal('show');
+    }
+
+    function imageSlideDetailChange(slide_id) {
+        var files = $("#file_slide_" + slide_id).get(0).files;
+        if (files[0].size > (3 * 1024000)) {
+            showToast("error", "Hình ảnh không được vượt quá 3Mb.", "Lỗi upload hình ảnh");
+        } else {
+            var reader = new FileReader();
+            reader.onload = imageSlideDetailIsLoaded;
+            reader.readAsDataURL(files[0]);
+        }
+
+        function imageSlideDetailIsLoaded(e) {
+            $('#show_image_slide_' + slide_id).attr('src', e.target.result);
+        };
+    }
+
+
+
+    function saveUpdateSlide() {
+        var fileData = new FormData();
+
+        var list_slide = [];
+        $.each(list_slide_id, function (key, id) {
+            var store_slide_id = id;
+            var alt = $('#slide_alt_' + id).val();
+            var link_url = $('#slide_link_' + id).val();
+            var main_text = $('#slide_main_text_' + id).val();
+            var child_text_1 = $('#slide_child_text_1_' + id).val();
+            var child_text_2 = $('#slide_child_text_2_' + id).val();
+
+            var is_showing = true;
+            if ($('#switch_' + id).is(':checked')) {
+                is_showing = true;
+            } else {
+                is_showing = false;
+            }
+
+            var fileUpload = $("#file_slide_" + id).get(0);
+            var files = fileUpload.files;
+
+            var slide = {};
+            slide.store_slide_id = store_slide_id;
+            slide.alt = alt;
+            slide.link_url = link_url;
+            slide.main_text = main_text;
+            slide.child_text_1 = child_text_1;
+            slide.child_text_2 = child_text_2;
+            slide.is_showing = is_showing;
+            slide.child_text_2 = child_text_2;
+            slide.image = files[0];
+            list_slide.push(slide);
+        });
+
+        for (var i = 0; i < list_slide.length; i++) {
+            fileData.append("list_slide[" + i + "].store_slide_id", list_slide[i].store_slide_id);
+            fileData.append("list_slide[" + i + "].alt", list_slide[i].alt);
+            fileData.append("list_slide[" + i + "].link_url", list_slide[i].link_url);
+            fileData.append("list_slide[" + i + "].main_text", list_slide[i].main_text);
+            fileData.append("list_slide[" + i + "].child_text_1", list_slide[i].child_text_1);
+            fileData.append("list_slide[" + i + "].child_text_2", list_slide[i].child_text_2);
+            fileData.append("list_slide[" + i + "].is_showing", list_slide[i].is_showing);
+            fileData.append("list_slide[" + i + "].image", list_slide[i].image);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateSlide", "Configuration", null)',
+             data: fileData,
+             processData: false,
+             contentType: false,
+             success: function (data) {
+                 showToast("success", 'Slide đã được cập nhật.', "Cập nhật thành công");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+
+    }
+
+    function showModalDeleteSlide(store_slide_id) {
+        $('#input_hidden_slide_id').val(store_slide_id);
+        $('#modalDeleteSlide').modal('show');
+        $('#modalUpdateLogoBanner').modal('hide');
+    }
+
+
+
+    $("#input_file_about_us").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Hình ảnh không được vượt quá 3Mb.", "Lỗi upload hình ảnh");
+            } else {
+                var reader = new FileReader();
+                reader.onload = imageAboutUsIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+        function imageAboutUsIsLoaded(e) {
+            $('#show_image_about_us').attr('src', e.target.result);
+        };
+    });
+
+    $("#input_file_banner_collection").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Hình ảnh không được vượt quá 3Mb.", "Lỗi upload hình ảnh");
+            } else {
+                var reader = new FileReader();
+                reader.onload = imageBannerCollectionIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+        function imageBannerCollectionIsLoaded(e) {
+            $('#show_image_banner_collection').attr('src', e.target.result);
+        };
+    });
+
+    function saveBannerUpdate() {
+        var fileData = new FormData();
+        var fileAboutUsUpload = $("#input_file_about_us").get(0);
+        var aboutUsFiles = fileAboutUsUpload.files;
+        var fileBannerCollerctionUpload = $("#input_file_banner_collection").get(0);
+        var bannerCollectionFiles = fileBannerCollerctionUpload.files;
+
+        fileData.append("page_image", aboutUsFiles[0]);
+        fileData.append("page_summary", $('#about_us_summary').val());
+        fileData.append("image", bannerCollectionFiles[0]);
+        fileData.append("alt", $('#banner_alt').val());
+        fileData.append("main_text", $('#banner_main_text').val());
+        fileData.append("child_text", $('#banner_child_text').val());
+        fileData.append("video_url", $('#banner_video_url').val());
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateStoreBanner", "Configuration", null)',
+             data: fileData,
+             processData: false,
+             contentType: false,
+             success: function (data) {
+                 showToast("success", 'Slide đã được cập nhật.', "Cập nhật thành công");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+</script>

@@ -1,0 +1,779 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    string username = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+    }
+    else
+    {
+        Response.Redirect("/User/Login");
+    }
+    string url = System.Configuration.ConfigurationManager.AppSettings["urlPresentationFreshMart"];
+    string urlDashboard = System.Configuration.ConfigurationManager.AppSettings["urlFreshMartDashboard"];
+
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta content="Shopping Dashboard create by HaiDN." name="description" />
+    <meta content="HaiDN" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- app favicon -->
+    <link rel="shortcut icon" href="~/Assets/img/favicon.ico">
+    <!-- plugin stylesheets -->
+    @Styles.Render("~/bundles/styleCore")
+    @*<link rel="stylesheet" type="text/css" href="~/Assets/css/vendors.css" />
+        <link href="~/Assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="~/Assets/css/OrderStyle.css" rel="stylesheet" />
+        <link href="~/Assets/css/InsertProductCustomStyle.css" rel="stylesheet" type="text/css" />
+        <link href="~/Assets/css/PagedList.css" rel="stylesheet" />
+        <link href="~/Assets/css/custom.css" rel="stylesheet" />
+        <link href="~/Assets/css/Pace.css" rel="stylesheet" />
+        <link href="~/Assets/css/clockface.css" rel="stylesheet" />
+        <link href="~/Assets/css/croppie.css" rel="stylesheet" />
+        <link href="~/Assets/css/chosen.css" rel="stylesheet" />
+        <link href="~/Assets/css/ImageSelect.css" rel="stylesheet" />
+        <link href="~/Assets/css/AnimationIcon.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,500,700,800|Muli:400,500,700,800|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+
+    @*<link href="~/Assets/css/dropzone.css" rel="stylesheet" />*@
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <!-- script -->
+    @Scripts.Render("~/bundles/jsCoreFirst")
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <script src="~/Assets/js/Pace.js"></script>*@
+
+</head>
+<body>
+    <audio controls id="myAudioElement" style="display:none">
+        <source src="~/Assets/sounds/just-like-magic.mp3" type="audio/mpeg" />
+        <source src="~/Assets/sounds/just-like-magic.ogg" type="audio/ogg" />
+    </audio>
+    <!-- begin app -->
+    <div class="app">
+        <!-- begin app-wrap -->
+        <div class="app-wrap">
+            <!-- begin pre-loader -->
+            @*<div class="loader">
+                    <div class="h-100 d-flex justify-content-center">
+                        <div class="align-self-center">
+                            <img src="~/Assets/img/loader/loader.svg" alt="loader">
+                        </div>
+                    </div>
+                </div>*@
+            <!-- end pre-loader -->
+            <!-- begin app-header -->
+            <header class="app-header top-bar">
+                <!-- begin navbar -->
+                <nav class="navbar navbar-expand-md">
+                    <!-- begin navbar-header -->
+                    <div class="navbar-header d-flex align-items-center">
+                        <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                        <a class="navbar-brand" href="/Home/Index">
+                            <img src="~/Assets/img/logo.png" class="img-fluid logo-desktop" alt="logo" />
+                            <img src="~/Assets/img/logo-icon.png" class="img-fluid logo-mobile" alt="logo" />
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti ti-align-left"></i>
+                    </button>
+                    <!-- end navbar-header -->
+                    <!-- begin navigation -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="navigation d-flex">
+                            <ul class="navbar-nav nav-left">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" class="nav-link sidebar-toggle" id="sidebar_collapse">
+                                        <i class="ti ti-align-right"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item full-screen d-none d-lg-block" id="btnFullscreen">
+                                    <a href="javascript:void(0)" class="nav-link expand">
+                                        <i class="icon-size-fullscreen"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav nav-right ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@url" target="_blank">
+                                        <i class="ti ti-world icon_nav"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    @Html.Action("GetStoreMessage", "Home")
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" onclick="showNotification()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fe fe-bell icon_nav"></i>
+                                        <span class="notify" id="count_notification">
+                                            <span class="blink"></span>
+                                            <span class="dot">
+                                                <span id="number_notification"></span>
+                                            </span>
+                                        </span>
+                                    </a>
+                                    <div class="dropdown-menu extended animated fadeIn" aria-labelledby="navbarDropdown" id="body_notification_box">
+                                        <ul>
+                                            <li class="dropdown-header bg-gradient p-4 text-white text-left">
+                                                <span class="font-weight-bold"> Thông báo</span>
+                                                @*<a href="javascript:void(0)" class="float-right btn btn-square btn-inverse-light btn-xs m-0">
+                                                        <span class="font-13"> Đánh dấu tất cả là đã đọc</span>
+                                                    </a>*@
+                                            </li>
+                                            <li class="dropdown-body min-h-240 nicescroll">
+                                                <ul class="scrollbar scroll_dark max-h-240" id="notiContent"></ul>
+                                            </li>
+                                            <li class="dropdown-footer">
+                                                <a class="font-13" href="javascript:void(0)">
+                                                    Hiển thị tất cả thông báo
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                @*<li class="nav-item">
+                                        <a class="nav-link search" href="javascript:void(0)">
+                                            <i class="ti ti-search icon_nav"></i>
+                                        </a>
+                                        <div class="search-wrapper">
+                                            <div class="close-btn">
+                                                <i class="ti ti-close"></i>
+                                            </div>
+                                            <div class="search-content">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <i class="ti ti-search magnifier"></i>
+                                                        <input type="text" class="form-control autocomplete" placeholder="Tìm kiếm" id="autocomplete-ajax" autofocus="autofocus">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>*@
+                                <li class="nav-item dropdown user-profile">
+                                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="@userLoged.avatar" alt="avtar-img">
+                                        <span class="bg-success user-status"></span>
+                                    </a>
+                                    <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                        <div class="bg-gradient px-4 py-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="mr-1">
+                                                    <h4 class="text-white mb-0">@userLoged.firstname @userLoged.lastname (@userLoged.role.value)</h4>
+                                                    <small class="text-white">@userLoged.email</small>
+                                                </div>
+                                                <a href="/User/Logout" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout">
+                                                    <i class="zmdi zmdi-power"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
+                                                <i class="fa fa-user pr-2 text-success"></i> Thông tin cá nhân
+                                            </a>
+                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
+                                                <i class="ion ion-ios-mail pr-2 text-info"></i> Tin nhắn
+                                                <span class="badge badge-danger ml-auto">6</span>
+                                            </a>
+                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
+                                                <i class="fa fa-lock pr-2 text-primary"></i> Đổi mật khẩu
+                                            </a>
+                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
+                                                <i class=" ti ti-settings pr-2 text-info"></i> Cài đặt
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <!-- end navigation -->
+                </nav>
+
+                <!-- end navbar -->
+
+            </header>
+
+            <!-- end app-header -->
+            <!-- begin app-container -->
+            <div class="app-container">
+                <!-- begin app-nabar -->
+                <aside class="app-navbar">
+                    <!-- begin sidebar-nav -->
+                    <div class="sidebar-nav scrollbar scroll_dark">
+                        <ul class="metismenu " id="sidebarNav">
+                            @*<li class="nav-static-title">Website</li>
+                                <li id="website">
+                                    <a href="@url" aria-expanded="false">
+                                        <i class="nav-icon ti ti-eye"></i>
+                                        <span class="nav-title">Website</span>
+                                    </a>
+                                </li>*@
+                            <li class="nav-static-title">Quản lý chung</li>
+                            <li id="dashboard">
+                                <a href="/Home/Index" aria-expanded="false">
+                                    <i class="nav-icon ti ti-dashboard"></i>
+                                    <span class="nav-title">Tổng quan</span>
+                                </a>
+                            </li>
+
+                            <li id="user">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-user"></i>
+                                    <span class="nav-title">Quản lý user</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_user"> <a href='/User/Index'>Danh sách user</a> </li>
+                                    <li id="add_user"> <a href='/User/InsertUser'>Cấp tài khoản </a> </li>
+                                    @*<li id="role_user"> <a href='/User/UpdateRole'>Phân quyền quản trị </a> </li>*@
+                                </ul>
+                            </li>
+
+                            <li id="category">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-menu-alt"></i>
+                                    <span class="nav-title">Danh mục sản phẩm</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_category"> <a href='/Category/Index'>Danh sách danh mục</a> </li>
+                                    <li id="add_category"> <a href='/Category/InsertCategory'>Thêm danh mục </a> </li>
+                                </ul>
+                            </li>
+
+                            <li id="product">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-package"></i>
+                                    <span class="nav-title">Sản phẩm</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_product"> <a href='/Product/Index'>Danh sách sản phẩm</a> </li>
+                                    <li id="add_product"> <a href='/Product/InsertProduct'>Thêm sản phẩm </a> </li>
+                                    @*<li id="warehouse"> <a href='/Product/getWareHouse'>Quản lý kho</a> </li>
+                                        <li id="supplier"> <a href='/Supplier/Index'>Nhà cung cấp</a> </li>*@
+                                </ul>
+                            </li>
+
+                            <li id="order">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-receipt"></i>
+                                    <span class="nav-title">Đơn hàng</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_order"> <a href='/Order/Index'>Danh sách đơn hàng</a> </li>
+                                    <li id="add_order"> <a href='/Order/InsertOrder'>Tạo đơn hàng </a> </li>
+                                    @*<li id="list_draft_order"> <a href='/Order/IndexDraftOrder'>Đơn hàng nháp </a> </li>*@
+                                    @*<li id="list_not_completed_order"> <a href='/Order/IndexNotCompletedOrder'>Đơn hàng chưa hoàn tất </a> </li>*@
+                                </ul>
+                            </li>
+
+                            <li id="shipping_service">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-truck"></i>
+                                    <span class="nav-title">Vận chuyển</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="transport_status"> <a href='/Transport/Index'>Tổng quan vận chuyển </a> </li>
+                                    <li id="setting_shipping_service"> <a href='/ShippingService/InsertShippingService'>Cấu hình vận chuyển </a> </li>
+                                    @*<li id="manage_cod"> <a href='/Transport/ManageCOD'>Quản lý COD </a> </li>*@
+                                </ul>
+                            </li>
+
+                            <li id="customer">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-target"></i>
+                                    <span class="nav-title">Khách hàng</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_customer"> <a href='/Customer/Index'>Danh sách khách hàng</a> </li>
+                                    <li id="add_customer"> <a href='/Customer/InsertCustomer'>Thêm khách hàng </a> </li>
+                                    @*<li> <a href='#'>Chăm sóc khách hàng </a> </li>
+                                        <li> <a href='#'>Báo xấu </a> </li>*@
+                                </ul>
+                            </li>
+
+                            <li class="nav-static-title">Chương trình - Sự kiện</li>
+                            @*<li id="promotion_event">
+                                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                        <i class="nav-icon ti ti-rocket "></i>
+                                        <span class="nav-title">Sự kiện khuyến mãi</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li> <a href='#'>Danh sách sự kiện</a> </li>
+                                        <li id="add_promotion_event"> <a href='/PromotionEvent/InsertPromotionEvent'>Tạo sự kiện khuyến mãi</a> </li>
+                                    </ul>
+                                </li>*@
+                            <li id="coupon">
+                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="nav-icon ti ti-medall "></i>
+                                    <span class="nav-title">Mã giảm giá</span>
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li id="list_coupon"><a href='/Coupon/Index'>Danh sách mã giảm giá</a> </li>
+                                    <li id="add_coupon"> <a href='/Coupon/InsertCoupon'>Tạo mã giảm giá</a> </li>
+                                </ul>
+                            </li>
+                            @*<li>
+                                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                        <i class="nav-icon ti ti-world"></i>
+                                        <span class="nav-title">Quản lý POPUP</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <li> <a href='#'>Danh sách POPUP</a> </li>
+                                        <li> <a href='#'>Thêm POPUP</a> </li>
+                                    </ul>
+                                </li>*@
+
+                            <li class="nav-static-title">Thống kê - báo cáo</li>
+                            <li id="statistics">
+                                <a href="/Statistics/Index" aria-expanded="false">
+                                    <i class="nav-icon ti ti-stats-up"></i>
+                                    <span class="nav-title">Số liệu thống kê</span>
+                                </a>
+                            </li>
+                            @*<li>
+                                    <a href="javascript:void(0)" aria-expanded="false">
+                                        <i class="nav-icon ti ti-import"></i>
+                                        <span class="nav-title">Xuất báo cáo</span>
+                                    </a>
+                                </li>*@
+                            @*<li>
+                                    <a href="javascript:void(0)" aria-expanded="false">
+                                        <i class="nav-icon ti ti-reload"></i>
+                                        <span class="nav-title">Sao lưu dữ liệu</span>
+                                    </a>
+                                </li>*@
+
+                            <li class="sidebar-banner p-4 bg-gradient text-center m-3 d-block rounded">
+                                <h5 class="text-white mb-1">Quản trị website</h5>
+                                <p class="font-13 text-white line-20">Thay đổi thông tin về website</p>
+                                <a class="btn btn-square btn-inverse-light btn-xs d-inline-block mt-2 mb-0" href="/Configuration/Index"><i class="zmdi zmdi-settings" style="color:white"></i> Đi đến quản trị</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end sidebar-nav -->
+                </aside>
+                <!-- end app-navbar -->
+                <!-- begin app-main -->
+                <div class="app-main" id="main">
+                    <div class="container-fluid">
+                        @RenderBody()
+                        <img src="~/Assets/element/rolling.svg" id="loading_request_ajax" class="hidden_element" />
+                        <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalShowMessage" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            Tin nhắn từ website
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <label class="mess-content"><strong>Tên người gửi: </strong><span id="sm_name"></span></label><br />
+                                        <label class="mess-content"><strong>Email: </strong><span id="sm_email"></span></label><br />
+                                        <label class="mess-content"><strong>Số điện thoại: </strong><span id="sm_phone"></span></label><br />
+                                        <label class="mess-content"><strong>Nội dung: </strong><span id="sm_mess"></span></label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function showMessage(store_message_id, sender_name, sender_email, sender_phone_number, sender_message, reading_status) {
+                                if (reading_status == false || reading_status == "false" || reading_status == "False") {
+                                    $.ajax({
+                                        url: '/Home/UpdateReadingStatus',
+                                        context: document.body,
+                                        type: "POST",
+                                        dataType: "html",
+                                        data: {
+                                            mess_id: store_message_id
+                                        },
+                                        success: function () {
+                                            $('.mess_' + store_message_id).removeClass('reading_false');
+                                        },
+                                        error: function (xhr, status) {
+                                            alert("Có lỗi xảy ra.");
+                                        },
+                                    });
+                                }
+                                $('#sm_name').text(sender_name);
+                                $('#sm_email').text(sender_email);
+                                $('#sm_phone').text(sender_phone_number);
+                                $('#sm_mess').text(sender_message);
+                                $('#modalShowMessage').modal('show');
+                            }
+                        </script>
+                    </div>
+                    <!-- end container-fluid -->
+                </div>
+                <!-- end app-main -->
+            </div>
+            <!-- end app-container -->
+            <!-- begin footer -->
+            @*<footer class="footer">
+                    <div class="row">
+                        <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                            <div>
+                                <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy</a>
+                                <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert">Xác nhận</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>*@
+            <!-- end footer -->
+        </div>
+        <!-- end app-wrap -->
+    </div>
+    <!-- end app -->
+    <!-- plugins -->
+    @Scripts.Render("~/bundles/jsCoreSecond")
+    @*<script src="~/Assets/js/vendors.js"></script>
+        <script src="~/Assets/js/app.js"></script>
+        <script src="~/Assets/js/jquery.cookie.js"></script>
+        <script src="~/Assets/js/autoNumeric.js"></script>
+        <script src="~/Assets/js/jquery.timeago.js"></script>
+        <script src="~/Assets/js/date.format.js"></script>
+        <script src="~/Assets/js/StringProcessing.js"></script>
+        <script src="~/Assets/js/clockface.js"></script>
+        <script src="~/Assets/js/jquery.dirrty.js"></script>
+        <script src="~/Assets/js/jquery.easeScroll.js"></script>
+        <script src="~/Assets/js/croppie.js"></script>
+        <script src="~/Assets/js/chosen.jquery.js"></script>
+        <script src="~/Assets/js/ImageSelect.jquery.js"></script>*@
+
+    <script src="~/Assets/js/push.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        $(document).ready(function () {
+            @*if (countNumber != 0) {
+                document.title = "(" + countNumber + ") " + "@ViewBag.Title";
+            }*@
+
+            $("html").easeScroll({
+                frameRate: 100,
+                animationTime: 600,
+                stepSize: 120,
+                pulseAlgorithm: 1,
+                pulseScale: 8,
+                pulseNormalize: 1,
+                accelerationDelta: 20,
+                accelerationMax: 1,
+                keyboardSupport: true,
+                arrowScroll: 50,
+                touchpadSupport: true,
+                fixedBackground: true
+            });
+
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $(".quantity_input").autoNumeric('init', { aSign: '', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $(".autoNumericInput").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $(document).ajaxStart(function () { Pace.restart(); });
+
+            var initDestroyTimeOutPace = function () {
+                var counter = 0;
+
+                var refreshIntervalId = setInterval(function () {
+                    var progress;
+
+                    if (typeof $('.pace-progress').attr('data-progress-text') !== 'undefined') {
+                        progress = Number($('.pace-progress').attr('data-progress-text').replace("%", ''));
+                    }
+
+                    if (progress === 99) {
+                        counter++;
+                    }
+
+                    if (counter > 50) {
+                        clearInterval(refreshIntervalId);
+                        Pace.stop();
+                    }
+                }, 100);
+            }
+            initDestroyTimeOutPace();
+
+            $(".timeago").timeago();
+
+            var autonumeric = jQuery(".autonumber");
+            if (autonumeric.length > 0) {
+                new AutoNumeric('#integerPos', 'integerPos');
+            }
+
+            var notificationHub = $.connection.notificationHub;
+            $.connection.hub.start().done(function () {
+                //console.log('Notification hub started');
+            });
+
+            //signalr method for push server message to client
+            notificationHub.client.notify = function (message) {
+                if (message && message.toLowerCase() == "added") {
+                    $("#myAudioElement")[0].play();
+                    toastNotification();
+                    updateNotificationCount();
+                    countNumber++;
+
+                    Push.create("Thông báo", {
+                        body: "Một đơn hàng mới vừa được thêm từ website",
+                        icon: '/Assets/img/logo-icon.png',
+                        timeout: 15000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+
+                    @*document.title = "(" + countNumber + ") " + "@ViewBag.Title";*@
+                }
+            }
+
+            if (countNumber == 0) {
+                $('#count_notification').hide();
+            }
+            else {
+                $('#count_notification').show();
+            }
+
+            $(".dropdown-fontname").append(
+                '<a class="dropdown-item" href="#" data-value="Dancing Script" role="listitem" aria-label="Dancing Script"><i class="note-icon-menu-check"></i>'
+                + '<span style="font-family:Dancing Script">Dancing Script</span></a>');
+            $(".dropdown-fontname").append(
+                '<a class="dropdown-item" href="#" data-value="Muli" role="listitem" aria-label="Muli"><i class="note-icon-menu-check"></i>'
+                + '<span style="font-family:Muli">Muli</span></a>');
+            $(".dropdown-fontname").append(
+                '<a class="dropdown-item" href="#" data-value="Quicksand" role="listitem" aria-label="Quicksand"><i class="note-icon-menu-check"></i>'
+                + '<span style="font-family:Quicksand">Quicksand</span></a>');
+            $(".dropdown-fontname").append(
+                '<a class="dropdown-item" href="#" data-value="Montserrat" role="listitem" aria-label="Montserrat"><i class="note-icon-menu-check"></i>'
+                + '<span style="font-family:Montserrat">Montserrat</span></a>');
+
+        });
+
+
+        //Get current date time
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = (month) + "/" + (day) + "/" + now.getFullYear();
+        var current_time = now.getHours() + ':' + now.getMinutes();
+
+
+        //Drag Modal
+        $(".modal").draggable({
+            handle: ".modal-header"
+        });
+
+        $('.mobile-toggle').on('click', function () {
+            $('body').toggleClass('sidebar-toggled');
+        });
+
+        // signalr js code for start hub and send receive notification
+        //var notificationHub = $.connection.notificationHub;
+        //$.connection.hub.start().done(function () {
+        //    console.log('Notification hub started');
+        //});
+
+        var countNumber = 0;
+
+        function showNotification() {
+            $('#count_notification').hide();
+            $('#body_notification_box').show();
+            var count = 0;
+            count = parseInt($('#number_notification').html()) || 0;
+            count++;
+            // only load notification if not already loaded
+            if (count > 0) {
+                updateNotification();
+            }
+            $('#number_notification', this).html(' ');
+        }
+
+        // update notification
+        function updateNotification() {
+            countNumber = 0;
+            @*document.title = "@ViewBag.Title";*@
+            $('#notiContent').empty();
+            $('#notiContent').append($('<li style="text-align:center"><a href="javascript:void(0)"><div class="notify-message"><p class="font-weight-bold">Đang tải...</p><small></small></div></div></a></li>'));
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetNotifications',
+                success: function (response) {
+                    $('#notiContent').empty();
+                    if (response.Data.length == 0) {
+                        $('#notiContent').append($('<li style="text-align:center"><a href="javascript:void(0)"><div class="notify-message"><p class="font-weight-bold">Không có thông báo nào mới.</p><small></small></div></div></a></li>'));
+                    }
+                    $.each(response.Data, function (index, value) {
+                        var jsonDate = value.create_datetime;
+                        var date = eval(jsonDate.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"));
+                        $('#notiContent').append($('<li><a href="' + value.obj_url + '"><div class="notification d-flex flex-row align-items-center"><div class="notify-icon bg-img align-self-center"><div class="bg-type bg-type-md"><span><i class="zmdi zmdi-shopping-cart-plus"></i></span></div></div><div class="notify-message"><p class="font-weight-bold">' + value.title + '</p><small><span class="timeago" title="' + date.format("isoDateTime") + '">' + date.format("isoDateTime") + '</span></small></div></div></a></li>'));
+                        $(".timeago").timeago();
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+
+        // update notification count
+        function updateNotificationCount() {
+            $('#count_notification').show();
+            var count = 0;
+            count = parseInt($('#number_notification').html()) || 0;
+            count++;
+
+            $('#number_notification').html(count);
+        }
+
+        function backHistory() {
+            window.history.back();
+        }
+
+        function showToast(toast_type, toast_content, toast_title) {
+            Command: toastr[toast_type](toast_content, toast_title);
+        }
+
+        function toastNotification() {
+            Command: toastr["info"]("1 hóa đơn vừa được thêm mới.", "Hóa đơn mới")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function toastSuccess() {
+            Command: toastr["success"]("Dữ liệu đã được cập nhật.", "Thành công")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function toastError() {
+            Command: toastr["error"]("Có lỗi xảy ra, vui lòng kiểm tra lại.", "Thất bại")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function toastExportSuccess() {
+            Command: toastr["success"]("Dữ liệu vừa được xuất ra file excel.", "Hoàn thành")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function toastExportError() {
+            Command: toastr["error"]("Đã có lỗi xảy ra.", "Thất bại")
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+
+        function sendEmail() {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/SendMail',
+                success: function () {
+                    toastSuccess();
+                },
+                error: function (error) {
+                    toastError();
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>

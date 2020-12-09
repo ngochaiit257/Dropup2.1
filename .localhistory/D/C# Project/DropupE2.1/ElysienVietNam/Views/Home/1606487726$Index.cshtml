@@ -1,0 +1,700 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Elysien - Make Up Your Beauty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_page_main_content = new PageProvider().getAll().Where(p => p.page_id == 6 || p.page_id == 7 || p.page_id == 8).ToList();
+    var list_category_parent = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var list_cs = new StoreCustomerSayProvider().getAll();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "elysien, mỹ phẩm, spa, đào tạo spa, oem, odm, máy móc dụng cụ spa";
+    ViewBag.Description = "Thương hiệu mỹ phẩm, chăm sóc sắc đẹp Hàn Quốc tại Việt Nam.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+@if (list_slide.Count > 0)
+{
+    <!-- Slider Arae Start -->
+    <div class="slider-area">
+        <div class="slider-active-3 owl-carousel slider-hm8 owl-dot-style">
+            @foreach (var slide in list_slide)
+            {
+                <!-- Slider Single Item Start -->
+                <div class="slider-height-6 d-flex align-items-start justify-content-start bg-img" style="background-image: url(@urlCMS/@slide.image);">
+                    <div class="container">
+                        <div class="slider-content-1 slider-animated-1 text-left">
+                            <span class="animated">
+                                @slide.child_text_1
+                            </span>
+                            <h1 class="animated">
+                                @slide.main_text
+                            </h1>
+                            <p class="animated">
+                                @slide.child_text_2
+                            </p>
+                            <a href="@slide.link_url" class="shop-btn animated">Xem Chi Tiết</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slider Single Item End -->
+            }
+
+        </div>
+    </div>
+}
+
+
+<!-- Category Area Start -->
+<section class="categorie-area mt-res-md-30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Section Title -->
+                <div class="section-title mt-res-sx-30px mt-res-md-30px">
+                    <h2>Lĩnh vực kinh doanh</h2>
+                    <p>Các lĩnh vực mà Elysien đang tập trung và tầm nhìn thương hiệu</p>
+                </div>
+                <!-- Section Title -->
+            </div>
+        </div>
+        <!-- Category Slider Start -->
+        <div class="row">
+            <!-- Single item -->
+            @if (list_page_main_content.Count > 0)
+            {
+                foreach (var page in list_page_main_content)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <div class="category-item">
+                            <div class="category-list mb-30px">
+                                <div class="category-thumb">
+                                    <a href="shop-4-column.html">
+                                        <img src="@urlCMS/@page.page_image" alt="@page.page_image_alt" />
+                                    </a>
+                                </div>
+                                <div class="desc-listcategoreis">
+                                    <div class="name_categories">
+                                        <h4>@page.page_title</h4>
+                                    </div>
+                                    <a href="/pages/@page.page_seo_alias">Chi Tiết <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @if (list_category_parent.Count > 0)
+            {
+                foreach (var category in list_category_parent)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                        <div class="category-item">
+                            <div class="category-list mb-30px">
+                                <div class="category-thumb">
+                                    <a href="shop-4-column.html">
+                                        <img src="@urlCMS/@category.image" alt="@category.alt_image" />
+                                    </a>
+                                </div>
+                                <div class="desc-listcategoreis">
+                                    <div class="name_categories">
+                                        <h4>@category.category_name</h4>
+                                    </div>
+                                    <a href="/collections/@category.seo_alias">Chi Tiết <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @*<div>
+                    <img src="~/Assets/images/common/1-3.png" style="position: absolute; left: 70%; width: 10%; margin-top: -65px;" />
+                    <img src="~/Assets/images/common/1-2.png" style="position: absolute; left: 75%; width: 10%;margin-top: 180px;" />
+                </div>*@
+        </div>
+    </div>
+</section>
+<!-- Category Area End  -->
+
+<section class="about-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-res-sm-50px">
+                <div class="about-left-image">
+                    <img src="../Assets/images/banner-image/banner-au.jpg" class="img-responsive" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <div class="about-title">
+                        <h2>Elysien Việt Nam</h2>
+                    </div>
+                    <p class="mb-30px">
+                        “Được thành lập từ năm 2002 tại Hàn Quốc, hơn 20 năm kinh nghiệm OEM/ODM sản xuất mĩ phẩm, máy móc, Công ty Raparay (Elysien) được công nhận bởi các Hiệp hội da liễu khó tính nhất Hàn Quốc.
+                    </p>
+                    <p class="mb-30px">
+                        Hướng đến trở thành đơn vị tiên phong kiến tạo nhận thức đúng đắn về làm đẹp an toàn, hiệu quả đến phụ nữ Việt Nam bằng các lĩnh vực chúng tôi có: cơ sở Spa, sản phẩm chuyên nghiệp, máy móc, OEM, đào tạo, setup Spa.
+                    </p>
+                    <p class="mb-30px">
+                        Sản phẩm của chúng tôi đã nhận được nhiều lời khen ở thị trường Châu Âu, và hiện tại, chúng tôi đang xúc tiến vào thị trường Việt Nam để các bạn có thể trực tiếp trải nghiệm tính ưu việt dịch vụ của chúng tôi.”
+                    </p>
+                    <div padding-top: 30px;">
+                        <a href="/pages/ve-elysien" class="shop-btn animated">Xem Thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- Static Area Start -->
+<section class="static-area mtb-60px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2>Sứ mệnh cốt lõi</h2>
+                    <p>Kiến tạo nhận thức đúng đắn về vẻ đẹp đích thực và giá trị mang lại cho bản thân.</p>
+                </div>
+            </div>
+        </div>
+        <div class="static-area-wrap">
+            <div class="row">
+                <!-- Static Single Item Start -->
+                <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">
+                    <div class="single-static pb-res-md-0 pb-res-sm-0 pb-res-xs-0">
+                        <img src="../Assets/images/common/ab-1.png" alt="" class="img-responsive" />
+                        <div class="single-static-meta">
+                            <h4>Đẹp toàn diện</h4>
+                            <p>Làm đẹp toàn diện từ phục hồi, thư giãn, dưỡng da chuyên sâu cho đến sức khỏe thể chát cũng như tinh thần của từng khách hàng với Phòng Spa tiêu chuẩn Hàn Quốc.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Static Single Item End -->
+                <!-- Static Single Item Start -->
+                <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">
+                    <div class="single-static pb-res-md-0 pb-res-sm-0 pb-res-xs-0 pt-res-xs-20">
+                        <img src="../Assets/images/common/ab-2.png" alt="" class="img-responsive" />
+                        <div class="single-static-meta">
+                            <h4>Duy trì</h4>
+                            <p>Elysien không chỉ năm giữ chìa khóa khai mở vẻ đẹp tiềm ẩn mà còn cùng đồng hành với khách hàng trên con đường duy trì vẻ đẹp ấy bằng những sản phẩm, máy móc chất lượng hàng đầu.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Static Single Item End -->
+                <!-- Static Single Item Start -->
+                <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">
+                    <div class="single-static pt-res-md-30 pb-res-sm-30 pb-res-xs-0 pt-res-xs-20">
+                        <img src="../Assets/images/common/ab-3.png" alt="" class="img-responsive" />
+                        <div class="single-static-meta">
+                            <h4>Đồng hành</h4>
+                            <p>Elysien mong muốn là người hỗ trợ tâm huyết và đáng tin cậy, chắp cánh cho những người có ước mơ và đam mê trong lĩnh vực làm đẹp bằng các chương trình Hội thảo, Đào tạo, Chuyển giao công nghệ, Setup Spa.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Static Single Item End -->
+                <!-- Static Single Item Start -->
+                <div class="col-lg-3 col-xs-12 col-md-6 col-sm-6">
+                    <div class="single-static pt-res-md-30 pb-res-sm-30 pt-res-xs-20">
+                        <img src="../Assets/images/common/ab-4.png" alt="" class="img-responsive" />
+                        <div class="single-static-meta">
+                            <h4>Lan tỏa</h4>
+                            <p>Elysien không hề đơn độc, bạn sẽ là người cùng lan tỏa những giá trị tốt đẹp mà Elysien xây dựng đến cho những người khác xung quanh bạn.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Static Single Item End -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Static Area End -->
+<!-- Hot deal area Start -->
+<section class="hot-deal-area">
+    <div class="container">
+        <div class="row">
+
+            @if (ViewData["ListDacBiet"] != null)
+            {
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Section Title -->
+                            <div class="section-title">
+                                <h2>Hot Trend</h2>
+                                <p>Đang được ưa chuộng nhất hiện nay</p>
+                            </div>
+                            <!-- Section Title End-->
+                        </div>
+                    </div>
+                    <!-- Hot Deal Slider Start -->
+                    <div class="hot-deal owl-carousel owl-nav-style">
+                        <!--  Single item -->
+                        @foreach (var product in ViewData["ListDacBiet"] as List<product>)
+                        {
+                            <article class="list-product">
+                                <div class="img-block">
+                                    <a href="/@product.seo_alias" class="thumbnail">
+                                        <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                        @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                        @if (img_more != null)
+                                        {
+                                            <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                        }
+                                    </a>
+                                </div>
+                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                {
+                                    <ul class="product-flag">
+                                        <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                    </ul>
+                                }
+
+                                <div class="product-decs">
+                                    @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                    @if (category != null)
+                                    {
+                                        <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                    }
+                                    <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                    <div class="rating-product">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                    </div>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                            {
+                                                <li class="old-price showNumeric">@product.price</li>
+                                            }
+                                            <li class="current-price showNumeric">@product.promotion_price</li>
+                                        </ul>
+                                    </div>
+                                    <div class="add-to-link">
+                                        <ul>
+                                            <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="in-stock">
+                                    Số lượng <span>có hạn</span>
+                                </div>
+                                <div class="clockdiv">
+                                    <div class="title_countdown">Khuyến mãi sẽ kết thúc vào lúc:</div>
+                                    <div data-countdown="@System.DateTime.Now.AddHours(15)"></div>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                    <!-- Hot Deal Slider End -->
+                </div>
+            }
+
+
+            @if (ViewData["ListMyPham"] != null)
+            {
+                <!-- New Arrivals Area Start -->
+                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Section Title -->
+                            <div class="section-title ml-0px mt-res-sx-30px">
+                                <h2>Mỹ Phẩm Elysien</h2>
+                                <p>Được cập nhật liên tục để bạn nắm bắt</p>
+                            </div>
+                            <!-- Section Title -->
+                        </div>
+                    </div>
+                    <!-- New Product Slider Start -->
+                    <div class="new-product-slider owl-carousel owl-nav-style">
+                        <!-- Product Single Item -->
+                        @foreach (var product in ViewData["ListMyPham"] as List<product>)
+                        {
+                            if (product.product_id % 2 != 0)
+                            {
+                                <div class="product-inner-item">
+                                    <article class="list-product mb-30px">
+                                        <div class="img-block img-my-pham">
+                                            <a href="/@product.seo_alias" class="thumbnail">
+                                                <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                }
+                                            </a>
+                                        </div>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <ul class="product-flag">
+                                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                            </ul>
+                                        }
+
+                                        <div class="product-decs">
+                                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                            @if (category != null)
+                                            {
+                                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                            }
+                                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <li class="old-price showNumeric">@product.price</li>
+                                                    }
+                                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="add-to-link">
+                                            <ul>
+                                                <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                            </ul>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="new-product-slider owl-carousel owl-nav-style">
+                        <!-- Product Single Item -->
+                        @foreach (var product in ViewData["ListMyPham"] as List<product>)
+                        {
+                            if (product.product_id % 2 == 0)
+                            {
+                                <div class="product-inner-item">
+                                    <article class="list-product mb-30px">
+                                        <div class="img-block img-my-pham">
+                                            <a href="/@product.seo_alias" class="thumbnail">
+                                                <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                }
+                                            </a>
+                                        </div>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <ul class="product-flag">
+                                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                            </ul>
+                                        }
+
+                                        <div class="product-decs">
+                                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                            @if (category != null)
+                                            {
+                                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                            }
+                                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <li class="old-price showNumeric">@product.price</li>
+                                                    }
+                                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="add-to-link">
+                                            <ul>
+                                                <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                            </ul>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <!-- Product Slider End -->
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!-- Hot Deal Area End -->
+<!-- Feature Area Start -->
+
+@if (ViewData["ListMayMoc"] != null)
+{
+    <!-- Feature Area 2 Start -->
+    <section class="feature-area-2">
+        <div class="container">
+            <div class="row">
+                <!-- left side -->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="feature-left">
+                        <img src="~/Assets/images/banner-image/banner-object-maymoc.png" alt="object-maymoc" class="img-responsive" />
+                    </div>
+                </div>
+                <!-- right side -->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <!-- Section Title -->
+                    <div class="section-title">
+                        <h2>Máy Móc và Dụng Cụ SPA</h2>
+                        <p>Được chứng nhận bởi các cơ quan có thẩm quyền</p>
+                    </div>
+                    <!-- Section Title -->
+                    <!-- Feature slide 2 start -->
+                    <!-- slngle item -->
+
+                    <div class="feature-slider-2 owl-carousel owl-nav-style">
+                        @foreach (var product in ViewData["ListMayMoc"] as List<product>)
+                        {
+                            if (product.product_id % 2 != 0)
+                            {
+                                <div class="feature-slider-item">
+                                    <article class="list-product mb-30px">
+                                        <div class="img-block">
+                                            <a href="/@product.seo_alias" class="thumbnail">
+                                                <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                }
+                                            </a>
+                                        </div>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <ul class="product-flag">
+                                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                            </ul>
+                                        }
+
+                                        <div class="product-decs">
+                                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                            @if (category != null)
+                                            {
+                                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                            }
+                                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <li class="old-price showNumeric">@product.price</li>
+                                                    }
+                                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="feature-slider-2 owl-carousel owl-nav-style">
+                        @foreach (var product in ViewData["ListMayMoc"] as List<product>)
+                        {
+                            if (product.product_id % 2 == 0)
+                            {
+                                <div class="feature-slider-item">
+                                    <article class="list-product mb-30px">
+                                        <div class="img-block">
+                                            <a href="/@product.seo_alias" class="thumbnail">
+                                                <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                }
+                                            </a>
+                                        </div>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <ul class="product-flag">
+                                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                            </ul>
+                                        }
+
+                                        <div class="product-decs">
+                                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                            @if (category != null)
+                                            {
+                                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                            }
+                                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <li class="old-price showNumeric">@product.price</li>
+                                                    }
+                                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <!-- Feature slide 2 End -->
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Feature area 2 End -->
+
+@if (list_cs.Count > 0)
+{
+    <!-- Testimonial Area Start -->
+    <section class="testimonial-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Section Title -->
+                    <div class="section-title">
+                        <h2>Khách Hàng Nói Gì Về Elysien</h2>
+                        <p>Sẽ luôn lắng nghe ý kiến từ phía khách hàng thân yêu</p>
+                    </div>
+                    <!-- Section Title -->
+                </div>
+            </div>
+            <!-- Testimonial Slider Start -->
+            <div class="testi-slider owl-carousel owl-dot-style">
+                @foreach (var cs in list_cs)
+                {
+                    <!-- Single item -->
+                    <div class="testi-slider-wrapper">
+                        <div class="testi-slider-inner">
+                            <div class="testi-img">
+                                <img class="lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@cs.cimage" alt="@cs.cimage_alt" />
+                            </div>
+                            <div class="testi-content">
+                                <div class="testi-content-text">
+                                    @cs.ccomment
+                                </div>
+                                <div class="author-text">
+                                    <h4>@cs.cname <span>@cs.cposition</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Testimonial Slider End -->
+        </div>
+    </section>
+    <!-- Testimonial Area end -->
+}
+
+@*@if (banner != null)
+{
+    <!-- Banner Area Start -->
+    <div class="banner-area-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="banner-inner">
+                        <a href="@banner.video_url">
+                            <img src="@urlCMS/@banner.image" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Area End -->
+}*@
+
+
+
+@if (list_blog_newest.Count > 0)
+{
+    <!-- Blog area Start -->
+    <section class="home-furniture blog-area mb-60px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <!-- Section title -->
+                    <div class="section-title underline-shape">
+                        <h2>Blogs Mới Nhất</h2>
+                        <p>Cập nhật liên tục để chia sẻ tới bạn đọc.</p>
+                    </div>
+                    <!-- Section title -->
+                </div>
+            </div>
+            <!-- Blog Slider Start -->
+            <div class="blog-slider-active owl-carousel owl-nav-style-3">
+
+                @foreach (var blog in list_blog_newest)
+                {
+                    <!-- single item -->
+                    <article class="blog-post">
+                        <div class="blog-post-top">
+                            <div class="blog-img banner-wrapper">
+                                <a href="/blogs/@blog.blog_seo_alias"><img class="lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image" /></a>
+                            </div>
+                            <a class="blog-meta">@blog.blog_category.blog_category_name</a>
+                        </div>
+                        <div class="blog-post-content">
+                            <h4 class="blog-post-heading"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                            <p class="blog-text">
+                                @blog.blog_summary
+                            </p>
+                            <a class="read-more-btn" href="/blogs/@blog.blog_seo_alias"> Đọc thêm <i class="ion-android-arrow-dropright-circle"></i></a>
+                        </div>
+                    </article>
+                }
+            </div>
+            <!-- Blog Slider Start -->
+            <div style="padding-top: 30px; text-align: center">
+                <a href="/blogs" class="shop-btn animated">Đọc Tất Cả</a>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Area End -->
+}
+

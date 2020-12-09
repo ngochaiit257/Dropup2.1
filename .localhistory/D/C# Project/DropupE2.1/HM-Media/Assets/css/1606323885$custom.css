@@ -1,0 +1,21 @@
+﻿.section-title h2 {
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.main-nav nav .navbar-nav .nav-item a {
+    font-weight: 700;
+}
+
+.logo-area .logo-text h3 {
+    text-transform: capitalize;
+}
+
+.section-title .sub-title {
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+.section-title .sub-title-su-menh {
+    color: #fff;
+}

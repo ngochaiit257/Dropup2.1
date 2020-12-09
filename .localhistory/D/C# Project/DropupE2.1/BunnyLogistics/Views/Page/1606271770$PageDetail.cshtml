@@ -1,0 +1,36 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}
+
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>Tin tức và Sự kiện</h2>
+            <ul>
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                <li><a href="/blogs">Tin tức</a></li>
+                <li>@Model.page_title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->

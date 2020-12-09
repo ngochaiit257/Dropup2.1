@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Data.category>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Sản phẩm đã thực hiện của HM Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+}
+
+<h2>Index</h2>
+

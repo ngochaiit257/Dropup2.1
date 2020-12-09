@@ -1,0 +1,127 @@
+﻿.main-nav {
+    padding: 10px 0;
+}
+
+.top-bar-information li {
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 0;
+    letter-spacing: 0.1em;
+}
+
+.main-nav-custom {
+    padding: 10px 0;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-area {
+    background: #f1fff7;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a:hover, .main-navbar .navbar .navbar-nav .nav-item a:focus, .main-navbar .navbar .navbar-nav .nav-item a.active {
+    color: #ec1c24;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item:hover a, .main-navbar .navbar .navbar-nav .nav-item.active a {
+    color: #ec1c24;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
+    color: #ec1c24;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a::before {
+    background-color: #ec1c24;
+}
+
+.top-bar-area.bg-color {
+    background-color: #009949;
+}
+
+.main-navbar .navbar .others-options .option-item .default-btn {
+    padding: 12px 25px;
+    background-color: #ec1c24;
+}
+
+.option-item{
+    margin-left: 68px;
+}
+
+.cmd3{
+    text-align: right;
+}
+
+    .cmd3 span {
+        color: #ec1c24;
+    }
+
+    .cmd3 i {
+        font-size: 50px;
+    }
+
+.cf-img {
+    float: left;
+    margin-right: 15px;
+}
+
+.cf-div {
+    left: 8%;
+}
+
+.cf-div h4{
+    font-weight: 700;
+}
+
+    .cf-div h6 {
+        color: #ec1c24;
+    }
+
+.contact-custom {
+    margin-top: 5%;
+}
+
+.main-banner-item {
+    height: 395px;
+    position: unset;
+}
+
+.section-title h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+p {
+    font-size: 18px;
+}
+
+.default-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #009949;
+    color: #ffffff;
+    border-radius: 50px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    font-weight: 500;
+}
+
+.section-title-left{
+    text-align: left;
+}
+
+    .section-title-left strong {
+        font-size: 25px;
+    }
+
+.navbar-brand .logo {
+    width: 300px;
+    height: auto;
+}
+

@@ -1,0 +1,366 @@
+﻿
+@{
+    ViewBag.Title = "Thêm nhà cung cấp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Thêm mới nhà cung cấp</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Sản phẩm
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Supplier/Index">Nhà cung cấp</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Thêm nhà cung cấp</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div class="row" id="divInput">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin nhà cung cấp</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form id="formInsert" class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="control-label" for="label_supplierName">Tên nhà cung cấp <span class="requirement-star-text">&ast;</span></label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="supplier_name" name="supplier_name" placeholder="Nhập tên nhà cung cấp">
+                                <div class="invalid-feedback" id="supplier_name_feedback">
+                                    Yêu cầu nhập tên nhà cung cấp.
+                                </div>
+                                <div class="invalid-feedback" id="supplier_name_check_duplicate_false">
+                                    Tên nhà cung cấp đã có trong cơ sở dữ liệu. Vui lòng chọn tên khác.
+                                </div>
+                                <div class="valid-feedback" id="supplier_name_check_duplicate_true">
+                                    Tên có thể sử dụng được.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="label_supplierName">Điện thoại</label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control inputmask" data-mask="(999) 999-9999" id="supplier_phone_number" name="supplier_phone_number" placeholder="Nhập số điện thoại nhà cung cấp">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="label_supplierName">Email</label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="supplier_email" name="supplier_email" placeholder="Nhập email nhà cung cấp">
+                                        <div class="invalid-feedback" id="supplier_email_feedback">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="label_supplierName">Địa chỉ</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="supplier_address" name="supplier_address" placeholder="Nhập địa chỉ nhà cung cấp">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="label_supplierName">Ngày ký hợp đồng</label>
+                            <div class="input-group date" id="datepicker-bottom-left">
+                                <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="date_of_contract" name="date_of_contract" placeholder="Nhập ngày ký hợp đồng">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="card mb-0 o-hidden">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Ảnh nhà cung cấp</h4>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="displayImageUpload" style="display: none">
+                    <img id="pictureUpload" />
+
+                    <div class="row" id="bottomImageupload">
+                        <div class="col-md-4">
+                            <a href="javascript:void(0);" class="text-primary">Sửa ảnh</a>
+                        </div>
+                        <div class="col-md-4" style="text-align: center">
+                            <label for="file">
+                                <a class="text-primary">Đổi ảnh</a>
+                            </label>
+                        </div>
+                        <div class="col-md-4" style="text-align: right">
+                            <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa ảnh</a>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" name="supplier_image" class="custom-file-input" id="file" accept="image/*" hidden>
+                <div class="custom-card-body custom-file">
+                    <div>
+                        <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                    </div>
+                    <div>
+                        <label for="file" class="btn btn-square btn-warning custom-btn-file">
+                            Upload ảnh
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <a href="javascript:void(0)" class="btn btn-square btn-danger" id="btnCancel" onclick="cancelEdit()">Hủy</a>
+            <a href="javascript:void(0)" class="btn btn-square btn-primary" id="btn_insert">Xác nhận</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalConfirmExit" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Rời khỏi trang?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a id="fileName">
+                    Nếu bạn rời khỏi trang này, tất cả thay đổi chưa lưu sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang này?
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" id="confirmExit">Rời khỏi trang này</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#product').addClass('active');
+        $('#supplier').addClass('active');
+    });
+
+    function imageIsLoaded(e) {
+        $('#pictureUpload').attr('src', e.target.result);
+        $('.displayImageUpload').css({
+            display: 'block',
+        });
+        $('.custom-card-body').css({
+            display: 'none'
+        });
+    };
+
+    function cancelEdit() {
+        var supplier_name = $("#supplier_name").val().trim();
+        var supplier_email = $("#supplier_email").val().trim();
+        var supplier_address = $("#supplier_address").val().trim();
+        var supplier_phone_number = $("#supplier_phone_number").val().trim();
+        var date_of_contract = $("#date_of_contract").val().trim();
+        var file = $("#file").val().trim();
+
+        if (supplier_name == "" && supplier_email == "" && supplier_address == "" && supplier_phone_number == "" && date_of_contract == "" && file == "") {
+            var baseUrl = "@Url.Action("Index", "Supplier")";
+            window.location.href = baseUrl;
+        }
+        else {
+            $('#modalConfirmExit').modal('show');
+        }
+    }
+
+     $("#confirmExit").click(function () {
+        var baseUrl = "@Url.Action("Index", "Supplier")";
+        window.location.href = baseUrl;
+    });
+
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function deleteImg() {
+        $('.displayImageUpload').css({
+            display: 'none',
+        });
+        $('.custom-card-body').css({
+            display: 'block'
+        });
+        $('#file').val("");
+        $("#pictureUpload").attr("src", "");
+
+    }
+
+
+    $("#btn_insert").click(function (e) {
+        var fileData = new FormData();
+        var fileUpload = $("#file").get(0);
+        var files = fileUpload.files;
+
+        var supplier_name = $("#supplier_name").val().trim();
+        var supplier_email = $("#supplier_email").val().trim();
+
+        if (supplier_name == null || supplier_name == "") {
+            $("#supplier_name_feedback").css('display', 'block');
+            $("#supplier_name").addClass('is-invalid');
+
+            $("#supplier_email").removeClass('is-invalid');
+            $("#supplier_email_feedback").css('display', 'none');
+            $("#supplier_name_check_duplicate_false").css('display', 'none');
+
+        }
+        else if (supplier_email == null || supplier_email == "") {
+            $("#supplier_email").addClass('is-invalid');
+            $("#supplier_email_feedback").css('display', 'block');
+            $("#supplier_email_feedback").text("Yêu cầu nhập Email.");
+
+            $("#supplier_name_feedback").css('display', 'none');
+            $("#supplier_name").removeClass('is-invalid');
+
+        }
+        else if (!isEmail(supplier_email)) {
+            $("#supplier_email_feedback").css('display', 'block');
+            $("#supplier_email").addClass('is-invalid');
+            $("#supplier_email_feedback").text("Email không hợp lệ.");
+
+            $("#supplier_name_feedback").css('display', 'none');
+            $("#supplier_name").removeClass('is-invalid');
+        }
+        else {
+            $("#supplier_email").removeClass('is-invalid');
+            $("#supplier_email_feedback").css('display', 'none');
+            $("#supplier_name_feedback").css('display', 'none');
+            $("#supplier_name").removeClass('is-invalid');
+
+            fileData.append("supplier_image", files[0]);
+            fileData.append("supplier_name", $("#supplier_name").val().trim());
+            fileData.append("supplier_address", $("#supplier_address").val().trim());
+            fileData.append("supplier_email", $("#supplier_email").val().trim());
+            fileData.append("supplier_phone_number", $("#supplier_phone_number").val().trim());
+            fileData.append("date_of_contract", $("#date_of_contract").val().trim());
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertSupplier", "Supplier", null)',
+                data:   fileData,
+                    processData: false,
+                    contentType: false,
+                success: function (data) {
+                    $('.progressLoading').css('display', 'none');
+                        toastSuccess();
+                    },
+                error: function (xhr) {
+                        toastError();
+                    }
+            });
+            return false;
+            }
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    var checkStatus = true;
+    $('input[id=supplier_name]').keyup(function () {
+        var supplier_name = $("#supplier_name").val().trim();
+        if (supplier_name == null || supplier_name == "") {
+            $("#supplier_name_feedback").css('display', 'block');
+            $("#supplier_name").addClass('is-invalid');
+            $("#supplier_name_check_duplicate_true").css('display', 'none');
+            $("#supplier_name_check_duplicate_false").css('display', 'none');
+        }
+        else {
+            $.ajax({
+                url: "/Supplier/checkSupplierNameDuplicate",
+                data: {
+                    supplier_name: supplier_name,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    if (data != "True") {
+                        checkStatus = true;
+                        $("#btn_insert").removeClass("disabled");
+
+                        $("#supplier_name").removeClass('is-invalid');
+                        $("#supplier_name").addClass('is-valid');
+
+                        $("#supplier_name_check_duplicate_true").css('display', 'block');
+                        $("#supplier_name_check_duplicate_false").css('display', 'none');
+
+                        $("#supplier_name_feedback").css('display', 'none');
+                    }
+                    else {
+                        $("#btn_insert").addClass("disabled");
+
+                        $("#supplier_name").removeClass('is-valid');
+                        $("#supplier_name").addClass('is-invalid');
+
+                        $("#supplier_name_check_duplicate_true").css('display', 'none');
+                        $("#supplier_name_check_duplicate_false").css('display', 'block');
+
+                        $("#supplier_name_feedback").css('display', 'none');
+                    }
+                },
+                error: function (xhr, status) {
+
+                },
+                complete: function (xhr, status) {
+                    //$('#showresults').slideDown('slow')
+                }
+            });
+        }
+
+    });
+
+</script>
+

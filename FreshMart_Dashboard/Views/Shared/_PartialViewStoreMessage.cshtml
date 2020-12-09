@@ -1,0 +1,96 @@
+﻿@model List<store_message>
+@using Data;
+@using Data.Providers;
+
+<style>
+    .mess_summary {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+</style>
+
+<a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="ti ti-comments icon_nav"></i>
+    <span class="notify">
+        <span class="blink"></span>
+        <span class="dot">
+            <span id="number_email">@ViewBag.CountNotActive</span>
+        </span>
+    </span>
+</a>
+<div class="dropdown-menu extended animated fadeIn" aria-labelledby="navbarDropdown">
+    <ul>
+        <li class="dropdown-header bg-gradient p-4 text-white text-left">
+            Tin nhắn
+            <label class="label label-info label-round">@Model.Count</label>
+            <a href="javascript:void(0)" class="float-right btn btn-square btn-inverse-light btn-xs m-0">
+                <span class="font-13"> Đánh dấu tất cả đã đọc</span>
+            </a>
+        </li>
+        <li class="dropdown-body">
+            <ul class="scrollbar scroll_dark max-h-240">
+                @if (Model.Count() > 0)
+                {
+                    foreach (var m in Model)
+                    {
+                        if (m.reading_status == true)
+                        {
+                            <li>
+                                <a class="mess_@m.store_message_id" href="javascript:void(0)" onclick="showMessage('@m.store_message_id', '@m.sender_name', '@m.sender_email', '@m.sender_phone_number', '@m.sender_message', '@m.reading_status')">
+                                    <div class="notification d-flex flex-row align-items-center">
+                                        <div class="notify-icon align-self-center">
+                                            <img class="img-fluid" style="height: 40px;width:40px; max-width:unset" src="~/Assets/img/avatar/AvatarCustomerProfile.png" alt="@m.sender_name">
+                                        </div>
+                                        <div class="notify-message">
+                                            <p class="font-weight-bold">@m.sender_name</p>
+                                            @if (m.sender_phone_number != null)
+                                            {
+                                                <small><strong>Điện thoại: </strong>@m.sender_phone_number</small>
+                                            }
+                                            else
+                                            {
+                                                <small><strong>Điện thoại: </strong>Chưa xác định</small>
+                                            }
+                                            <small class="mess_summary">@m.sender_message</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="mess_@m.store_message_id reading_false" href="javascript:void(0)" onclick="showMessage('@m.store_message_id', '@m.sender_name', '@m.sender_email', '@m.sender_phone_number', '@m.sender_message', '@m.reading_status')">
+                                    <div class="notification d-flex flex-row align-items-center">
+                                        <div class="notify-icon align-self-center">
+                                            <img class="img-fluid" style="height: 40px;width:40px; max-width:unset" src="~/Assets/img/avatar/AvatarCustomerProfile.png" alt="@m.sender_name">
+                                        </div>
+                                        <div class="notify-message">
+                                            <p class="font-weight-bold">@m.sender_name</p>
+                                            @if (m.sender_phone_number != null)
+                                            {
+                                                <small><strong>Điện thoại: </strong>@m.sender_phone_number</small>
+                                            }
+                                            else
+                                            {
+                                                <small><strong>Điện thoại: </strong>Chưa xác định</small>
+                                            }
+                                            <small class="mess_summary">@m.sender_message</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </li>
+        <li class="dropdown-footer">
+            <a class="font-13" href="javascript:void(0)">Hiển thị tất cả tin nhắn</a>
+        </li>
+    </ul>
+</div>

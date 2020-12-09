@@ -1,0 +1,879 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Cấp tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Cấp tài khoản</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Quản lý user
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Cấp tài khoản</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+<div class="row" id="divInput">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin tài khoản</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form id="formInsert" class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username <span class="requirement-star-text">&ast;</span></label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập">
+                                <div class="invalid-feedback" id="username_feedback">
+                                    Yêu cầu nhập tên đăng nhập.
+                                </div>
+                                <div class="invalid-feedback" id="username_check_duplicate_false">
+                                    Tên đăng nhập đã có trong cơ sở dữ liệu. Vui lòng chọn tên khác.
+                                </div>
+                                <div class="valid-feedback" id="username_check_duplicate_true">
+                                    Tên có thể sử dụng được.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="password">Password <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="password" class="form-control inputmask" id="password" name="password" placeholder="Nhập mật khẩu">
+                                        <div class="invalid-feedback" id="password_feedback">
+                                            Yêu cầu nhập mật khẩu.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="repassword">Xác nhận Password <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Nhập lại mật khẩu">
+                                        <div class="invalid-feedback" id="repassword_feedback">
+                                            Yêu cầu nhập lại mật khẩu.
+                                        </div>
+                                        <div class="invalid-feedback" id="repassword_check_duplicate_false">
+                                            Mật khẩu nhập lại không khớp. Yêu cầu nhập lại.
+                                        </div>
+                                        <div class="valid-feedback" id="repassword_check_duplicate_true">
+                                            Khớp mật khẩu.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="role_id">Cấp quyền user <span class="requirement-star-text">&ast;</span></label>
+                                    <select class="custom-select" id="role_id" style="border-radius: .25rem;">
+                                        <option selected="" disabled="" value="-1">Chọn quyền được cấp</option>
+                                        @foreach (var role in ViewData["ListRole"] as List<role>)
+                                        {
+                                            <option value="@role.role_id">@role.value</option>
+                                        }
+                                    </select>
+                                    <div class="invalid-feedback" id="role_id_feedback">
+                                        Yêu cầu chọn quyền được cấp.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email nhà cung cấp">
+                                        <div class="invalid-feedback" id="email_feedback">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Thông tin cá nhân</h4>
+                        </div>
+                        <div class="col-md-6 div-card-title-right">
+                            <a class="card-title text-primary" href="javascript:void(0)" id="show_profile">Thêm thông tin cá nhân</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" id="content_profile" style="display: none">
+                <div>
+                    <form id="formInsertExtra" class="form-horizontal" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstname">Họ và tên đệm</label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control inputmask" id="firstname" name="firstname" placeholder="Nhập họ và tên đệm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastname">Tên</label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nhập tên">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="gender_id">Giới tính</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender_id" id="male" value="1">
+                                <label class="form-check-label" for="male">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender_id" id="female" value="2">
+                                <label class="form-check-label" for="female">
+                                    Nữ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone_number">Điện thoại</label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control inputmask" data-mask="(999) 999-9999" id="phone_number" name="phone_number" placeholder="Nhập số điện thoại">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="birthday">Ngày sinh</label>
+                                    <div class="input-group date" id="datepicker-bottom-left">
+                                        <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="birthday" name="birthday" placeholder="Nhập ngày sinh">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlCountry">Quốc gia</label>
+                                    <select class="custom-select" id="ddlCountry" style="border-radius: .25rem;" disabled>
+                                        <option value="" selected="">Việt Nam </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlProvince">Tỉnh Thành</label>
+                                    <select class="custom-select" id="ddlProvince" style="border-radius: .25rem;">
+                                        <option value="-1" selected>-- Chọn Tỉnh/Thành phố -- </option>
+                                        @foreach (var province in ViewData["ListProvince"] as List<province>)
+                                        {
+                                            <option value="@province.Id">@province.Type @province.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlDistrict">Quận Huyện</label>
+                                    <select class="custom-select" id="ddlDistrict" style="border-radius: .25rem;">
+                                        <option value="" selected>-- Không chọn --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlWard">Xã Phường / Thị trấn</label>
+                                    <select class="custom-select" id="ddlWard" style="border-radius: .25rem;">
+                                        <option value="">-- Không chọn -- </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="address_detail">Địa chỉ chi tiết</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="address_detail" placeholder="Nhập địa chỉ" aria-label="Nhập địa chỉ" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <span id="text_ward"></span><span id="text_district"></span><span id="text_province"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="card mb-0 o-hidden">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Ảnh đại diện</h4>
+                </div>
+            </div>
+            <div class="card-body ">
+                <form>
+                    <div class="displayImageUpload" style="display: none">
+                        <img id="pictureUpload" />
+
+                        <div class="row" id="bottomImageupload">
+                            <div class="col-md-4">
+                                <a href="javascript:void(0);" class="text-primary">Sửa ảnh</a>
+                            </div>
+                            <div class="col-md-4" style="text-align: center">
+                                <label for="file">
+                                    <a class="text-primary">Đổi ảnh</a>
+                                </label>
+                            </div>
+                            <div class="col-md-4" style="text-align: right">
+                                <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa ảnh</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <input type="file" name="avatar" id="file" accept="image/*" hidden>
+                <div class="custom-card-body custom-file">
+                    <div>
+                        <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                    </div>
+                    <div>
+                        <label for="file" class="btn btn-warning custom-btn-file">
+                            Upload ảnh
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <a href="javascript:void(0)" class="btn btn-secondary" id="btnCancel">Hủy</a>
+            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert">Xác nhận</a>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmExit" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Rời khỏi trang?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a id="fileName">
+                    Nếu bạn rời khỏi trang này, tất cả thay đổi chưa lưu sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang này?
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" id="confirmExit">Rời khỏi trang này</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmExit" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Rời khỏi trang?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a id="fileName">
+                    Nếu bạn rời khỏi trang này, tất cả thay đổi chưa lưu sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang này?
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-warning" id="confirmExit">Rời khỏi trang này</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#user').addClass('active');
+        $('#add_user').addClass('active');
+
+        $('#formInsert').trigger("reset");
+        $('#formInsertExtra').trigger("reset");
+
+        var province_id_start = $("#ddlProvince").val();
+        var text_province_start = $('#ddlProvince option[value="' + province_id_start + '"]').text();
+        $('#text_province').text(" " + text_province_start);
+        if (province_id_start == -1) {
+            $('#text_province').text(" ");
+        }
+        $.ajax({
+                type: "GET",
+                data: { id: province_id_start },
+                url: '@Url.Action("GetAllDistrictByProvinceId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlDistrict").empty();
+                    $("#ddlWard").empty();
+                    $("#ddlDistrict").append('<option value="-1">-- Chọn Quận/Huyện --</option>');
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlDistrict").append('<option value="' + value.district_id + '"> ' + value.district_type + " " + value.district_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+        });
+
+
+        //// truyền id của district vào
+        $("#ddlProvince").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_province').text("");
+                $('#text_district').text("");
+                $('#text_ward').text("");
+            }
+            else {
+                var text_province = $('#ddlProvince option[value="' + id + '"]').text();
+                $('#text_province').text(" " + text_province);
+            }
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllDistrictByProvinceId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlDistrict").empty();
+                    $("#ddlWard").empty();
+                    $("#ddlDistrict").append('<option value="-1">-- Chọn Quận/Huyện --</option>');
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlDistrict").append('<option value="' + value.district_id + '"> ' + value.district_type + " " + value.district_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+            });
+        });
+
+        $("#ddlDistrict").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_district').text("");
+                $('#text_ward').text("");
+            }
+            else {
+                var text_district = $('#ddlDistrict option[value="' + id + '"]').text();
+                $('#text_district').text(" " + text_district + " -");
+            }
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllWardByDistrictId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlWard").empty();
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlWard").append('<option value="' + value.ward_id + '"> ' + value.ward_type + " " + value.ward_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+            });
+        });
+
+         $("#ddlWard").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_ward').text("");
+            }
+            else {
+                var text_ward = $('#ddlWard option[value="' + id + '"]').text();
+                $('#text_ward').text(text_ward + " -");
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#pictureUpload').attr('src', e.target.result);
+        $('.displayImageUpload').css({
+            display: 'block',
+        });
+        $('.custom-card-body').css({
+            display: 'none'
+        });
+    };
+
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function deleteImg() {
+        $('.displayImageUpload').css({
+            display: 'none',
+        });
+        $('.custom-card-body').css({
+            display: 'block'
+        });
+        $('#file').val("");
+        $("#pictureUpload").attr("src", "");
+
+    }
+
+    $('#show_profile').click(function () {
+        $('#content_profile').css('display','block');
+    });
+
+    var checkStatus = true;
+    $('input[id=username]').keyup(function () {
+        var username = $("#username").val().trim();
+        if (username == null || username == "") {
+            $("#username_feedback").css('display', 'block');
+            $("#username").addClass('is-invalid');
+            $("#username_check_duplicate_true").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+        }
+        else {
+            $.ajax({
+                url: "/User/checkDuplicate",
+                data: {
+                    username: username,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    if (data != "True") {
+                        checkStatus = true;
+                        $("#btn_insert").removeClass("disabled");
+
+                        $("#username").removeClass('is-invalid');
+                        $("#username").addClass('is-valid');
+
+                        $("#username_check_duplicate_true").css('display', 'block');
+                        $("#username_check_duplicate_false").css('display', 'none');
+
+                        $("#username_feedback").css('display', 'none');
+                    }
+                    else {
+                        $("#btn_insert").addClass("disabled");
+
+                        $("#username").removeClass('is-valid');
+                        $("#username").addClass('is-invalid');
+
+                        $("#username_check_duplicate_true").css('display', 'none');
+                        $("#username_check_duplicate_false").css('display', 'block');
+
+                        $("#username_feedback").css('display', 'none');
+                    }
+                },
+                error: function (xhr, status) {
+                    $("#valid-feedback").val("Lỗi");
+                },
+                complete: function (xhr, status) {
+                    //$('#showresults').slideDown('slow')
+                }
+            });
+        }
+
+    });
+
+    $('input[id=repassword]').keyup(function () {
+        var password = $("#password").val();
+        var repassword = $("#repassword").val();
+
+        if (password == repassword) {
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword").addClass('is-valid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'block');
+        }
+        else if (repassword == "" || repassword == null) {
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").addClass('is-invalid');
+
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+            $("#repassword_feedback").css('display', 'block');
+        }
+        else if (password == "" && repassword == null) {
+            $("#password").removeClass('is-valid');
+            $("#password").addClass('is-invalid');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").addClass('is-invalid');
+
+            $("#password_feedback").css('display', 'block');
+            $("#repassword_feedback").css('display', 'block');
+        }
+        else {
+            $("#repassword").addClass('is-invalid');
+            $("#repassword").removeClass('is-valid');
+            $("#repassword_check_duplicate_false").css('display', 'block');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+        }
+    });
+
+    $('input[id=password]').keyup(function () {
+        var password = $("#password").val();
+        var repassword = $("#repassword").val();
+
+        if (password == repassword && password != "" && repassword != "") {
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword").addClass('is-valid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'block');
+        }
+        else if (password == "" || password == null) {
+            $("#password").removeClass('is-valid');
+            $("#password").addClass('is-invalid');
+
+            $("#password_feedback").css('display', 'block');
+        }
+        else if (password == "" && repassword == null) {
+            $("#password").removeClass('is-valid');
+            $("#password").addClass('is-invalid');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").addClass('is-invalid');
+
+            $("#password_feedback").css('display', 'block');
+            $("#repassword_feedback").css('display', 'block');
+        }
+        else if (password != repassword && repassword != "") {
+            $("#repassword").addClass('is-invalid');
+            $("#repassword").removeClass('is-valid');
+            $("#repassword_check_duplicate_false").css('display', 'block');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+        }
+        else if (password != null || password != "") {
+            $("#password").removeClass('is-invalid');
+            $("#password_feedback").css('display', 'none');
+        }
+    });
+
+    $('input[id=email]').keyup(function () {
+        var email = $("#email").val();
+
+        if (email != null || email != "") {
+            $("#email").removeClass('is-invalid');
+            $("#email_feedback").css('display', 'none');
+        }
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    $("#btn_insert").click(function (e) {
+        var fileData = new FormData();
+        var fileUpload = $("#file").get(0);
+        var files = fileUpload.files;
+
+        var username = $("#username").val().trim();
+        var email = $("#email").val().trim();
+        var password = $("#password").val();
+        var repassword = $("#repassword").val();
+        var role_id = $("#role_id").val();
+        var gender_id = $('input[name=gender_id]:checked').val();
+        var firstname = $("#firstname").val().trim();
+        var lastname = $("#lastname").val().trim();
+        var birthday = $("#birthday").val();
+        var phone_number = $("#phone_number").val();
+        var province = $('#ddlProvince').val();
+        var district = $('#ddlDistrict').val();
+        var ward = $('#ddlWard').val();
+        var address_detail = $('#address_detail').val().trim();
+
+        if (username == null || username == "") {
+            $("#username_feedback").css('display', 'block');
+            $("#username").addClass('is-invalid');
+
+            $("#email").removeClass('is-invalid');
+            $("#email_feedback").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+        }
+        else if (password == null || password == "") {
+            $("#password").addClass('is-invalid');
+            $("#password").removeClass('is-valid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'block');
+            $("#password_check_duplicate_true").css('display', 'none');
+
+            $("#email_feedback").css('display', 'none');
+            $("#email").removeClass('is-invalid');
+            $("#email").removeClass('is-valid');
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").addClass('is-invalid');
+            $("#username_check_duplicate_true").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+        }
+        else if (repassword == null || repassword == "") {
+            $("#repassword").addClass('is-invalid');
+            $("#repassword").removeClass('is-valid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'block');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+
+            $("#email_feedback").css('display', 'none');
+            $("#email").removeClass('is-invalid');
+            $("#email").removeClass('is-valid');
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").addClass('is-invalid');
+            $("#username_check_duplicate_true").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+        }
+        else if (role_id == -1) {
+            $("#role_id_feedback").css('display', 'block');
+            $("#role_id").addClass('is-invalid');
+            $("#role_id").removeClass('is-invalid');
+
+            $("#email_feedback").css('display', 'none');
+            $("#email").removeClass('is-invalid');
+            $("#email").removeClass('is-valid');
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").addClass('is-invalid');
+            $("#username_check_duplicate_true").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+        }
+        else if (email == null || email == "") {
+            $("#email").addClass('is-invalid');
+            $("#email_feedback").css('display', 'block');
+            $("#email_feedback").text("Yêu cầu nhập Email.");
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").removeClass('is-invalid');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+
+        }
+        else if (!isEmail(email)) {
+            $("#email_feedback").css('display', 'block');
+            $("#email").addClass('is-invalid');
+            $("#email_feedback").text("Email không hợp lệ.");
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").removeClass('is-invalid');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+        }
+        else {
+            $("#role_id_feedback").css('display', 'none');
+            $("#role_id").removeClass('is-invalid');
+            $("#role_id").removeClass('is-invalid');
+
+            $("#email_feedback").css('display', 'none');
+            $("#email").removeClass('is-invalid');
+            $("#email").removeClass('is-valid');
+
+            $("#username_feedback").css('display', 'none');
+            $("#username").addClass('is-invalid');
+            $("#username_check_duplicate_true").css('display', 'none');
+            $("#username_check_duplicate_false").css('display', 'none');
+
+            $("#password").removeClass('is-valid');
+            $("#password").removeClass('is-invalid');
+            $("#password_check_duplicate_false").css('display', 'none');
+            $("#password_feedback").css('display', 'none');
+            $("#password_check_duplicate_true").css('display', 'none');
+
+            $("#repassword").removeClass('is-valid');
+            $("#repassword").removeClass('is-invalid');
+            $("#repassword_check_duplicate_false").css('display', 'none');
+            $("#repassword_feedback").css('display', 'none');
+            $("#repassword_check_duplicate_true").css('display', 'none');
+
+            fileData.append("avatar", files[0]);
+            fileData.append("username", username);
+            fileData.append("password", password);
+            fileData.append("role_id", role_id);
+            fileData.append("email", email);
+
+            fileData.append("firstname", firstname);
+            fileData.append("lastname", lastname);
+            fileData.append("gender_id", gender_id);
+            fileData.append("birthday", birthday);
+            fileData.append("phone_number", phone_number);
+            fileData.append("province", province);
+            fileData.append("district", district);
+            fileData.append("ward", ward);
+            fileData.append("address_detail", address_detail);
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("InsertUser", "User", null)',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    toastSuccess();
+                    $('#formInsert').trigger("reset");
+                    $('#formInsertExtra').trigger("reset");
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+            return false;
+        }
+    });
+
+    var form_has_changed = false;
+    $('#btnCancel').click(function () {
+        if (form_has_changed) {
+            $('#modalConfirmExit').modal('show');
+        }
+        else {
+            var baseUrl = "@Url.Action("Index", "User")";
+            window.location.href = baseUrl;
+        }
+    });
+
+    //window.onload = function () {
+    //    if (form_has_changed) {
+    //        $('#modalConfirmExit').modal('show');
+    //    }
+    //}
+
+    $(window).load(function () {
+        if (form_has_changed) {
+            $('#modalConfirmExit').modal('show');
+        }
+    });
+
+    $("input, select, textarea").change(function () {
+        form_has_changed = true;
+    });
+
+     $("#confirmExit").click(function () {
+        var baseUrl = "@Url.Action("Index", "User")";
+        window.location.href = baseUrl;
+    });
+
+   
+
+</script>

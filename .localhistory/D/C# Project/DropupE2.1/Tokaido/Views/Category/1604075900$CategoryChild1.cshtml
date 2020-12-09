@@ -1,0 +1,160 @@
+﻿@model List<Data.category>
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = ViewBag.CategoryParent.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    long category_parent_id = (long)ViewBag.CategoryParent.category_id;
+    var list_category_child_1 = new CategoryProvider().getByCategoryParentId(category_parent_id);
+
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.CategoryParent.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.CategoryParent.seo_header;
+    ViewBag.Description = ViewBag.CategoryParent.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.CategoryParent.image;
+}
+
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@ViewBag.Category.category_name</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="/">Home </a></li>
+                            @if (ViewBag.CategoryParent.category_id != ViewBag.Category.category_id)
+                            {
+                                <li><a href="/collections/@ViewBag.CategoryParent.seo_alias">@ViewBag.CategoryParent.category_name</a></li>
+                            }
+                            <li><a>@ViewBag.Category.category_name</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<section class="flat-row products shop-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section style2 ">
+                    <h1 class="title">@ViewBag.Category.category_name</h1>
+                </div>
+                <form class="flat-shop-ordering" method="get">
+                    <select name="orderby" class="orderby">
+                        <option value="menu_order" selected="selected">Sort by date</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by newness</option>
+                        <option value="price">Sort by price: low to high</option>
+                        <option value="price-desc">Sort by price: high to low</option>
+                    </select>
+                </form>
+            </div><!--col-md-12-->
+        </div><!--row-->
+
+        <div class="row">
+            @if (list_category_child_1.Count > 0)
+            {
+                foreach (var c_child1 in list_category_child_1)
+                {
+                    int num_product_c1 = new ProductProvider().getByCategoryIdOnSite(c_child1.category_id).Count;
+                    if (c_child1.show_datetime <= DateTime.Now && c_child1.status == true)
+                    {
+                        var list_category_child_2 = new CategoryProvider().getByCategoryParentId(c_child1.category_id);
+                        if (list_category_child_2.Count > 0)
+                        {
+                            <!-- Single Filter Card -->
+                            <div class="single_filter_card">
+                                <h5><a href="/collections/@c_child1.seo_alias" class="collapsed" aria-expanded="false" role="button">@c_child1.category_name<i class="accordion-indicator ti-angle-down"></i></a></h5>
+                                <div class="collapse show" id="category_@c_child1.category_id">
+                                    <div class="card-body">
+                                        <div class="inner_widget_link">
+                                            <ul>
+                                                @foreach (var c_child2 in list_category_child_2)
+                                                {
+                                                    int num_product_c2 = new ProductProvider().getByCategoryIdOnSite(c_child2.category_id).Count;
+                                                    if (c_child2.show_datetime <= DateTime.Now && c_child2.status == true)
+                                                    {
+                                                        int num_category_child_sidebar = new CategoryProvider().getCategoryChildByCategoryId(c_child2.category_id).Count;
+                                                        if (num_category_child_sidebar > 0)
+                                                        {
+                                                            <li><a href="/collections/@c_child2.seo_alias">@c_child2.category_name<span>(@num_product_c2)</span></a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a href="/category-products/@c_child2.seo_alias">@c_child2.category_name<span>(@num_product_c2)</span></a></li>
+                                                        }
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Single Filter Card -->
+                            <div class="single_filter_card">
+                                <h5>
+                                    @if (num_product_c1 > 0)
+                                    {
+                                        <a href="/collections/@c_child1.seo_alias" class="collapsed" aria-expanded="false" role="button">@c_child1.category_name</a>
+                                        <span>(@num_product_c1)</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="/category-products/@c_child1.seo_alias" class="collapsed" aria-expanded="false" role="button">@c_child1.category_name</a>
+                                        <span>(@num_product_c1)</span>
+                                    }
+                                </h5>
+                            </div>
+                        }
+                    }
+                }
+            }
+            else
+            {
+                <div class="single_filter_card">
+                    <h5>
+                        <a class="collapsed" aria-expanded="false" role="button">Không có dữ liệu</a>
+                    </h5>
+                </div>
+            }
+            
+
+
+            <div class="clearfix"></div>
+            <nav class="navigation  paging-navigation pager-numeric">
+                <div class="pagination loop-pagination">
+                    <span class="page-numbers current">1</span>
+                    <a class="page-numbers" href="#">2</a>
+                    <a class="page-numbers" href="#">3</a>
+                    <a class="next page-numbers" href="#">Next</a>
+                </div>
+            </nav>
+
+
+        </div><!--row-->
+    </div><!--container -->
+</section>
+

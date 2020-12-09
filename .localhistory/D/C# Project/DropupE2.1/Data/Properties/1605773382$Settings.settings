@@ -1,0 +1,350 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Data.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FreshMartConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=FreshMart;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=FreshMart;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="sun89911_dropupConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;Persist Security Info=True;User ID=sun89911_haiit&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;Persist Security Info=True;User ID=sun89911_haiit</Value>
+    </Setting>
+    <Setting Name="sun89911_drop_upConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.174,1433;Initial Catalog=sun89911_drop_up;User ID=sun89911_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.174,1433;Initial Catalog=sun89911_drop_up;User ID=sun89911_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="sun89911_dropupConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;User ID=sun89911_haidn;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;User ID=sun89911_haidn;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="sun89911_dropupConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;Persist Security Info=True;User ID=sun89911_haidn;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.174,1433;Initial Catalog=sun89911_dropup;Persist Security Info=True;User ID=sun89911_haidn;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="YuncosplayvnConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Yuncosplayvn;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Yuncosplayvn;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="yun44832_yuncosplayvnConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplayvn;Persist Security Info=True;User ID=yun44832_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplayvn;Persist Security Info=True;User ID=yun44832_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="yun44832_yuncosplayvnConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplayvn;Persist Security Info=True;User ID=yun44832_haiit&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplayvn;Persist Security Info=True;User ID=yun44832_haiit</Value>
+    </Setting>
+    <Setting Name="yun44832_db_yuncosplayConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_db_yuncosplay;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_db_yuncosplay;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="yun44832_yuncosplaydbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplaydb;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_yuncosplaydb;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="GenezConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Genez;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Genez;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="MorcarConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Morcar;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Morcar;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="mor97544_morcar_vnConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcar.vn;Persist Security Info=True;User ID=mor97544_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcar.vn;Persist Security Info=True;User ID=mor97544_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="mor97544_morcarvnConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcarvn;Persist Security Info=True;User ID=mor97544_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcarvn;Persist Security Info=True;User ID=mor97544_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="mor97544_morcarvnConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcarvn;Persist Security Info=True;User ID=mor97544_haidn&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcarvn;Persist Security Info=True;User ID=mor97544_haidn</Value>
+    </Setting>
+    <Setting Name="yun44832_dbtestConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_dbtest;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_dbtest;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="yun44832_dbtestConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_dbtest&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_dbtest</Value>
+    </Setting>
+    <Setting Name="yun44832_dbtestConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_db_haiit&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_db_haiit</Value>
+    </Setting>
+    <Setting Name="yun44832_dbtestConnectionString3" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.210,1433;Initial Catalog=yun44832_dbtest;Persist Security Info=True;User ID=yun44832_db_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="TriMunBaLaoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=TriMunBaLao;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=TriMunBaLao;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="SerumBaLaoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=SerumBaLao;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=SerumBaLao;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="mor97544_morcardbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcardb;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_morcardb;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="mor97544_dbtestConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_dbtest;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_dbtest;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="mor97544_test2ConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_test2;Persist Security Info=True;User ID=mor97544_test2;Password=3z65V~um&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_test2;Persist Security Info=True;User ID=mor97544_test2;Password=3z65V~um</Value>
+    </Setting>
+    <Setting Name="mor97544_test2ConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.74,1433;Initial Catalog=mor97544_test2;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.74,1433;Initial Catalog=mor97544_test2;Persist Security Info=True;User ID=mor97544_haidn;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="bal77102_serumbalaodbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.42,1433;Initial Catalog=bal77102_serumbalaodb;Persist Security Info=True;User ID=bal77102_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.42,1433;Initial Catalog=bal77102_serumbalaodb;Persist Security Info=True;User ID=bal77102_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="DropupDBConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=DropupDB;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=DropupDB;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="BIHA_GroupConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BIHA-Group;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BIHA-Group;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="VosellaConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Vosella;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Vosella;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="vos45758_dbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.36,1433;Initial Catalog=vos45758_db;Persist Security Info=True;User ID=vos45758_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.36,1433;Initial Catalog=vos45758_db;Persist Security Info=True;User ID=vos45758_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="DLD_GroupConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=DLD-Group;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=DLD-Group;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="mul96217_multiagrodbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.36,1433;Initial Catalog=mul96217_multiagrodb;Persist Security Info=True;User ID=mul96217_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.36,1433;Initial Catalog=mul96217_multiagrodb;Persist Security Info=True;User ID=mul96217_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="DinoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Dino;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Dino;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="sto59554_dinodbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.28,1433;Initial Catalog=sto59554_dinodb;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.28,1433;Initial Catalog=sto59554_dinodb;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="sto59554_dinodatabaseConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.28,1433;Initial Catalog=sto59554_dinodatabase;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.28,1433;Initial Catalog=sto59554_dinodatabase;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="ElysienConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Elysien;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Elysien;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="ely20147_elysiendbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.73;Initial Catalog=ely20147_elysiendb;Persist Security Info=True;User ID=ely20147_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.73;Initial Catalog=ely20147_elysiendb;Persist Security Info=True;User ID=ely20147_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="ely60663_elysiendbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.42,1433;Initial Catalog=ely60663_elysiendb;Persist Security Info=True;User ID=ely60663_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.42,1433;Initial Catalog=ely60663_elysiendb;Persist Security Info=True;User ID=ely60663_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="elysiendbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=103.152.165.150\MSSQLSERVER2019;Initial Catalog=elysiendb;Persist Security Info=True;User ID=elysienv;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=103.152.165.150\MSSQLSERVER2019;Initial Catalog=elysiendb;Persist Security Info=True;User ID=elysienv;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="TokaidoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Tokaido;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=Tokaido;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="sto59554_dinodbConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.28;Initial Catalog=sto59554_dinodb;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.28;Initial Catalog=sto59554_dinodb;Persist Security Info=True;User ID=sto59554_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="sto59554_dinodatabaseConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.28;Initial Catalog=sto59554_dinodatabase;Persist Security Info=True;User ID=sto59554_haiit2;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.28;Initial Catalog=sto59554_dinodatabase;Persist Security Info=True;User ID=sto59554_haiit2;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="elysienv_tokaidodbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=103.152.165.150\MSSQLSERVER2019;Initial Catalog=elysienv_tokaidodb;Persist Security Info=True;User ID=elysienv;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=103.152.165.150\MSSQLSERVER2019;Initial Catalog=elysienv_tokaidodb;Persist Security Info=True;User ID=elysienv;Password=Ngochaiit257!</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

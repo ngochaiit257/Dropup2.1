@@ -1,0 +1,63 @@
+﻿.main-navbar .navbar .navbar-nav .nav-item a {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-area {
+    background: #f1fffd;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a:hover, .main-navbar .navbar .navbar-nav .nav-item a:focus, .main-navbar .navbar .navbar-nav .nav-item a.active {
+    color: #ee0c0c;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item:hover a, .main-navbar .navbar .navbar-nav .nav-item.active a {
+    color: #ee0c0c;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .main-navbar .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
+    color: #ee0c0c;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a::before {
+    background-color: #ee0c0c;
+}
+
+.top-bar-area.bg-color {
+    background-color: #009949;
+}
+
+.main-navbar .navbar .others-options .option-item .default-btn {
+    padding: 12px 25px;
+    background-color: #ee0c0c;
+}
+
+.option-item{
+    margin-left: 68px;
+}
+
+.cmd3{
+    text-align: right;
+}
+
+    .cmd3 span {
+        color: #ee0c0c;
+    }
+
+    .cmd3 i {
+        font-size: 50px;
+    }
+
+
+.contact-custom{
+    float: left;
+}
+
+.main-banner-item {
+    height: 395px;
+    position: unset;
+}
+
+

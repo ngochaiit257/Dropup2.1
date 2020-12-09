@@ -1,0 +1,1044 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Cấu hình website";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>
+                    Cấu hình website
+                </h1>
+
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Cấu hình website</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="javascript:void(0)" onclick="showModalUpdalteLogoBanner()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật Logo, Banner">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-eye font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Logo - Banner</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Cấu hình Logo, Banner</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="javascript:void(0)" onclick="showModalPartnerImage()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật hình ảnh đối tác">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-handshake-o font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Đối tác</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Cập nhật hình ảnh đối tác</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="javascript:void(0)" onclick="showModalCustomerSay()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật nhận xét khách hàng">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-thumbs-o-up font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Khách hàng nhận xét</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Thêm nhận xét của khách hàng</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="javascript:void(0)" onclick="showModalMembership()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật nhân sự">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-users font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Đội ngũ nhân sự</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Cập nhật</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>
+                    Quản trị bài viết
+                </h1>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+
+                    <a href="javascript:void(0)" onclick="showModalAboutUs()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật bài viết giới thiệu">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-commenting font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Giới thiệu</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Bài viết giới thiệu</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="javascript:void(0)" onclick="showModalStoreContact()" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật thông tin liên hệ">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-address-book font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Thông tin liên hệ</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Địa chỉ, SĐT, Email,...</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="/Blog/Index" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để đi tới quản trị Blog">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-list-alt font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Blog</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Quản trị Blog</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card card-statistics employees-contant px-2">
+            <div class="card-body pb-5 pt-4">
+                <div class="text-center">
+                    <a href="/Page/Index" class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Click để cập nhật trang nội dung">
+                        <div class="pt-1 bg-img m-auto img_index_configuration">
+                            <i class="fa fa-window-maximize font-50" style="vertical-align: text-top;"></i>
+                        </div>
+                    </a>
+                    <div class="mt-3 employees-contant-inner">
+                        <h4 class="mb-1">Trang nội dung</h4>
+                        <p class="mb-0 text-muted">
+                            <a>Tạo thêm các trang tùy ý</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalUpdateLogoBanner" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modalBigDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật giao diện website
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_logo_banner">
+                @Html.Action("GetLogoBanner", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalStoreContact" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật thông tin liên hệ
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_logo_banner">
+                @Html.Action("GetStoreContact", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="updateStoreContact()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalPartnerImage" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật hình ảnh đối tác
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_store_partner">
+                @Html.Action("GetPartnerImage", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="savePartnerImage()">Xác nhận và Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalCustomerSay" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật nhận xét khách hàng
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_store_customer_say">
+                @Html.Action("GetCustomerSay", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button id="btn_save_customer_say_update" type="button" class="btn btn-success" data-dismiss="modal" onclick="saveCustomerSay()">Xác nhận và Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalAboutUs" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modalBigDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật bài viết giới thiệu
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_body_about_us">
+                @Html.Action("GetAboutUs", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelAboutUs()">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saveAboutUs()">Xác nhận và Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalMembership" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật nhân sự
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_store_membership">
+                @Html.Action("GetStoreMembership", "Configuration")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button id="btn_save_membership_update" type="button" class="btn btn-success" onclick="saveMembershipUpdate()">Xác nhận và Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Modal child*@
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalCreatePartner" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Thêm đối tác
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="">
+                        <label>Avatar</label>
+                        <div class="d-flex align-items-center">
+                            <div class="partner_img_client_site">
+                                <img src="~/Assets/images/Icon/iconImg.png" alt="" id="show_img_partner" />
+                            </div>
+                            <input type="file" id="input_file_img_partner" accept="image/*" hidden>
+                            <div class="ml-3">
+                                <label for="input_file_img_partner">
+                                    <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Chọn hình ảnh</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-10">
+                        <label for="fb">Tên đối tác</label>
+                        <input type="text" class="form-control" placeholder="Nhập tên" id="partner_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="fb">Link</label>
+                        <input type="text" class="form-control" placeholder="Nhập link" id="partner_link">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideModalCreatePartner()">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" onclick="createPartner()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalCreateCustomerSay" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Thêm Feedback
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="">
+                        <label>Avatar</label>
+                        <div class="d-flex align-items-center">
+                            <div class="partner_img_client_site">
+                                <img src="~/Assets/images/Icon/iconImg.png" alt="" id="show_img_customer_say" />
+                            </div>
+                            <input type="file" id="input_file_img_customer_say" accept="image/*" hidden>
+                            <div class="ml-3">
+                                <label for="input_file_img_customer_say">
+                                    <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Chọn hình ảnh</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-10">
+                        <label for="fb">Tên khách hàng</label>
+                        <input type="text" class="form-control" placeholder="Nhập tên" id="cname">
+                    </div>
+                    <div class="form-group">
+                        <label for="fb">Chức vụ</label>
+                        <input type="text" class="form-control" placeholder="VD: CEO Công ty Dropup" id="cposition">
+                    </div>
+                    <div class="form-group">
+                        <label for="fb">Lời nhận xét</label>
+                        <div class="mb-2">
+                            <textarea class="form-control" id="ccomment" name="ccomment" rows="3" maxlength="320" placeholder="Nhập lời nhận xét"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideModalCreateCustomerSay()">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" onclick="createCustomerSay()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalCreateSlide" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Thêm SLIDE
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_create_slide">
+                    <div class="dive_info_slide">
+                        <div class="form-group">
+                            <div class="checkbox checbox-switch switch-success">
+                                <label>
+                                    Trạng thái hiển thị &nbsp;&nbsp;
+                                    <input type="checkbox" name="switch_show" id="switch_show" checked="" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="slide_client_site" style="width:30%">
+                                <img src="~/Assets/images/Icon/iconImg.png" id="show_slide_image" />
+                            </div>
+                            <input type="file" id="file_slide" accept="image/*" hidden>
+
+                            <div class="ml-10">
+                                <label for="file_slide">
+                                    <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form_info_slide row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="fb">Alt</label>
+                                    <input type="text" class="form-control" id="input_alt_slide" placeholder="Nhập Alt SLIDE">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="fb">Link</label>
+                                    <input type="text" class="form-control" id="input_link_slide" placeholder="Nhập link SLIDE">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Text chính</label>
+                            <input type="text" class="form-control" id="input_main_text" placeholder="Nhập Text chính">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Text con 1</label>
+                            <input type="text" class="form-control" id="input_child_text_1" placeholder="Nhập Text con 1">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Text con 2</label>
+                            <input type="text" class="form-control" id="input_child_text_2" placeholder="Nhập Text con 2">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" onclick="createSlide()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalCreateMembership" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Thêm nhân sự
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="scrollbar scroll_dark pt-0" style="max-height: 500px;">
+                    <form id="form_create_store_membership">
+                        <div class="">
+                            <label>Hình ảnh</label>
+                            <div class="d-flex align-items-center">
+                                <div class="partner_img_client_site">
+                                    <img src="~/Assets/images/Icon/iconImg.png" id="show_image_membership" />
+                                </div>
+                                <input type="file" id="input_file_image_membership" accept="image/*" hidden>
+                                <div class="ml-3">
+                                    <label for="input_file_image_membership">
+                                        <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-10">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="fb">Tên nhân sự</label>
+                                    <input type="text" class="form-control" maxlength="255" placeholder="Nhập tên" id="mname">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="fb">Chức vụ</label>
+                                    <input type="text" class="form-control" placeholder="Nhập chức vụ" maxlength="255" id="mposition">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Lời nhận xét</label>
+                            <div class="mb-2">
+                                <textarea class="form-control" id="msummary" name="" rows="3" maxlength="255" placeholder="Nhập mô tả nhân sự"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Facebook</label>
+                            <input type="text" class="form-control" placeholder="Nhập link Facebook" maxlength="550" id="mfacebook">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Zalo</label>
+                            <input type="text" class="form-control" placeholder="Nhập link Zalo" maxlength="550" id="mzalo">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Instagram</label>
+                            <input type="text" class="form-control" placeholder="Nhập link Instagram" maxlength="550" id="minstagram">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Youtube</label>
+                            <input type="text" class="form-control" placeholder="Nhập link Youtube" maxlength="550" id="myoutube">
+                        </div>
+                        <div class="form-group">
+                            <label for="fb">Twitter</label>
+                            <input type="text" class="form-control" placeholder="Nhập link Twitter" maxlength="550" id="mtwitter">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và Quay lại</button>
+                <button type="button" class="btn btn-success" onclick="createMembership()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal Delete*@
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalDeleteMemberShip" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa nhân sự này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="cancelModalDeleteMembership()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa nhân sự bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+                <input type="text" id="input_hidden_mem_id" hidden />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelModalDeleteMembership()">Hủy và quay lại</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteMembership()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalDeleteSlide" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa Slide này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa Slide bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+                <input type="text" id="input_hidden_slide_id" hidden />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và quay lại</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteSlide()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalDeleteCustomerSay" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa feedback này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa feedback bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+                <input type="text" id="input_hidden_cs_id" hidden />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và quay lại</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteCustomerSay()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if (mem_id_is_active == 0) {
+            $('#btn_save_membership_update').prop('disabled', true);
+        }
+
+        if (cs_id_is_active == 0) {
+            $('#btn_save_customer_say_update').prop('disabled', true);
+        }
+
+        $.ajax({
+            url: "/Configuration/GetArraySlideId",
+            data: {},
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                list_slide_id = JSON.parse(data).list_slide_id;
+            },
+            error: function (xhr, status) {
+                $("#valid-feedback").val("Lỗi");
+            },
+            complete: function (xhr, status) {
+                //$('#showresults').slideDown('slow')
+            }
+        });
+    });
+
+    var list_slide_id = [];
+    function showModalUpdalteLogoBanner() {
+        $('#modalUpdateLogoBanner').modal('show');
+    }
+    function showModalPartnerImage() {
+        $('#modalPartnerImage').modal('show');
+    }
+
+    function showModalCustomerSay() {
+        $('#modalCustomerSay').modal('show');
+    }
+
+    function showModalAboutUs() {
+        $.ajax({
+            url: '@Url.Action("GetAboutUs", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            data: { },
+            success: function (result) {
+                $('#modal_body_about_us').html(result);
+            }
+        });
+        $('#modalAboutUs').modal('show');
+    }
+
+    function cancelUpdateLogoBanner() {
+        $('#modalUpdateLogoBanner').modal('hide');
+    }
+
+    function cancelPartnerImage() {
+        $('#modalPartnerImage').modal('hide');
+    }
+
+    function cancelCustomerSay() {
+        $('#modalCustomerSay').modal('hide');
+    }
+
+    function cancelAboutUs() {
+        $('#modalAboutUs').modal('hide');
+    }
+
+    function saveAboutUs() {
+        var page_title = $('#page_title').val();
+        var page_seo_header = $("#seo_header").val().trim();
+        var page_seo_description = $("#seo_description").val().trim();
+        var page_seo_alias = $("#seo_alias").val().trim();
+        var page_content = $('#summernote').summernote('code');
+
+        $.ajax({
+            url: "/Configuration/UpdateAboutUs",
+            data: {
+                page_title: page_title,
+                page_content: page_content,
+                page_seo_header: page_seo_header,
+                page_seo_alias: page_seo_alias,
+                page_seo_description: page_seo_description,
+                about_us_date_to_show: "",
+                about_us_time_to_show: "",
+                is_showing: true
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                $('#modalAboutUs').modal('hide');
+                showToast("success", 'Trang giới thiệu đã được cập nhật.', "Cập nhật thành công");
+
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    function updateStorePartner() {
+        $.ajax({
+            url: '@Url.Action("GetPartnerImage", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            data: {},
+            success: function (result) {
+                $('#list_store_partner').html(result);
+            }
+        });
+    }
+
+    function updateStoreCustomerSay() {
+        $.ajax({
+            url: '@Url.Action("GetCustomerSay", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            data: {},
+            success: function (result) {
+                $('#list_store_customer_say').html(result);
+            }
+        });
+    }
+
+    function slideImageIsLoaded(e) {
+        $('#show_slide_image').attr('src', e.target.result);
+    };
+
+    $("#file_slide").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Hình ảnh SLIDE không được vượt quá 3Mb.", "Lỗi hình ảnh SLIDE");
+                $('#file_slide').trigger('reset');
+            } else {
+                var reader = new FileReader();
+                reader.onload = slideImageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+
+        }
+    });
+
+    function updateStoreSlide() {
+        $.ajax({
+            url: '@Url.Action("GetLogoBanner", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            data: {},
+            success: function (result) {
+                $('#list_logo_banner').html(result);
+            }
+        });
+    }
+
+    function createSlide() {
+        console.log($('#switch_show').is(':checked'));
+        var fileData = new FormData();
+        var fileUpload = $("#file_slide").get(0);
+        var files = fileUpload.files;
+
+        if (files.length == 0) {
+            showToast("error", "Yêu cầu chọn hình ảnh.", "Lỗi thêm hình ảnh");
+        }
+        else {
+            fileData.append("image", files[0]);
+            fileData.append("alt", $('#input_alt_slide').val());
+            fileData.append("main_text", $("#input_main_text").val().trim());
+            fileData.append("child_text_1", $("#input_child_text_1").val().trim());
+            fileData.append("child_text_2", $('#input_child_text_2').val());
+            fileData.append("link_url", $('#input_link_slide').val());
+            if ($('#switch_show').is(':checked')) {
+                fileData.append("is_showing", true);
+            } else {
+                fileData.append("is_showing", false);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateSlide", "Configuration")',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    updateStoreSlide();
+                    $('#show_slide_image').attr('src', '../Assets/images/Icon/iconImg.png');
+                    $('#form_create_slide').trigger('reset');
+                    $('#modalCreateSlide').modal('hide');
+                    $('#modalUpdateLogoBanner').modal('show');
+                    showToast("success", "Slide đã được thêm.", "Thêm thành công");
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    }
+
+    function deleteSlide() {
+        var slide_id = $('#input_hidden_slide_id').val();
+         $.ajax({
+            url: '@Url.Action("DeleteSlide", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+             data: {
+                 slide_id: slide_id
+             },
+            success: function (data) {
+                updateStoreSlide();
+                $('#modalDeleteSlide').modal('hide');
+                $('#modalUpdateLogoBanner').modal('show');
+                showToast("success", "Slide đã được xóa.", "Xóa thành công");
+             },
+             error: function (xhr) {
+                 toastError();
+             }
+        });
+    }
+
+    function showModalStoreContact() {
+        $('#modalStoreContact').modal('show');
+    }
+
+    function showModalMembership() {
+        $('#modalMembership').modal('show');
+    }
+
+    function slideImageMembershipIsLoaded(e) {
+        $('#show_image_membership').attr('src', e.target.result);
+    };
+
+    $("#input_file_image_membership").change(function () {
+        if (this.files && this.files[0]) {
+            if (this.files[0].size > (3 * 1024000)) {
+                showToast("error", "Hình ảnh avatar không được vượt quá 3Mb.", "Lỗi hình ảnh avatar");
+                $('#input_file_image_membership').trigger('reset');
+            } else {
+                var reader = new FileReader();
+                reader.onload = slideImageMembershipIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+
+        }
+    });
+
+    function deleteMembership() {
+        var mem_id = $('#input_hidden_mem_id').val();
+         $.ajax({
+            url: '@Url.Action("DeleteMembership", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+             data: {
+                 mem_id: mem_id
+             },
+            success: function (data) {
+                updateStoreMembership();
+                $('#modalDeleteMemberShip').modal('hide');
+                $('#modalMembership').modal('show');
+                showToast("success", "Thông tin nhân sự đã được xóa.", "Xóa thành công");
+                $('#btn_save_membership_update').prop('disabled', true);
+             },
+             error: function (xhr) {
+                 toastError();
+             }
+        });
+    }
+
+    function saveMembershipUpdate() {
+        var membership_id = mem_id_is_active;
+        var mname = $('#mname_' + membership_id).val();
+        var mposition = $('#mposition_' + membership_id).val();
+        var msummary = $('#msummary_' + membership_id).val();
+        var mfacebook_url = $('#mfacebook_' + membership_id).val();
+        var mzalo_url = $('#mzalo_' + membership_id).val();
+        var minstagram_url = $('#minstagram_' + membership_id).val();
+        var myoutube_url = $('#myoutube_' + membership_id).val();
+        var mtwitter_url = $('#mtwitter_' + membership_id).val();
+
+        var fileData = new FormData();
+        var fileUpload = $("#input_file_img_store_membership_detail_" + membership_id).get(0);
+        var files = fileUpload.files;
+
+        fileData.append("membership_id", membership_id);
+        fileData.append("image", files[0]);
+        fileData.append("mname", mname);
+        fileData.append("mposition", mposition);
+        fileData.append("msummary", msummary);
+        fileData.append("mfacebook_url", mfacebook_url);
+        fileData.append("mzalo_url", mzalo_url);
+        fileData.append("minstagram_url", minstagram_url);
+        fileData.append("myoutube_url", myoutube_url);
+        fileData.append("mtwitter_url", mtwitter_url);
+        fileData.append("avatar_store_membership_is_change", avatar_store_membership_is_change);
+
+        $.ajax({
+            type: "POST",
+             url: '@Url.Action("UpdateMembership", "Configuration")',
+            data: fileData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                updateStoreMembership();
+                showToast("success", "Thông tin nhân sự đã được cập nhật.", "Cập nhật thành công");
+                $('#btn_save_membership_update').prop('disabled', true);
+                //mem_id_is_active = data.mem_id;
+                //$('#aria_labelledby_membership_' + mem_id_is_active).addClass("active").addClass("show");
+                //$('#aria_labelledby_membership_' + mem_id_is_active).prop('aria-selected', true);
+                //$('#id_membership_' + mem_id_is_active).addClass("active").addClass("show");
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    function saveCustomerSay() {
+        var customer_say_id = cs_id_is_active;
+        var mname = $('#csname_' + customer_say_id).val();
+        var mposition = $('#csposition_' + customer_say_id).val();
+        var msummary = $('#cscomment_' + customer_say_id).val();
+
+        var fileData = new FormData();
+        var fileUpload = $("#input_file_img_store_customer_say_detail_" + customer_say_id).get(0);
+        var files = fileUpload.files;
+
+        fileData.append("store_customer_say_id", customer_say_id);
+        fileData.append("image", files[0]);
+        fileData.append("cname", mname);
+        fileData.append("cposition", mposition);
+        fileData.append("ccomment", msummary);
+        fileData.append("avatar_store_customer_say_is_change", avatar_store_customer_say_is_change);
+
+        $.ajax({
+            type: "POST",
+             url: '@Url.Action("UpdateCustomerSay", "Configuration")',
+            data: fileData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                updateStoreCustomerSay();
+                showToast("success", "Feedback khách hàng đã được cập nhật.", "Cập nhật thành công");
+                $('#btn_save_customer_say_update').prop('disabled', true);
+            },
+            error: function (xhr) {
+                toastError();
+            }
+        });
+    }
+
+    function deleteCustomerSay() {
+        var cs_id = $('#input_hidden_cs_id').val();
+         $.ajax({
+            url: '@Url.Action("DeleteCustomerSay", "Configuration")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+             data: {
+                 cs_id: cs_id
+             },
+            success: function (data) {
+                updateStoreCustomerSay();
+                $('#modalDeleteCustomerSay').modal('hide');
+                $('#modalCustomerSay').modal('show');
+                showToast("success", "Feedback đã được xóa.", "Xóa thành công");
+                $('#btn_save_customer_say_update').prop('disabled', true);
+             },
+             error: function (xhr) {
+                 toastError();
+             }
+        });
+    }
+</script>

@@ -1,0 +1,404 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_service = new ProductProvider().getAll();
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<!-- Mirrored from templates.hibootstrap.com/fixa/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 23 Nov 2020 15:11:21 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../Assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="../Assets/css/animate.css">
+    <!-- Icofont CSS -->
+    <link rel="stylesheet" href="../Assets/css/icofont.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="../Assets/css/owl.carousel.min.css">
+    <!--  Owl Carousel Theme CSS -->
+    <link rel="stylesheet" href="../Assets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="../Assets/css/magnific-popup.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="../Assets/css/meanmenu.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../Assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../Assets/css/responsive.css">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+    <link href="~/Assets/css/PagedList.css" rel="stylesheet" />
+    <!-- Title CSS -->
+    <title>@ViewBag.Title</title>
+    <!-- Favicon Link -->
+    <link rel="icon" type="image/png" href="@urlCMS/@favicon.image">
+</head>
+
+<body>
+    <!-- PreLoader Start -->
+    <div class="loader-content">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="sk-folding-cube">
+                    <div class="sk-cube1 sk-cube"></div>
+                    <div class="sk-cube2 sk-cube"></div>
+                    <div class="sk-cube4 sk-cube"></div>
+                    <div class="sk-cube3 sk-cube"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PreLoader End -->
+    <!-- Header Area Start -->
+    <div class="header-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="header-left">
+                        <ul>
+                            <li>
+                                <a href="mailto:@contact.email">
+                                    <i class="icofont-ui-message"></i>
+                                    @contact.email
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:@contact.phone_number">
+                                    <i class="icofont-phone"></i>
+                                    @contact.phone_number
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="icofont-location-pin"></i>
+                                    @contact.address
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="header-right">
+                        <div class="row align-items-center">
+                            <div class="col-lg-2 col-md-6 offset-lg-6 col-6 col-sm-4">
+                                <div class="dropdown text-right">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="../Assets/img/united-states.png" alt="country">
+                                        USA
+                                    </button>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/united-kingdom.png" alt="country">
+                                            United Kingdom
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/argentina.png" alt="country">
+                                            Argentina
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/germany.png" alt="country">
+                                            Germany
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/brazil.png" alt="country">
+                                            Brazil
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 text-right col-6 col-sm-4">
+                                <ul class="header-social">
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class="icofont-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class="icofont-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class="icofont-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" target="_blank">
+                                            <i class="icofont-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Area End -->
+    <!-- Navbar Area Start -->
+    <div class="navbar-area">
+        <!-- For Mobile Device -->
+        <div class="mobile-nav">
+            <a href="/" class="logo">
+                <img src="@urlCMS/@logo_header.image" alt="@logo_header.alt">
+            </a>
+        </div>
+
+        <!-- For Desktop Device -->
+        <div class="main-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="/">
+                        <img class="logo-img" src="@urlCMS/@logo_header.image" alt="@logo_header.alt">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Trang chủ</a>
+                            </li>
+
+                            @if (list_page_parent.Count > 0)
+                            {
+                                foreach (var pp in list_page_parent)
+                                {
+                                    if (pp.mount_on_header_menu_status == true)
+                                    {
+                                        var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                        if (list_page_child.Count > 0)
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                    @pp.page_title.ToUpper()
+                                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                                </a>
+
+                                                <ul class="sub_menu">
+                                                    @foreach (var pc in list_page_child)
+                                                    {
+                                                        <li class="">
+                                                            <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                @pc.page_title.ToUpper()
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/pages/@pp.page_seo_alias">
+                                                    @pp.page_title.ToUpper()
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            @foreach (var page in list_page)
+                            {
+                                if (page.mount_on_header_menu_status == true)
+                                {
+                                    <li class="nav-item">
+                                        <a href="/pages/@page.page_seo_alias" class="nav-link">@page.page_title</a>
+                                    </li>
+                                }
+                            }
+                            <li class="nav-item">
+                                <a href="#" class="nav-link dropdown-toggle">Dịch vụ</a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var service in list_service)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/@service.seo_alias" class="nav-link">@service.product_name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/blogs" class="nav-link">Tin tức</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/pages/lien-he" class="nav-link">Liên hệ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar Area End -->
+    @RenderBody()
+    <!-- Footer Area Start -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <a href="/">
+                            <img class="logo-img" src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt">
+                        </a>
+                        <ul>
+                            <li>
+                                <i class="icofont-phone"></i>
+                                <a href="tel:@contact.phone_number">
+                                    @contact.phone_number
+                                </a>
+                            </li>
+
+                            <li>
+                                <i class="icofont-ui-message"></i>
+                                <a href="mailto:@contact.email">
+                                    @contact.email
+                                </a>
+                            </li>
+
+                            <li>
+                                <i class="icofont-location-pin"></i>
+                                @contact.address
+                            </li>
+                        </ul>
+
+                        <div class="footer-social">
+                            <a href="#" target="_blank">
+                                <i class="icofont-facebook"></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class="icofont-instagram"></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class="icofont-twitter"></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class="icofont-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h3>Dịch vụ của chúng tôi</h3>
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/@service.seo_alias">@service.product_name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h3>Liên kết nhanh</h3>
+                        <ul>
+                            <li>
+                                <a href="privacy.html">Privacy & Policy</a>
+                            </li>
+                            <li>
+                                <a href="faq.html">FAQS</a>
+                            </li>
+                            <li>
+                                <a href="terms.html">Terms & Conditions</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="about.html">About Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h3>Danh mục bài viết</h3>
+                        <ul>
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html">About Us</a>
+                            </li>
+                            <li>
+                                <a href="service.html"> Our Services </a>
+                            <li>
+                                <a href="blog.html">Our Blog</a>
+                            </li>
+                            <li>
+                                <a href="contact.html">Eemrgency Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <p>Copyright 2020 Bunny. All Rights Reserved.</p>
+        </div>
+
+        <div class="lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </footer>
+    <!-- Footer Area End -->
+    <!-- Back top Button -->
+    <div class="top-btn">
+        <i class="icofont-scroll-bubble-up"></i>
+    </div>
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../Assets/js/jquery-2.2.4.min.js"></script>
+    <script src="../Assets/js/popper.min.js"></script>
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <!-- Subscribe From JS -->
+    <script src="../Assets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="../Assets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="../Assets/js/contact-form-script.js"></script>
+    <!-- Owl Carousel Slider JS -->
+    <script src="../Assets/js/owl.carousel.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="../Assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- WOW JS -->
+    <script src="../Assets/js/wow.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="../Assets/js/meanmenu.js"></script>
+    <!-- Custom JS -->
+    <script src="../Assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</body>
+
+</html>

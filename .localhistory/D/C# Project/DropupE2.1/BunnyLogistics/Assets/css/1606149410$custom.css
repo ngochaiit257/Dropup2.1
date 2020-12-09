@@ -1,0 +1,22 @@
+﻿.banner-slider .owl-item.active h1 {
+    text-transform: capitalize;
+}
+
+.header-area .header-left ul li a i {
+    color: #fff;
+}
+
+.features-section .feature-card i {
+    color: #E02027;
+    background: #ffebf1;
+}
+
+.section-title h2 {
+    text-transform: capitalize;
+}
+
+.img-news-lastest {
+    width: 100%;
+    height: 297px;
+    object-fit: cover;
+}

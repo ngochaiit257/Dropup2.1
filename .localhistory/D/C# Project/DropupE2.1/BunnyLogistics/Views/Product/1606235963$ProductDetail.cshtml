@@ -1,0 +1,111 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+}
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-5">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>@Model.product_name</h2>
+            <ul>
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                <li>@Model.product_name</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Service Details Section Start -->
+<section class="service-details-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="service-post-area">
+                    <div class="service-details-img">
+                        <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                    </div>
+                    <h2>@Model.product_name</h2>
+                    @Html.Raw(Model.content)
+                </div>
+            </div>
+
+            <div class="col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="service-sidebar">
+                    <div class="sidebar-widget">
+                        <h3>Danh mục dịch vụ</h3>
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/@service.seo_alias">
+                                        <i class="icofont-check-circled"></i>
+                                        @service.product_name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Thông tin liên hệ</h3>
+                        <ul>
+                            <li>
+                                <a href="tel:@contact.phone_number">
+                                    <i class="icofont-phone"></i>
+                                    @contact.phone_number
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:hello@fixa.com">
+                                    <i class="icofont-ui-message"></i>
+                                    @contact.email
+                                </a>
+                            </li>
+                            <li>
+                                <i class="icofont-location-pin"></i>
+                                28/A , New York, USA
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Download Brochures</h3>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-file-alt"></i>
+                                    Brochures (1)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-file-alt"></i>
+                                    Brochures (2)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icofont-file-alt"></i>
+                                    Brochures (3)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Service Details Section End -->

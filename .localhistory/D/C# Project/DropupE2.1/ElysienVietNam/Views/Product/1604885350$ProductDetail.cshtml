@@ -1,0 +1,347 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).Where(cp => cp.type_of_category_id == 1).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var product_variation = new ProductVariationProvider().get1ByProductId(Model.product_id);
+
+    var list_product_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+}
+
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">
+                        @Model.product_name
+                    </h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang Chủ</a></li>
+                        @if (category_parent != null && category_parent.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                        }
+
+                        @if (category_child_1 != null && category_child_1.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                        }
+
+                        @if (category_child_2 != null && category_child_2.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                        }
+                        <li>
+                            @Model.product_name
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop details Area start -->
+<section class="product-details-area mtb-60px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-img product-details-tab">
+                    <div class="zoompro-wrap zoompro-2">
+                        <div class="zoompro-border zoompro-span">
+                            <img class="zoompro" src="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image" alt="@Model.alt_image" />
+                        </div>
+                    </div>
+
+                    <div id="gallery" class="product-dec-slider-2">
+                        <a class="active" data-image="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image">
+                            <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image" />
+                        </a>
+                        @foreach (var img_more in ViewBag.ListImageMore as List<image_more>)
+                        {
+                            <a data-image="@urlCMS/@img_more.image_more_url" data-zoom-image="@urlCMS/@img_more.image_more_url">
+                                <img src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt" />
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-content">
+                    <h1>@Model.product_name</h1>
+                    @if (product_variation.product_variation_code != null)
+                    {
+                        <p class="reference">SKU:<span> @product_variation.product_variation_code</span></p>
+                    }
+                    <div class="pro-details-rating-wrap">
+                        <div class="rating-product">
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                        </div>
+                        <span class="read-review"><a class="reviews" href="#">Đọc bình luận</a></span>
+                    </div>
+                    <div class="pricing-meta">
+                        <ul>
+                            <li class="current-price not-cut showNumeric">@product_variation.product_variation_price</li>
+                            <li class="old-price showNumeric">@product_variation.product_variation_price_comparison</li>
+                        </ul>
+                    </div>
+                    <div class="pro-short-desc">
+                        @Html.Raw(Model.description)
+                    </div>
+                    <div class="pro-details-quality mt-0px">
+                        <div class="cart-plus-minus">
+                            <input min="1" max="1000000" maxlength="10" class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                        </div>
+                        <div class="pro-details-cart btn-hover">
+                            <a href="javascript:void(0)" onclick="addToCart()">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                    </div>
+                    <div class="pro-details-social-info">
+                        <span>Chia sẻ</span>
+                        <div class="social-info">
+                            <div class="fb-like" data-href="@urlCMS/@Model.seo_alias" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                        </div>
+                    </div>
+                    <div class="pro-details-policy">
+                        <ul>
+                            <li><img src="../Assets/images/icons/policy.png" alt="" /><span>Miễn phí giao hàng với chi phí hóa đơn từ 2.000.000₫.</span></li>
+                            <li><img src="../Assets/images/icons/policy-2.png" alt="" /><span>Chính sách đổi trả dành cho khách hàng.</span></li>
+                            <li><img src="../Assets/images/icons/policy-3.png" alt="" /><span>Bảo mật thông tin mua sắm của khách hàng.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop details Area End -->
+<!-- product details description area start -->
+<div class="description-review-area mb-60px">
+    <div class="container">
+        <div class="description-review-wrapper">
+            <div class="description-review-topbar nav">
+                <a class="active" data-toggle="tab" href="#des-details1">Mô Tả Sản Phẩm</a>
+                <a data-toggle="tab" href="#des-details2">Thông Tin Chi Tiết</a>
+                <a data-toggle="tab" href="#des-details3">Bình Luận</a>
+            </div>
+            <div class="tab-content description-review-bottom">
+                <div id="des-details1" class="tab-pane active">
+                    <div class="product-description-wrapper">
+                        <div class="pro-tabcontent-more-content">
+                            @Html.Raw(Model.content)
+                        </div>
+                    </div>
+                </div>
+                <div id="des-details2" class="tab-pane">
+                    @Html.Raw(Model.content_2)
+                </div>
+                <div id="des-details3" class="tab-pane">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="review-wrapper">
+                                <div class="single-review">
+                                    <div class="review-img">
+                                        <img src="../Assets/images/testimonial-image/1.png" alt="" />
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-top-wrap">
+                                            <div class="review-left">
+                                                <div class="review-name">
+                                                    <h4>White Lewis</h4>
+                                                </div>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-left">
+                                                <a href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                        <div class="review-bottom">
+                                            <p>
+                                                Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-review child-review">
+                                    <div class="review-img">
+                                        <img src="../Assets/images/testimonial-image/2.png" alt="" />
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-top-wrap">
+                                            <div class="review-left">
+                                                <div class="review-name">
+                                                    <h4>White Lewis</h4>
+                                                </div>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-left">
+                                                <a href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                        <div class="review-bottom">
+                                            <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="ratting-form-wrapper pl-50">
+                                <h3>Add a Review</h3>
+                                <div class="ratting-form">
+                                    <form action="#">
+                                        <div class="star-box">
+                                            <span>Your rating:</span>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="rating-form-style mb-10">
+                                                    <input placeholder="Name" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="rating-form-style mb-10">
+                                                    <input placeholder="Email" type="email" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="rating-form-style form-submit">
+                                                    <textarea name="Your Review" placeholder="Message"></textarea>
+                                                    <input type="submit" value="Submit" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product details description area end -->
+
+@if (list_product_related.Count > 0)
+{
+    <!-- Recent Add Product Area Start -->
+    <section class="recent-add-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Section Title -->
+                    <div class="section-title">
+                        <h2>Có Thể Bạn Cũng Thích</h2>
+                        <p>Những sản phẩm liên quan được nhiều người quan tâm</p>
+                    </div>
+                    <!-- Section Title -->
+                </div>
+            </div>
+            <!-- Recent Product slider Start -->
+            <div class="recent-product-slider owl-carousel owl-nav-style">
+                @foreach (var product in list_product_related)
+                {
+                    <!-- Single Item -->
+                    <article class="list-product mb-30px">
+                        <div class="img-block img-my-pham">
+                            <a href="/@product.seo_alias" class="thumbnail">
+                                <img class="first-img" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                @if (img_more != null)
+                                {
+                                    <img class="second-img" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                }
+                            </a>
+                        </div>
+                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                        {
+                            <ul class="product-flag">
+                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                            </ul>
+                        }
+
+                        <div class="product-decs">
+                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                            @if (category != null)
+                            {
+                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                            }
+                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                            <div class="rating-product">
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                            </div>
+                            <div class="pricing-meta">
+                                <ul>
+                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                    {
+                                        <li class="old-price showNumeric">@product.price</li>
+                                    }
+                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="add-to-link">
+                            <ul>
+                                <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                            </ul>
+                        </div>
+                    </article>
+
+                }
+            </div>
+            <!-- Recent product slider end -->
+        </div>
+    </section>
+    <!-- Recent product area end -->
+
+}

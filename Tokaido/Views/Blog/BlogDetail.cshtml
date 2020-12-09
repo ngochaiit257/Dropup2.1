@@ -1,0 +1,146 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_category_parent = new CategoryProvider().getListParentCategory();
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Page Title -->
+<div class="page-title flat_strech parallax parallax1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@Model.blog_title</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="/">Trang chủ </a></li>
+                            <li> <a href="/blogs">Blog </a></li>
+                            <li><a>@Model.blog_title</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<div class="main-content blog-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="content-wrap">
+                    <article class="post">
+                        <div class="header-post">
+                            <h2 class="title-post"><a href="/blogs/@Model.blog_seo_alias">@Model.blog_title</a></h2>
+                            <p class="time-post">@Model.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</p>
+                        </div><!-- /.header-post -->
+
+                        <div class="feature-post">
+                            <a href="/blogs/@Model.blog_seo_alias"> <img src="@urlCMS/@Model.blog_image" alt="@Model.blog_alt_image"></a>
+                        </div><!-- /.feature-post -->
+
+                        <div class="content-post">
+                            @Html.Raw(Model.blog_content)
+                        </div><!-- /.content-post -->
+
+                        <div class="direction clearfix">
+                            @if (list_tag.Count > 0)
+                            {
+                                <ul class="tags">
+                                    <li>Tags: </li>
+                                    @foreach (var tag in list_tag)
+                                    {
+                                        <li><a href="/search/keyword=@tag.tag_name">@tag.tag_name &nbsp;&nbsp;</a></li>
+
+                                    }
+                                </ul>
+                            }
+
+
+                            <div class="social-links">
+                                <span>Share :</span>
+                                <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                            </div>
+                        </div><!-- /.direction -->
+
+                        <div class="comment-post">
+                            <div class="comment-list-wrap">
+                                <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-numposts="10" data-width=""></div>
+                            </div><!-- /.comment-list-wrap -->
+                        </div><!-- /.comment-post -->
+
+                    </article>
+                </div><!-- /.content-post -->
+            </div><!-- /.col-md-9 -->
+
+            <div class="col-md-4">
+                <div class="sidebars">
+                    <div class="sidebars-wrap">
+                        <div class="sidebar">
+                            <div class="widget widget_categories">
+                                <h3 class="widget-title">Danh mục</h3>
+                                <ul>
+                                    @foreach (var category_parent in list_category_parent)
+                                    {
+                                        if (category_parent.status == true && category_parent.show_datetime <= DateTime.Now)
+                                        {
+                                            <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div><!-- /.widget_categories -->
+
+                            <div class="widget widget_recent_entries clearfix">
+                                <h3 class="widget-title">Bài viết mới nhất</h3>
+                                <ul class="recent-post clearfix">
+                                    @foreach (var blog in list_blog_newest)
+                                    {
+                                        if (blog.blog_id != Model.blog_id)
+                                        {
+                                            <li>
+                                                <div class="thumb">
+                                                    <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                                </div>
+                                                <div class="text">
+                                                    <h4><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                                    <p>@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</p>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div><!-- /.widget_recent_entries -->
+                        </div><!-- .sidebar -->
+                    </div><!-- /.sidebars-wrap -->
+                </div><!-- /.sidebars -->
+            </div><!-- /.col-md-3 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!--main-content -->

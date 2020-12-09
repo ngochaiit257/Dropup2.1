@@ -1,0 +1,263 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Page Title -->
+<div class="page-title flat_strech parallax parallax1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">Our Blog</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="#">Home </a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<div class="main-content blog-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="content-wrap">
+                    <article class="post">
+                        <div class="header-post">
+                            <h2 class="title-post"><a href="/blogs/@Model.blog_seo_alias">@Model.blog_title</a></h2>
+                            <p class="time-post">@Model.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</p>
+                        </div><!-- /.header-post -->
+
+                        <div class="feature-post">
+                            <a href="/blogs/@Model.blog_seo_alias"> <img src="@urlCMS/@Model.blog_image" alt="@Model.blog_alt_image"></a>
+                        </div><!-- /.feature-post -->
+
+                        <div class="content-post">
+                            @Html.Raw(Model.blog_content)
+                        </div><!-- /.content-post -->
+
+                        <div class="direction clearfix">
+                            @if (list_tag.Count > 0)
+                            {
+                                <ul class="tags">
+                                    <li>Tags: </li>
+                                    @foreach (var tag in list_tag)
+                                    {
+                                        <li><a href="/search/keyword=@tag.tag_name">@tag.tag_name &nbsp;&nbsp;</a></li>
+
+                                    }
+                                </ul>
+                            }
+
+
+                            <div class="social-links">
+                                <span>Share :</span>
+                                <div class="fb-like" data-href="urlSite + "/blogs/" + Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                            </div>
+                        </div><!-- /.direction -->
+
+                        <div class="comment-post">
+                            <div class="comment-list-wrap">
+                                <h4 class="title comment-title">Comment: 2 </h4>
+                                <ul class="comment-list">
+                                    <li>
+                                        <article class="comment">
+                                            <div class="comment-avatar">
+                                                <img src="images/blog/c1.png" alt="image">
+                                            </div>
+                                            <div class="comment-detail">
+                                                <div class="comment-meta">
+                                                    <span class="comment-author"><a href="#">Gloria Richards</a></span>
+                                                    <span class="comment-date"><a href="#">8 March, 2016 at 9:00 am</a></span>
+
+                                                </div>
+                                                <p class="comment-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et molestias excepturi sint occaecati cupiditate provident similique sunt in culpa qui off icia deserunt mollitia animi</p>
+                                                <a href="#" class="comment-reply">Reply</a>
+                                            </div><!-- /.comment-detail -->
+
+                                        </article><!-- /.comment -->
+                                    </li>
+
+                                    <li>
+                                        <article class="comment style1">
+                                            <div class="comment-avatar">
+                                                <img src="images/blog/c2.png" alt="image">
+                                            </div>
+                                            <div class="comment-detail">
+                                                <div class="comment-meta">
+                                                    <span class="comment-author"><a href="#">Gloria Richards</a></span>
+                                                    <span class="comment-date"><a href="#">8 March, 2016 at 9:00 am</a></span>
+
+                                                </div>
+                                                <p class="comment-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et molestias excepturi sint occaecati cupiditate provident similique sunt in culpa qui off icia deserunt mollitia animi</p>
+                                                <a href="#" class="comment-reply">Reply</a>
+                                            </div><!-- /.comment-detail -->
+                                        </article><!-- /.comment -->
+                                    </li>
+                                </ul><!-- /.comment-list -->
+                            </div><!-- /.comment-list-wrap -->
+
+                            <div id="respond" class="comment-respond">
+                                <h4 class="title comment-title style1">Leave a comment</h4>
+                                <form action="#" method="post" id="commentform" class="comment-form" novalidate="">
+                                    <fieldset class="name-container">
+                                        <input type="text" id="author" placeholder="Name" class="tb-my-input" name="author" tabindex="1" value="" size="32" aria-required="true">
+                                    </fieldset>
+
+                                    <fieldset class="email-container">
+                                        <input type="text" id="email" placeholder="Email" class="tb-my-input" name="email" tabindex="2" value="" size="32" aria-required="true">
+                                    </fieldset>
+
+                                    <fieldset class="message">
+                                        <textarea id="comment-message" placeholder="Comment" name="comment" rows="8" tabindex="4"></textarea>
+                                    </fieldset>
+                                    <p class="form-submit">
+                                        <input name="submit" type="submit" id="comment-reply" class="submit" value="Post comment"> <input type="hidden" name="comment_post_ID" value="27" id="comment_post_ID">
+                                        <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                                    </p>
+                                </form>
+                            </div><!-- /#respond -->
+                        </div><!-- /.comment-post -->
+
+                    </article>
+                </div><!-- /.content-post -->
+            </div><!-- /.col-md-9 -->
+
+            <div class="col-md-4">
+                <div class="sidebars">
+                    <div class="sidebars-wrap">
+                        <div class="sidebar">
+                            <div class="widget widget_search">
+                                <h3 class="widget-title">Search</h3>
+                                <form class="search-form">
+                                    <input type="search" class="search-field" placeholder="Type & Hit Enter...">
+                                    <input type="submit" class="search-submit">
+                                </form>
+                            </div><!-- /.widget_search -->
+
+                            <div class="widget widget_categories">
+                                <h3 class="widget-title">Categories</h3>
+                                <ul>
+                                    <li><a href="#">Chicken Tinga Nachos (9)</a></li>
+                                    <li><a href="#">Sweet and Sour Pork Chops (9)</a></li>
+                                    <li><a href="#">Green Chile And Chicken Stew (9)</a></li>
+                                    <li><a href="#">Pecan Pie Macarons (9)</a></li>
+                                    <li><a href="#">Brazilian Burger With Egg (9)</a></li>
+                                    <li><a href="#">Sweet and Sour Pork Chops (9)</a></li>
+                                </ul>
+                            </div><!-- /.widget_categories -->
+
+                            <div class="widget widget_recent_entries clearfix">
+                                <h3 class="widget-title">Recent Post</h3>
+                                <ul class="recent-post clearfix">
+                                    <li>
+                                        <div class="thumb">
+                                            <img src="images/blog/1.jpg" alt="imgae">
+                                        </div>
+                                        <div class="text">
+                                            <h4><a href="#">Post with couple photos inside</a></h4>
+                                            <p>On 13 Nov 2015</p>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <img src="images/blog/2.jpg" alt="imgae">
+                                        </div>
+                                        <div class="text">
+                                            <h4><a href="#">Post with couple photos inside</a></h4>
+                                            <p>On 13 Nov 2015</p>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="thumb">
+                                            <img src="images/blog/3.jpg" alt="imgae">
+                                        </div>
+                                        <div class="text">
+                                            <h4> <a href="#">Post with couple photos inside</a></h4>
+                                            <p>On 13 Nov 2015</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div><!-- /.widget_recent_entries -->
+
+                            <div class="widget widget_latest_tweets">
+                                <h3 class="widget-title">Latest Tweets</h3>
+                                <ul>
+                                    <li>
+                                        <p>Portfolio Page Creation: </p>
+                                        <p><a href="#">https://t.co/TN773odoa</a>@YouTube</p>
+                                        <p>5 days ago</p>
+                                    </li>
+
+                                    <li>
+                                        <p>Portfolio Page Creation: </p>
+                                        <p><a href="#">https://t.co/TN773odoa</a> @YouTube</p>
+                                        <p>5 days ago</p>
+                                    </li>
+
+                                    <li>
+                                        <p>Portfolio Page Creation: </p>
+                                        <p><a href="#">https://t.co/TN773odoa</a> @YouTube</p>
+                                        <p>5 days ago</p>
+                                    </li>
+
+
+                                </ul>
+                            </div><!-- /.widget_latest_tweets -->
+
+                            <div class="widget widget_tag">
+                                <h3 class="widget-title">Popular Tags</h3>
+                                <div class="tag-list">
+                                    <a class="active" href="#">example, </a>
+                                    <a href="#">Gallery, </a>
+                                    <a href="#">Image, </a>
+                                    <a href="#">quote, </a>
+                                    <a href="#">tag, </a>
+                                    <a href="#">Video,</a>
+                                    <a href="#">PSD Teplates,</a>
+                                    <a href="#">Business, </a>
+                                    <a href="#">Portfolio, </a>
+                                    <a href="#">Construction, </a>
+                                    <a href="#">One Page, </a>
+                                </div>
+                            </div><!-- /.widget_tag -->
+                        </div><!-- .sidebar -->
+                    </div><!-- /.sidebars-wrap -->
+                </div><!-- /.sidebars -->
+            </div><!-- /.col-md-3 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!--main-content -->

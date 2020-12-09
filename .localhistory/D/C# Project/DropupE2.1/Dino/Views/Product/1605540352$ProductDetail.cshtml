@@ -1,0 +1,1159 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_product_variation = new ProductVariationProvider().getByProductId(Model.product_id);
+    int sumNumberInstock = new ProductVariationProvider().getSumNumberByProductId(Model.product_id);
+    long product_variation_selected_start = 0;
+    if (list_product_variation.Count() == 1)
+    {
+        product_variation_selected_start = new ProductVariationProvider().get1ByProductId(Model.product_id).product_variation_id;
+    }
+
+    var list_product_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    int i = 0;
+    int dataTriger = 0;
+
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_combo = new ComboProductProvider().getByProductId(Model.product_id);
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div id="product" class="productDetail-page productTemplate" data-style="style_01">
+    <div class="container-fluid">
+        <div class="row breadcrumb-shop">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                <ol class="breadcrumb breadcrumb-arrows">
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li><a href="/collections/@category_parent.seo_alias" target="_self">@category_parent.category_name</a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li><a href="/collections/@category_child_1.seo_alias" target="_self">@category_child_1.category_name</a></li>
+                    }
+
+                    @if (category_child_2 != null && category_child_2.category_id > 0)
+                    {
+                        <li><a href="/collections/@category_child_2.seo_alias" target="_self">@category_child_2.category_name</a></li>
+                    }
+
+                    <li class="active"><span> @Model.product_name</span></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row product-detail-wrapper">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row product-detail-main pr_style_01">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <div class="hidden-md hidden-lg">
+                            <div class="product-full-img ">
+                                <img class="product-image-feature lazyload" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                            </div>
+                            <div id="carousel" class="flexslider">
+                                <ul class="slides">
+                                    <li class="product-thumb checked">
+                                        <a href="#" id="a_image_main_show" data-image="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image">
+                                            <img id="image_main_show" src="@urlCMS/@Model.product_image" data-image="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                        </a>
+                                    </li>
+                                    @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                                    {
+                                        <li class="product-thumb">
+                                            <a href="#" data-image="@urlCMS/@img.image_more_url" data-zoom-image="@urlCMS/@img.image_more_url">
+                                                <img src="@urlCMS/@img.image_more_url" data-image="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                                            </a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="product-gallery">
+                            <div class="product-gallery__thumbs-container hidden-sm hidden-xs">
+                                <div class="product-gallery__thumbs thumb-fix">
+                                    <div class="product-gallery__thumb active">
+                                        <a class="product-gallery__thumb-placeholder" href="javascript:void(0);" data-trigger="@urlCMS/@Model.product_image" data-image="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image">
+                                            <img alt="@Model.alt_image" src="@urlCMS/@Model.product_image" data-image="@urlCMS/@Model.product_image" />
+                                        </a>
+                                    </div>
+                                    @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                                    {
+                                        <div class="product-gallery__thumb">
+                                            <a class="product-gallery__thumb-placeholder" href="javascript:void(0);" data-trigger="@urlCMS/@img.image_more_url" data-image="@urlCMS/@img.image_more_url" data-zoom-image="@urlCMS/@img.image_more_url">
+                                                <img alt="@img.image_more_alt" src="@urlCMS/@img.image_more_url" data-image="@urlCMS/@img.image_more_url" />
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="product-image-detail box__product-gallery scroll hidden-sm hidden-xs">
+                                <ul id="sliderproduct" class="site-box-content slide_product">
+                                    <li class="product-gallery-item gallery-item">
+                                        <img class="product-image-feature" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                    </li>
+                                </ul>
+                                <div class="product-image__button">
+                                    <div id="product-zoom-in" class="product-zoom icon-pr-fix " aria-label="Zoom in" title="Zoom in">
+                                        <span class="zoom-in" aria-hidden="true">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 36 36" style="enable-background:new 0 0 36 36; width: 30px; height: 30px;" xml:space="preserve"><polyline points="6,14 9,11 14,16 16,14 11,9 14,6 6,6 " /><polyline points="22,6 25,9 20,14 22,16 27,11 30,14 30,6 " /><polyline points="30,22 27,25 22,20 20,22 25,27 22,30 30,30 " /><polyline points="14,30 11,27 16,22 14,20 9,25 6,22 6,30 " /> </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 product-content-desc" id="detail-product">
+                        <div class="product-title">
+                            <h1>@Model.product_name</h1>
+                            <span id="pro_sku"><strong>SKU: </strong><span class="sku-number">@Model.product_code</span></span>
+                        </div>
+                        <div class="product-price pdPrice" id="price-preview">
+                            <span class="pro-price showNumeric" id="show_price_promotion">@Model.promotion_price</span>
+                            @if (Model.price > 0)
+                            {
+                                <del class="showNumeric" id="">@Model.price</del>
+                            }
+                        </div>
+                        <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+                            <div class="product-swatch-content clearfix">
+                                <div class="select-swatch clearfix" data-option-size="2">
+                                    @if (list_product_variation.Count() > 1)
+                                    {
+                                        <div id="product-select-watch" class="select-swatch">
+                                            @foreach (var prop in new ProductVariationPropertyProvider().getByProductId(Model.product_id))
+                                            {
+                                                i++;
+                                                var list_pe = new ProductElementProvider().getByProductIdAnfPropertyId(Model.product_id, prop.product_variation_property_id);
+                                                <div id="variant-swatch-1" class="swatch swatch-product-single clearfix" data-option="option2" data-option-index="1">
+                                                    <div class="header">@prop.product_variation_property_name:</div>
+                                                    <div class="select-swap">
+                                                        <div class="swatch-element">
+                                                            @foreach (var pe in list_pe)
+                                                            {
+                                                                <input data-target="@prop.product_variation_property_id" class="input-product radio_btn_customize input_pe_@i" type="radio" name="pe_@i" id="pe_value_@pe.product_element_id" value="@pe.element_value">
+                                                                <label for="pe_value_@pe.product_element_id">
+                                                                    @pe.element_value
+                                                                </label>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    <div class="alert-product-variant" hidden id="alert_phan_loai">
+                                        Bạn chưa chọn đủ thuộc tính sản phẩm
+                                    </div>
+                                </div>
+                                <div class="hdchonsize clearfix">
+                                    <svg aria-hidden="true" class="ruler-icon base">
+                                        <use xlink:href="#ruler-icon">
+                                            <svg id="ruler-icon" viewBox="0 0 17 8" width="100%" height="100%"><path fill="#FFF" d="M1 5h15v2H1z"></path><path d="M17 4H0v4h17V4"></path><path fill="#FFF" d="M.5 2.5h4v1h-4z"></path><path d="M5 2H0v2h5V2"></path><path fill="#FFF" d="M12.5 2.5h4v1h-4z"></path><path d="M17 2h-5v2h5V2"></path><path fill="#FFF" d="M6.5 2.5h4v1h-4z"></path><path d="M11 2H6v2h5V2"></path><path fill="#FFF" d="M15.5.5h1v1h-1z"></path><path d="M17 0h-2v2h2V0"></path><path fill="#FFF" d="M12.5.5h1v1h-1z"></path><path d="M14 0h-2v2h2V0"></path><path fill="#FFF" d="M9.5.5h1v1h-1z"></path><path d="M11 0H9v2h2V0"></path><path fill="#FFF" d="M6.5.5h1v1h-1z"></path><path d="M8 0H6v2h2V0"></path><g><path fill="#FFF" d="M3.5.5h1v1h-1z"></path><path d="M5 0H3v2h2V0"></path></g><g><path fill="#FFF" d="M.5.5h1v1h-1z"></path><path d="M2 0H0v2h2V0"></path></g></svg>
+                                            <use xlink:href="#ruler-icon"></use>
+                                        </use>
+                                    </svg>
+                                    <a href="#sizeModal" data-toggle="modal">Hướng dẫn chọn size</a>
+                                </div>
+                            </div>
+                            <div class="selector-actions">
+                                <div class="quantity-area clearfix">
+                                    <input id="btn_quantity_minius" type="button" value="-" class="qty-btn minus">
+                                    <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                                    <input id="btn_quantity_plus" type="button" value="+" class="qty-btn plus">
+                                    @if (Model.allow_ordering_while_out_of_stock_status == false && Model.warehouse_management_status == true)
+                                    {
+                                        <a class="text_show_instock">Có sẵn @sumNumberInstock sản phẩm</a>
+                                    }
+                                </div>
+                                <div class="alert-product-variant" hidden id="alert_so_luong_toi_da">
+                                    Chỉ được phép đặt tối đa <strong id="show_text_so_luong_toi_da"></strong> sản phẩm
+                                </div>
+                                <div class="wrap-addcart clearfix">
+                                    <button onclick="addToCart()" type="button" id="add-to-cart" class="btnAddToCart add-to-cartProduct button dark btn-addtocart addtocart-modal" name="add">
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                    @*<button type="button" id="buy-now" class="active  add-to-cartProduct button dark btn-addtocart ">
+                                            <img class="availableIcon" src="//theme.hstatic.net/1000253775/1000641682/14/store.svg?v=56" alt="Available Store" />
+                                            <span>Xem CH có SP này</span>
+                                        </button>*@
+                                </div>
+                            </div>
+                            <div class="product-action-bottom visible-xs">
+                                <div class="input-bottom">
+                                    <input id="quan-input" type="number" value="1" min="1">
+                                </div>
+                                <button type="button" id="add-to-cartbottom" class=" add-to-cartProduct add-cart-bottom button dark addtocart-modal" name="add">
+                                    Đặt hàng
+                                </button>
+                            </div>
+                            <a class="combo-giare hidden" href="javascript:void(0)">Combo giá rẻ</a>
+                        </form>
+                        <div class="product-description">
+                            <div class="title-bl">
+                                <h3>Thông tin về sản phẩm</h3>
+                            </div>
+
+                            <div class="description-content">
+                                <div class="description-productdetail">
+                                    <div id="ega-uti-editable-content">
+                                        <div id="ega-uti-editable-content">
+                                            @Html.Raw(Model.content)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-des-product">
+                    <div class="policy clearfix">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="policy-item">
+                                <h4>CHÍNH SÁCH GIAO NHẬN - ĐỔI TRẢ HÀNG</h4>
+                                <div class="content">
+                                    - Free ship cho đơn hàng trên 500,000đ. <BR>
+                                    - Mức phí: 20,000đ cho đơn hàng dưới 500,000đ<BR>
+                                    - Được kiểm tra hàng trước khi nhận hàng<br>
+                                    - Đổi / Trả trong vòng 7 ngày kể từ khi nhận hàng<br>
+                                    - Không áp dụng đổi/trả sản phẩm trong CTKM<br>
+                                    - Miễn phí đổi trả nếu lỗi sai sót từ phía 160store.com<br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="policy-item">
+                                <h4>ƯU ĐÃI MEMBER <span class="icon-open visible-xs"></span></h4>
+                                <div class="content">
+                                    - Thành viên Silver được giảm 5% khi tích đủ 4 triệu<br>
+                                    - Thành viên Gold được giảm 10% khi tích đủ 12 triệu<br>
+                                    - Thành viên Diamond được giảm 15% khi tích đủ 30 triệu<br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="policy-item">
+                                <h4>ĐỊA CHỈ CỬA HÀNG<span class="icon-open visible-xs"></span></h4>
+                                <div class="content">
+                                    ■ Hà Nội: <br>
+                                    - số 26 phố Lê Đại Hành, P Lê Đại Hành, Q Hai Bà Trưng, Hà Nội <br>
+                                    - số 2 ngõ 232 Tôn Đức Thắng, P.Hàng Bột, Q.Đống Đa, Hà Nội <br>
+                                    <br>
+                                    ■ Đà Nẵng: 144 Lý Tự Trọng, P.Thuận Phước, Q.Hải Châu, TP.Đà Nẵng <br>
+                                    <br>
+                                    ■ TP.Hồ Chí Minh:<br>
+                                    - 391/375 Trần Hưng Đạo, P.Cầu Kho, Q.1 <br>
+                                    - 111 Khuông Việt, P.Phú Trung, Q.Tân Phú <br>
+                                    - 297/3 Tô Hiến Thành, P.13, Q.10 <br>
+                                    - 401 Phan Xích Long, P.3, Q.Phú Nhuận <br>
+                                    - 94 Lê Văn Thọ, Q.Gò Vấp (gần chợ Hạnh Thông Tây) <br><br>
+                                    ■ Biên Hòa: 157 Phan Trung (đường 5 cũ), P.Tân Mai, TP.Biên Hòa <br>
+                                    <br>
+                                    ■ Cần Thơ: 35 Trần Phú, Q.Ninh Kiều, TP.Cần Thơ. (gần Vincom Hùng Vương)<br><br>
+                                    Hotline: 028.7100.6789
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-bellow-product box-icon col-md-12 col-xs-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="banner-footer-item">
+                            <img src="//theme.hstatic.net/1000253775/1000641682/14/info_img_1.png?v=56">
+                            <div class="banner-footer-item-info">
+                                <p class="banner-footer-item-title">FREE SHIP ĐƠN HÀNG TỪ 500.000Đ</p>
+                                <p class="banner-footer-item-des"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="banner-footer-item">
+                            <img src="//theme.hstatic.net/1000253775/1000641682/14/info_img_2.png?v=56">
+                            <div class="banner-footer-item-info">
+                                <p class="banner-footer-item-title">ĐỔI TRẢ TRONG VÒNG 7 NGÀY</p>
+                                <p class="banner-footer-item-des"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="banner-footer-item">
+                            <img src="//theme.hstatic.net/1000253775/1000641682/14/info_img_3.png?v=56">
+                            <div class="banner-footer-item-info">
+                                <p class="banner-footer-item-title">THANH TOÁN KHI NHẬN HÀNG</p>
+                                <p class="banner-footer-item-des"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        var sto = Cookies.get('dataview');
+                        if (sto != null) {
+                            var harr = sto.split('_');
+                            $.each(harr, function (i, v) {
+                                if (i < 10) {
+                                    $.ajax({
+                                        url: '/products/' + v + '?view=daxem',
+                                        async: false,
+                                        success: function (data) {
+                                            $(".daxemlolo.x1 .swiper-wrapper").append(data);
+
+                                        }
+                                    });
+                                }
+                            });
+
+                            var swiper = new Swiper('.daxemlolo.x1 .swiper-container', {
+                                slidesPerView: 5,
+                                spaceBetween: 30,
+                                loop: false,
+                                pagination: {
+                                    el: '.daxemlolo.x1 .swiper-pagination',
+                                    clickable: true,
+                                },
+                                navigation: {
+                                    nextEl: '.daxemlolo.x1 .swiper-button-next',
+                                    prevEl: '.daxemlolo.x1 .swiper-button-prev',
+                                },
+                                breakpoints: {
+                                    // when window width is >= 320px
+                                    320: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 20
+                                    },
+                                    // when window width is >= 480px
+                                    480: {
+                                        slidesPerView: 3,
+                                        spaceBetween: 30
+                                    },
+                                    // when window width is >= 640px
+                                    640: {
+                                        slidesPerView: 5,
+                                        spaceBetween: 30
+                                    }
+                                }
+
+                            });
+                        }
+                    })
+                </script>
+
+                <script>
+                    $(document).ready(function () {
+                        var swiper = new Swiper('.daxemlolo.x2 .swiper-container', {
+                            slidesPerView: 5,
+                            spaceBetween: 30,
+                            loop: false,
+                            pagination: {
+                                el: '.daxemlolo.x2 .swiper-pagination',
+                                clickable: true,
+                            },
+                            navigation: {
+                                nextEl: '.daxemlolo.x2 .swiper-button-next',
+                                prevEl: '.daxemlolo.x2 .swiper-button-prev',
+                            },
+                            breakpoints: {
+                                // when window width is >= 320px
+                                320: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20
+                                },
+                                // when window width is >= 480px
+                                480: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 30
+                                },
+                                // when window width is >= 640px
+                                640: {
+                                    slidesPerView: 5,
+                                    spaceBetween: 30
+                                }
+                            }
+
+                        });
+                    })
+                </script>
+                @if (list_product_related.Count > 0)
+                {
+                    <div class="container-fluid daxemlolo x2 visible-xs">
+                        <div class="heading-title text-center">
+                            <h2 style="text-transform: uppercase;margin-bottom: 30px;">Bạn có thể thích</h2>
+                        </div>
+
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+
+                                @foreach (var product in list_product_related)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="pro-loop">
+                                            <div class="product-block product-resize site-animation" data-anmation="1">
+                                                <div class="product-img">
+                                                    <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                                        <picture>
+                                                            <source media="(max-width: 767px)" srcset="@urlCMS/@product.product_image">
+                                                            <source media="(min-width: 768px)" srcset="@urlCMS/@product.product_image">
+                                                            <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                                        </picture>
+
+                                                        @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                        @if (img_more != null)
+                                                        {
+                                                            <picture>
+                                                                <source media="(max-width: 767px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                                <source media="(min-width: 768px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                                <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                            </picture>
+                                                        }
+                                                    </a>
+                                                </div>
+                                                <div class="product-detail clearfix">
+                                                    <div class="box-pro-detail">
+                                                        <h3 class="pro-name">
+                                                            <a href="/@product.seo_alias" title="@product.product_name">
+                                                                @product.product_name
+                                                            </a>
+                                                        </h3>
+                                                        <div class="box-pro-prices">
+                                                            <p class="pro-price ">
+                                                                <span class="giaban showNumeric">@product.promotion_price</span>
+                                                                @if (product.price > 0)
+                                                                {
+                                                                    <span class="pro-price-del showNumeric">@product.price</span>
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                }
+
+
+                <style>
+                    .daxemlolo .swiper-button-next, .daxemlolo .swiper-button-prev {
+                        position: absolute;
+                        top: 40%;
+                    }
+
+                    .swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after,
+                    .swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after, .swiper-button-next:after {
+                        color: #000;
+                        font-size: 30px;
+                    }
+                </style>
+
+                @if (list_product_related.Count > 0)
+                {
+                    <div class="list-productRelated clearfix hidden-xs">
+                        <div class="heading-title text-center">
+                            <h2>Bạn có thể thích</h2>
+                        </div>
+                        <div class="content-product-list row">
+                            @foreach (var product in list_product_related)
+                            {
+                                <div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+                                    <div class="product-block product-resize site-animation" data-anmation="1">
+                                        <div class="product-img">
+                                            <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                                <picture>
+                                                    <source media="(max-width: 767px)" srcset="@urlCMS/@product.product_image">
+                                                    <source media="(min-width: 768px)" srcset="@urlCMS/@product.product_image">
+                                                    <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                                </picture>
+
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <picture>
+                                                        <source media="(max-width: 767px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                        <source media="(min-width: 768px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                        <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                    </picture>
+                                                }
+                                            </a>
+                                        </div>
+                                        <div class="product-detail clearfix">
+                                            <div class="box-pro-detail">
+                                                <h3 class="pro-name">
+                                                    <a href="/@product.seo_alias" title="@product.product_name">
+                                                        @product.product_name
+                                                    </a>
+                                                </h3>
+                                                <div class="box-pro-prices">
+                                                    <p class="pro-price ">
+                                                        <span class="giaban showNumeric">@product.promotion_price</span>
+                                                        @if (product.price > 0)
+                                                        {
+                                                            <span class="pro-price-del showNumeric">@product.price</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divzoom">
+    <div class="divzoom_main">
+        <div class="product-thumb text-center">
+            <img class="product-image-feature" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+        </div>
+        @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+        {
+            <div class="product-thumb text-center">
+                <img class="product-image-feature" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+            </div>
+        }
+    </div>
+    <div id="positionButtonDiv" class="hidden">
+        <p>
+            <span>
+                <button type="button" class="buttonZoomIn"><i></i></button>
+                <button type="button" class="buttonZoomOut"><i></i></button>
+            </span>
+        </p>
+    </div>
+    <button id="closedivZoom" style="z-index: 1000"><i></i></button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        /*
+    $('#carousel').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        itemWidth: 108,
+        itemMargin: 10,
+    });
+*/
+        $('#carousel .slides').owlCarousel({
+            nav: true,
+            loop: true,
+            margin: 10,
+            dots: false,
+            navText: ['‹', '›'],
+            responsive: {
+                0: {
+                    items: 3,
+                    autoplay: false
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+
+
+        $(".product-thumb a").click(function (e) {
+            e.preventDefault();
+            $(".product-thumb").removeClass('checked');
+            $(this).parent().addClass('checked');
+            $(".product-image-feature").attr("src", $(this).attr("data-image"));
+        });
+        $(".policy-item h4").click(function () {
+            $(this).find(".icon-open").toggleClass("active");
+            $(this).next().slideToggle();
+        });
+    });
+
+</script>
+<div class="modal fade popupModal" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">Hướng dẫn chọn size</h5>
+            </div>
+            <div class="modal-body">
+                <div class="contentSize">
+                    <div class="contentSizeS">
+                        <select id="huong-dan-chon-size">
+                            <option value="ao-thun" data-url="/pages/huong-dan-chon-size-ao-thun" selected>ÁO THUN</option>
+
+                            <option value="ao-somi" data-url="/pages/huong-dan-chon-size-ao-somi">ÁO SƠ MI</option>
+
+                            <option value="ao-polos" data-url="/pages/huong-dan-chon-size-ao-polos">ÁO POLO</option>
+
+                            <option value="ao-khoac" data-url="/pages/huong-dan-chon-size-ao-khoac">ÁO KHOÁC</option>
+
+                            <option value="ao-ni-sweatshirt" data-url="/pages/huong-dan-chon-size-ao-ni-sweatshirt">ÁO NỈ - SWEATSHIRT</option>
+
+                            <option value="ba-lo" data-url="/pages/huong-dan-chon-size-ba-lo">ÁO BA LỖ</option>
+
+                            <option value="ao-len-sweater" data-url="/pages/huong-dan-chon-size-ao-len-sweater">ÁO LEN - SWEATER</option>
+
+                            <option value="hoodie" data-url="/pages/huong-dan-chon-size-hoodie">ÁO HOODIE</option>
+
+                            <option value="quan-short" data-url="/pages/huong-dan-chon-size-quan-short">QUẦN SHORT</option>
+
+                            <option value="quan-tay" data-url="/pages/huong-dan-chon-size-quan-tay">QUẦN TÂY</option>
+
+                            <option value="quan-kaki" data-url="/pages/huong-dan-chon-size-quan-kaki">QUẦN KAKI</option>
+
+                            <option value="quan-jeans" data-url="/pages/huong-dan-chon-size-quan-jeans">QUẦN JEAN</option>
+
+                            <option value="quan-joggers" data-url="/pages/huong-dan-chon-size-quan-joggers">QUẦN JOGGER - QUẦN DÀI</option>
+
+                        </select>
+                    </div>
+                    <div class="tab-content">
+                        <div class="product-collections hide">ao</div>
+                        <div class="product-collections hide">san-pham-moi</div>
+                        <div class="product-collections hide">ao-khoac</div>
+                        <div class="pages-title hide">huong-dan-chon-size-ao-thun </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/aothun_8ba1fd7194ea474d9decf4aa2c349ab7.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ao-somi </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/aosomi_d0e105d796244ffda4d9c872de9710c3.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ao-polos </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/polo_3565555f284d44ff93a0cf7c10d6bb8d.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ao-khoac </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/ao_khoac_84baa27d9bf24bc8be3a9e9fb1519f2d.jpg"></p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ao-ni-sweatshirt </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/thongsosize10__1__d5ce46b3f3074988b2ad943decd5d4a9.jpg"></p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ba-lo </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/thongsosize11_55a9fd41a0a841fcb193c689a2ee0ce1.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-ao-len-sweater </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/thongsosize8_d95f59c9e77447d38f8c95240ead2c0c.jpg"></p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-hoodie </div>
+                        <p> </p><p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/hoodie_ffb67c193e1244aaa0352ccc73055de2.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-quan-short </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/quan_short_356a7e57986c4aa0b38613d0585a2ea7.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-quan-tay </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/quan_tay_5217d0e44a294f659426489af8f4cbe8.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-quan-kaki </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/quan_kaki_02adb4e8b1f84caab5cd76102caf027a.jpg"></p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-quan-jeans </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/quan_jean_03a81413e2374377b0221e8d3278f7f6.jpg"></p><p> </p><p> </p>
+
+                        <div class="pages-title hide">huong-dan-chon-size-quan-joggers </div>
+                        <p style="text-align: center"><img src="//file.hstatic.net/1000253775/file/thongsosize12_4309d113fa7f4adb810f053e33c415a6.jpg"></p><p> </p><p> </p>
+
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            var a = '', b = '';
+                            $('.product-collections').each(function () {
+                                a = $(this).html().toLowerCase();
+                                $('.pages-title').each(function () {
+                                    b = $(this).html().replace("huong-dan-chon-size-", "").replace(' ', '');
+                                    if (a == b) {
+                                        $('#huong-dan-chon-size').val(a);
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/pages/huong-dan-chon-size-' + a + '?view=modal-size',
+                                            async: true,
+                                            success: function (data) {
+                                                $('.contentSize .tab-content').html(data);
+
+                                            }
+                                        })
+                                    }
+                                })
+
+                            })
+                        })
+                    </script>
+                    <script>
+                        $('.contentSize select').change(function (e) {
+                            var handle_url = $(this).find('option:selected').data('url');
+                            $.ajax({
+                                type: 'GET',
+                                url: handle_url + '?view=modal-size',
+                                async: true,
+                                success: function (data) {
+                                    $('.contentSize .tab-content').html(data);
+
+                                }
+                            })
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade popupModal" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Thông báo</h4>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 16px;">
+                    Vui lòng chọn màu và size
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".product-gallery__thumb img").click(function () {
+        $(".product-gallery__thumb").removeClass('active');
+        $(this).parents('.product-gallery__thumb').addClass('active');
+        var img_thumb = $(this).data('image');
+
+        /*$('html, body').animate({
+            scrollTop: $("#sliderproduct img[src='"+img_thumb+"']").offset().top
+        }, 1000);*/
+        $(".product-image-feature").attr("src", $(this).attr("data-image"));
+
+
+    });
+    $(".product-gallery__thumb").first().addClass('active');
+
+    $(document).on("click", "#product-zoom-in", function () {
+        //	var indexThumb = $(this).index();
+        $("body").addClass("open_layer");
+        $("#divzoom").css({ 'opcaity': 0, 'visibility': 'hidden' }).show();
+        $('.divzoom_main').flickity({
+            resize: true,
+            draggable: true,
+        });
+        if ($(window).width() > 768) {
+            var ncurrent = parseInt($(".gallery-index .current").html()) - 1;
+        }
+        else {
+            var ncurrent = parseInt($(".product-gallery-item.is-selected").index());
+        }
+        $('.divzoom_main').flickity('select', ncurrent);
+        setTimeout(function () { $("#divzoom").css({ 'opcaity': 1, 'visibility': 'visible' }) }, 50);
+    });
+    $(document).on('click', '#closedivZoom', function (event) {
+        $("#divzoom").hide();
+        $("body").removeClass("open_layer");
+        $('.divzoom_main').flickity('select', 0);
+        //$('.divzoom_main').slick('unslick');
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        if (@list_product_variation.Count() == 1) {
+            product_variation_id_selected = @product_variation_selected_start;
+        }
+
+        $('input[type=radio]').trigger('reset');
+        $('input').trigger('reset');
+        for (var z = 1; z <= '@i'; z++) {
+            $('input[type=radio][name=pe_' + z + ']').change(function () {
+                $(this > 'label').addClass('sd');
+                getEvSelected();
+            });
+        }
+
+        $('form').trigger('reset');
+
+        $.ajax({
+            type: "POST",
+            url: "/Product/GetProductVariationElement",
+            data: { product_id: product_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                list_pve_ajax = data_json.list_pve;
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+    //SET EXPERIENCE
+    var quantity_input = $('#quantity');
+    $('#btn_quantity_minius').click(function () {
+        var quantity_current = quantity_input.val();
+        if (quantity_current > 1) {
+            quantity_input.val(quantity_current - 1);
+        }
+
+        if (quantity_current == null || quantity_current == undefined) {
+            quantity_input.val(1);
+        }
+    });
+
+    $('#btn_quantity_plus').click(function () {
+        var quantity_current = quantity_input.val();
+        quantity_input.val(parseInt(quantity_current) + 1);
+
+        if (quantity_current == null || quantity_current == undefined) {
+            quantity_input.val(1);
+        }
+    });
+
+    quantity_input.keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+
+    quantity_input.on('change', function () {
+        $('#alert_so_luong_toi_da').prop('hidden', true);
+        if (quantity_input.val() == 0 || quantity_input.val() == null) {
+            quantity_input.val(1);
+        }
+    });
+
+    var product_id = '@Model.product_id';
+    var list_pve_ajax = [];
+    var list_ev = [];
+    function getEvSelected() {
+        list_ev = [];
+        for (var z = 1; z <= '@i'; z++) {
+            var ev = {};
+            ev.prop_id = $('.input_pe_' + z).attr('data-target');
+            ev.value = $("input[name='pe_" + z + "']:checked").val();
+            if (ev.value != undefined) {
+                list_ev.push(ev);
+            }
+        }
+
+        var list_filter = [];
+        $.each(list_ev, function (key, item) {
+            var list_pve_ajax_filter = list_pve_ajax.filter(function (elem) {
+                return (elem.prop_id == item.prop_id && elem.ev_name == item.value);
+            });
+            list_filter.concat(list_pve_ajax_filter);
+            $.each(list_pve_ajax_filter, function (key, obj) {
+                list_filter.push(obj);
+            });
+
+        });
+
+        var list_pv_id_filter = list_filter.map(function (value) { return value.product_variation_id });
+
+        if (list_ev.length == '@i') {
+
+            if (list_pv_id_filter.length > 1) {
+                product_variation_id_selected = findDuplicates(list_pv_id_filter).find(element => element > 0);
+            }
+            else {
+                product_variation_id_selected = list_pv_id_filter.find(element => element > 0);
+            }
+
+            if (product_variation_id_selected != undefined && product_variation_id_selected > 0) {
+                $.each(list_pve_ajax, function (key, obj) {
+                    if (obj.product_variation_id == product_variation_id_selected) {
+                        $('.product-image-feature').prop('src', '@urlCMS/' + obj.pv_image_url);
+                        //if (obj.pv_promotion_percent > 0) {
+                        //    $('#badges_promotion_percent').text("-" + obj.pv_promotion_percent + "%");
+                        //}
+
+                        if ($('#show_price_promotion').length > 0) {
+                            $('#show_price_promotion').autoNumeric('set', obj.pv_price);
+                        }
+                        //if ($('#show_price_comparison').length > 0) {
+                        //    $('#show_price_comparison').autoNumeric('set', obj.pv_price_comparison);
+                        //}
+                        //$('#number_instock').text(obj.pv_in_stock);
+
+                        $.ajax({
+                            url: '/Product/GetNumInStock',
+                            context: document.body,
+                            type: "POST",
+                            dataType: "html",
+                            data: {
+                                product_variation_id: product_variation_id_selected,
+                            },
+                            //beforeSend: function () {
+                            //    $('#loading_request').removeClass('hide');
+                            //},
+                            success: function (data) {
+                                var data_json = JSON.parse(data);
+                                if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                                    $('.btnAddToCart').attr('disabled', true);
+                                    $('.text_show_instock').text("Hết hàng.");
+                                    $('.btnAddToCart').innerHTML = 'Tạm hết hàng';
+                                } else {
+                                    $('.text_show_instock').text("Có sẵn " + data_json.num_in_stock + " sản phẩm.");
+                                    $('.btnAddToCart').attr('disabled', false);
+                                    $('.btnAddToCart').innerHTML = 'Thêm vào giỏ hàng';
+                                }
+                            },
+                            error: function (xhr, status) {
+                                alert("Có lỗi xảy ra, vui lòng tải lại trang.");
+                            },
+                        });
+
+                        //$("#quantity").inputFilter(function (value) {
+                        //    return /^\d*$/.test(value) && (value === "" || parseInt(value) <= obj.pv_in_stock);
+                        //});
+
+                    }
+                });
+            }
+            else {
+                $('.btnAddToCart').attr('disabled', true);
+                $('.text_show_instock').text("Hết hàng.");
+            }
+
+            $('.configurable-wrap').removeClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', true);
+        }
+        else {
+            product_variation_id_selected = 0;
+        }
+    }
+
+    const findDuplicates = (arr) => {
+        let sorted_arr = arr.slice().sort();
+        let results = [];
+        for (let i = 0; i < sorted_arr.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                results.push(sorted_arr[i]);
+            }
+        }
+        return results;
+    }
+
+    var product_variation_id_selected = 0;
+    function buyNow() {
+        var quantity = $('#quantity').val();
+        if (product_variation_id_selected == 0 || product_variation_id_selected == undefined) {
+            $('.configurable-wrap').addClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', false);
+            $('#alert_phan_loai').addClass('shake_alert');
+            setTimeout(function () { $('#alert_phan_loai').removeClass('shake_alert'); }, 820);
+        }
+        else if (quantity == 0 || quantity == null) {
+            $('#alert_so_luong').prop('hidden', false);
+            $('#alert_so_luong').addClass('shake_alert');
+            setTimeout(function () { $('#alert_so_luong').removeClass('shake_alert'); }, 820);
+        }
+        else {
+            var num_input = $('#quantity').val();
+            $.ajax({
+                url: '/Product/CheckInStockWhenAddToCart',
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                data: {
+                    product_variation_id: product_variation_id_selected,
+                    number_input: num_input
+                },
+                //beforeSend: function () {
+                //    $('#loading_request').removeClass('hide');
+                //},
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                        $('#show_text_so_luong_toi_da').text(data_json.num_in_stock);
+                        $('#alert_so_luong_toi_da').prop('hidden', false);
+                        $('#alert_so_luong_toi_da').addClass('shake_alert');
+                        setTimeout(function () { $('#alert_so_luong_toi_da').removeClass('shake_alert'); }, 820);
+                    } else {
+                        updateCart();
+                        window.location.href = "/checkout";
+                    }
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                //complete: function (xhr, status) {
+                //    $('#loading_request').addClass('hide');
+                //}
+            });
+        }
+    }
+
+    function addToCart() {
+        console.log(product_variation_id_selected);
+        var quantity = $('#quantity').val();
+        if (product_variation_id_selected == 0 || product_variation_id_selected == undefined) {
+            //$('.configurable-wrap').addClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', false);
+            $('#alert_phan_loai').addClass('shake_alert');
+            setTimeout(function () { $('#alert_phan_loai').removeClass('shake_alert'); }, 820);
+        }
+        else if (quantity == 0 || quantity == null) {
+            $('#alert_so_luong').prop('hidden', false);
+            $('#alert_so_luong').addClass('shake_alert');
+            setTimeout(function () { $('#alert_so_luong').removeClass('shake_alert'); }, 820);
+        }
+        else {
+            var num_input = $('#quantity').val();
+            $.ajax({
+                url: '/Product/CheckInStockWhenAddToCart',
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                data: {
+                    product_variation_id: product_variation_id_selected,
+                    number_input: num_input
+                },
+                //beforeSend: function () {
+                //    $('#loading_request').removeClass('hide');
+                //},
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                        $('#show_text_so_luong_toi_da').text(data_json.num_in_stock);
+                        $('#alert_so_luong_toi_da').prop('hidden', false);
+                        $('#alert_so_luong_toi_da').addClass('shake_alert');
+                        setTimeout(function () { $('#alert_so_luong_toi_da').removeClass('shake_alert'); }, 820);
+                    } else {
+                        updateCart();
+                        loadQuickViewCart();
+                        $('.sidebar-cart-active').addClass('inside');
+                        $('#alert_so_luong_toi_da').prop('hidden', true);
+                    }
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                //complete: function (xhr, status) {
+                //    $('#loading_request').addClass('hide');
+                //}
+            });
+        }
+    }
+
+    $(".quantity_input").keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+
+    function updateCart() {
+        if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+            var list_product_variation_in_cart = [];
+            var product_variation_add_to_cart = {};
+            product_variation_add_to_cart.id = product_variation_id_selected;
+            product_variation_add_to_cart.quantity = $('#quantity').val();
+            list_product_variation_in_cart.push(product_variation_add_to_cart);
+
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            var obj_cart = JSON.stringify(list_product_variation_in_cart)
+            Cookies.set("DINO_CART", obj_cart, { expires: date_obj, path: '/' });
+        }
+        else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("DINO_CART"));
+            var quantity = 0;
+            var product_variation_add_to_cart = {};
+            $.each(list_product_variation_in_cart, function (index, value) {
+                if (value.id == product_variation_id_selected) {
+                    quantity = parseInt(value.quantity) + parseInt($('#quantity').val());
+                    list_product_variation_in_cart = list_product_variation_in_cart.filter(function (el) { return el.id != product_variation_id_selected });
+                } else {
+                    product_variation_add_to_cart.id = product_variation_id_selected;
+                    product_variation_add_to_cart.quantity = parseInt($('#quantity').val());
+                }
+            });
+            if (quantity != 0) {
+                list_product_variation_in_cart.push({ 'id': product_variation_id_selected, 'quantity': quantity });
+            } else {
+                list_product_variation_in_cart.push(product_variation_add_to_cart);
+            }
+            Cookies.set("DINO_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+        }
+
+        updateCartForUserLoged();
+
+        var number_in_order = 0;
+        $.each(JSON.parse(Cookies.get("DINO_CART")), function (index, value) {
+            number_in_order += parseInt(value.quantity);
+        });
+        $('.cart-count-item').text(number_in_order);
+        $('#site-nav--mobile').addClass('show-cart active');
+        $('#site-overlay').addClass('active');
+        //$("html, body").animate({ scrollTop: 0 }, 800);
+    }
+</script>

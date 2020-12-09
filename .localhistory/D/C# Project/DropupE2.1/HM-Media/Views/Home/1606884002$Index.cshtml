@@ -1,0 +1,474 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "HM Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_service = new ProductProvider().getAll();
+    var list_blog = new BlogProvider().getIsShowing().Take(4);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_feedback = new StoreCustomerSayProvider().getAll();
+    var list_partner = new StorePartnerProvider().getAll();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+
+    var banner = new StoreBannerProvider().getbyId(1);
+    var banner_2 = new PageProvider().getById(1);
+
+    var list_mem = new StoreMembershipProvider().getAll();
+}
+
+
+<!-- Banner -->
+<div class="banner-area">
+    <div class="banner-slider owl-theme owl-carousel">
+
+        @foreach (var slide in list_slide)
+        {
+            <div class="overlay-banner">
+                <div class="banner-item" style="background-image: url('@urlCMS/@slide.image');">
+                    <div class="d-table">
+                        <div class="d-table-cell">
+                            <div class="container">
+                                <div class="banner-content">
+                                    <h1>@slide.main_text</h1>
+                                    <p>@slide.child_text_1</p>
+                                    <a class="common-btn" href="@slide.link_url">
+                                        @slide.child_text_2
+                                        <span></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- End Banner -->
+<!-- Logo -->
+<div class="logo-area">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-3">
+                <div class="logo-text">
+                    <h3>Đối tác và khách hàng của chúng tôi</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="logo-slider owl-theme owl-carousel">
+                    @foreach (var partner in list_partner)
+                    {
+                        <div class="logo-item">
+                            <img src="@urlCMS/@partner.image" alt="@partner.alt">
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Logo -->
+<!-- About -->
+<section class="about-area section-overlay pt-100 pb-70">
+    <div class="container">
+        <div class="section-title center-div">
+            <span class="sub-title">Về chúng tôi</span>
+            <h2>HM Media với <span>12+</span> năm kinh nghiệm</h2>
+            <p>Cam kết mang lại những dịch vụ tốt nhất cho khách hàng với sự phục vụ tận tâm của đội ngũ nhân sự.</p>
+            <p class="about-p">Chúng tôi luôn cố gắng khẳng định tính chuyên nghiệp trong mỗi chương trình mà chúng tôi thực hiện. Chúng tôi phấn đấu để dành lấy sự tin tưởng của quý khách hàng và mục tiêu là có chỗ đứng trong ngành truyền thông sự kiện.</p>
+        </div>
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+                <div class="about-content">
+
+                    <div class="row">
+
+                        <div class="col-sm-6 col-lg-6">
+                            <ul>
+                                <li>
+                                    <i class="flaticon-medal-of-award"></i>
+                                </li>
+                                <li>
+                                    <h3>12+ Năm kinh nghiệm</h3>
+                                    <p>Học hỏi và trau dồi kinh nghiệm để phát triển.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6">
+                            <ul>
+                                <li>
+                                    <i class="flaticon-star"></i>
+                                </li>
+                                <li>
+                                    <h3>Tăng trưởng</h3>
+                                    <p>Phấn đấu đứng top 10 đơn vị truyền thông tại Việt Nam.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6">
+                            <ul>
+                                <li>
+                                    <i class="flaticon-insurance"></i>
+                                </li>
+                                <li>
+                                    <h3>100% niềm tin</h3>
+                                    <p>Chữ "Tín" được chúng tôi đặt lên hàng đầu.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6">
+                            <ul>
+                                <li>
+                                    <i class="flaticon-marketing-strategy"></i>
+                                </li>
+                                <li>
+                                    <h3>Chiến lược</h3>
+                                    <p>Mọi dự án đều được lên Plan và định hướng rõ ràng.</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <a class="common-btn" href="#">
+                        Xem Thêm
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="about-img">
+                    <div class="row align-items-end">
+                        <div class="col-sm-6 col-lg-6">
+                            <img src="../Assets/img/about/about1.jpg" alt="About">
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <img src="../Assets/img/about/about2.jpg" alt="About">
+                        </div>
+                        <div class="col-lg-12">
+                            <img src="../Assets/img/about/about3.jpg" alt="About">
+                        </div>
+                    </div>
+                    <div class="years">
+                        <h3>5+ <br> <span>Years</span></h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End About -->
+<!-- Services -->
+<section class="projects-area section-overlay pt-100 pb-70">
+    <div class="container">
+
+        <div class="section-title">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="sub-title">Dịch vụ</span>
+                    <h2>Dịch vụ của <span>HM Media</span> luôn đa dạng và phong phú</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p>HM Media luôn cân nhắc một điều để đáp ứng được nhu cầu quý khách hàng hiện nay yếu tố ý tưởng chương trình luôn là điều quan trọng để có thể giúp khách hang đạt được kết quả mà quý khách muốn mang đến cho đối tác của mình.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var service in list_service)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="projects-item card-overlay-custom">
+                        <img src="@urlCMS/@service.product_image" alt="@service.alt_image">
+                        <div class="inner">
+                            <h3>
+                                <a href="/@service.seo_alias">@service.product_name</a>
+                            </h3>
+                            <span>@Html.Raw(service.description)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Services -->
+<!-- Work -->
+<section class="work-area ptb-100">
+    <div class="container">
+
+        <div class="section-title">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="sub-title sub-title-su-menh">Sứ mệnh của chúng tôi</span>
+                    <h2>Chúng tôi tự tin với những gì đang có để hoàn thiện các dự án một cách tốt đẹp nhất.</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p>Sứ mệnh của HM Media là mang lại những dịch vụ chuyên nghiệp và chất lượng cho các dự án. Bằng việc tuyển dụng và đào tạo đội ngũ nhân sự chuyên nghiệp, năng động và tận tâm, HM Media luôn cam kết đem đến cho khách hàng những dịch vụ tốt nhất. Từ đó tăng giá trị cho thương hiệu của khách hàng.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-7">
+                <div class="work-video">
+                    <img src="@urlCMS/@banner.image" alt="@banner.alt">
+                    <div class="video-wrap">
+                        <button class="js-modal-btn" data-video-id="@banner.video_url">
+                            <i class="bx bx-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="work-item">
+                    <ul class="align-items-center">
+                        <li>
+                            <i class="flaticon-medal-of-award"></i>
+                        </li>
+                        <li>
+                            <h3>Uy tín và chuyên nghiệp</h3>
+                            <p>Phong cách chuyên nghiệp và quy mô phục vụ lớn.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="work-item">
+                    <ul class="align-items-center">
+                        <li>
+                            <i class="flaticon-evaluate"></i>
+                        </li>
+                        <li>
+                            <h3>Plan và chiến lược</h3>
+                            <p>Kế hoạch chi tiết từ việc lên ý tưởng thiết kế.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="work-item">
+                    <ul class="align-items-center">
+                        <li>
+                            <i class="flaticon-dollars-money-bag-with-a-clock"></i>
+                        </li>
+                        <li>
+                            <h3>chi phí và thời gian</h3>
+                            <p>Tối ưu ngân sách và thời gian của khách hàng.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="work-item">
+                    <ul class="align-items-center">
+                        <li>
+                            <i class="flaticon-trend"></i>
+                        </li>
+                        <li>
+                            <h3>Báo cáo và đánh giá</h3>
+                            <p>Phân tích chi tiết cho từng hạng mục của dự án.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- End Work -->
+<!-- Team -->
+<section class="team-area pb-70">
+    <div class="container">
+
+        <div class="section-title">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="sub-title">Đội ngũ nhân sự</span>
+                    <h2>Những <span>Nhân tố</span> làm nên HM Media ngày hôm nay</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p>Với đội ngũ nhân sự nhiệt huyết, năng động và tâm huyết, HM Media luôn đưa ra những ý tưởng và biến ý tưởng đó thành hiện thực. Làm việc và cống hiến với trách nhiệm cao nhất trong từng dự án.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var mem in list_mem)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="team-item">
+                        <div class="top card-overlay-custom">
+                            <img src="@urlCMS/@mem.mavatar" alt="@mem.mname">
+                        </div>
+                        <div class="bottom">
+                            <ul>
+                                <li>
+                                    <a href="@mem.mfacebook_url" target="_blank">
+                                        <i class='bx bxl-facebook'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@mem.mtwitter_url" target="_blank">
+                                        <i class='bx bxl-linkedin'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@mem.minstagram_url" target="_blank">
+                                        <i class='bx bxl-twitter'></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <h3>
+                                <a href="/">@mem.mname</a>
+                            </h3>
+                            <span>@mem.mposition</span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</section>
+<!-- End Team -->
+<!-- Testimonials -->
+<section class="testimonials-area ptb-100">
+    <div class="container">
+
+        <div class="section-title">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="sub-title">Lắng nghe Phản hồi</span>
+                    <h2>Chúng tôi luôn <span>lắng nghe</span> những chia sẻ của quý khách hàng thân yêu</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p>Để đồng hành dài hạn cùng khách hàng, HM Media luôn chú trọng đến việc lắng nghe sự yêu cầu và tính chuyên nghiệp ngày càng cao của khách hàng. Chúng tôi không ngừng nỗ lực để khắc phục những nhược điểm giúp khách hàng nhận được giá trị cao nhất.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials-slider owl-theme owl-carousel">
+            @foreach (var feedback in list_feedback)
+            {
+                <div class="testimonials-item">
+                    <i class='bx bxs-quote-right icon'></i>
+                    <p>@feedback.ccomment</p>
+                    <img src="@urlCMS/@feedback.cimage" alt="@feedback.cimage_alt">
+                    <h3>@feedback.cname</h3>
+                    <span>@feedback.cposition</span>
+                    <ul>
+                        <li>
+                            <i class='bx bxs-star checked'></i>
+                        </li>
+                        <li>
+                            <i class='bx bxs-star checked'></i>
+                        </li>
+                        <li>
+                            <i class='bx bxs-star checked'></i>
+                        </li>
+                        <li>
+                            <i class='bx bxs-star checked'></i>
+                        </li>
+                        <li>
+                            <i class='bx bxs-star checked'></i>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Testimonials -->
+<!-- Blog -->
+<section class="blog-area section-overlay pt-100 pb-70">
+    <div class="container">
+
+        <div class="section-title">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="sub-title">Tin tức và sự kiện</span>
+                    <h2>Một số bài viết <span>mới nhất</span> của chúng tôi để chia sẻ đến bạn đọc</h2>
+                </div>
+                <div class="col-lg-6">
+                    <p>Cập nhật bài viết sớm nhất và kịp thời để chia sẻ với bạn đọc những thông tin hữu ích, những câu chuyện làm nghề của chúng tôi và những sự kiện mà chúng tôi được góp mặt. Cảm ơn các bạn rất nhiều!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+                <div class="blog-item">
+                    <a href="/blogs/@newest_blog.blog_seo_alias">
+                        <img class="img-blog-newest" src="@urlCMS/@newest_blog.blog_image" alt="@newest_blog.blog_alt_image">
+                    </a>
+                    <ul>
+                        <li>
+                            <i class='bx bxs-calendar'></i>
+                            <span>@newest_blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                        </li>
+                        <li>
+                            <i class='bx bxs-user'></i>
+                            <span>By:</span>
+                            <a href="javascript:void(0)">@newest_blog.user.username</a>
+                        </li>
+                    </ul>
+                    <h3>
+                        <a href="/blogs/@newest_blog.blog_seo_alias">@newest_blog.blog_title</a>
+                    </h3>
+                    <p>@newest_blog.blog_summary</p>
+                    <a class="blog-btn" href="/blogs/@newest_blog.blog_seo_alias">Đọc thêm</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                @foreach (var blog in list_blog)
+                {
+                    if (blog.blog_id != newest_blog.blog_id)
+                    {
+                        <div class="blog-side-item">
+                            <ul class="align-items-center">
+                                <li>
+                                    <a href="/blogs/@blog.blog_seo_alias">
+                                        <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class='bx bxs-calendar'></i>
+                                    <span>@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                                    <h4>
+                                        <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                    </h4>
+                                    <p>@blog.blog_summary</p>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                }
+                <div class="visit-blog">
+                    <a class="common-btn" href="/blogs">
+                        Xem Nhiều Bài Viết Hơn
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- End Blog -->

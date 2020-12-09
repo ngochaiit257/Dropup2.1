@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Có " + ViewBag.NumberAllResult + " sản phẩm " + "" + ViewBag.SearchString + "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    //ViewBag.Keywords = "Phân bón, thuốc trừ sâu, phân bón dưới gốc, phân bón lá, thuốc bảo vệ thực vật, chất phụ trợ, cung cấp nhiên liệu";
+    //ViewBag.Description = "Multiagro cung cấp phân bón, thuốc trừ sâu, phân bón dưới gốc, phân bón lá, thuốc bảo vệ thực vật, chất phụ trợ, cung cấp nhiên liệu";
+    //ViewBag.Canonical = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    //ViewBag.Alternate = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    //ViewBag.Url = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    //ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<div id="collection" class="collection-page">
+    <div class="main-content container-fluid">
+        <div class="row breadcrumb-shop">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                <ol class="breadcrumb breadcrumb-arrows">
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+                    <li class="active"><span>Từ khóa tìm kiếm "@ViewBag.SearchString"</span></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="collection-body" class="wrap-collection-body clearfix">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="wrap-collection-title row">
+                        <div class="heading-collection row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h1 class="title">
+                                    Từ khóa tìm kiếm "@ViewBag.SearchString"
+                                </h1>
+                                <div class="clearfix filter-box">
+                                    <div class="browse-tags pull-left">
+                                        <span class="custom-dropdown custom-dropdown--white">
+                                            <select id="sorter" >
+                                                <option value="moi-nhat" selected="selected">Mới nhất</option>
+                                                <option value="pho-bien-nhat">Phổ biến nhất</option>
+                                                <option value="ten-az">Tên A đến Z</option>
+                                                <option value="ten-za">Tên Z đến A</option>
+                                                <option value="gia-cao-thap">Giá cao đến thấp</option>
+                                                <option value="gia-thap-cao">Giá thấp đến cao</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="alert-no-filter"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div hidden class="center-div" id="loader_list_product">
+                        <img src="~/Assets/image/loader/list-loader.gif" width="15%"/>
+                    </div>
+                    <div id="data_table">
+                        @{Html.RenderAction("GetProductBySearchString", "Search", new { page_num = ViewBag.page_num, keyword = ViewBag.SearchString, select_order = ViewBag.SelectOrder });}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    $('#sorter').change(function () {
+        filterProductCommon();
+    });
+
+    function filterProductCommon() {
+        var select_order = $('#sorter').val();
+        var keyword = '@ViewBag.SearchString';
+        $("#data_table").empty();
+        $.ajax({
+            url: "/Search/Index",
+            data: {
+                keyword: keyword,
+                page_num: 1,
+                select_order: select_order,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            beforeSend: function () {
+                $('#loader_list_product').attr('hidden', false);
+            },
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+                $('#loader_list_product').attr('hidden', true);
+            }
+        });
+    }
+</script>

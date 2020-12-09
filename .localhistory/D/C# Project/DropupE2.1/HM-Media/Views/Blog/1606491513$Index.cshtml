@@ -1,0 +1,87 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | HM Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, HM Media";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ HM Media";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Page Title -->
+<div class="page-title-area title-bg-six">
+    <div class="title-shape">
+        <img src="../Assets/img/title/title-bg-shape.png" alt="Shape">
+    </div>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.page_title</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-chevron-right'></i>
+                        </li>
+                        <li>
+                            <span>Tin tức và Sự kiện</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title -->
+<!-- Blog -->
+<section class="blog-area three ptb-100">
+    <div class="container" id="data_table">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+                <div class="blog-item">
+                    <a href="blog-details.html">
+                        <img src="assets/img/blog/blog2.jpg" alt="Blog">
+                    </a>
+                    <ul>
+                        <li>
+                            <i class='bx bxs-calendar'></i>
+                            <span>12 Oct, 2020</span>
+                        </li>
+                        <li>
+                            <i class='bx bxs-user'></i>
+                            <span>By:</span>
+                            <a href="#">Admin</a>
+                        </li>
+                        <li>
+                            <i class='bx bxs-comment-detail'></i>
+                            <a href="#">2 Comments</a>
+                        </li>
+                    </ul>
+                    <h3>
+                        <a href="blog-details.html">How To Increase Financial Investment  & Skill In Your Business Without Money</a>
+                    </h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, omnis accusamus magni quisquam deserunt quis impedit enim, iure atque eveniet cumque</p>
+                    <a class="blog-btn" href="#">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</section>
+<!-- End Blog -->

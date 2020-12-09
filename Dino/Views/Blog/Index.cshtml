@@ -1,0 +1,83 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Dino Store, Thời trang Dino";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Dino Store";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+<div id="blog">
+    <div class="container-fluid">
+        <div class="row breadcrumb-shop">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                <ol class="breadcrumb breadcrumb-arrows">
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+                    <li class="active"><span>Blog - Tất cả bài viết</span></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row wrapper-row pd-page">
+            <div class="col-md-3 col-sm-12 col-xs-12 ">
+                <div class="sidebar-blog">
+                    <div class="news-latest">
+                        <div class="sidebarblog-title title_block">
+                            <h2>Bài viết mới nhất<span class="fa fa-angle-down"></span></h2>
+                        </div>
+                        <div class="list-news-latest layered">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <div class="item-article clearfix abc">
+                                    <div class="post-image">
+                                        <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image" /></a>
+                                    </div>
+                                    <div class="post-content">
+                                        <h3>
+                                            <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                        </h3>
+                                        <span class="author">
+                                            <a href="/blogs/@blog.blog_seo_alias">@blog.user.username</a>
+                                        </span>
+                                        <span class="date">
+                                            @blog.show_datetime.Value.ToString("dd/MM/yyyy")
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="heading-page clearfix">
+                    <h1>Tất cả bài viết</h1>
+                </div>
+                <div class="blog-post-meta">
+                    <span class="date">
+                        <time pubdate datetime=""></time>
+                    </span>
+                </div>
+                <div class="blog-content">
+                    <div class="list-article-content blog-posts" id="data_table">
+                        @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

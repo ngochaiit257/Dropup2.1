@@ -1,0 +1,688 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).Where(cp => cp.type_of_category_id == 1).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var product_variation = new ProductVariationProvider().get1ByProductId(Model.product_id);
+    var list_product_variation = new ProductVariationProvider().getByProductId(Model.product_id);
+    int sumNumberInstock = new ProductVariationProvider().getSumNumberByProductId(Model.product_id);
+    long product_variation_selected_start = 0;
+    if (list_product_variation.Count() == 1)
+    {
+        product_variation_selected_start = new ProductVariationProvider().get1ByProductId(Model.product_id).product_variation_id;
+    }
+    var list_product_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    int i = 0;
+    int dataTriger = 0;
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+
+}
+
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">
+                        @Model.product_name
+                    </h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang Chủ</a></li>
+                        @if (category_parent != null && category_parent.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                        }
+
+                        @if (category_child_1 != null && category_child_1.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                        }
+
+                        @if (category_child_2 != null && category_child_2.category_id > 0)
+                        {
+                            <li><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                        }
+                        <li>
+                            @Model.product_name
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop details Area start -->
+<section class="product-details-area mtb-60px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-img product-details-tab">
+                    <div class="zoompro-wrap zoompro-2">
+                        <div class="zoompro-border zoompro-span">
+                            <img class="zoompro" src="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image" alt="@Model.alt_image" />
+                        </div>
+                    </div>
+
+                    <div id="gallery" class="product-dec-slider-2">
+                        <a class="active" data-image="@urlCMS/@Model.product_image" data-zoom-image="@urlCMS/@Model.product_image">
+                            <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image" />
+                        </a>
+                        @foreach (var img_more in ViewBag.ListImageMore as List<image_more>)
+                        {
+                            <a data-image="@urlCMS/@img_more.image_more_url" data-zoom-image="@urlCMS/@img_more.image_more_url">
+                                <img src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt" />
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-content">
+                    <h1>@Model.product_name</h1>
+                    @if (product_variation.product_variation_code != null)
+                    {
+                        <p class="reference">SKU:<span> @product_variation.product_variation_code</span></p>
+                    }
+                    <div class="pro-details-rating-wrap">
+                        <div class="rating-product">
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                        </div>
+                        @*<span class="read-review"><a class="reviews" href="#">Đọc bình luận</a></span>*@
+                    </div>
+                    <div class="pricing-meta">
+                        <ul>
+                            <li class="current-price not-cut showNumeric">@product_variation.product_variation_price</li>
+                            <li class="old-price showNumeric">@product_variation.product_variation_price_comparison</li>
+                        </ul>
+                    </div>
+                    <div class="pro-short-desc">
+                        @Html.Raw(Model.description)
+                    </div>
+                    <div class="pro-details-quality mt-0px">
+                        <div class="cart-plus-minus">
+                            <input min="1" max="1000000" maxlength="10" class="cart-plus-minus-box quantity_input" id="quantity" type="text" name="qtybutton" value="1" />
+                        </div>
+                        <div class="pro-details-cart btn-hover">
+                            <a href="javascript:void(0)" onclick="addToCart()">THÊM VÀO GIỎ HÀNG</a>
+                        </div>
+                    </div>
+                    <div class="show-alert-soluong">
+                        <a id="alert_so_luong_toi_da" hidden>Số lượng tối đa có thể mua là <span id="show_text_so_luong_toi_da"></span></a>
+                    </div>
+                    <div class="pro-details-social-info">
+                        <span>Chia sẻ</span>
+                        <div class="social-info">
+                            <div class="fb-like" data-href="@urlCMS/@Model.seo_alias" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                        </div>
+                    </div>
+                    <div class="pro-details-policy">
+                        <ul>
+                            <li><img src="../Assets/images/icons/policy.png" alt="" /><span>Giao hàng toàn quốc.</span></li>
+                            <li><img src="../Assets/images/icons/policy-2.png" alt="" /><span>Chính sách đổi trả dành cho khách hàng.</span></li>
+                            <li><img src="../Assets/images/icons/policy-3.png" alt="" /><span>Bảo mật thông tin mua sắm của khách hàng.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop details Area End -->
+<!-- product details description area start -->
+<div class="description-review-area mb-60px">
+    <div class="container">
+        <div class="description-review-wrapper">
+            <div class="description-review-topbar nav">
+                <a class="active" data-toggle="tab" href="#des-details1">Mô Tả Sản Phẩm</a>
+                <a data-toggle="tab" href="#des-details2">Thông Tin Chi Tiết</a>
+                <a data-toggle="tab" href="#des-details3">Bình Luận</a>
+            </div>
+            <div class="tab-content description-review-bottom">
+                <div id="des-details1" class="tab-pane active">
+                    <div class="product-description-wrapper">
+                        <div class="pro-tabcontent-more-content">
+                            @Html.Raw(Model.content)
+                        </div>
+                    </div>
+                </div>
+                <div id="des-details2" class="tab-pane">
+                    @Html.Raw(Model.content_2)
+                </div>
+                <div id="des-details3" class="tab-pane">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="review-wrapper">
+                                <div class="single-review">
+                                    <div class="review-img">
+                                        <img src="../Assets/images/testimonial-image/1.png" alt="" />
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-top-wrap">
+                                            <div class="review-left">
+                                                <div class="review-name">
+                                                    <h4>White Lewis</h4>
+                                                </div>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-left">
+                                                <a href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                        <div class="review-bottom">
+                                            <p>
+                                                Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Suspendisse viverra ed viverra. Mauris ullarper euismod vehicula. Phasellus quam nisi, congue id nulla.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-review child-review">
+                                    <div class="review-img">
+                                        <img src="../Assets/images/testimonial-image/2.png" alt="" />
+                                    </div>
+                                    <div class="review-content">
+                                        <div class="review-top-wrap">
+                                            <div class="review-left">
+                                                <div class="review-name">
+                                                    <h4>White Lewis</h4>
+                                                </div>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-left">
+                                                <a href="#">Reply</a>
+                                            </div>
+                                        </div>
+                                        <div class="review-bottom">
+                                            <p>Vestibulum ante ipsum primis aucibus orci luctustrices posuere cubilia Curae Sus pen disse viverra ed viverra. Mauris ullarper euismod vehicula.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="ratting-form-wrapper pl-50">
+                                <h3>Add a Review</h3>
+                                <div class="ratting-form">
+                                    <form action="#">
+                                        <div class="star-box">
+                                            <span>Your rating:</span>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="rating-form-style mb-10">
+                                                    <input placeholder="Name" type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="rating-form-style mb-10">
+                                                    <input placeholder="Email" type="email" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="rating-form-style form-submit">
+                                                    <textarea name="Your Review" placeholder="Message"></textarea>
+                                                    <input type="submit" value="Submit" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="success_tic" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <a class="close" href="#" data-dismiss="modal">&times;</a>
+            <div class="page-body">
+                <div class="head">
+                    <h3 style="margin-top:5px;">Lorem ipsum dolor sit amet</h3>
+                    <h4>Lorem ipsum dolor sit amet</h4>
+                </div>
+
+                <div style="text-align:center;">
+                    <div class="checkmark-circle">
+                        <div class="background"></div>
+                        <div class="checkmark draw"></div>
+                    </div>
+                    <h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        if (@list_product_variation.Count() == 1) {
+            product_variation_id_selected = @product_variation_selected_start;
+        }
+
+        $('input[type=radio]').trigger('reset');
+        $('input').trigger('reset');
+        for (var z = 1; z <= '@i'; z++) {
+            $('input[type=radio][name=pe_' + z + ']').change(function () {
+                $(this > 'label').addClass('sd');
+                getEvSelected();
+            });
+        }
+
+        $('form').trigger('reset');
+
+        $.ajax({
+            type: "POST",
+            url: "/Product/GetProductVariationElement",
+            data: { product_id: product_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                list_pve_ajax = data_json.list_pve;
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+    //SET EXPERIENCE
+    var quantity_input = $('#quantity');
+    $('#btn_quantity_minius').click(function () {
+        var quantity_current = quantity_input.val();
+        if (quantity_current > 1) {
+            quantity_input.val(quantity_current - 1);
+        }
+
+        if (quantity_current == null || quantity_current == undefined) {
+            quantity_input.val(1);
+        }
+    });
+
+    $('#btn_quantity_plus').click(function () {
+        var quantity_current = quantity_input.val();
+        quantity_input.val(parseInt(quantity_current) + 1);
+
+        if (quantity_current == null || quantity_current == undefined) {
+            quantity_input.val(1);
+        }
+    });
+
+    quantity_input.keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+
+    quantity_input.on('change', function () {
+        $('#alert_so_luong_toi_da').prop('hidden', true);
+        if (quantity_input.val() == 0 || quantity_input.val() == null) {
+            quantity_input.val(1);
+        }
+    });
+
+    var product_id = '@Model.product_id';
+    var list_pve_ajax = [];
+    var list_ev = [];
+    function getEvSelected() {
+        list_ev = [];
+        for (var z = 1; z <= '@i'; z++) {
+            var ev = {};
+            ev.prop_id = $('.input_pe_' + z).attr('data-target');
+            ev.value = $("input[name='pe_" + z + "']:checked").val();
+            if (ev.value != undefined) {
+                list_ev.push(ev);
+            }
+        }
+
+        var list_filter = [];
+        $.each(list_ev, function (key, item) {
+            var list_pve_ajax_filter = list_pve_ajax.filter(function (elem) {
+                return (elem.prop_id == item.prop_id && elem.ev_name == item.value);
+            });
+            list_filter.concat(list_pve_ajax_filter);
+            $.each(list_pve_ajax_filter, function (key, obj) {
+                list_filter.push(obj);
+            });
+
+        });
+
+        var list_pv_id_filter = list_filter.map(function (value) { return value.product_variation_id });
+
+        if (list_ev.length == '@i') {
+
+            if (list_pv_id_filter.length > 1) {
+                product_variation_id_selected = findDuplicates(list_pv_id_filter).find(element => element > 0);
+            }
+            else {
+                product_variation_id_selected = list_pv_id_filter.find(element => element > 0);
+            }
+
+            if (product_variation_id_selected != undefined && product_variation_id_selected > 0) {
+                $.each(list_pve_ajax, function (key, obj) {
+                    if (obj.product_variation_id == product_variation_id_selected) {
+                        $('.product-image-feature').prop('src', '@urlCMS/' + obj.pv_image_url);
+                        //if (obj.pv_promotion_percent > 0) {
+                        //    $('#badges_promotion_percent').text("-" + obj.pv_promotion_percent + "%");
+                        //}
+
+                        if ($('#show_price_promotion').length > 0) {
+                            $('#show_price_promotion').autoNumeric('set', obj.pv_price);
+                        }
+                        //if ($('#show_price_comparison').length > 0) {
+                        //    $('#show_price_comparison').autoNumeric('set', obj.pv_price_comparison);
+                        //}
+                        //$('#number_instock').text(obj.pv_in_stock);
+
+                        $.ajax({
+                            url: '/Product/GetNumInStock',
+                            context: document.body,
+                            type: "POST",
+                            dataType: "html",
+                            data: {
+                                product_variation_id: product_variation_id_selected,
+                            },
+                            //beforeSend: function () {
+                            //    $('#loading_request').removeClass('hide');
+                            //},
+                            success: function (data) {
+                                var data_json = JSON.parse(data);
+                                if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                                    $('.btnAddToCart').attr('disabled', true);
+                                    $('.text_show_instock').text("Hết hàng.");
+                                    $('.btnAddToCart').innerHTML = 'Tạm hết hàng';
+                                } else {
+                                    $('.text_show_instock').text("Có sẵn " + data_json.num_in_stock + " sản phẩm.");
+                                    $('.btnAddToCart').attr('disabled', false);
+                                    $('.btnAddToCart').innerHTML = 'Thêm vào giỏ hàng';
+                                }
+                            },
+                            error: function (xhr, status) {
+                                alert("Có lỗi xảy ra, vui lòng tải lại trang.");
+                            },
+                        });
+
+                        //$("#quantity").inputFilter(function (value) {
+                        //    return /^\d*$/.test(value) && (value === "" || parseInt(value) <= obj.pv_in_stock);
+                        //});
+
+                    }
+                });
+            }
+            else {
+                $('.btnAddToCart').attr('disabled', true);
+                $('.text_show_instock').text("Hết hàng.");
+            }
+
+            $('.configurable-wrap').removeClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', true);
+        }
+        else {
+            product_variation_id_selected = 0;
+        }
+    }
+
+    const findDuplicates = (arr) => {
+        let sorted_arr = arr.slice().sort();
+        let results = [];
+        for (let i = 0; i < sorted_arr.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                results.push(sorted_arr[i]);
+            }
+        }
+        return results;
+    }
+
+    var product_variation_id_selected = 0;
+
+    function addToCart() {
+        console.log(product_variation_id_selected);
+        var quantity = $('#quantity').val();
+        if (product_variation_id_selected == 0 || product_variation_id_selected == undefined) {
+            //$('.configurable-wrap').addClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', false);
+            $('#alert_phan_loai').addClass('shake_alert');
+            setTimeout(function () { $('#alert_phan_loai').removeClass('shake_alert'); }, 820);
+        }
+        else if (quantity == 0 || quantity == null) {
+            $('#alert_so_luong').prop('hidden', false);
+            $('#alert_so_luong').addClass('shake_alert');
+            setTimeout(function () { $('#alert_so_luong').removeClass('shake_alert'); }, 820);
+        }
+        else {
+            var num_input = $('#quantity').val();
+            $.ajax({
+                url: '/Product/CheckInStockWhenAddToCart',
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                data: {
+                    product_variation_id: product_variation_id_selected,
+                    number_input: num_input
+                },
+                //beforeSend: function () {
+                //    $('#loading_request').removeClass('hide');
+                //},
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                        $('#show_text_so_luong_toi_da').text(data_json.num_in_stock);
+                        $('#alert_so_luong_toi_da').prop('hidden', false);
+                        $('#alert_so_luong_toi_da').addClass('shake_alert');
+                        setTimeout(function () { $('#alert_so_luong_toi_da').removeClass('shake_alert'); }, 820);
+                    } else {
+                        updateCart();
+                        getNumOfItemInCart()
+                        $('#alert_so_luong_toi_da').prop('hidden', true);
+                    }
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                //complete: function (xhr, status) {
+                //    $('#loading_request').addClass('hide');
+                //}
+            });
+        }
+    }
+
+    $(".quantity_input").keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+
+    function updateCart() {
+        if (Cookies.get("ELYSIEN_CART") == null || Cookies.get("ELYSIEN_CART") == undefined || $.parseJSON(Cookies.get("ELYSIEN_CART")).length == 0) {
+            var list_product_variation_in_cart = [];
+            var product_variation_add_to_cart = {};
+            product_variation_add_to_cart.id = product_variation_id_selected;
+            product_variation_add_to_cart.quantity = $('#quantity').val();
+            list_product_variation_in_cart.push(product_variation_add_to_cart);
+
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            var obj_cart = JSON.stringify(list_product_variation_in_cart)
+            Cookies.set("ELYSIEN_CART", obj_cart, { expires: date_obj, path: '/' });
+        }
+        else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("ELYSIEN_CART"));
+            var quantity = 0;
+            var product_variation_add_to_cart = {};
+            $.each(list_product_variation_in_cart, function (index, value) {
+                if (value.id == product_variation_id_selected) {
+                    quantity = parseInt(value.quantity) + parseInt($('#quantity').val());
+                    list_product_variation_in_cart = list_product_variation_in_cart.filter(function (el) { return el.id != product_variation_id_selected });
+                } else {
+                    product_variation_add_to_cart.id = product_variation_id_selected;
+                    product_variation_add_to_cart.quantity = parseInt($('#quantity').val());
+                }
+            });
+            if (quantity != 0) {
+                list_product_variation_in_cart.push({ 'id': product_variation_id_selected, 'quantity': quantity });
+            } else {
+                list_product_variation_in_cart.push(product_variation_add_to_cart);
+            }
+            Cookies.set("ELYSIEN_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+        }
+
+        updateCartForUserLoged();
+
+        var number_in_order = 0;
+        $.each(JSON.parse(Cookies.get("ELYSIEN_CART")), function (index, value) {
+            number_in_order += parseInt(value.quantity);
+        });
+        $('.cart-count-item').text(number_in_order);
+        $('#site-nav--mobile').addClass('show-cart active');
+        $('#site-overlay').addClass('active');
+        //$("html, body").animate({ scrollTop: 0 }, 800);
+    }
+    </script>
+
+    <!-- product details description area end -->
+
+    @if (list_product_related.Count > 0)
+    {
+        <!-- Recent Add Product Area Start -->
+        <section class="recent-add-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h2>Có Thể Bạn Cũng Thích</h2>
+                            <p>Những sản phẩm liên quan được nhiều người quan tâm</p>
+                        </div>
+                        <!-- Section Title -->
+                    </div>
+                </div>
+                <!-- Recent Product slider Start -->
+                <div class="recent-product-slider owl-carousel owl-nav-style">
+                    @foreach (var product in list_product_related)
+                    {
+                        <!-- Single Item -->
+                        <article class="list-product mb-30px">
+                            <div class="img-block img-my-pham">
+                                <a href="/@product.seo_alias" class="thumbnail">
+                                    <img class="first-img" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                    @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                    @if (img_more != null)
+                                    {
+                                        <img class="second-img" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                    }
+                                </a>
+                            </div>
+                            @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                            {
+                                <ul class="product-flag">
+                                    <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                </ul>
+                            }
+
+                            <div class="product-decs">
+                                @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                @if (category != null)
+                                {
+                                    <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                }
+                                <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                <div class="rating-product">
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                    <i class="ion-android-star"></i>
+                                </div>
+                                <div class="pricing-meta">
+                                    <ul>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <li class="old-price showNumeric">@product.price</li>
+                                        }
+                                        <li class="current-price showNumeric">@product.promotion_price</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="add-to-link">
+                                <ul>
+                                    <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                </ul>
+                            </div>
+                        </article>
+
+                    }
+                </div>
+                <!-- Recent product slider end -->
+            </div>
+        </section>
+        <!-- Recent product area end -->
+
+    }

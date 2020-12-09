@@ -1,0 +1,123 @@
+﻿@model List<Data.category>
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = ViewBag.CategoryParent.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    long category_parent_id = (long)ViewBag.CategoryParent.category_id;
+    var list_category_child_1 = new CategoryProvider().getByCategoryParentId(category_parent_id);
+
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.CategoryParent.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.CategoryParent.seo_header;
+    ViewBag.Description = ViewBag.CategoryParent.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.CategoryParent.image;
+}
+
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@ViewBag.Category.category_name</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="/">Home </a></li>
+                            @if (ViewBag.CategoryParent.category_id != ViewBag.Category.category_id)
+                            {
+                                <li><a href="/collections/@ViewBag.CategoryParent.seo_alias">@ViewBag.CategoryParent.category_name</a></li>
+                            }
+                            <li><a>@ViewBag.Category.category_name</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<section class="flat-row products shop-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section style2 ">
+                    <h1 class="title">@ViewBag.Category.category_name</h1>
+                </div>
+                <form class="flat-shop-ordering" method="get">
+                    <select name="orderby" class="orderby">
+                        <option value="menu_order" selected="selected">Sort by date</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by newness</option>
+                        <option value="price">Sort by price: low to high</option>
+                        <option value="price-desc">Sort by price: high to low</option>
+                    </select>
+                </form>
+            </div><!--col-md-12-->
+        </div><!--row-->
+
+        <div class="row">
+            @if (Model.Count > 0)
+            {
+                foreach (var category in Model)
+                {
+                    var num_count_product_of_this_category = new ProductProvider().getByCategoryIdOnSite(category.category_id).Count;
+
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="product effect1">
+                            <div class="box-wrap">
+                                <div class="box-image">
+                                    <a href="/collections/@category.seo_alias">
+                                        <img src="@urlCMS/@category.image" alt="@category.alt_image" />
+                                    </a>
+                                </div>
+                                <div class="box-content">
+                                    @{ int num_category_child = new CategoryProvider().getCategoryChildByCategoryId(category.category_id).Count;}
+                                    @if (num_category_child > 0)
+                                    {
+                                        <h6><a href="/collections/@category.seo_alias">@category.category_name (@num_count_product_of_this_category)</a></h6>
+                                    }
+                                    else
+                                    {
+                                        <h6><a href="/category-products/@category.seo_alias">@category.category_name (@num_count_product_of_this_category)</a></h6>
+                                    }
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-lg-12 col-md-12 center-div">
+                    <a>Không có danh mục nào thuộc <strong>@ViewBag.Category.category_name</strong></a>
+                </div>
+            }
+        </div><!--row-->
+    </div><!--container -->
+</section>
+

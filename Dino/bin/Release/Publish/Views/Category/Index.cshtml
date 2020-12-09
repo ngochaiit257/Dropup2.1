@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<div id="collection" class="collection-page">
+    <div class="main-content container-fluid">
+        <div class="row breadcrumb-shop">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5  ">
+                <ol class="breadcrumb breadcrumb-arrows">
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li>
+                            <a href="/collections/@category_parent.seo_alias" target="_self">@category_parent.category_name </a>
+                        </li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li>
+                            <a href="/collections/@category_child_1.seo_alias" target="_self">@category_child_1.category_name </a>
+                        </li>
+                    }
+
+                    @if (category_child_2 != null)
+                    {
+                        <li>
+                            <a href="/collections/@category_child_2.seo_alias" target="_self">@category_child_2.category_name </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" banner-collection-header">
+                <img src="@urlCMS/@ViewBag.Category.image" alt="@ViewBag.Category.alt_image" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="collection-body" class="wrap-collection-body clearfix">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="wrap-collection-title row">
+                        <div class="heading-collection row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h1 class="title">
+                                    @ViewBag.Category.category_name
+                                </h1>
+                                <div class="clearfix filter-box">
+                                    <div class="browse-tags pull-left">
+                                        <span class="hidden">Sắp xếp theo:</span>
+                                        <span class="custom-dropdown custom-dropdown--white">
+                                            <select id="sorter">
+                                                <option value="moi-nhat" selected="selected">Mới nhất</option>
+                                                <option value="pho-bien-nhat">Phổ biến nhất</option>
+                                                <option value="ten-az">Tên A đến Z</option>
+                                                <option value="ten-za">Tên Z đến A</option>
+                                                <option value="gia-cao-thap">Giá cao đến thấp</option>
+                                                <option value="gia-thap-cao">Giá thấp đến cao</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="alert-no-filter"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div hidden class="center-div" id="loader_list_product">
+                        <img src="~/Assets/image/loader/list-loader.gif" width="15%" />
+                    </div>
+                    <div id="data_table">
+                        @{Html.RenderAction("GetProductByCategory", "Category", new { num_product = ViewBag.NumProduct, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder });}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="text" class="hidden" id="coll-handle" value="(collectionid:product=1001926898)" />
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    $('#sorter').change(function () {
+        filterProductCommon();
+    });
+
+    function filterProductCommon() {
+        var select_order = $('#sorter').val();
+        var seo_alias = '@ViewBag.Category.seo_alias';
+        $("#data_table").empty();
+        $.ajax({
+            url: "/Category/Index",
+            data: {
+                seo_alias: seo_alias,
+                page_num: 1,
+                select_order: select_order,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            beforeSend: function () {
+                $('#loader_list_product').attr('hidden', false);
+            },
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+                $('#loader_list_product').attr('hidden', true);
+            }
+        });
+    }
+</script>

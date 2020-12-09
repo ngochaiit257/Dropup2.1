@@ -1,0 +1,6 @@
+﻿.main-navbar .navbar .navbar-nav .nav-item a {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

@@ -1,0 +1,19 @@
+﻿.main-navbar .navbar .navbar-nav .nav-item a {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar-area {
+    background: #f4f5f4;
+}
+
+.main-navbar .navbar .navbar-nav .nav-item a::before {
+    background-color: #ee0c0c;
+}
+
+.main-navbar .navbar .others-options .option-item .default-btn {
+    padding: 12px 25px;
+    background-color: #ee0c0c;
+}

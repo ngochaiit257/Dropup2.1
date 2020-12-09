@@ -1,0 +1,238 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Blog | Bunny Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Bunny Việt Nam";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Bunny Việt Nam";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>Tin tức và Sự kiện</h2>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>Tin tức</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Blog Section Start -->
+<section class="blog-section blog-style-three pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <span>Tin tức</span>
+            <h2>Bài viết mới nhất</h2>
+            <p>Chúng tôi chia sẻ tới bạn đọc những thông tin hữu ích, chuyên môn và kiến thức của các dịch vụ mà chúng tôi cung cấp.</p>
+        </div>
+
+        <div id="data_table">
+
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/1.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">Liberalization of Transport & Logistics service</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                01 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/2.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">New Vehicles in the Fleet – See Our New Scania Trucks</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                02 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/3.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">Exporters Achieve Cost Savings Throughout sale</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                03 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/4.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">Our Driver Confirm Lorry Repaired as soon as Possible</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                04 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/5.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">Deliveright Logistics Expands Service to West</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                05 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="blog-details.html">
+                            <img src="assets/img/blog/6.png" alt="blog image">
+                        </a>
+                        <div class="blog-btn">
+                            <a href="#">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="blog-details.html">Software May Be Best Bet to Conquer Final Mile</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                06 April, 2020
+                            </li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                        <i class="icofont-stylish-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link active" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        <i class="icofont-stylish-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<!-- Blog Section End -->

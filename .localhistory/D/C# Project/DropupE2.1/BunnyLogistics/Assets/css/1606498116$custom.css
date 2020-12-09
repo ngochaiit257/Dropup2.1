@@ -1,0 +1,234 @@
+﻿@media (min-width: 1200px) {
+    constructed stylesheet .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1330px !important;
+    }
+}
+
+.blog-section .blog-card .blog-img a img {
+    height: 275px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.banner-slider .owl-item.active h1 {
+    text-transform: capitalize;
+}
+
+.header-area .header-left ul li a i {
+    color: #fff;
+}
+
+.features-section .feature-card i {
+    color: #E02027;
+    background: #ffebf1;
+}
+
+.section-title h2 {
+    text-transform: capitalize;
+}
+
+.img-news-lastest {
+    width: 100%;
+    height: 297px;
+    object-fit: cover;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item a {
+    font-weight: 700;
+}
+
+.blog-section .blog-card .blog-text h3 a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    min-height: 60.8px;
+}
+
+.facilities-section .facilities-text h2 {
+    text-transform: capitalize;
+}
+
+.section-title span {
+    text-transform: capitalize;
+}
+
+.transport-section .transport-card .transport-text {
+    padding: 30px;
+}
+
+.transport-section .transport-card .transport-img img {
+    height: 326px;
+    width: auto;
+    object-fit: cover;
+}
+
+.transport-section .transport-card .transport-text p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.transport-section .transport-card .transport-text h3 {
+    min-height: 52.8px;
+}
+
+.navbar-area .main-nav {
+    padding: 0;
+}
+
+.logo-img {
+    width: 60%;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu .nav-item a {
+    line-height: 1.5;
+}
+
+.service-details-img img {
+    width: 100%;
+}
+
+.center-div {
+    text-align: center;
+}
+
+.blog-section .blog-card .blog-text p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.about-section .about-text .tab-content p {
+    text-align: justify;
+}
+
+
+/*TRANSLATE*/
+.skiptranslate {
+    /*display:none;*/
+}
+
+.targetLanguage {
+    color: #666;
+}
+
+div.skiptranslate.goog-te-gadget span {
+    display: none !important;
+}
+
+/*@media screen and (max-width: 990px) {
+    div.skiptranslate.goog-te-gadget * {
+        color: #5872ab;
+        margin-top: 1px;
+        border-radius: 17px;
+        height: 27px;
+        right: 3px;
+        top: 3px;
+        float: right;
+        position: absolute;
+        z-index: 10;
+        padding-left: 10px;
+    }
+}*/
+
+.goog-te-gadget {
+    font-family: arial;
+    font-size: 11px;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.navbar-collapse {
+    padding: 0px;
+}
+
+div.skiptranslate.goog-te-gadget * {
+    color: #5872ab;
+    border-radius: 0px;
+    height: 30px;
+    top: 5px;
+    float: right;
+    z-index: 10;
+    padding-left: 0px;
+}
+
+body {
+    top: 0px !important;
+}
+
+.top-slideshow {
+    max-height: 260px;
+    overflow: hidden;
+}
+
+.language {
+    margin-right: 15px;
+    margin-top: 4px;
+}
+
+.goog-te-banner-frame {
+    /*left: 0px;
+    top: -40px;
+    height: 39px;
+    width: 100%;
+    z-index: 10000001;
+    position: fixed;
+    border: none;
+    border-bottom: 1px solid #6b90da;
+    margin: 0;
+    -moz-box-shadow: 0 0 8px 1px #999999;
+    -webkit-box-shadow: 0 0 8px 1px #999999;
+    box-shadow: 0 0 8px 1px #999999;
+    _position: absolute;*/
+    display: none;
+}
+
+.about-section::before {
+    content: "";
+    width: 70%;
+    opacity: 0.18;
+    height: 1000px;
+    position: absolute;
+    left: 50%;
+    z-index: 0;
+    top: 8%;
+    background: url(../Assets/img/banner/img-side.jpg) top center no-repeat;
+}
+
+.company-section .company-slider {
+    padding: 30px 25px 30px;
+}
+
+    .company-section .company-slider .company-logo img {
+        width: 50%;
+    }
+
+.feedback-section .feedback-slider .feedback-items img{
+    width: 15%;
+    border-radius: 15px;
+}
+
+@media (max-width: 767px) {
+    .navbar-area .mean-container .mean-bar {
+        padding: 10px 0px;
+    }
+
+    .header-area .header-left {
+        display: none;
+    }
+
+    .header-area .header-right .text-right {
+        text-align: right !important;
+    }
+
+    .navbar-area .mobile-nav .navbar-nav {
+        height: auto;
+    }
+
+}

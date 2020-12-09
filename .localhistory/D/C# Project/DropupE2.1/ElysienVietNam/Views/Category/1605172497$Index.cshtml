@@ -1,0 +1,293 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">@ViewBag.Category.category_name</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang Chủ</a></li>
+                        @if (category_parent != null && category_parent.category_id > 0)
+                        {
+                            <li>
+                                <a href="/collections/@category_parent.seo_alias">@category_parent.category_name </a>
+                            </li>
+                        }
+
+                        @if (category_child_1 != null && category_child_1.category_id > 0)
+                        {
+                            <li>
+                                <a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name </a>
+                            </li>
+                        }
+
+                        @if (category_child_2 != null)
+                        {
+                            <li>
+                                @category_child_2.category_name
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop Category Area End -->
+<div class="shop-category-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <!-- Shop Top Area Start -->
+                <div class="shop-top-bar">
+                    <!-- Left Side start -->
+                    <div class="shop-tab nav mb-res-sm-15">
+                        <a class="a_show_grid">
+                            <i class="fa fa-th show_grid"></i>
+                        </a>
+                        <a class="a_show_list">
+                            <i class="fa fa-list-ul"></i>
+                        </a>
+                        <p>Có @ViewBag.NumberAllResult thuộc danh mục này.</p>
+                    </div>
+                    <!-- Left Side End -->
+                    <!-- Right Side Start -->
+                    <div class="select-shoing-wrap">
+                        <div class="shot-product">
+                            <p>Sắp xếp:</p>
+                        </div>
+                        <div class="shop-select">
+                            <select id="sorter">
+                                <option value="moi-nhat" selected="selected">Mới nhất</option>
+                                <option value="pho-bien-nhat">Phổ biến nhất</option>
+                                <option value="ten-az">Tên A đến Z</option>
+                                <option value="ten-za">Tên Z đến A</option>
+                                <option value="gia-cao-thap">Giá cao đến thấp</option>
+                                <option value="gia-thap-cao">Giá thấp đến cao</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Right Side End -->
+                </div>
+                <!-- Shop Top Area End -->
+                <!-- Shop Bottom Area Start -->
+                <div class="shop-bottom-area mt-35">
+                    <!-- Shop Tab Content Start -->
+                    <div class="tab-content jump" id="data_table">
+                        @{Html.RenderAction("GetProductByCategory", "Category", new { page_num = ViewBag.page_num, seo_alias = ViewBag.CategorySeoAlias, search_string = ViewBag.FilterValue, tab_filter = ViewBag.TabFilter, color = ViewBag.Color, choose_grid_view = ViewBag.ChooseGridView, select_order = ViewBag.SelectOrder, min_price = ViewBag.MinPrice, max_price = ViewBag.MaxPrice });}
+
+                    </div>
+                    <!-- Shop Tab Content End -->
+                </div>
+                <!-- Shop Bottom Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <div class="sidebar-heading">
+                        <div class="main-heading">
+                            <h2>Lọc sản phẩm</h2>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-20">
+                        <h4 class="pro-sidebar-title">Khoảng giá</h4>
+                        <div class="sidebar-widget-list">
+                            <ul>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="price-filter" min="0" max="500000000" checked> <a href="#">Tất cả</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="price-filter" min="0" max="500000"> <a href="#">Dưới 500.000 ₫</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="price-filter" min="300000" max="700000"> <a href="#">Từ 300.000 ₫ - 700.000 ₫</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="price-filter" min="700000" max="1000000"> <a href="#">Từ 700.000 ₫ - 1.000.000 ₫</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="price-filter" min="1500000" max="500000000"> <a href="#">Trên 1.500.000 ₫</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @if (ViewData["ListDacBiet"] != null)
+                    {
+                        <!-- Sidebar single item -->
+                        <div class="sidebar-widget mt-40">
+                            <div class="main-heading">
+                                <h2>Sản phẩm bán chạy</h2>
+                            </div>
+                            <div class="sidebar-widget-tag">
+                                <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                    @foreach (var product in ViewData["ListDacBiet"] as List<product>)
+                                    {
+                                        if (product.product_id % 2 != 0)
+                                        {
+                                            <!-- Single Item -->
+                                            <div class="feature-slider-item feature-slider-item-sidebar">
+                                                <article class="list-product mb-30px">
+                                                    <div class="img-block">
+                                                        <a href="/@product.seo_alias" class="thumbnail">
+                                                            <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                            @if (img_more != null)
+                                                            {
+                                                                <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                            }
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product-decs">
+                                                        @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                        @if (category != null)
+                                                        {
+                                                            <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                                        }
+                                                        <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                        <div class="rating-product">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                        </div>
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                                {
+                                                                    <li class="old-price showNumeric">@product.price</li>
+                                                                }
+                                                                <li class="current-price showNumeric">@product.promotion_price</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                    @foreach (var product in ViewData["ListDacBiet"] as List<product>)
+                                    {
+                                        if (product.product_id % 2 == 0)
+                                        {
+                                            <!-- Single Item -->
+                                            <div class="feature-slider-item feature-slider-item-sidebar">
+                                                <article class="list-product mb-30px">
+                                                    <div class="img-block">
+                                                        <a href="/@product.seo_alias" class="thumbnail">
+                                                            <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                            @if (img_more != null)
+                                                            {
+                                                                <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                            }
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product-decs">
+                                                        @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                        @if (category != null)
+                                                        {
+                                                            <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                                        }
+                                                        <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                        <div class="rating-product">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                        </div>
+                                                        <div class="pricing-meta">
+                                                            <ul>
+                                                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                                {
+                                                                    <li class="old-price showNumeric">@product.price</li>
+                                                                }
+                                                                <li class="current-price showNumeric">@product.promotion_price</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sidebar single item -->
+                    }
+
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>
+<!-- Shop Category Area End -->
+
+<script>
+    $('input[type=radio][name=price-filter]').change(function () {
+        var min_price = $(this).attr('min');
+        var max_price = $(this).attr('max');
+        filterProductCommon(min_price, max_price)
+    });
+</script>

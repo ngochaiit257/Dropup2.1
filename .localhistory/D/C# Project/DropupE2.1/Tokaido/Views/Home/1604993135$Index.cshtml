@@ -1,0 +1,390 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tokaido Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+    string shopee_link = System.Configuration.ConfigurationManager.AppSettings["shopee_link"];
+    string lazada_link = System.Configuration.ConfigurationManager.AppSettings["lazada_link"];
+    string youtube_link = System.Configuration.ConfigurationManager.AppSettings["youtube_link"];
+    string tiktok_link = System.Configuration.ConfigurationManager.AppSettings["titok_link"];
+
+    var list_category_parent = new CategoryProvider().getListParentCategory();
+    var category_parent_active = new CategoryProvider().getListParentCategory().FirstOrDefault();
+    var list_blog = new BlogProvider().getIsShowing().Take(3);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+
+    ViewBag.Keywords = "Tokaido, phụ kiện nhà bếp, đồ dùng nhà bếp, dụng cụ nhà bếp, đồ dùng văn phòng, dụng cụ văn phòng";
+    ViewBag.Description = "Tokaido chuyên cung cấp các dòng sản phẩm dụng cụ nhà bếp, đồ dùng văn phòng.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Slider -->
+@if (list_slide.Count > 0)
+{
+    int i = 0;
+
+    <div class="flat-sliders-container">
+        <div class="tp-banner-container">
+            <div class="tp-banner">
+                <ul>
+                    @foreach (var slide in list_slide)
+                    {
+                        i++;
+                        <li data-transition="random-static" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on">
+                            <img src="@urlCMS/@slide.image" alt="@slide.alt" />
+
+                            <div class="tp-caption sfl title-slide style6" data-x="140" data-y="320" data-speed="1500" data-start="1500" data-easing="Sine.easeInOut" style="font-size: 120px"> @slide.main_text</div>
+
+                            <div class="tp-caption sfr description-slider style1" data-x="140" data-y="450" data-speed="1000" data-start="1500" data-easing="Power3.easeInOut" style="font-size: 50px !important;">
+                                @slide.child_text_1
+
+                            </div>
+                            <div class="tp-caption sft desc-slide blue-color center  style3" data-x="40" data-y="250" data-speed="1000" data-start="1500" data-easing="Power3.easeInOut">
+                                <span>Tokaido Review</span> <br>
+                                @slide.child_text_2
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="flat-vertical social-links">
+            <a href="@youtube_link" target="_blank"><i class="fa fa-youtube"></i></a>
+            <a href="@instagram_link" target="_blank"><i class="fa fa-instagram"></i></a>
+            <a href="@fb_link" target="_blank"><i class="fa fa-facebook"></i></a>
+
+            <span>THEO DÕI TOKAIDO</span>
+        </div>
+        <div class="flat-vertical reservation">
+            <a href="/pages/lien-he">LIÊN HỆ</a>
+        </div>
+    </div>
+}
+
+
+<section class="flat-row flat-our">
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@urlCMS/@banner.image" alt="@banner.alt">
+                <div>
+                    <img src="~/Assets/images/elements/1-2.png" style="position:absolute; right: 85%; width: 20%; top: 20%" />
+                </div>
+            </div><!--col-md-6-->
+
+            <div class="col-md-6">
+                <div class="flat-divider d96px"></div>
+                <div class="wrap-content-story">
+                    <div class="title-section style2 ">
+                        <h1 class="title">Thư ngỏ</h1>
+                    </div>
+                    <p class="content-story">
+                        Bạn thân mến, căn bếp luôn được coi là linh hồn của mỗi căn nhà, là nơi gia đình quây quần, mang đến năng lượng, sự hạnh phúc; hơi ấm từ căn bếp còn giữ ngọn lửa yêu thương cho mọi gia đình.
+                    </p>
+                    <p class="content-story">
+                        Để việc vào bếp mỗi ngày luôn đầy cảm hứng, trước hết căn bếp của bạn phải đầy đủ dụng cụ và thiết bị, hơn nữa cần chọn lựa phù hợp với thiết kế, màu sắc, đem đến một tổng thể hài hòa tùy phong cách dễ thương hay thanh lịch.
+                    </p>
+                    <p class="content-story">
+                        Tokaido vốn dĩ là tên một con đường ven biển dài nối liền những thành phố lớn. Chúng tôi quan niệm cuộc đời mỗi con người cũng là một con đường dài, hạnh phúc hay không là do cách chúng ta ngẫm nhìn và cảm nhận nó.
+                        Tokaido - Happiness way of our life, chúng tôi cùng bạn tạo nên con đường hạnh phúc!
+                    </p>
+                </div>
+                <img src="~/Assets/images/elements/leaves-1.png" class="hidden-sm hidden-xs img-element-1" />
+            </div><!--/.col-md-6-->
+        </div><!--/.row-->
+    </div><!--/.container -->
+</section>
+<!-- Flat Tab-->
+<section class="flat-row flat-tab-menu flat-imagebox index-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <div class="top-section">Tokaido</div>
+                    <h1 class="title">Danh mục sản phẩm</h1>
+                </div>
+            </div><!--/.col-md-12-->
+        </div><!--/.row-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flat-tabs">
+                    <ul class="menu-tab">
+                        <li class="active"><a href="/collections/@category_parent_active.seo_alias">@category_parent_active.category_name</a></li>
+                        @foreach (var category_parent in list_category_parent)
+                        {
+                            if (category_parent.status == true && category_parent.show_datetime <= DateTime.Now && category_parent.category_id != category_parent_active.category_id)
+                            {
+                                <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+                        }
+                    </ul>
+
+                    <div class="content-tab">
+                        <div class="content-inner">
+                            @{ var list_category_child_active = new CategoryProvider().getByCategoryParentId(category_parent_active.category_id).Take(12).ToList();}
+                            @if (list_category_child_active.Count > 0)
+                            {
+                                foreach (var category_child in list_category_child_active)
+                                {
+                                    var num_count_product_of_this_category = new ProductProvider().getByCategoryIdOnSite(category_child.category_id).Count;
+                                    int num_category_child = new CategoryProvider().getCategoryChildByCategoryId(category_child.category_id).Count;
+                                    <div class="item">
+                                        <div class="imagebox effect1">
+                                            <div class="box-wrap">
+                                                <div class="box-image">
+                                                    @if (num_category_child > 0)
+                                                    {
+                                                        <a href="/collections/@category_child.seo_alias">
+                                                            <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/products/@category_child.seo_alias">
+                                                            <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                        </a>
+                                                    }
+                                                </div>
+                                                <div class="box-content">
+                                                    @if (num_category_child > 0)
+                                                    {
+                                                        <h5><a href="/collections/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h5><a href="/products/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            <div class="container row">
+                                <div class="col-md-12">
+                                    <div class="read-more view-all">
+                                        <a href="/collections/@category_parent_active.seo_alias">XEM THÊM</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.content-inner -->
+
+                        @foreach (var category_parent in list_category_parent)
+                        {
+                            if (category_parent.status == true && category_parent.show_datetime <= DateTime.Now && category_parent.category_id != category_parent_active.category_id)
+                            {
+                                <div class="content-inner">
+                                    @{var list_category_child = new CategoryProvider().getByCategoryParentId(category_parent.category_id).Take(12).ToList();}
+                                    @if (list_category_child.Count > 0)
+                                    {
+                                        foreach (var category_child in list_category_child)
+                                        {
+                                            var num_count_product_of_this_category = new ProductProvider().getByCategoryIdOnSite(category_child.category_id).Count;
+                                            int num_category_child = new CategoryProvider().getCategoryChildByCategoryId(category_child.category_id).Count;
+                                            <div class="item">
+                                                <div class="imagebox effect1">
+                                                    <div class="box-wrap">
+                                                        <div class="box-image">
+                                                            @if (num_category_child > 0)
+                                                            {
+                                                                <a href="/collections/@category_child.seo_alias">
+                                                                    <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="/products/@category_child.seo_alias">
+                                                                    <img src="@urlCMS/@category_child.image" alt="@category_child.alt_image" />
+                                                                </a>
+                                                            }
+                                                        </div>
+                                                        <div class="box-content">
+                                                            @if (num_category_child > 0)
+                                                            {
+                                                                <h5><a href="/collections/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5><a href="/products/@category_child.seo_alias">@category_child.category_name</a></h5>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    <div class="container row">
+                                        <div class="col-md-12">
+                                            <div class="read-more view-all">
+                                                <a href="/collections/@category_parent.seo_alias">XEM THÊM</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.content-inner -->
+                            }
+                        }
+                    </div><!-- /.content-tab -->
+                </div><!--flat-tabs-->
+            </div><!--/.col-md-12-->
+        </div><!--/.row-->
+    </div><!--/.container -->
+</section>
+
+
+<!-- Flat testimonial -->
+<section class="flat-row flat-testimonial index-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margb-27px">
+                    <h1 class="title">Phản hồi từ khách hàng</h1>
+                </div>
+            </div><!--col-md-12-->
+        </div><!--row-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flat-carousel">
+                    <div class="owl-carousel-services">
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Sản phẩm của Tokaido thiết kế gọn gàng nhưng đầy đủ chức năng mà mình cần đến. Mình ở nhà chăm con nhỏ và vẫn có thể sử dụng các món đồ thông minh này để nấu những bữa cơm ngon cho cả nhà"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title"><a>Chị Nga</a></h6>
+                                <p>Nội trợ</p>
+                            </div>
+                        </div>
+
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Mình thấy giá các sản phẩm của Tokaido không mắc nhưng chất lượng thì hơn cả mong đợi. Thiết kế nhìn rất chỉn chu, chất liệu chắc chắn, phối màu cực xinh mà vẫn sang, hợp rơ với căn bếp của mình"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title-post"><a>Chị Ánh</a></h6>
+                                <p>Nhân viên văn phòng</p>
+                            </div>
+                        </div>
+
+                        <div class="item-owl">
+                            <div class="blockquote-testimo">
+                                <p>
+                                    "Vợ mình rất thích làm bếp núc nên mình hay mua đồ ở Tokaido tặng vợ. Từ khi biết đến mấy món đồ này, ngày lễ tết hay dịp đặc biệt nào cũng chỉ muốn mình chạy đi xem đồ của Tokaido để mua thôi"
+                                </p>
+                            </div>
+
+                            <div class="title-testimonial">
+                                <h6 class="title-post"><a>Anh Huy</a></h6>
+                                <p>Chuyên viên Bảo hiểm</p>
+                            </div>
+                        </div>
+
+                    </div><!--/.owl-carousel-services-v2-->
+                </div><!--/.flat-carousel-v2-->
+                <img src="~/Assets/images/elements/flower-1.png" class="hidden-sm hidden-xs img-element-flower-1" />
+            </div><!--/.col-md-12-->
+        </div><!--/.row-->
+    </div><!--/.container -->
+</section>
+
+
+<!-- Flat latest new -->
+<section class="flat-row flat-latest-new">
+    <div class="container">
+        <div class="row">
+            <div class="blog-shortcode blog-slist">
+
+                <article class="post col-md-6 clearfix">
+                    <div class="title-section style4">
+                        <h1 class="title"><span>Blogs</span> Mới nhất</h1>
+                        <p>Được Tokaido cập nhật liên tục để chia sẻ tới bạn đọc.  </p>
+                    </div>
+
+                    <div class="content-post">
+                        <div class="entry-meta">@newest_blog.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</div>
+
+                        <h3 class="title-post"><a href="/blogs/@newest_blog.blog_seo_alias">@newest_blog.blog_title</a></h3>
+
+                        <div class="entry-post excerpt">
+                            <p>@newest_blog.blog_summary</p>
+                            <div class="read-more">
+                                <a href="/blogs/@newest_blog.blog_seo_alias">
+                                    Đọc thêm
+                                </a>
+                            </div>
+                        </div>
+                    </div><!-- /.content-post -->
+                </article>
+
+                <article class="post col-md-6 clearfix">
+                    <div class="flat-video-fancybox">
+                        <!--  <div class="overlay"></div> -->
+                        <a class="fancybox" data-type="" href="/blogs/@newest_blog.blog_seo_alias">
+                            <img src="@urlCMS/@newest_blog.blog_image" alt="@newest_blog.blog_alt_image">
+                        </a>
+                    </div>
+                </article>
+
+                @foreach (var blog in list_blog)
+                {
+                    if (blog.blog_id != newest_blog.blog_id)
+                    {
+                        <article class="post col-md-6 clearfix">
+                            <div class="featured-post">
+                                <img src="@urlCMS/@blog.blog_image" alt="@newest_blog.blog_alt_image">
+                            </div>
+
+                            <div class="content-post bgffff">
+                                <div class="entry-meta">@blog.show_datetime.Value.ToString("HH:mm dd-MM-yyyy")</div>
+
+                                <h3 class="title-post"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h3>
+
+                                <div class="entry-post excerpt">
+                                    <p>@blog.blog_summary</p>
+                                    <div class="read-more">
+                                        <a href="/blogs/@blog.blog_seo_alias">
+                                            Đọc thêm
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- /.content-post -->
+                        </article>
+                    }
+                }
+            </div>
+        </div><!--row-->
+    </div><!--container -->
+    <div class="container row">
+        <div class="col-md-12">
+            <div class="read-more view-all">
+                <a href="/blogs">XEM TẤT CẢ</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="kf_property_line1"></div>

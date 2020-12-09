@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyPushNotificationModelStoreContainer" CdmEntityContainer="MyPushNotificationEntities">
+    <EntitySetMapping Name="system_notification">
+      <EntityTypeMapping TypeName="MyPushNotificationModel.system_notification">
+        <MappingFragment StoreEntitySet="system_notification">
+          <ScalarProperty Name="system_notification_id" ColumnName="system_notification_id" />
+          <ScalarProperty Name="system_notification_title" ColumnName="system_notification_title" />
+          <ScalarProperty Name="system_notification_create_datetime" ColumnName="system_notification_create_datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

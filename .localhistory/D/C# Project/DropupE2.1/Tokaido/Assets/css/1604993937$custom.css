@@ -1,0 +1,238 @@
+﻿.title-section .title {
+    font-weight: 700;
+}
+
+.wrap-content-story .content-story {
+    margin-bottom: 15px;
+}
+
+.title-section .title {
+    text-transform: uppercase;
+    line-height: 1.0;
+}
+
+.flat-imagebox .item {
+    /*box-shadow: 0 5px 5px rgb(0 0 0 / 5%);*/
+    padding: 15px 15px;
+}
+
+.box-wrap {
+    border: 2px solid #526D19;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.imagebox .box-content {
+    padding: 10px 30px 10px 30px;
+    position: relative;
+    background: #526D19;
+    border-radius: 5px;
+}
+
+.box-content h5 a {
+    color: #fff;
+}
+
+.read-more.view-all a {
+    border-radius: 5px;
+}
+
+.flat-row.index-1 {
+    margin: 50px 0;
+}
+
+.flat-row.flat-our {
+    padding-bottom: 15px;
+}
+
+.flat-our::after {
+    background: url("../images/elements/leaves-1.png") no-repeat;
+}
+
+.wrap-content-story {
+    margin-top: 110px;
+}
+
+.title-section.style4 .title span {
+    margin-bottom: 25px;
+}
+
+.imagebox .box-content {
+    text-align: center;
+}
+
+.flat-row {
+    padding: 20px 0;
+}
+
+.footer {
+    padding-top: 0;
+}
+
+.imagebox .box-content h5 {
+    font-size: 15px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1420px;
+    }
+}
+
+.read-more.view-all {
+    margin-top: 45px;
+}
+
+.wrap-content-story {
+    text-align: justify;
+}
+
+.product .box-content {
+    text-align: center;
+    font-size: 15px;
+    padding: 10px 30px 10px 30px;
+    position: relative;
+    background: #526D19;
+    border-radius: 5px;
+}
+
+.thumb img {
+    width: 100px;
+    height: auto;
+}
+
+.flat-map {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin-top: 30px;
+}
+
+.post .header-post p.time-post:after {
+    content: "";
+}
+
+.feature-post img {
+    width: 100%;
+}
+
+.flat-tabs ul.menu-tab li.active a {
+    color: #fff;
+    background: #526D19;
+    padding: 10px 15px;
+    border-radius: 35px;
+    font-weight: 700;
+}
+
+.flat-row.index-1 {
+    margin: 0;
+}
+
+.flat-row.flat-tab-menu {
+    padding-top: 0px;
+    padding-bottom: 79px;
+}
+
+.flat-row.flat-testimonial {
+    padding: 60px;
+    background: #fcecdc;
+    margin-bottom: 60px;
+}
+
+
+.flat-tabs ul.menu-tab {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+    .flat-tabs ul.menu-tab li {
+        position: relative;
+        display: inline-block;
+        margin: 15px 0;
+    }
+
+.img-element-1 {
+    position: absolute;
+    left: 60%;
+    width: 50%;
+    top: 95%;
+}
+
+.img-element-flower-1 {
+    position: absolute;
+    left: 95%;
+    top: 90%;
+}
+
+#mainnav > ul > li > a {
+    font-weight: 700;
+}
+
+#mainnav > ul > li.logo img {
+    margin: 10px 0;
+}
+
+.flat-shop-ordering select {
+    width: 210px;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+    .logo-mobi {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .wrap-content-story {
+        padding-left: 0;
+    }
+
+    .wrap-content-story {
+        margin-top: 10px;
+    }
+
+    .title-section .title {
+        line-height: 1.5;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .title-section.style4 .title span {
+        margin-bottom: 0;
+    }
+
+    .title-section.style4 .title span {
+        font-size: 35px;
+    }
+
+    .flat-row.flat-testimonial {
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+
+    .flat-row {
+        padding: 10px 0 !important;
+    }
+
+    .tp-caption.desc-slide span {
+        display: none;
+    }
+
+    .desc-slide {
+        display: none;
+    }
+
+    .flat-shop-ordering select {
+        height: 45px;
+        font-size: 16px;
+         position: unset; 
+        right: 26px;
+        top: -13px;
+    }
+}

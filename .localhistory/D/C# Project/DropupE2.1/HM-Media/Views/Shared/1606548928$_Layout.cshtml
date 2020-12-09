@@ -1,0 +1,440 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_service = new ProductProvider().getAll();
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+    var list_page_2 = list_page_link.Where(p => p.mount_on_header_menu_status == false && p.mount_on_footer_menu_status == false).ToList();
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+    string linkedin_link = System.Configuration.ConfigurationManager.AppSettings["linkedin_link"];
+    string twitter_link = System.Configuration.ConfigurationManager.AppSettings["twitter_link"];
+    string shopee_link = System.Configuration.ConfigurationManager.AppSettings["shopee_link"];
+    string lazada_link = System.Configuration.ConfigurationManager.AppSettings["lazada_link"];
+    string tiktok_link = System.Configuration.ConfigurationManager.AppSettings["titok_link"];
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../Assets/css/bootstrap.min.css">
+    <!-- Box Icons CSS -->
+    <link rel="stylesheet" href="../Assets/css/boxicons.min.css">
+    <!-- Mean Menu CSS -->
+    <link rel="stylesheet" href="../Assets/css/meanmenu.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="../Assets/css/animate.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="../Assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../Assets/css/owl.theme.default.min.css">
+    <!-- Flat Icon CSS -->
+    <link rel="stylesheet" href="../Assets/fonts/flaticon.css">
+    <!-- Modal Video CSS -->
+    <link rel="stylesheet" href="../Assets/css/modal-video.min.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="../Assets/css/odometer.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../Assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../Assets/css/responsive.css">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+    <link href="~/Assets/css/PagedList.css" rel="stylesheet" />
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="icon" type="image/png" href="../Assets/img/favicon.png">
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=1121691614960846&autoLogAppEvents=1" nonce="tH3UMcjv"></script>
+    <!-- Header -->
+    <div class="header-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-9 col-lg-8">
+                    <div class="left">
+                        <ul>
+                            <li>
+                                <i class='bx bx-mail-send'></i>
+                                <a href="mailto:@contact.email">@contact.email</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-phone-call'></i>
+                                <a href="tel:@contact.phone_number">@contact.phone_number</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-time'></i>
+                                <span>@contact.working_day : @contact.working_hour</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 col-lg-4">
+                    <div class="right">
+                        <ul>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-youtube'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Header -->
+    <!-- Navbar -->
+    <div class="navbar-area sticky-top">
+        <!-- Menu For Mobile Device -->
+        <div class="mobile-nav">
+            <a href="/" class="logo">
+                <img src="../Assets/img/logo-two.png" alt="Logo">
+            </a>
+        </div>
+
+        <!-- Menu For Desktop Device -->
+        <div class="main-nav">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="/">
+                        <img src="../Assets/img/logo.png" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link dropdown-toggle active">Trang chủ</a>
+                            </li>
+
+                            @if (list_page_parent.Count > 0)
+                            {
+                                foreach (var pp in list_page_parent)
+                                {
+                                    if (pp.mount_on_header_menu_status == true)
+                                    {
+                                        var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                        if (list_page_child.Count > 0)
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/pages/@pp.page_seo_alias" class="nav-link dropdown-toggle">
+                                                    @pp.page_title <i class='bx bx-chevron-down'></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var pc in list_page_child)
+                                                    {
+                                                        <li class="nav-item">
+                                                            <a href="/pages/@pc.page_seo_alias" class="nav-link">
+                                                                @pc.page_title
+                                                            </a>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/pages/@pp.page_seo_alias" class="nav-link">
+                                                    @pp.page_title
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link dropdown-toggle">Dịch vụ <i class='bx bx-chevron-down'></i></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var service in list_service)
+                                    {
+                                        <li class="nav-item">
+                                            <a href="/@service.seo_alias" class="nav-link">@service.product_name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/blogs" class="nav-link dropdown-toggle">Tin tức và Sự kiện</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/pages/lien-he" class="nav-link">Liên hệ</a>
+                            </li>
+                        </ul>
+
+                        <div class="side-nav">
+                            @*<div class="nav-search">
+                                    <i id="search-btn" class="bx bx-search-alt"></i>
+                                    <div id="search-overlay" class="block">
+                                        <div class="centered">
+                                            <div id="search-box">
+                                                <i id="close-btn" class="bx bx-x"></i>
+                                                <form>
+                                                    <input type="text" class="form-control" placeholder="Search..." />
+                                                    <button type="submit" class="btn">Tìm kiếm</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                            <div class="lang-show">
+                                <a class="flag-lang" href="javascript:void(0)" onclick="changeLanguageByButtonClick('Vi')">
+                                    <img src="../Assets/img/flag2.jpg" alt="Flag Vi">
+                                </a>
+                                <a class="flag-lang" href="#" onclick="changeLanguageByButtonClick('En')">
+                                    <img src="../Assets/img/flag1.jpg" alt="Flag En">
+                                </a>
+                            </div>
+                            <div id="google_translate_element" style="display:none"></div>
+                                <input value="en" id="language" />
+                                <button onclick="changeLanguageByButtonClick()">Translate</button>
+                                <script type="text/javascript">
+                                    function googleTranslateElementInit() {
+                                        new google.translate.TranslateElement({ pageLanguage: "vi" }, 'google_translate_element');
+                                    }
+
+                                    function changeLanguageByButtonClick() {
+                                        var language = document.getElementById("language").value;
+                                        var selectField = document.querySelector("#google_translate_element select");
+                                        for (var i = 0; i < selectField.children.length; i++) {
+                                            var option = selectField.children[i];
+                                            // find desired langauge and change the former language of the hidden selection-field
+                                            if (option.value == language) {
+                                                selectField.selectedIndex = i;
+                                                // trigger change event afterwards to make google-lib translate this side
+                                                selectField.dispatchEvent(new Event('change'));
+                                                break;
+                                            }
+                                        }
+                                    }
+                                </script>
+
+                            @*<div class="dropdown nav-flag-dropdown">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="../Assets/img/flag1.jpg" alt="Flag">
+                                        Eng
+                                        <i class='bx bx-chevron-down'></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/flag2.jpg" alt="Flag">
+                                            Ger
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/flag3.jpg" alt="Flag">
+                                            Isr
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <img src="../Assets/img/flag4.jpg" alt="Flag">
+                                            USA
+                                        </a>
+                                    </div>
+                                </div>*@
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar -->
+    @RenderBody()
+    <!-- Footer -->
+    <footer class="footer-area pt-100">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <div class="footer-logo">
+                            <a class="footer-inva" href="index.html">
+                                <img src="../Assets/img/logo-two.png" alt="Logo">
+                            </a>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quaerat quo unde</p>
+                            <ul>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class='bx bxl-facebook'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class='bx bxl-twitter'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class='bx bxl-linkedin'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class='bx bxl-instagram'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class='bx bxl-youtube'></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <div class="footer-link">
+                            <h3>Important Links</h3>
+                            <ul>
+                                <li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <a href="about.html">About</a>
+                                </li>
+                                <li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <a href="services.html">Services</a>
+                                </li>
+                                <li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <a href="projects.html">Projects</a>
+                                </li>
+                                <li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <a href="blog.html">Blog</a>
+                                </li>
+                                <li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <a href="faq.html">FAQ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <div class="footer-hours">
+                            <h3>Open Hours</h3>
+                            <ul>
+                                <li>Monday <span>8:00 - 21:00</span></li>
+                                <li>Tuesday <span>8:00 - 21:00</span></li>
+                                <li>Wednesday <span>8:00 - 21:00</span></li>
+                                <li>Thursday <span>8:00 - 21:00</span></li>
+                                <li>Sunday <span>8:00 - 21:00</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <div class="footer-contact">
+                            <h3>Contact Info</h3>
+                            <ul>
+                                <li>
+                                    <i class='bx bxs-location-plus'></i>
+                                    <span>113 Inva, White House, New Jercy, USA</span>
+                                </li>
+                                <li>
+                                    <i class='bx bxs-phone-call'></i>
+                                    <a href="tel:+0015481592491">+001-548-159-2491</a>
+                                    <a href="tel:+0017581458652">+001-758-145-8652</a>
+                                </li>
+                                <li>
+                                    <i class='bx bxs-paper-plane'></i>
+                                    <a href="mailto:hello@inva.com">hello@inva.com</a>
+                                    <a href="mailto:info@inva.com">info@inva.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <p>Copyright 2020 Design & Developed by <a href="https://diwe.vn/" target="_blank">Diwe.vn</a></p>
+            </div>
+        </div>
+        <div class="footer-shape">
+            <img src="../Assets/img/footer-bg.png" alt="Footer">
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- Go Top -->
+    <div class="go-top">
+        <i class="bx bxs-up-arrow-alt"></i>
+        <i class="bx bxs-up-arrow-alt"></i>
+    </div>
+    <!-- End Go Top -->
+    <!-- Essential JS -->
+    <script src="../Assets/js/jquery.min.js"></script>
+    <script src="../Assets/js/popper.min.js"></script>
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="../Assets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="../Assets/js/contact-form-script.js"></script>
+    <!-- Ajax Chip JS -->
+    <script src="../Assets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Mean Menu JS -->
+    <script src="../Assets/js/jquery.meanmenu.js"></script>
+    <!-- Wow JS -->
+    <script src="../Assets/js/wow.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="../Assets/js/owl.carousel.min.js"></script>
+    <!-- Modal Video JS -->
+    <script src="../Assets/js/jquery-modal-video.min.js"></script>
+    <!-- Odometer JS -->
+    <script src="../Assets/js/odometer.min.js"></script>
+    <script src="../Assets/js/jquery.appear.min.js"></script>
+    <!-- Smooth Scroll JS -->
+    <script src="../Assets/js/smoothscroll.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../Assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

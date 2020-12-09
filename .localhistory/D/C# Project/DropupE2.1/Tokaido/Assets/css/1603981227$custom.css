@@ -1,0 +1,28 @@
+﻿.title-section .title {
+    font-weight: 700;
+}
+
+.wrap-content-story .content-story {
+    margin-bottom: 15px;
+}
+
+.title-section .title {
+    text-transform: uppercase;
+    line-height: 1.0;
+}
+
+.flat-imagebox .item {
+    box-shadow: 0 5px 5px rgb(0 0 0 / 5%);
+}
+
+.flat-row.index-1 {
+    margin: 50px 0;
+}
+
+.flat-row.flat-our {
+    padding-bottom: 15px;
+}
+
+.title-section.style4 .title span {
+    margin-bottom: 25px;
+}

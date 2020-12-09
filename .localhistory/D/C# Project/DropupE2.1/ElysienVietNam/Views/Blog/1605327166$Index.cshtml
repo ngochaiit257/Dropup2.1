@@ -1,0 +1,287 @@
+﻿@model IEnumerable<Data.blog>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Blog | Elysien";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_my_pham_sidebar = new ProductProvider().getByCategoryIdOnSite(55).Take(5).ToList();
+    var list_may_moc_sidebar = new ProductProvider().getByCategoryIdOnSite(56).Take(5).ToList();
+    var list_dac_biet_sidebar = new ProductProvider().getByCategoryIdOnSite(57).Take(5).ToList();
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Elysien, mỹ phẩm, spa, làm đẹp, máy móc";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Dino Store";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+
+}
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Blog</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop Category Area End -->
+<div class="shop-category-area blog-grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <div class="main-heading">
+                    <h2>Danh sách blog</h2>
+                </div>
+                <div class="center-div" id="loader_list_blog" hidden>
+                    <img src="~/Assets/images/loader/list-loader.gif" style="width: 15%" />
+                    <p>Đang tải dữ liệu...</p>
+                </div>
+                <div class="blog-posts" id="data_table">
+                    @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num, blog_category_id = ViewBag.BlogCategoryId });}
+                </div>
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 col-md-12 mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <!-- Sidebar single item -->
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget">
+                        <div class="main-heading">
+                            <h2>Danh mục</h2>
+                        </div>
+                        <div class="sidebar-widget-list">
+                            <ul>
+                                <li>
+                                    <div class="sidebar-widget-list-left">
+                                        <input type="radio" name="blog-category-filter" value="0" checked> <a href="javascript:void(0)">Tất cả</a>
+                                        <span class="checkmark"></span>
+                                    </div>
+                                </li>
+                                @foreach (var cb in new BlogCategoryProvider().getAll())
+                                {
+                                    <li>
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="radio" name="blog-category-filter" value="@cb.blog_category_id"> <a href="javascript:void(0)">@cb.blog_category_name</a>
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Bài viết mới nhất</h2>
+                        </div>
+                        <div class="recent-post-widget">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <div class="recent-single-post d-flex">
+                                    <div class="thumb-side">
+                                        <a href="/blogs/@blog.blog_seo_alias"><img class="lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image" /></a>
+                                    </div>
+                                    <div class="media-side">
+                                        <h5><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
+                                        <span class="date">@blog.show_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Sản phẩm bán chạy</h2>
+                        </div>
+                        <div class="sidebar-widget-tag">
+                            <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    @foreach (var product in list_dac_biet_sidebar)
+                                    {
+                                        <article class="list-product">
+                                            <div class="img-block">
+                                                <a href="/@product.seo_alias" class="thumbnail">
+                                                    <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                    @{ var img_more_dac_biet = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                    @if (img_more_dac_biet != null)
+                                                    {
+                                                        <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more_dac_biet.image_more_url" alt="@img_more_dac_biet.image_more_url" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-decs">
+                                                @{ var category_dac_biet = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                @if (category_dac_biet != null)
+                                                {
+                                                    <a class="inner-link" href="/collections/@category_dac_biet.seo_alias"><span>@category_dac_biet.category_name.ToUpper()</span></a>
+                                                }
+                                                <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                                <div class="pricing-meta">
+                                                    <ul>
+                                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                        {
+                                                            <li class="old-price showNumeric">@product.price</li>
+                                                        }
+                                                        <li class="current-price showNumeric">@product.promotion_price</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    }
+                                </div>
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    @foreach (var product in list_my_pham_sidebar)
+                                    {
+                                        <article class="list-product">
+                                            <div class="img-block">
+                                                <a href="/@product.seo_alias" class="thumbnail">
+                                                    <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                    @{ var img_more_my_pham = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                    @if (img_more_my_pham != null)
+                                                    {
+                                                        <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more_my_pham.image_more_url" alt="@img_more_my_pham.image_more_url" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-decs">
+                                                @{ var category_my_pham = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                @if (category_my_pham != null)
+                                                {
+                                                    <a class="inner-link" href="/collections/@category_my_pham.seo_alias"><span>@category_my_pham.category_name.ToUpper()</span></a>
+                                                }
+                                                <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                                <div class="pricing-meta">
+                                                    <ul>
+                                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                        {
+                                                            <li class="old-price showNumeric">@product.price</li>
+                                                        }
+                                                        <li class="current-price showNumeric">@product.promotion_price</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    }
+                                </div>
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    @foreach (var product in list_may_moc_sidebar)
+                                    {
+                                        <article class="list-product">
+                                            <div class="img-block">
+                                                <a href="/@product.seo_alias" class="thumbnail">
+                                                    <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                    @{ var img_more_may_moc = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                    @if (img_more_may_moc != null)
+                                                    {
+                                                        <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more_may_moc.image_more_url" alt="@img_more_may_moc.image_more_url" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-decs">
+                                                @{ var category_may_moc = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                                @if (category_may_moc != null)
+                                                {
+                                                    <a class="inner-link" href="/collections/@category_may_moc.seo_alias"><span>@category_may_moc.category_name.ToUpper()</span></a>
+                                                }
+                                                <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                                <div class="rating-product">
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                    <i class="ion-android-star"></i>
+                                                </div>
+                                                <div class="pricing-meta">
+                                                    <ul>
+                                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                        {
+                                                            <li class="old-price showNumeric">@product.price</li>
+                                                        }
+                                                        <li class="current-price showNumeric">@product.promotion_price</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    }
+                                </div>
+                                <!-- Single Item -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>
+<!-- Shop Category Area End -->
+
+<script>
+    $('input[type=radio][name=blog-category-filter]').change(function () {
+        var blog_category_id = $(this).val();
+        filterBlogCommon(blog_category_id);
+    });
+
+    function filterBlogCommon(blog_category_id) {
+        $("#data_table").empty();
+        $.ajax({
+            url: "/Blog/Index",
+            data: {
+                page_num: 1,
+                blog_category_id: blog_category_id
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            beforeSend: function () {
+                $('#loader_list_blog').attr('hidden', false);
+            },
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+                alert("Đang cập nhật...");
+            },
+            complete: function (xhr, status) {
+                $('#loader_list_blog').attr('hidden', true);
+            }
+        });
+    }
+</script>

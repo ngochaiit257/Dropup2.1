@@ -1,0 +1,178 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    if (ViewBag.CategoryID != 56)
+    {
+        <script>
+            $(document).ready(function () {
+                $('.a_show_grid').addClass('active');
+            });
+        </script>
+        <!-- Tab One Start -->
+        <div id="shop-1" class="tab-pane active">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 col-xs-12">
+                        <div class="product-inner-item">
+                            <article class="list-product mb-30px">
+                                <div class="img-block img-category-my-pham">
+                                    <a href="/@product.seo_alias" class="thumbnail">
+                                        <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                        @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                        @if (img_more != null)
+                                        {
+                                            <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                        }
+                                    </a>
+                                </div>
+                                @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                {
+                                    <ul class="product-flag">
+                                        <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                    </ul>
+                                }
+
+                                <div class="product-decs">
+                                    @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                    @if (category != null)
+                                    {
+                                        <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                    }
+                                    <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                    <div class="rating-product">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                    </div>
+                                    <div class="pricing-meta">
+                                        <ul>
+                                            @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                            {
+                                                <li class="old-price showNumeric">@product.price</li>
+                                            }
+                                            <li class="current-price showNumeric">@product.promotion_price</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="add-to-link">
+                                    <ul>
+                                        <li class="cart"><a class="cart-btn" href="/@product.seo_alias">XEM CHI TIẾT</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- Tab One End -->
+    }
+    else
+    {
+        <script>
+            $(document).ready(function () {
+                $('.a_show_list').addClass('active');
+            });
+        </script>
+        <!-- Tab Two Start -->
+        <div id="shop-2" class="tab-pane active">
+            @foreach (var product in Model)
+            {
+                <div class="shop-list-wrap mb-30px scroll-zoom">
+                    <div class="row list-product m-0px">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                    <div class="left-img">
+                                        <div class="img-block">
+                                            <a href="/@product.seo_alias" class="thumbnail">
+                                                <img class="first-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                @if (img_more != null)
+                                                {
+                                                    <img class="second-img lazyload" src="~/Assets/images/loader/img-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_url" />
+                                                }
+                                            </a>
+                                        </div>
+                                        @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                        {
+                                            <ul class="product-flag">
+                                                <li class="new">-@((int)Math.Round((double)((product.price - product.promotion_price) / product.price) * 100))%</li>
+                                            </ul>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                    <div class="product-desc-wrap">
+                                        <div class="product-decs">
+                                            @{ var category = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                            @if (category != null)
+                                            {
+                                                <a class="inner-link" href="/collections/@category.seo_alias"><span>@category.category_name.ToUpper()</span></a>
+                                            }
+                                            <h2><a href="/@product.seo_alias" class="product-link">@product.product_name</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    @if (product.price > 0 && product.price > product.promotion_price && product.promotion_price > 0)
+                                                    {
+                                                        <li class="old-price showNumeric">@product.price</li>
+                                                    }
+                                                    <li class="current-price showNumeric">@product.promotion_price</li>
+                                                </ul>
+                                            </div>
+                                            <div class="product-intro-info">
+                                                @Html.Raw(product.description)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Tab Two End -->
+    }
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias ,search_string = ViewBag.FilterValue, tab_filter = ViewBag.TabFilter, color = ViewBag.Color, choose_grid_view = ViewBag.ChooseGridView, select_order = ViewBag.SelectOrder, min_price = ViewBag.MinPrice, max_price = ViewBag.MaxPrice }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
+}
+

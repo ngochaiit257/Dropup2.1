@@ -1,0 +1,209 @@
+﻿@model List<store_customer_say>
+@using Data;
+@using Data.Providers;
+<div class="row">
+    <div class="col-md-4">
+        <div class="scrollbar scroll_dark pt-0" style="max-height: 500px;">
+            <div class="list-group" id="list-tab" role="tablist">
+                @if (Model.Count() > 0)
+                {
+                    foreach (var scs in Model)
+                    {
+                        <a data-cs-id="@scs.store_customer_say_id" class="list-group-item list-group-item-action tab_cs" id="aria_labelledby_@scs.store_customer_say_id" data-toggle="list" href="#id_@scs.store_customer_say_id" role="tab">
+                            <scsan class="bg-img mr-10" style="line-height: unset">
+                                <img src="@scs.cimage" alt="@scs.cimage_alt" style="width: 30px;height: 30px;object-fit: contain;" />
+                            </scsan>
+                            @scs.cname
+                        </a>
+                    }
+                }
+            </div>
+            <div class="line_div"></div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" style="width:100%" onclick="showModalCreateCustomerSay()">Thêm Feedback</button>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="tab-content" id="nav-tabContent">
+            @if (Model.Count() > 0)
+            {
+                foreach (var scs in Model)
+                {
+                    <div class="tab-pane fade" id="id_@scs.store_customer_say_id" role="tabpanel" aria-labelledby="aria_labelledby_@scs.store_customer_say_id">
+                        <form id="form_create_store_customer_say">
+                            <input type="text" id="input_update_hidden_cs_id_@scs.store_customer_say_id" value="@scs.store_customer_say_id" hidden />
+                            <div class="">
+                                <label>Hình ảnh</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="partner_img_client_site">
+                                        <img id="show_img_customer_say_detail" src="@scs.cimage" alt="@scs.cimage_alt" />
+                                    </div>
+                                    <input type="file" id="input_file_img_customer_say_detail_@scs.store_customer_say_id" accept="image/*" hidden onchange="imageStoreCustomerSayChange('@scs.store_customer_say_id')">
+                                    <div class="ml-3">
+                                        <label for="input_file_img_customer_say_detail">
+                                            <a class="font-16 text-info"><i class="fa fa-sign-in"></i> Thay đổi</a>
+                                        </label>
+                                        &nbsp;&nbsp;
+                                        <a class="font-16 text-info" href="javascript:void(0)"><i class="fa fa-trash"></i> Xóa feedback này</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-10">
+                                <label for="fb">Tên khách hàng</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên" value="@scs.cname">
+                            </div>
+                            <div class="form-group">
+                                <label for="fb">Chức vụ</label>
+                                <input type="text" class="form-control" placeholder="Nhập link" value="@scs.cposition">
+                            </div>
+                            <div class="form-group">
+                                <label for="fb">Lời nhận xét</label>
+                                <div class="mb-2">
+                                    <textarea class="form-control" id="" name="" rows="3" maxlength="320">@scs.ccomment</textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            var scrollbar = jQuery(".scrollbar");
+            if (scrollbar.length > 0) {
+                $('.scroll_dark').mCustomScrollbar({
+                    theme: "minimal-dark",
+                    setHeight: false,
+                    mouseWheel: {
+                        normalizeDelta: true,
+                        scrollAmount: '200px',
+                        contentTouchScroll: true,
+                        deltaFactor: '200px'
+                    },
+                    advanced: {
+                        autoScrollOnFocus: 'a[tabindex]'
+                    }
+                });
+            }
+        });
+
+        tabAction();
+    });
+
+    function showModalCreateCustomerSay() {
+        $('#modalCreateCustomerSay').modal('show');
+    }
+
+    function hideModalCreateCustomerSay() {
+        $('#modalCreateCustomerSay').modal('hide');
+        $('#modalCustomerSay').modal('show');
+    }
+
+    //Thêm feedback
+    $(function () {
+        $("#input_file_img_customer_say").change(function () {
+            if (this.files && this.files[0]) {
+                if (this.files[0].size > (3 * 1024000)) {
+                    showToast("error", "Hình ảnh vượt quá kích thước cho phép. Giới hạn là 3Mb.", "Lỗi upload hình ảnh");
+                } else {
+                    var reader = new FileReader();
+                    reader.onload = imageCustomerSayIsLoaded;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            }
+        });
+    });
+
+    function imageCustomerSayIsLoaded(e) {
+        $('#show_img_customer_say').attr('src', e.target.result);
+    };
+
+    function createCustomerSay() {
+        var fileData = new FormData();
+        var fileUpload = $("#input_file_img_customer_say").get(0);
+        var files = fileUpload.files;
+
+        var ccomment = $("#ccomment").val().trim();
+
+        if (files.length == 0) {
+            showToast("error", "Yêu cầu chọn hình ảnh.", "Lỗi thêm hình ảnh");
+        }
+        else if (ccomment == "" || ccomment == null) {
+            showToast("error", "Yêu cầu nhập lời nhận xét.", "Lỗi nhập Feedback");
+        }
+        else {
+            fileData.append("image", files[0]);
+            fileData.append("cname", $("#cname").val().trim());
+            fileData.append("cposition", $("#cposition").val().trim());
+            fileData.append("ccomment", ccomment);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CreateCustomerSay", "Configuration")',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    updateStoreCustomerSay();
+                    $('#show_img_customer_say').attr('src', '../Assets/images/Icon/iconImg.png');
+                    $('#form_create_store_customer_say').trigger('reset');
+                    $('#modalCreateCustomerSay').modal('hide');
+                    $('#modalCustomerSay').modal('show');
+                    showToast("success", "Feedback đã được thêm.", "Thêm thành công");
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    }
+
+    //Cập nhật feedback
+    var cs_id_is_active = 0;
+    function tabAction() {
+        $('.tab_cs').on('shown.bs.tab', function (e) {
+            cs_id_is_active = $(e.target).attr("data-cs-id");
+            $('#btn_save_customer_say_update').prop('disabled', false);
+        });
+    }
+
+    $(function () {
+        $("#input_file_img_customer_say_detail").change(function () {
+            if (this.files && this.files[0]) {
+                if (this.files[0].size > (3 * 1024000)) {
+                    showToast("error", "Hình ảnh vượt quá kích thước cho phép. Giới hạn là 3Mb.", "Lỗi upload hình ảnh");
+                } else {
+                    var reader = new FileReader();
+                    reader.onload = imageCustomerSayIsLoadedDetail;
+                    reader.readAsDataURL(this.files[0]);
+                }
+            }
+        });
+    });
+
+    function imageCustomerSayIsLoadedDetail(e) {
+        $('#show_img_customer_say_detail').attr('src', e.target.result);
+    };
+
+    var avatar_store_customer_say_is_change = false;
+    function imageStoreMembershipChange(mem_id) {
+        var files = $("#input_file_img_store_membership_detail_" + mem_id).get(0).files;
+
+        if (files[0].size > (3 * 1024000)) {
+            showToast("error", "Hình ảnh không được vượt quá 3Mb.", "Lỗi hình ảnh");
+        } else {
+            avatar_store_customer_say_is_change = true;
+            var reader = new FileReader();
+            reader.onload = membershipImageUpdateIsLoaded;
+            reader.readAsDataURL(files[0]);
+        }
+        function membershipImageUpdateIsLoaded(e) {
+            $('#show_img_update_membership_' + mem_id).attr('src', e.target.result);
+        };
+    }
+</script>

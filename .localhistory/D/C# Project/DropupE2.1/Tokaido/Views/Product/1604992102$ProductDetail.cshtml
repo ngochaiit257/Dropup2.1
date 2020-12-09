@@ -1,0 +1,214 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_img_more = new ImageMoreProvider().getByProductId(Model.product_id);
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id).Where(p => p.product_id != Model.product_id).ToList();
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">@Model.product_name</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            @if (category_parent != null && category_parent.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1 != null && category_child_1.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+
+                            @if (category_child_2 != null && category_child_2.category_id > 0)
+                            {
+                                <li><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                            }
+                            <li><a>@Model.product_name</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<!-- Flat row -->
+<div class="flat-row flat-wooc">
+    <div class="container">
+        <div class="row">
+            <div class="woocommerce-page clearfix">
+                <div class="col-md-6">
+                    <div class="flat-product-single-slider">
+                        <div id="flat-product-flexslider">
+                            <ul class="slides">
+                                <li><img width="570" height="570" alt="product-single" src="@urlCMS/@Model.product_image" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" /></li>
+                                @if (list_img_more.Count > 0)
+                                {
+                                    foreach (var img_more in list_img_more)
+                                    {
+                                        <li><img width="570" height="570" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" /></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div id="flat-product-carousel">
+                            <ul class="slides">
+                                <li><img width="100" height="100" alt="product-single" src="@urlCMS/@Model.product_image" /></li>
+                                @if (list_img_more.Count > 0)
+                                {
+                                    foreach (var img_more in list_img_more)
+                                    {
+                                        <li><img width="100" height="100" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" /></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div><!-- /.flat-portfolio-single-slider -->
+                </div><!--/.col-md-6 -->
+
+                <div class="col-md-6">
+                    <div class="entry-summary">
+                        <h1 class="product_title">@Model.product_name</h1>
+
+                        <ul class="favorite">
+                            <li>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i>
+                            </li>
+                        </ul>
+
+                        <p class="price">Giá: <strong>Liên hệ</strong></p>
+
+                        <div class="description">
+                            @Html.Raw(Model.description)
+                        </div>
+
+                        <form class="cart clearfix">
+                            <button type="submit" class="single_booking_button">Liên hệ ngay</button>
+                        </form>
+
+
+                        <ul class="flat-socials">
+                            <li>Like Share: </li>
+                            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                        </ul>
+                    </div><!-- /.entry-summary -->
+                </div><!--/.col-md-8 -->
+            </div><!--/.woocommerce-page -->
+        </div><!--/.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flat-accordion">
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title active">Chi tiết sản phẩm</h4>
+                        <div class="toggle-content">
+                            @Html.Raw(Model.content)
+                        </div>
+                    </div><!-- /toggle -->
+
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title">Thông tin</h4>
+                        <div class="toggle-content">
+                            @Html.Raw(Model.content_2)
+                        </div>
+                    </div><!-- /toggle -->
+
+                    <div class="flat-toggle">
+                        <h4 class="toggle-title">Bình luận</h4>
+                        <div class="toggle-content">
+                            <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="10" data-width=""></div>
+                        </div>
+                    </div><!-- /toggle -->
+
+
+                </div><!-- /.flat-accordion -->
+            </div><!--/.col-md-12 -->
+        </div><!--/.row -->
+        <!--  <div class="flat-divider d62px"></div> -->
+    </div><!--/.container -->
+</div><!--/.flat-row -->
+
+@if (list_related.Count > 0)
+{
+    <div class="related products-row">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-section style5">
+                        <h1 class="title">Có thể bạn quan tâm</h1>
+                    </div>
+                </div><!--/.col-md-12-->
+            </div>
+            <div class="row">
+                <div class="related products clearfix">
+                    @foreach (var product in list_related)
+                    {
+                        <div class="col-sm-3 col-xs-6">
+                            <div class="product effect1">
+                                <div class="box-wrap">
+                                    <div class="box-image">
+                                        <a href="/@product.seo_alias">
+                                            <img src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                                        </a>
+                                    </div>
+                                    <div class="box-content">
+                                        <h5><a href="/@product.seo_alias">@product.product_name</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div><!-- /.related products -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>
+}

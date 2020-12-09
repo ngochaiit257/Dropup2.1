@@ -1,0 +1,136 @@
+﻿@model IPagedList<Data.customer>
+@using Data.Providers;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+}
+
+<div class="table-responsive data-grid">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th align="center" scope="col" style="width:10%;" id="checkHeader" class="col_to_merge">
+                    <p class="th_table">Click để chọn</p>
+                </th>
+                <th scope="col" style="width:20%; text-align: center">
+                    <p class="th_table">Trạng thái quảng cáo</p>
+                </th>
+                <th scope="col" style="width:30%">
+                    <p class="th_table">Tên khách hàng</p>
+                </th>
+                <th scope="col" style="width:10%; text-align:center">
+                    <p class="th_table">Khu vực</p>
+                </th>
+                <th scope="col" style="width:10%;">
+                    <p class="th_table">Tổng đơn hàng</p>
+                </th>
+                <th scope="col" style="width:10%;">
+                    <p class="th_table">Tổng tiền đã mua</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td align="center">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@customer.customer_id" id="Check_@customer.customer_id" style="border: 1px solid #dee2e6;">
+                            <label class="form-check-label checkbox-table check-table" for="Check_@customer.customer_id"></label>
+                        </div>
+                    </td>
+                    @if (customer.marketing_status == true)
+                    {
+                        <td align="center">
+                            <p><span class="badge badge-success-inverse px-2 py-1 mt-1">Nhận</span></p>
+                        </td>
+                    }
+                    else
+                    {
+                        <td align="center">
+                            <p><span class="badge badge-danger-inverse px-2 py-1 mt-1">Không nhận</span></p>
+                        </td>
+                    }
+                    <td>
+                        <a href="/Customer/CustomerDetail?id=@customer.customer_id" class="text-primary">
+                            @if (customer.customer_first_name != null && customer.customer_last_name != null)
+                            {
+                                @customer.customer_first_name <span> </span> @customer.customer_last_name
+                            }
+                            else
+                            {
+                                @customer.customer_email
+                            }
+                        </a>
+                    </td>
+                    @if (customer.province_id != null)
+                    {
+                        <td align="center">
+                            @customer.province.Name
+                        </td>
+                    }
+                    else
+                    {
+                        <td align="center">--</td>
+                    }
+
+                    <td align="center">
+                        --
+                    </td>
+                    <td align="center">
+                        --
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+    <a>Không tìm thấy kết quả tìm kiếm nào.</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'none' });
+    </script>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'block' });
+    </script>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetCustomerToSelectMultiple", new { page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = 0, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+
+<script>
+    $(document).ready(function () {
+        $("input[name='checkbox']").each(function () {
+            $(this).prop("checked", false);
+        });
+        $('#form_action').trigger("reset");
+    });
+
+    function cancelBtn() {
+        $('#checkToAction').val(-1);
+    }
+
+    var arr_list_customer_coupon = [];
+    $("input[type='checkbox']").change(function () {
+        var id_checked = $(this).val();
+        if ($(this).is(':checked')) {
+            arr_list_customer_coupon.push(id_checked);
+        } else {
+            arr_list_customer_coupon = arr_list_customer_coupon.filter(function (elem) {
+                return elem != id_checked;
+            });
+        }
+    });
+
+
+</script>

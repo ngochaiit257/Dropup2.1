@@ -1,0 +1,54 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <div class="col-md-4 mb-res-sm-30px mt-30">
+            <div class="single-blog-post blog-grid-post">
+                <div class="blog-post-media">
+                    <div class="blog-image">
+                        <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image" /></a>
+                    </div>
+                </div>
+                <div class="blog-post-content-inner mt-30">
+                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                    <ul class="blog-page-meta">
+                        <li>
+                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                        </li>
+                        <li>
+                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                        </li>
+                    </ul>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                        nobis modi temporibus recusandae.
+                    </p>
+                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                </div>
+            </div>
+            <!-- single blog post -->
+        </div>
+    }
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Blog</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+}

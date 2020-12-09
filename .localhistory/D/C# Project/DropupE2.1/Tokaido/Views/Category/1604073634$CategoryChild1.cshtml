@@ -1,0 +1,32 @@
+﻿@model List<Data.category>
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = ViewBag.CategoryParent.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    long category_parent_id = (long)ViewBag.CategoryParent.category_id;
+    var list_category_child_1 = new CategoryProvider().getByCategoryParentId(category_parent_id);
+
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.CategoryParent.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.CategoryParent.seo_header;
+    ViewBag.Description = ViewBag.CategoryParent.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.CategoryParent.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.CategoryParent.image;
+}
+
+<h2>CategoryChild1</h2>
+

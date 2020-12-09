@@ -1,0 +1,128 @@
+﻿@model Data.category
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_service = new CategoryProvider().getByTypeNameOnSite("Danh mục dịch vụ");
+    var list_category_project = new CategoryProvider().getByTypeNameOnSite("Danh mục dự án");
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog = new BlogProvider().getIsShowing().Take(4);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_tag = new TagProvider().getByCategoryId(Model.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.category_name</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>@Model.category_name</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Services Details -->
+<div class="service-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="details-item">
+                    <div class="details-img">
+                        @Html.Raw(Model.description)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="widget-area">
+                    <div class="services widget-item">
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/services/@service.seo_alias">
+                                        @service.category_name
+                                        <i class='bx bx-chevron-right'></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="report widget-item">
+                        <ul>
+                            <li>
+                                <i class='bx bx-download'></i>
+                                <a href="/">Download Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="touch widget-item">
+                        <h3>Để lại lời nhắn</h3>
+                        <p>Chúng tôi sẽ liên hệ với bạn sớm.</p>
+                        <form>
+                            <div class="form-group">
+                                <input id="cname" type="text" class="form-control" placeholder="Nhập tên của bạn">
+                            </div>
+                            <div class="form-group">
+                                <input id="cphone" type="text" class="form-control" placeholder="Nhập số điện thoại">
+                            </div>
+                            <div class="form-group">
+                                <input id="cemail" type="email" class="form-control" placeholder="Nhập email">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="cmessage" rows="6" class="form-control" placeholder="Để lại lời nhắn"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn common-btn" id="btn-submit" onclick="sendMessage()">
+                                    Xác Nhận
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- End Services Details -->

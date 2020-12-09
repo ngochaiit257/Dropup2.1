@@ -1,0 +1,121 @@
+﻿@media (min-width: 1200px) {
+    constructed stylesheet .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1330px !important;
+    }
+}
+
+.banner-slider .owl-item.active h1 {
+    text-transform: capitalize;
+}
+
+.header-area .header-left ul li a i {
+    color: #fff;
+}
+
+.features-section .feature-card i {
+    color: #E02027;
+    background: #ffebf1;
+}
+
+.section-title h2 {
+    text-transform: capitalize;
+}
+
+.img-news-lastest {
+    width: 100%;
+    height: 297px;
+    object-fit: cover;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item a{
+    font-weight: 700;
+}
+
+.blog-section .blog-card .blog-text h3 a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.facilities-section .facilities-text h2 {
+    text-transform: capitalize;
+}
+
+.section-title span {
+    text-transform: capitalize;
+}
+
+.transport-section .transport-card .transport-text {
+    padding: 30px;
+}
+
+.transport-section .transport-card .transport-img img {
+   height: 326px;
+   width: auto;
+   object-fit: cover;
+}
+
+.transport-section .transport-card .transport-text p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.transport-section .transport-card .transport-text h3 {
+    min-height: 52.8px;
+}
+
+.navbar-area .main-nav {
+    padding: 0;
+}
+
+.logo-img{
+    width: 60%;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item .dropdown-menu .nav-item a{
+    line-height: 1.5;
+}
+
+.service-details-img img{
+    width: 100%;
+}
+
+.center-div{
+    text-align: center;
+}
+
+.blog-section .blog-card .blog-text p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.about-section .about-text .tab-content p {
+    text-align: justify;
+}
+
+@media (max-width: 767px) {
+    .navbar-area .mean-container .mean-bar {
+        padding: 10px 0px;
+    }
+
+    .header-area .header-left {
+        display: none;
+    }
+    .header-area .header-right .text-right {
+        text-align: right !important;
+    }
+
+    .navbar-area .mobile-nav .navbar-nav {
+        height: auto;
+        overflow-y: scroll;
+    }
+}
+

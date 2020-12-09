@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{93536850-BDB5-47B2-86F0-C97066160701}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Data</RootNamespace>
+    <AssemblyName>Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FreshMartDatabase.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FreshMartDatabase.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ConditionOfProductModel.cs" />
+    <Compile Include="Models\CouponValidationModel.cs" />
+    <Compile Include="Models\RevenuePerDayModel.cs" />
+    <Compile Include="Models\ShippingServiceModel.cs" />
+    <Compile Include="Models\TopProductVariationSaleModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\BlogCategoryProvider.cs" />
+    <Compile Include="Providers\BlogProvider.cs" />
+    <Compile Include="Providers\CartProvider.cs" />
+    <Compile Include="Providers\CategoryProductProvider.cs" />
+    <Compile Include="Providers\CategoryProvider.cs" />
+    <Compile Include="Providers\CheckoutProvider.cs" />
+    <Compile Include="Providers\ComboProductProvider.cs" />
+    <Compile Include="Providers\CommentProductProvider.cs" />
+    <Compile Include="Providers\CouponProvider.cs" />
+    <Compile Include="Providers\CustomerProvider.cs" />
+    <Compile Include="Providers\CustomProductInOrder.cs" />
+    <Compile Include="Providers\DeliveryAddressProvider.cs" />
+    <Compile Include="Providers\ElementVariationProvider.cs" />
+    <Compile Include="Providers\LocalProvider.cs" />
+    <Compile Include="Providers\ImageMoreProvider.cs" />
+    <Compile Include="Providers\NewProductInOrderProvider.cs" />
+    <Compile Include="Providers\NewsletterProvider.cs" />
+    <Compile Include="Providers\OrderLogProvider.cs" />
+    <Compile Include="Providers\OrderProvider.cs" />
+    <Compile Include="Providers\OrderTagProvider.cs" />
+    <Compile Include="Providers\PageProvider.cs" />
+    <Compile Include="Providers\PaymentInformationProvider.cs" />
+    <Compile Include="Providers\PhoneNumberProvider.cs" />
+    <Compile Include="Providers\ProductElementProvider.cs" />
+    <Compile Include="Providers\ProductProvider.cs" />
+    <Compile Include="Providers\ProductVariationInOrderProvider.cs" />
+    <Compile Include="Providers\ProductVariationPropertyProvider.cs" />
+    <Compile Include="Providers\ProductVariationProvider.cs" />
+    <Compile Include="Providers\ShippingServiceProvider.cs" />
+    <Compile Include="Providers\ShippingStatusProvider.cs" />
+    <Compile Include="Providers\StatisticsProvider.cs" />
+    <Compile Include="Providers\StoreBannerProvider.cs" />
+    <Compile Include="Providers\StoreContactProvider.cs" />
+    <Compile Include="Providers\StoreCustomerSayProvider.cs" />
+    <Compile Include="Providers\StoreLogoProvider.cs" />
+    <Compile Include="Providers\StoreMembershipProvider.cs" />
+    <Compile Include="Providers\StoreMessageProvider.cs" />
+    <Compile Include="Providers\StorePartnerProvider.cs" />
+    <Compile Include="Providers\StoreSlideProvider.cs" />
+    <Compile Include="Providers\SupplierProvider.cs" />
+    <Compile Include="Providers\SystemLogProvider.cs" />
+    <Compile Include="Providers\SystemNotificationProvider.cs" />
+    <Compile Include="Providers\TagBlogProvider.cs" />
+    <Compile Include="Providers\TagCategoryProvider.cs" />
+    <Compile Include="Providers\TagCustomerProvider.cs" />
+    <Compile Include="Providers\TagProductProvider.cs" />
+    <Compile Include="Providers\TagProvider.cs" />
+    <Compile Include="Providers\TransportLogProvider.cs" />
+    <Compile Include="Providers\TransportProvider.cs" />
+    <Compile Include="Providers\TypeOfCategoryProvider.cs" />
+    <Compile Include="Providers\UnitProvider.cs" />
+    <Compile Include="Providers\UserProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="FreshMartDatabase.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>FreshMartDatabase.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FreshMartDatabase.dbml.layout">
+      <DependentUpon>FreshMartDatabase.dbml</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

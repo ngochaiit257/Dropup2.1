@@ -1,0 +1,38 @@
+﻿.banner-slider .owl-item.active h1 {
+    text-transform: capitalize;
+}
+
+.header-area .header-left ul li a i {
+    color: #fff;
+}
+
+.features-section .feature-card i {
+    color: #E02027;
+    background: #ffebf1;
+}
+
+.section-title h2 {
+    text-transform: capitalize;
+}
+
+.img-news-lastest {
+    width: 100%;
+    height: 297px;
+    object-fit: cover;
+}
+
+.navbar-area .main-nav .navbar .navbar-nav .nav-item a{
+    font-weight: 700;
+}
+
+.blog-section .blog-card .blog-text h3 a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.facilities-section .facilities-text h2 {
+    text-transform: capitalize;
+}

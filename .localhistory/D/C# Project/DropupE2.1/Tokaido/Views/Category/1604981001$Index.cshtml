@@ -1,0 +1,130 @@
+﻿@model List<Data.product>
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    long category_parent_id = (long)ViewBag.CategoryParent.category_id;
+    var list_category_child_1 = new CategoryProvider().getByCategoryParentId(category_parent_id);
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.category_name;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/products/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/products/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/products/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+<!-- Page Title -->
+<div class="page-title parallax parallax1 flat_strech">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading">
+                    <h1 class="title">Our Shop</h1>
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li> <a href="#">Home </a></li>
+                            <li><a href="#">Shop</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</i></a></li>
+                            @if (category_parent.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+                            <li class="breadcrumb-item active" aria-current="page">@category_child_2.category_name</li>
+                        </ul>
+                    </div>
+                </div><!-- /.page-title-captions -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div>
+
+<section class="flat-row products shop-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section style2 ">
+                    <h1 class="title">Food</h1>
+                </div>
+                <form class="flat-shop-ordering" method="get">
+                    <select name="orderby" class="orderby">
+                        <option value="menu_order" selected="selected">Sort by date</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by newness</option>
+                        <option value="price">Sort by price: low to high</option>
+                        <option value="price-desc">Sort by price: high to low</option>
+                    </select>
+                </form>
+            </div><!--col-md-12-->
+        </div><!--row-->
+
+        <div class="row">
+            <div class="col-sm-3 col-xs-6">
+                <div class="product effect1">
+                    <div class="box-wrap">
+                        <div class="box-image">
+                            <a href="#"><img src="images/imagebox/2.jpg" alt="images"></a>
+                        </div>
+                        <div class="box-content">
+                            <h6>ITALIAN SOURCE MUSHROOM</h6>
+                            <ul>
+                                <li>$19.9</li>
+                                <li>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                    <i class="fa fa-heart"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <nav class="navigation  paging-navigation pager-numeric">
+                <div class="pagination loop-pagination">
+                    <span class="page-numbers current">1</span>
+                    <a class="page-numbers" href="#">2</a>
+                    <a class="page-numbers" href="#">3</a>
+                    <a class="next page-numbers" href="#">Next</a>
+                </div>
+            </nav>
+
+
+        </div><!--row-->
+    </div><!--container -->
+</section>

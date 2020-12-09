@@ -1,0 +1,598 @@
+﻿@model IEnumerable<Data.blog>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Blog | Elysien";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Dino Store, Thời trang Dino";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Dino Store";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+
+}
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Blog</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- Shop Category Area End -->
+<div class="shop-category-area blog-grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <div class="blog-posts">
+                    <div class="row">
+                        <div class="col-md-6 mb-res-sm-30px mt-30">
+                            <div class="single-blog-post blog-grid-post">
+                                <div class="blog-post-media">
+                                    <div class="blog-image">
+                                        <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-1.jpg" alt="blog" /></a>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-post blog-grid-post mt-30">
+                                <div class="blog-post-media">
+                                    <div class="blog-gallery">
+                                        <div class="gallery-item">
+                                            <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-2.jpg" alt="blog" /></a>
+                                        </div>
+                                        <div class="gallery-item">
+                                            <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-3.jpg" alt="blog" /></a>
+                                        </div>
+                                        <div class="gallery-item">
+                                            <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-4.jpg" alt="blog" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-post blog-grid-post mt-30">
+                                <div class="blog-post-media">
+                                    <div class="blog-post-audio">
+                                        <iframe class="embed-responsive-item"
+                                                width="500"
+                                                height="320"
+                                                allow="autoplay"
+                                                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/182537870&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-post blog-grid-post mt-30">
+                                <div class="blog-post-media">
+                                    <div class="blog-post-video">
+                                        <iframe src="https://www.youtube.com/embed/tvPnrfQCiCo" allow="autoplay; encrypted-media" allowfullscreen="" width="540" height="320"></iframe>
+                                    </div>
+                                </div>
+
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-post blog-grid-post mt-30">
+                                <div class="blog-post-media">
+                                    <div class="blog-image">
+                                        <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-3.jpg" alt="blog" /></a>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="single-blog-post blog-grid-post mt-30">
+                                <div class="blog-post-media">
+                                    <div class="blog-image">
+                                        <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-4.jpg" alt="blog" /></a>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content-inner mt-30">
+                                    <h4 class="blog-title"><a href="/Blog/BlogDetail">This is Third Post For XipBlog</a></h4>
+                                    <ul class="blog-page-meta">
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-person"></i> Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Blog/BlogDetail"><i class="ion-calendar"></i> 24 April, 2020</a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eius expedita hic, vel minima minus reiciendis consequuntur ab beatae necessitatibus amet magni itaque, nostrum vero eos
+                                        nobis modi temporibus recusandae.
+                                    </p>
+                                    <a class="read-more-btn" href="blog-single-left-sidebar.html"> Read More <i class="ion-android-arrow-dropright-circle"></i></a>
+                                </div>
+                            </div>
+                            <!-- single blog post -->
+                        </div>
+                    </div>
+                </div>
+                <!--  Pagination Area Start -->
+                <div class="pro-pagination-style text-center">
+                    <ul>
+                        <li>
+                            <a class="prev" href="/Blog/BlogDetail"><i class="ion-ios-arrow-left"></i></a>
+                        </li>
+                        <li><a class="active" href="/Blog/BlogDetail">1</a></li>
+                        <li><a href="/Blog/BlogDetail">2</a></li>
+                        <li>
+                            <a class="next" href="/Blog/BlogDetail"><i class="ion-ios-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--  Pagination Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 col-md-12 mb-res-md-60px mb-res-sm-60px">
+                <div class="left-sidebar">
+                    <!-- Sidebar single item -->
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Danh mục</h2>
+                        </div>
+                        <div class="category-post">
+                            <ul>
+                                @foreach (var cb in new BlogCategoryProvider().getAll())
+                                {
+                                    <li>
+                                        <label>
+                                            <input type="radio" name="blog-category-filter" value="@cb.blog_category_id">
+                                            <span>@cb.blog_category_name</span>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="radio" name="price-filter" value="@cb.blog_category_id" checked> <a href="javascript:void(0)">@cb.blog_category_name</a>
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Recent Post</h2>
+                        </div>
+                        <div class="recent-post-widget">
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-1.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="/Blog/BlogDetail">This Is First Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 24, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-2.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="/Blog/BlogDetail">This Is Secound Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 25, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side">
+                                    <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-3.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="/Blog/BlogDetail">This Is Third Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 26, 2020</span>
+                                </div>
+                            </div>
+                            <div class="recent-single-post d-flex">
+                                <div class="thumb-side m-0px">
+                                    <a href="/Blog/BlogDetail"><img src="../../Assets/images/blog-image/blog-4.jpg" alt="" /></a>
+                                </div>
+                                <div class="media-side">
+                                    <h5><a href="/Blog/BlogDetail">This Is Fourth Post For XipBlog </a></h5>
+                                    <span class="date">APRIL 27, 2020</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget mt-40">
+                        <div class="main-heading">
+                            <h2>Sản phẩm bán chạy</h2>
+                        </div>
+                        <div class="sidebar-widget-tag">
+                            <div class="category-product-slider owl-carousel responsive-owl-nav-style owl-nav-style">
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/1.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/1.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Water and Wind...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/2.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/14.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Originals Kaval Win...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price">€29.90</li>
+                                                    <li class="current-price">€21.51</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/3.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/4.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">New Balance Fresh...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/5.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/6.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Juicy Couture Solid...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/7.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/8.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Originals Kaval Win...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/9.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/10.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">New Balance Fresh...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price">€29.90</li>
+                                                    <li class="current-price">€21.51</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <!-- Single Item -->
+                                <div class="feature-slider-item">
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/12.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/13.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Juicy Couture Solid...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/11.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/11.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">Originals Kaval Win...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price">€29.90</li>
+                                                    <li class="current-price">€21.51</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="list-product">
+                                        <div class="img-block">
+                                            <a href="/Blog/BlogDetail" class="thumbnail">
+                                                <img class="first-img" src="../Assets/images/product-image/electronic/1.jpg" alt="" />
+                                                <img class="second-img" src="../Assets/images/product-image/electronic/1.jpg" alt="" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a class="quick_view" href="/Blog/BlogDetail" data-link-action="quickview" title="Quick view" data-toggle="modal" data-target="#exampleModal">
+                                                    <i class="ion-ios-search-strong"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-decs">
+                                            <a class="inner-link" href="shop-4-column.html"><span>STUDIO DESIGN</span></a>
+                                            <h2><a href="/Blog/BlogDetail" class="product-link">New Balance Fresh...</a></h2>
+                                            <div class="rating-product">
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                                <i class="ion-android-star"></i>
+                                            </div>
+                                            <div class="pricing-meta">
+                                                <ul>
+                                                    <li class="old-price not-cut">€29.90</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <!-- Single Item -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar single item -->
+                </div>
+            </div>
+            <!-- Sidebar Area End -->
+        </div>
+    </div>
+</div>
+<!-- Shop Category Area End -->

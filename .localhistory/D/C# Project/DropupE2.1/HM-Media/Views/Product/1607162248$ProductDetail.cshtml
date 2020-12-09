@@ -1,0 +1,149 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_service = new CategoryProvider().getByTypeNameOnSite("Danh mục dịch vụ");
+    var list_category_project = new CategoryProvider().getByTypeNameOnSite("Danh mục dự án");
+
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog = new BlogProvider().getIsShowing().Take(4);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_tag = new TagProvider().getByCategoryId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div class="page-title-area title-bg-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.product_name</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class="bx bx-chevron-right"></i>
+                        </li>
+                        <li>
+                            <span>@Model.product_name</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Services Details -->
+<div class="service-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="details-item">
+                    @if (Model.is_video_url != null)
+                    {
+                        <iframe style="height: 500px;width: 100%" src="@Model.product_video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    }
+
+                    <div class="content-detail">
+                        @Html.Raw(Model.content)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="widget-area">
+                    <div class="services widget-item">
+                        <ul>
+                            @foreach (var service in list_service)
+                            {
+                                <li>
+                                    <a href="/services/@service.seo_alias">
+                                        @service.category_name
+                                        <i class='bx bx-chevron-right'></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="report widget-item">
+                        <ul>
+                            <li>
+                                <i class='bx bx-download'></i>
+                                <a href="/">Download Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="touch widget-item">
+                        <h3>Để lại lời nhắn</h3>
+                        <p>Chúng tôi sẽ liên hệ với bạn sớm.</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="your-message" rows="6" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn common-btn">
+                                    Xác Nhận
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!-- End Services Details -->
+
+<script>
+    //$(window).scroll(function () {
+    //    var scroll = $(window).scrollTop();
+    //    var width = $(window).width();
+    //    var height_min = $('.header-area').height() + $('.page-title-area').height() + $('.services').height() + $('.report').height();
+    //    var height_max = $('.header-area').height() + $('.page-title-area').height() + $('.details-item').height();
+    //    if (width > 768) {
+    //        if (scroll >= height_min) {
+    //            $('.touch').addClass('fixed-scroll-right');
+    //        }
+    //        else {
+    //            $('.touch').removeClass('fixed-scroll-right');
+    //        }
+    //    }
+    //});
+</script>

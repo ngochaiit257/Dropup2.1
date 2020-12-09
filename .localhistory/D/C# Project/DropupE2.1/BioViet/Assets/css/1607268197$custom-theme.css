@@ -1,0 +1,44 @@
+﻿.auto-container {
+    max-width: 1350px;
+}
+
+.main-header .header-upper-two .iso .number {
+    color: #13489e;
+}
+
+.main-header .header-upper-two .help .info .txt {
+    color: #13489e;
+}
+
+.main-header .header-upper-two .help .call-icon {
+    color: #b86429;
+}
+
+.main-menu .navigation > li > a {
+    font-weight: 700;
+}
+
+.main-header .header-top-two .top-links li {
+    font-weight: 700;
+}
+
+.main-header .header-top-two .quote-link {
+    font-weight: 700;
+}
+
+.sticky-header .main-menu .navigation > li > a {
+    font-weight: 700;
+}
+
+.sec-title h2 {
+    text-transform:capitalize;
+    font-weight: 800;
+}
+
+.service-block .lower {
+    padding: 25px 30px 25px 30px;
+}
+
+.why-us-two .left-col .content ul li:before {
+    color: #fff;
+}

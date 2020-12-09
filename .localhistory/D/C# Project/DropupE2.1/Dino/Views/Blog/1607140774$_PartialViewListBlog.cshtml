@@ -1,0 +1,65 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <!-- Begin: Nội dung blog -->
+        <article class="blog-loop">
+            <div class="blog-post row">
+                <div class="col-md-2 col-xs-12 col-sm-6">
+                    <a href="/blogs/@blog.blog_seo_alias" class="blog-post-thumbnail" title="@blog.blog_title" rel="nofollow">
+                        <img  class="lazyload" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                    </a>
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-sm-12">
+                    <h3 class="blog-post-title">
+                        <a href="/blogs/@blog.blog_seo_alias" title="@blog.blog_title"><b>@blog.blog_title</b></a>
+                    </h3>
+                    <div class="blog-post-meta">
+                        <span class="date">
+                            <time pubdate datetime="@blog.show_datetime.Value.ToString("dd/MM/yyyy")">@blog.show_datetime.Value.ToString("dd/MM/yyyy")</time>
+                        </span>
+                    </div>
+                    <p class="entry-content">@blog.blog_summary</p>
+                </div>
+            </div>
+        </article>
+    }
+
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Blog</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+
+    <script>
+         $(document).ready(function () {
+            if (Cookies.get("DINO_CART") == null || Cookies.get("DINO_CART") == undefined || $.parseJSON(Cookies.get("DINO_CART")).length == 0) {
+                $('.cart-count-item').text(0);
+            } else {
+                getNumOfItemInCart();
+            }
+            $("img.lazyload").lazyload();
+
+            loadQuickViewCart();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
+}

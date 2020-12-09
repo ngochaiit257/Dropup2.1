@@ -1,0 +1,357 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Page Title -->
+<div class="page-title-area title-bg-six">
+    <div class="title-shape">
+        <img src="../Assets/img/title/title-bg-shape.png" alt="Shape">
+    </div>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>@Model.blog_title</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-chevron-right'></i>
+                        </li>
+                        <li>
+                            <span>@Model.blog_title</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Title -->
+<!-- Blog Details -->
+<div class="blog-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="details-item">
+
+                    <div class="details-img">
+                        <img src="assets/img/blog/blog-details1.jpg" alt="Details">
+                        <ul>
+                            <li>
+                                <span>22 July, 2020</span>
+                            </li>
+                            <li>
+                                <a href="#">2 Comments</a>
+                            </li>
+                            <li>
+                                <span>By:</span>
+                                <a href="#">Admin</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="details-head">
+                        <h2>How To Increase Financial Investment  & Skill In Your Business Without Money In Cash</h2>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting</p>
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here</p>
+                    </div>
+
+                    <div class="details-quote">
+                        <blockquote>
+                            <i class='bx bxs-quote-right'></i>
+                            <h4>Inva is excellent in their work and I really amazed to see how they managed everything throughout the year without any problem. They has an excellent sense of finance & economy</h4>
+                            <span>Phillips Ben</span>
+                        </blockquote>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div>
+
+                    <div class="details-text">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <img src="assets/img/blog/blog-details2.jpg" alt="Details">
+                            </div>
+                            <div class="col-sm-6 col-lg-6">
+                                <img src="assets/img/blog/blog-details3.jpg" alt="Details">
+                            </div>
+                        </div>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+                    </div>
+
+                    <div class="details-tag">
+                        <div class="row">
+
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="left">
+                                    <ul>
+                                        <li>
+                                            <span>Tag:</span>
+                                        </li>
+                                        <li>
+                                            <a href="#">Business</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Consulting</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Investment</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            <span>Share:</span>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class='bx bxl-facebook'></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class='bx bxl-twitter'></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class='bx bxl-linkedin'></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" target="_blank">
+                                                <i class='bx bxl-instagram'></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="details-comments">
+                        <h3>Comments (02)</h3>
+                        <ul>
+                            <li>
+                                <img src="assets/img/blog/blog-cmnt1.jpg" alt="Blog">
+                                <h4>Tom Henry</h4>
+                                <span>24 April, 2020</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium, deserunt iure cumque pariatur mollitia iusto</p>
+                                <a href="#">Reply</a>
+                            </li>
+                            <li>
+                                <img src="assets/img/blog/blog-cmnt2.jpg" alt="Blog">
+                                <h4>Tom Henry</h4>
+                                <span>25 April, 2020</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium, deserunt iure cumque pariatur mollitia iusto</p>
+                                <a href="#">Reply</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="details-form">
+                        <h3>Leave A Comment</h3>
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <textarea id="your-comment" rows="8" class="form-control" placeholder="Your Comment"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn common-btn">
+                                        Post A Comment
+                                        <span></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="widget-area">
+
+                    <div class="search widget-item">
+                        <form>
+                            <input type="text" class="form-control" placeholder="Search">
+                            <button type="submit" class="btn">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="recent widget-item">
+                        <h3>Recent Post</h3>
+                        <div class="inner">
+                            <ul class="align-items-center">
+                                <li>
+                                    <img src="assets/img/blog/blog-thumb1.jpg" alt="Details">
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-calendar'></i> 12 Oct, 2020</span>
+                                    <h4>
+                                        <a href="#">How To Gain Success In Business Without Any Profit</a>
+                                    </h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="inner">
+                            <ul class="align-items-center">
+                                <li>
+                                    <img src="assets/img/blog/blog-thumb2.jpg" alt="Details">
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-calendar'></i> 13 Oct, 2020</span>
+                                    <h4>
+                                        <a href="#">How To Manage Big Project With The Heal Of Team</a>
+                                    </h4>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="inner">
+                            <ul class="align-items-center">
+                                <li>
+                                    <img src="assets/img/blog/blog-thumb3.jpg" alt="Details">
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-calendar'></i> 14 Oct, 2020</span>
+                                    <h4>
+                                        <a href="#">Finance And Invest Are Becoming Easy Due To Digital</a>
+                                    </h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="categories widget-item">
+                        <h3>Categories</h3>
+                        <ul>
+                            <li>
+                                <a href="#">Modern Business <span>(21)</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Financial Tragedy <span>(12)</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Investment Planning <span>(22)</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Modern Technology <span>(15)</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tags widget-item">
+                        <h3>Tags</h3>
+                        <ul>
+                            <li>
+                                <a href="#">Business</a>
+                            </li>
+                            <li>
+                                <a href="#">Consulting</a>
+                            </li>
+                            <li>
+                                <a href="#">Investment</a>
+                            </li>
+                            <li>
+                                <a href="#">Real State</a>
+                            </li>
+                            <li>
+                                <a href="#">Investor</a>
+                            </li>
+                            <li>
+                                <a href="#">Company</a>
+                            </li>
+                            <li>
+                                <a href="#">Agency</a>
+                            </li>
+                            <li>
+                                <a href="#">Digital</a>
+                            </li>
+                            <li>
+                                <a href="#">Technology</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="touch widget-item">
+                        <h3>Get In Touch</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="your-message" rows="6" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn common-btn">
+                                    Send Message
+                                    <span></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Blog Details -->

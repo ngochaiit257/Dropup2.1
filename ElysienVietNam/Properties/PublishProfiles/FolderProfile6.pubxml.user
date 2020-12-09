@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\C# Project\PublishWeb\Elysien\site</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>10/07/2020 09:29:19</publishTime>
+    </File>
+    <File Include="Assets/css/custom.css">
+      <publishTime>10/25/2020 10:47:14</publishTime>
+    </File>
+    <File Include="Assets/css/fonts/fa-brands-400.woff">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/fonts/fa-regular-400.woff">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/fonts/fa-solid-900.woff">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/PagedList.css">
+      <publishTime>10/24/2020 00:44:33</publishTime>
+    </File>
+    <File Include="Assets/css/responsive.min.css">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/style.min.css">
+      <publishTime>10/24/2020 18:13:10</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_444444_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_555555_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_777620_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_777777_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_cc0000_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/images/ui-icons_ffffff_256x240.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/owl.video.play.png">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/css/vendor/plugins.min.css">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-brands-400.eot">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-brands-400.svg">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-brands-400.ttf">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-brands-400.woff2">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-brands-400d41d.eot">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-regular-400.eot">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-regular-400.svg">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-regular-400.ttf">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-regular-400.woff2">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-regular-400d41d.eot">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-solid-900.eot">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-solid-900.svg">
+      <publishTime>10/07/2020 09:30:28</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-solid-900.ttf">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-solid-900.woff2">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/fa-solid-900d41d.eot">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/ionicons28b5.eot">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/ionicons28b5.svg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/ionicons28b5.ttf">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/fonts/ionicons28b5.woff">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/10.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/11.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/12.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/13.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/14.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/15.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/16.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/17.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/18.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/19.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/20.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/21.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/22.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/23.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/24.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/25.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/26.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/27.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/28.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/29.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/30.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/31.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/32.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/33.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/34.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/35.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/36.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/37.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/38.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/39.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/4.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/40.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/41.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/42.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/43.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/44.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/45.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/46.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/47.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/48.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/49.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/5.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/50.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/51.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/52.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/53.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/54.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/55.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/56.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/57.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/58.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/59.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/6.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/60.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/7.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/8.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/9.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-au.jpg">
+      <publishTime>10/25/2020 08:50:43</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-background.jpg">
+      <publishTime>10/24/2020 18:02:21</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-gioi-thieu.jpg">
+      <publishTime>10/23/2020 13:19:07</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-4.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-5.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-6.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu-7.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-menu.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-object-maymoc.png">
+      <publishTime>10/24/2020 18:02:26</publishTime>
+    </File>
+    <File Include="Assets/images/banner-image/banner-trangtri.jpg">
+      <publishTime>10/24/2020 18:02:18</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-13.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-14.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-15.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-16.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-17.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-18.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-19.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-20.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-4.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-5.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-6.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-7.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/blog-image/blog-8.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/4.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/5.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/brand-logo/logo.png">
+      <publishTime>10/22/2020 00:33:56</publishTime>
+    </File>
+    <File Include="Assets/images/common/ab-1.png">
+      <publishTime>10/22/2020 00:56:17</publishTime>
+    </File>
+    <File Include="Assets/images/common/ab-2.png">
+      <publishTime>10/22/2020 00:56:17</publishTime>
+    </File>
+    <File Include="Assets/images/common/ab-3.png">
+      <publishTime>10/22/2020 00:56:17</publishTime>
+    </File>
+    <File Include="Assets/images/common/ab-4.png">
+      <publishTime>10/22/2020 00:56:17</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-cat-daotao.jpg">
+      <publishTime>10/24/2020 18:13:08</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-cat-maymoc.jpg">
+      <publishTime>10/24/2020 18:13:08</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-cat-mypham.jpg">
+      <publishTime>10/24/2020 18:13:08</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-cat-odeodm.jpg">
+      <publishTime>10/24/2020 18:13:08</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-cat-spa.jpg">
+      <publishTime>10/24/2020 18:08:52</publishTime>
+    </File>
+    <File Include="Assets/images/common/img-object-home.png">
+      <publishTime>10/25/2020 10:03:05</publishTime>
+    </File>
+    <File Include="Assets/images/favicon/favicon.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/feature-bg/1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/feature-bg/2.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/feature-bg/feature-bg-2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/feature-bg/feature-bg.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/app_store-2.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/app_store.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/google_play-2.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/google_play.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/icon_contact.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/payment.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/policy-2.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/policy-3.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/policy.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-1.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-2.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-3.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-4.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-5.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-6.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-7.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/static-icons-8.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/tab-thumb-1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/tab-thumb-2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/icons/tab-thumb-3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/loader/cart-loader.gif">
+      <publishTime>10/23/2020 23:17:39</publishTime>
+    </File>
+    <File Include="Assets/images/loader/img-loader.gif">
+      <publishTime>10/23/2020 23:17:39</publishTime>
+    </File>
+    <File Include="Assets/images/loader/list-loader.gif">
+      <publishTime>10/23/2020 23:17:39</publishTime>
+    </File>
+    <File Include="Assets/images/loader/loader-order.gif">
+      <publishTime>10/23/2020 23:17:39</publishTime>
+    </File>
+    <File Include="Assets/images/logo/footer-logo-electronic.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/footer-logo-medical.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/footer-logo.png">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-3.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-cosmatics.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-electronic-2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-electronic.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-furniture.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo-medical.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/logo/logo.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/1.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/10.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/11.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/12.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/13.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/14.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/15.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/16.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/17.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/18.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/19.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/2.jpg">
+      <publishTime>10/07/2020 09:30:29</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/cosmatic/9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/10.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/11.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/12.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/13.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/14.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/15.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/16.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/electronic/thumb-8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/10.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/11.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/12.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/13.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/14.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/15.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/16.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/17.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/18.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/19.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/20.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/21.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/22.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/23.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/24.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/25.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/26.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/27.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/28.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/29.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/30.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/31.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/furniture/9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/10.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/11.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/12.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/13.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/14.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/3.html">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/medical/9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/mini-cart/1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/mini-cart/2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/mini-cart/3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-10.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-11.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-12.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-13.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-14.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-15.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-16.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-17.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-18.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-19.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-20.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-22.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-23.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/product-9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/thumb-8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/zoom/1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/zoom/2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/zoom/3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/product-image/organic/zoom/4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-1.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-10.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-11.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-12.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-13.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-14.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-15.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-16.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-17.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-18.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-19.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-2.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-20.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-21.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-22.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-23.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-24.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-25.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-26.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-27.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-28.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-29.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-3.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-30.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-31.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-32.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-33.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-34.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-35.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-36.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-37.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-38.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-39.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-4.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-5.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-6.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-7.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-8.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/sample-9.jpg">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/slider-1.jpg">
+      <publishTime>10/21/2020 22:56:24</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/slider-2.jpg">
+      <publishTime>10/07/2020 10:44:43</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/slider-3.jpg">
+      <publishTime>10/21/2020 22:56:24</publishTime>
+    </File>
+    <File Include="Assets/images/slider-image/slider-4.jpg">
+      <publishTime>10/25/2020 08:35:43</publishTime>
+    </File>
+    <File Include="Assets/images/testimonial-image/1.png">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/images/testimonial-image/2.png">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/js/autoNumeric.js">
+      <publishTime>10/23/2020 10:20:35</publishTime>
+    </File>
+    <File Include="Assets/js/main.js">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/js/plugins.min.js">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/js/vendor/jquery-3.5.1.min.js">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="Assets/js/vendor/modernizr-3.7.1.min.js">
+      <publishTime>10/07/2020 09:30:30</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>09/10/2013 16:29:20</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>09/10/2013 16:29:20</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>10/07/2020 09:29:19</publishTime>
+    </File>
+    <File Include="bin/Common.dll">
+      <publishTime>09/05/2020 09:24:19</publishTime>
+    </File>
+    <File Include="bin/Common.pdb">
+      <publishTime>09/05/2020 09:24:19</publishTime>
+    </File>
+    <File Include="bin/Data.dll">
+      <publishTime>10/27/2020 15:14:05</publishTime>
+    </File>
+    <File Include="bin/Data.dll.config">
+      <publishTime>10/27/2020 11:50:19</publishTime>
+    </File>
+    <File Include="bin/Data.pdb">
+      <publishTime>10/27/2020 15:14:05</publishTime>
+    </File>
+    <File Include="bin/ElysienVietNam.dll">
+      <publishTime>10/27/2020 15:39:03</publishTime>
+    </File>
+    <File Include="bin/ElysienVietNam.pdb">
+      <publishTime>10/27/2020 15:39:03</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>06/27/2017 12:59:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>02/22/2018 16:25:18</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>02/22/2018 16:36:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>02/22/2018 14:39:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>02/22/2018 16:35:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>02/22/2018 16:36:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>02/22/2018 14:36:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.TelemetryCorrelation.dll">
+      <publishTime>06/28/2017 15:05:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>02/18/2018 09:44:54</publishTime>
+    </File>
+    <File Include="bin/PagedList.dll">
+      <publishTime>09/30/2013 17:36:38</publishTime>
+    </File>
+    <File Include="bin/PagedList.Mvc.dll">
+      <publishTime>09/30/2013 18:15:20</publishTime>
+    </File>
+    <File Include="bin/System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>07/19/2017 10:01:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>02/01/2018 12:20:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>02/01/2018 12:16:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>02/11/2014 15:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>02/01/2018 12:16:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>02/01/2018 12:20:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>02/01/2018 12:20:56</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>02/01/2018 12:20:56</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>01/23/2014 13:57:34</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.css">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.css.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.min.css">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap-theme.min.css.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.min.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.min.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.slim.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.slim.min.js">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.3.1.slim.min.map">
+      <publishTime>10/07/2020 09:29:11</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>10/23/2020 22:56:19</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>10/07/2020 09:29:18</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>10/07/2020 09:29:18</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>10/07/2020 09:29:18</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>10/07/2020 09:29:18</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.8.3.js">
+      <publishTime>10/07/2020 09:29:17</publishTime>
+    </File>
+    <File Include="Views/Blog/BlogDetail.cshtml">
+      <publishTime>10/24/2020 18:31:03</publishTime>
+    </File>
+    <File Include="Views/Blog/Index.cshtml">
+      <publishTime>10/24/2020 18:34:35</publishTime>
+    </File>
+    <File Include="Views/Category/Index.cshtml">
+      <publishTime>10/24/2020 01:23:23</publishTime>
+    </File>
+    <File Include="Views/Category/_PartialViewListProductInCategory.cshtml">
+      <publishTime>10/24/2020 00:17:08</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>10/25/2020 10:07:51</publishTime>
+    </File>
+    <File Include="Views/Page/PageDetail.cshtml">
+      <publishTime>10/22/2020 10:08:55</publishTime>
+    </File>
+    <File Include="Views/Product/ProductDetail.cshtml">
+      <publishTime>10/23/2020 21:12:33</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>10/25/2020 10:53:03</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>10/07/2020 09:29:08</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/27/2020 15:39:03</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,7 @@
+﻿.rotate {
+    transition: all 0.3s linear;
+}
+
+    .rotate.down {
+        transform: rotate(90deg);
+    }

@@ -1,0 +1,270 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_sale_product = new ProductProvider().getByCategoryNameOnSite("Sale up to 50%");
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var contact = new StoreContactProvider().get1Contact();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+    string shopee_link = System.Configuration.ConfigurationManager.AppSettings["shopee_link"];
+    string lazada_link = System.Configuration.ConfigurationManager.AppSettings["lazada_link"];
+    string tiktok_link = System.Configuration.ConfigurationManager.AppSettings["titok_link"];
+
+    ViewBag.Keywords = "DINO STORE, ICON DENIM, RUNPOW, NOMOUS ESSENTIALS";
+    ViewBag.Description = "Dino Store là chuỗi cửa hàng bán lẻ thời trang nam với xu hướng thời trang hiện đại luôn luôn cập nhật nhanh nhất những trend thời trang mới trên thế giới.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<div id="home-slider">
+    <div id="homepage_slider" class="owl-carousel owl-theme">
+        @foreach (var slide in list_slide)
+        {
+            <div class="item">
+                <a href="@slide.link_url">
+                    <img title="@slide.main_text" alt="@slide.alt" src="@urlCMS/@slide.image">
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<!-- Nhóm danh mục  -->
+<!-- Support hỗ trợ  -->
+<!-- Nhóm sản phẩm 1 -->
+
+<section class="section section-collection">
+    <div class="wrapper-heading-home animation-tran text-center">
+        <div class="container-fluid">
+            <div class="site-animation">
+                <h2 class="sp-moititle">
+                    <strong>HÀNG MỚI VỀ</strong>
+                </h2>
+                <a>Sản phẩm mới lên kệ cho anh em thỏa sức lựa chọn. Cập nhật hàng ngày.</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-collection-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="clearfix content-product-list ">
+                    @{ var list_new_product = new ProductProvider().getAll().OrderByDescending(p => p.show_datetime).Take(12).ToList();}
+                    @foreach (var product in list_new_product)
+                    {
+                        if (product.show_datetime <= System.DateTime.Now && product.status == true)
+                        {
+                            <div class="col-md-3 col-sm-6 col-xs-6 pro-loop index-loop-mb animation-tran">
+
+                                <div class="product-block product-resize site-animation" data-anmation="1">
+                                    <div class="product-img">
+                                        <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                            <picture>
+                                                <source media="(max-width: 767px)" srcset="@urlCMS/@product.product_image">
+                                                <source media="(min-width: 768px)" srcset="@urlCMS/@product.product_image">
+                                                <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                            </picture>
+
+                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                            @if (img_more != null)
+                                            {
+                                                <picture>
+                                                    <source media="(max-width: 767px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                    <source media="(min-width: 768px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                    <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                </picture>
+
+                                            }
+                                        </a>
+                                        
+                                    </div>
+                                    <div class="product-detail clearfix">
+                                        <div class="box-pro-detail">
+                                            <h3 class="pro-name">
+                                                <a href="/@product.seo_alias" title="@product.product_name">
+                                                    @product.product_name
+                                                </a>
+                                            </h3>
+                                            <div class="box-pro-prices">
+                                                <p class="pro-price ">
+                                                    <span class="giaban showNumeric">@product.promotion_price</span>
+                                                    @if (product.price > 0)
+                                                    {
+                                                        <span class="pro-price-del showNumeric">@product.price</span>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="button-showmore">
+                    <a href="/collections/new-arrivals" class="moreproduct button">Xem thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (list_sale_product.Count > 0)
+{
+    <section class="section section-collection">
+        <div class="wrapper-heading-home animation-tran text-center">
+            <div class="container-fluid">
+                <div class="site-animation">
+                    <h2>
+                        <a href="javascript:void(0)">
+                            <strong>SALE UP TO 50%</strong>
+                        </a>
+                    </h2>
+                    <a>Những sản phẩm đang khuyến mãi với mức giá cực sốc. Nhanh tay lên nào, số lượng và thời gian có hạn.</a>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-collection-sale">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="clearfix content-product-list ">
+                        <div class="owl-sale-product owl-carousel">
+                            @foreach (var product in list_sale_product)
+                            {
+                                if (product.show_datetime <= System.DateTime.Now && product.status == true)
+                                {
+                                    <div class="pro-loop index-loop-mb">
+
+                                        <div class="product-block product-resize site-animation" data-anmation="1">
+                                            <div class="product-img">
+                                                <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                                    <picture>
+                                                        <source media="(max-width: 767px)" srcset="@urlCMS/@product.product_image">
+                                                        <source media="(min-width: 768px)" srcset="@urlCMS/@product.product_image">
+                                                        <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                                    </picture>
+
+                                                    @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                    @if (img_more != null)
+                                                    {
+                                                        <picture>
+                                                            <source media="(max-width: 767px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                            <source media="(min-width: 768px)" srcset="@urlCMS/@img_more.image_more_url">
+                                                            <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                        </picture>
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-detail clearfix">
+                                                <div class="box-pro-detail">
+                                                    <h3 class="pro-name">
+                                                        <a href="/@product.seo_alias" title="@product.product_name">
+                                                            @product.product_name
+                                                        </a>
+                                                    </h3>
+                                                    <div class="box-pro-prices">
+                                                        <p class="pro-price ">
+                                                            <span class="giaban showNumeric">@product.promotion_price</span>
+                                                            @if (product.price > 0)
+                                                            {
+                                                                <span class="pro-price-del showNumeric">@product.price</span>
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+<!-- Sản phẩm nổi bật -->
+<!-- Nhóm banner -->
+<!-- Nhóm sản phẩm 2 -->
+<!-- instagram -->
+
+<section class="section-instagram">
+    <div class="container">
+        <div class="box-icon row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/delivery.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">Miễn phí vận chuyển toàn quốc</p>
+                        <p class="banner-footer-item-des">Với Đơn Hàng Trên 500.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/support.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">HỖ TRỢ (09:00-21:00)</p>
+                        <p class="banner-footer-item-des">@contact.phone_number</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/replace-icon.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">Đổi Trả Dễ Dàng</p>
+                        <p class="banner-footer-item-des">Trong Vòng 07 ngày</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Về chúng tôi -->
+
+<section class="wrapper-home-information animation-tran div-link-social">
+    <div class="container-fluid">
+        <div class="row row-flex-container">
+            <div class="col-md-12 col-sm-12 col-xs-12 wrap-pd-infor">
+                <div class="site-animation homeStore"
+                     style="background: #000;padding: 20px 0;background-repeat: no-repeat;position: relative;background-position: center;background-attachment: fixed;background-size: cover;">
+                    <div class="contentHomeStore">
+                        <div class="textStore">
+                            <a href="/pages/lien-he" title="Xem các chi nhánh">Liên Hệ Với Dino Store</a>
+                            <div class="contactStore">
+                                <a target="_blank" href="@fb_link"><img src="~/Assets/image/icon/ico_fb.png" alt="fb"/></a>
+                                <a target="_blank" href="@instagram_link"><img src="~/Assets/image/icon/ico_insta.png" alt="insta"/></a>
+                                <a target="_blank" href="@lazada_link"><img src="~/Assets/image/icon/ico_lazada.png" alt="lazada"/></a>
+                                <a target="_blank" href="@shopee_link"><img src="~/Assets/image/icon/ico_shopee.png" alt="shopee"/></a>
+                                <a target="_blank" href="@tiktok_link"><img src="~/Assets/image/icon/ico_tiktok.png" alt="tiktok"/></a>
+                                <a target="_blank" href="@zalo_link"><img src="~/Assets/image/icon/ico_zalo.png" alt="zalo"/></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="list-store-wrap">
+                        <div class="container">
+                            <div class="list-store owl-carousel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

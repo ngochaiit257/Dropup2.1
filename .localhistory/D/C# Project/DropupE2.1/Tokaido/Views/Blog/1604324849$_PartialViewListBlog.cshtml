@@ -1,0 +1,60 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+                /**/
+
+                var check_box_count = Model.Count();
+                var current_datetime = System.DateTime.Now;
+                string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <article class="post">
+            <div class="header-post">
+                <h2 class="title-post"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h2>
+                <p class="time-post">@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</p>
+            </div><!-- /.header-post -->
+
+            <div class="feature-post">
+                <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+            </div><!-- /.feature-post -->
+
+            <div class="content-post">
+                @Html.Raw(blog.blog_content)
+
+                <div class="readmore">
+                    <a href="blog-single.html">Continue reading...</a>
+                </div>
+
+                <div class="meta-post clearfix">
+                    <div class="by-author">
+                        <a href="#">By Nigella Los  </a>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                    </div>
+
+                    <div class="leave-comment">
+                        <a href="#">Leave a Comment  </a>
+                    </div>
+                </div>
+            </div><!-- /.content-post -->
+        </article>
+    }
+}

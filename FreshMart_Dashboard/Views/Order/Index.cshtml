@@ -1,0 +1,438 @@
+﻿@model IEnumerable<Data.order>
+@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Danh sách đơn hàng</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Đơn hàng
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Danh sách đơn hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+
+<div class="gr-btn-action row">
+    <div class="btn-group-left col-md-6">
+        <a href="@Url.Action("ExportToExcel", "Product")" class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;">Export &nbsp;<i class="nav-icon ti ti-download"></i></a>
+        <a class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;" data-toggle="modal" data-target="#modalImportExcel">Import &nbsp;<i class="nav-icon ti ti-upload"></i></a>
+    </div>
+    <div class="btn-group-right col-md-6" style="text-align: right">
+        <a class="btn btn-square btn-primary" href="@Url.Action("InsertOrder", "Order")">Tạo đơn hàng &nbsp;<i class="nav-icon ion ion-md-arrow-round-forward"></i></a>
+    </div>
+
+    <div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalImportExcel" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nhập danh sách sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="file" id="importExcel" name="importExcel" style="display: none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <label for="importExcel" class="btn btn-primary">Chọn tệp .xlsx</label>
+                        <a id="fileName">Không có tệp nào được chọn.</a>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        Tải file mẫu nhập danh sách sản phẩm <a href="~/Assets/file/form-import-product.xlsx" download class="text-info font-weight-bold">tại đây</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success">Nhập danh sách sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="tab nav-border-bottom" style="width:100%; padding: 10px 15px;" id="tab_list_customer">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link show active" id="tab_all_order" data-toggle="tab" href="#all_order" role="tab" aria-controls="all_order" aria-selected="true">
+                    <i class="fa fa-list-ul"></i> Tất cả đơn hàng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link show" id="tab_unconfimred_order" data-toggle="tab" href="#unconfimred_order" role="tab" aria-controls="unconfimred_order" aria-selected="false">
+                    <i class="fa fa-exclamation"></i> Đơn chưa xác nhận
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link show" id="tab_unpaid_order" data-toggle="tab" href="#unpaid_order" role="tab" aria-controls="unpaid_order" aria-selected="false">
+                    <i class="fa fa-credit-card-alt"></i> Đơn chưa thanh toán
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link show" id="tab_has_not_transport" data-toggle="tab" href="#has_not_transport" role="tab" aria-controls="has_not_transport" aria-selected="false">
+                    <i class="fa fa-truck"></i> Đơn chưa được giao
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="div_list_in_tab">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="input-group mb-3">
+                            <form id="form_filter">
+                                <div class="btn-group">
+                                    <select class="custom-select" id="select_filter">
+                                        <option value="all" selected="">Lọc đơn hàng theo</option>
+                                        <option value="payment_status">Trạng thái thanh toán</option>
+                                        <option value="shipping_status">Trạng thái giao hàng</option>
+                                        <option value="time_to_order">Thời điểm đặt hàng</option>
+                                        <option value="tag">Thẻ tag</option>
+                                        <option value="sale_chanel">Kênh bán hàng</option>
+                                        <option value="get_money_cod_status">Trạng thái thu COD</option>
+                                        <option value="transporter">Nhà vận chuyển</option>
+                                        <option value="confirm_status">Trạng thái xác thực</option>
+                                        <option value="payment_method">Phương thức thanh toán</option>
+                                        <option value="user_created">Người tạo</option>
+                                        <option value="shipping_method">Phương thức vận chuyển</option>
+                                    </select>
+
+                                    <select class="custom-select" id="select_condition_filter" style="display: none">
+                                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                                    </select>
+
+                                    <input type="text" class="form-control input_no_border_radius" value="0" id="value_select_condition" name="value_select_condition" style="display: none">
+                                </div>
+                            </form>
+
+                            <input type="text" class="form-control" id="search_input" name="search_input" value="@ViewBag.FilterValue" placeholder="Tìm kiếm đơn hàng..." aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="btn_search" onclick="searchOrder()">
+                                    <i class="nav-icon ti ti-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:right">
+                        <form id="set_condition_show">
+                            <div class="btn-group">
+                                <select class="custom-select" id="sort_list_return_select">
+                                    <option selected="" value="moiNhat" disabled>Sắp xếp thứ tự theo</option>
+                                    <option value="moiNhat">Đơn hàng mới nhất</option>
+                                    <option value="cuNhat">Đơn hàng cũ nhất</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="tongTienNhieuNhat">Tổng tiền nhiều nhất</option>
+                                    <option value="tongTienItNhat">Tổng tiền ít nhất</option>
+                                </select>
+                            </div>
+                            <div class="btn-group">
+                                <select class="custom-select" id="size_of_page_select">
+                                    <option selected="" value="10" disabled>Hiển thị</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="data_table">
+                @{Html.RenderAction("GetOfficialOrder", "Order", new { page_num = ViewBag.page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = 0, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn });}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#order').addClass('active');
+        $('#list_order').addClass('active');
+
+        if (Cookies.get("delete_order_success") != null) {
+            showToast("success", 'Đơn hàng <strong>#' + Cookies.get('delete_order_success') + '</strong> đã được xóa.', "Xóa thành công");
+            Cookies.remove('delete_order_success');
+        }
+
+        $('form').trigger('reset');
+        $("#value_select_condition").val(0);
+
+        tabFilter();
+    });
+
+    function tabFilter() {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("id");
+            var search_string = $('#search_input').val().trim();
+            var quick_filter_select = $("#select_filter option:selected").val();
+            var quick_filter_condition = $("#select_condition_filter option:selected").val();
+            var quick_filter_value = $("#value_select_condition").val();
+            var size_of_page = $("#size_of_page_select option:selected").val();
+            var sort_list_return = $("#sort_list_return_select option:selected").val();
+            var quick_filer_tab = target;
+            if (quick_filter_value == null) {
+                quick_filter_value = 0;
+            }
+            $.ajax({
+                url: "/Order/Index",
+                data: {
+                    search_string: search_string,
+                    page_num: 1,
+                    quick_filter_select: quick_filter_select,
+                    quick_filter_condition: quick_filter_condition,
+                    quick_filter_value: 0,
+                    size_of_page: size_of_page,
+                    quick_filer_tab: quick_filer_tab,
+                    sort_list_return: sort_list_return,
+                },
+                context: document.body,
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        });
+    }
+
+    $('#select_filter').on('change', function () {
+        var select_filter = this.value;
+        var search_string = $('#search_input').val().trim();
+        if (select_filter != "all") {
+            $('#select_condition_filter').css('display', 'block');
+            switch (select_filter) {
+                case "payment_status":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn trạng thái --</option>');
+                    $("#select_condition_filter").append('<option value="' + "is_paid" + '">' + "Đã thanh toán" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "is_pending" + '">' + "Chưa thanh toán" + '</option>');
+                    break;
+                case "shipping_status":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn trạng thái --</option>');
+                    $("#select_condition_filter").append('<option value="1">Đang đi lấy</option>');
+                    $("#select_condition_filter").append('<option value="2">Đang giao hàng</option>');
+                    $("#select_condition_filter").append('<option value="3">Đã giao hàng</option>');
+                    $("#select_condition_filter").append('<option value="4">Chờ chuyển hoàn</option>');
+                    $("#select_condition_filter").append('<option value="5">Chuyển hoàn</option>');
+                    $("#select_condition_filter").append('<option value="6">Không gặp khách hàng</option>');
+                    $("#select_condition_filter").append('<option value="7">Hủy giao hàng</option>');
+                    break;
+                case "time_to_order":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn thời điểm --</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_this_week">Trong tuần vừa qua</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_this_month">Trong tháng vừa qua</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_this_3_month">Trong 3 tháng vừa qua</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_this_year">Trong năm vừa qua</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_today">Trong ngày hôm nay</option>');
+                    $("#select_condition_filter").append('<option value="time_to_order_yesterday">Trong ngày hôm qua</option>');
+                    break;
+                case "tag":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'block' });
+                    $('#value_select_condition').attr('placeholder', 'Nhập từ khóa tag');
+                    $("#value_select_condition").autoNumeric('destroy');
+
+                    $("#select_condition_filter").append('<option value="' + "tag_string_contain>" + '">' + "Chứa từ" + '</option>');
+                    break;
+                case "sale_chanel":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $.ajax({
+                        type: "GET",
+                        data: {},
+                        url: '@Url.Action("GetAllProvince", "GetLocal")',
+                        success: function (data) {
+                            $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>');
+                            $.each(data, function (key, value) {
+                                $("#select_condition_filter").append('<option value="' + value.province_name + '"> ' + value.province_name + '</option>');
+                            });
+                        },
+                        error: function (xhr) {
+                            toastExportError();
+                        }
+                    });
+                    break;
+                case "get_money_cod_status":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn trạng thái --</option>');
+                    $("#select_condition_filter").append('<option value="khongThuCOD">Không thu COD</option>');
+                    $("#select_condition_filter").append('<option value="daNhan">Đã nhận</option>');
+                    $("#select_condition_filter").append('<option value="chuaNhan">Chưa nhận</option>');
+                    break;
+                case "transporter":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $.ajax({
+                        type: "GET",
+                        data: {},
+                        url: '@Url.Action("GetAllProvince", "GetLocal")',
+                        success: function (data) {
+                            $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>');
+                            $.each(data, function (key, value) {
+                                $("#select_condition_filter").append('<option value="' + value.province_name + '"> ' + value.province_name + '</option>');
+                            });
+                        },
+                        error: function (xhr) {
+                            toastExportError();
+                        }
+                    });
+                    break;
+                case "confirm_status":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn trạng thái --</option>');
+                    $("#select_condition_filter").append('<option value="daXacThuc">Đã xác thực</option>');
+                    $("#select_condition_filter").append('<option value="chuaXacThuc">Chưa xác thực</option>');
+                    break;
+                case "payment_method":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn phương thức --</option>');
+                    $("#select_condition_filter").append('<option value="3">Thanh toán khi giao hàng (COD)</option>');
+                    $("#select_condition_filter").append('<option value="4">Chuyển khoản qua ngân hàng</option>');
+                    break;
+                case "user_created":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $.ajax({
+                        type: "GET",
+                        data: {},
+                        url: '@Url.Action("GetAllProvince", "GetLocal")',
+                        success: function (data) {
+                            $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>');
+                            $.each(data, function (key, value) {
+                                $("#select_condition_filter").append('<option value="' + value.province_name + '"> ' + value.province_name + '</option>');
+                            });
+                        },
+                        error: function (xhr) {
+                            toastExportError();
+                        }
+                    });
+                    break;
+                case "shipping_method":
+                    $.ajax({
+                        type: "GET",
+                        data: {},
+                        url: '@Url.Action("GetAllProvince", "GetLocal")',
+                        success: function (data) {
+                            $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>');
+                            $.each(data, function (key, value) {
+                                $("#select_condition_filter").append('<option value="' + value.province_name + '"> ' + value.province_name + '</option>');
+                            });
+                        },
+                        error: function (xhr) {
+                            toastExportError();
+                        }
+                    });
+                    break;
+                default:
+                    console.log('Not Find Result');
+            }
+        }
+        else {
+            $('#select_condition_filter').css({ display: 'none' });
+            $('#value_select_condition').css({ display: 'none' });
+            searchOrderCommon();
+        }
+    });
+
+    $('#size_of_page_select').on('change', function () {
+        searchOrderCommon();
+    });
+
+    $('#sort_list_return_select').on('change', function () {
+        searchOrderCommon();
+    });
+
+    $('#select_condition_filter').on('change', function () {
+        searchOrderCommon();
+    });
+
+    $('#search_input').keypress(function (e) {
+        if (e.which == 13) {
+            searchOrderCommon();
+        }
+    });
+
+    function searchCustomer() {
+        searchOrderCommon();
+    }
+
+    function searchOrderCommon() {
+        var search_string = $('#search_input').val().trim();
+        var target = $('ul > li > a.active').attr("id");
+        var quick_filter_select = $("#select_filter option:selected").val();
+        var quick_filter_condition = $("#select_condition_filter option:selected").val();
+        var quick_filter_value = $("#value_select_condition").val();
+        var size_of_page = $("#size_of_page_select option:selected").val();
+        var sort_list_return = $("#sort_list_return_select option:selected").val();
+        var quick_filer_tab = target;
+        if (quick_filter_value == null) {
+            quick_filter_value = 0;
+        }
+
+        $.ajax({
+            url: "/Order/Index",
+            data: {
+                search_string: search_string,
+                page_num: 1,
+                quick_filter_select: quick_filter_select,
+                quick_filter_condition: quick_filter_condition,
+                quick_filter_value: 0,
+                size_of_page: size_of_page,
+                quick_filer_tab: quick_filer_tab,
+                sort_list_return: sort_list_return,
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+</script>
