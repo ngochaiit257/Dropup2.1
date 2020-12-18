@@ -18,6 +18,7 @@ D:\C# Project\DropupE2.0\ExtendMethod\obj\Release\ExtendMethod.dll
 D:\C# Project\DropupE2.0\ExtendMethod\obj\Release\ExtendMethod.pdb
 D:\C# Project\DropupE2.1\ExtendMethod\bin\Release\ExtendMethod.dll
 D:\C# Project\DropupE2.1\ExtendMethod\bin\Release\ExtendMethod.pdb
+D:\C# Project\DropupE2.1\ExtendMethod\obj\Release\ExtendMethod.csprojAssemblyReference.cache
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Release\ExtendMethod.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Release\ExtendMethod.dll
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Release\ExtendMethod.pdb

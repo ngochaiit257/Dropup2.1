@@ -46,7 +46,7 @@
 </div>
 
 <div class="row">
-    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
 
         <div class="card card-statistics" id="div_product_info">
             <div class="card-header">
@@ -151,7 +151,8 @@
                             <h4 class="card-title">Sản phẩm có nhiều lựa chọn</h4>
                         </div>
                         <div class="col-md-6 col-xs-6 div-card-title-right">
-                            <a class="card-title text-primary" href="javascript:void(0)">Chỉnh sửa thuộc tính</a>
+                            <a class="card-title text-primary" onclick="showModalUpdatePrice()" href="javascript:void(0)">Cập nhật giá đồng loạt</a>
+                            @*<a class="card-title text-primary" href="javascript:void(0)">Chỉnh sửa thuộc tính</a>*@
                             &nbsp;&nbsp;&nbsp;
                             <a class="card-title text-primary" href="javascript:void(0)" onclick="showModalAddProductVariation()">Thêm lựa chọn</a>
                             <script>
@@ -168,6 +169,10 @@
                                         }
                                     });
                                     $('#modalAddProductVariation').modal('show');
+                                }
+
+                                function showModalUpdatePrice() {
+                                    $('#modalUpdatePrice').modal('show');
                                 }
                             </script>
                         </div>
@@ -192,7 +197,7 @@
                                 success: function (result) {
                                     $('#list_product_variation').html(result);
                                     $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
-                                } 
+                                }
                             });
                         }
                     </script>
@@ -737,8 +742,8 @@
 <div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
     <div class="col-12" style="margin-top: 15px;">
         <div class="pb-2" style="text-align:right">
-            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</a>
-            <a href="javascript:void(0)" class="btn btn-primary" id="btn_update">Cập nhật</a>
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</button>
+            <button class="btn btn-primary" id="btn_update">Cập nhật</button>
         </div>
     </div>
 </div>
@@ -867,14 +872,118 @@
 </div>
 
 
-@*PRODUCT VARIATION*@
+@*MODAL PRODUCT VARIATION*@
 <div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalAddProductVariation" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="modal_content_add_product_variation">
-          
+
         </div>
     </div>
 </div>
+
+@*MODAL UPDATE PRICE*@
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalUpdatePrice" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Cập nhật giá sản phẩm đồng loạt
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" for="product_price_promotion">Giá bán sản phẩm <span class="requirement-star-text">&ast;</span></label>
+                        <div class="mb-2">
+                            <input value="@Model.promotion_price" type="text" class="form-control autoNumericInput" id="product_price" name="product_price" placeholder="đ">
+                            <div class="invalid-feedback" id="product_price_feedback">
+                                Yêu cầu nhập giá sản phẩm.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" for="product_price">Giá so sánh</label>
+                        <div class="mb-2">
+                            <input value="@Model.price" type="text" class="form-control autoNumericInput" id="product_price_compararision" name="product_price_compararision" placeholder="đ">
+                            <div class="invalid-feedback" id="product_price_compararision_feedback">
+                                Giá so sánh phải cao hơn giá bán
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy và quay lại</button>
+                <button type="button" class="btn btn-primary" id="btn_confirm_update_price" onclick="confirmUpdatePrice()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmUpdatePrice() {
+        var price = $('#product_price').autoNumeric('get');
+        var price_compararision = $('#product_price_compararision').autoNumeric('get');
+        
+        if (price == 0) {
+            showToast("error", "Sản phẩm yêu cầu cần có <strong>Giá sản phẩm</strong>", "Lỗi nhập giá");
+            $("#product_price").addClass('is-invalid');
+            $("#product_price_feedback").css({ display: 'block' });
+        }
+        else if (price_compararision > 0 && price_compararision <= price) {
+            showToast("error", "Giá so sánh <strong>phải thấp hơn giá bán</strong>", "Lỗi nhập giá");
+            $("#product_price_compararision").addClass('is-invalid');
+            $("#product_price_compararision_feedback").css({ display: 'block' });
+        }
+        else {
+            if (price_compararision == 0) {
+                price_compararision = 0;
+            }
+            $.ajax({
+                url: "/Product/UpdatePrice",
+                data: {
+                    product_id: '@Model.product_id',
+                    new_price: price,
+                    new_price_comparision: price_compararision,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                beforeSend: function () {
+                    $('#btn_confirm_update_price').prop('disabled', true);
+                    $('#btn_confirm_update_price').text("Đang cập nhật...");
+                },
+                success: function (data) {
+                    updateListProductVariation();
+                    showToast("success", 'Giá đã được cập nhật đồng loạt.', "Cập nhật thành công");
+                    $('#modalUpdatePrice').modal('hide');
+                },
+                error: function (xhr, status) {
+                    toastError();
+                },
+                complete: function (xhr, status) {
+                    $('#btn_confirm_update_price').prop('disabled', false);
+                    $('#btn_confirm_update_price').text("Xác nhận");
+                }
+            });
+        }
+    }
+
+    $('input[id=product_price]').keyup(function () {
+        $("#product_price").removeClass('is-invalid');
+        $("#product_price_feedback").css('display', 'none');
+    });
+
+    $('input[id=product_price_compararision]').keyup(function () {
+        $("#product_price_compararision").removeClass('is-invalid');
+        $("#product_price_compararision_feedback").css('display', 'none');
+    });
+</script>
 
 <script>
     $(document).ready(function () {
@@ -1566,6 +1675,10 @@
                     data: fileData,
                     processData: false,
                     contentType: false,
+                    beforeSend: function () {
+                        $('#btn_update').prop('disabled', true);
+                        $('#btn_update').text("Đang cập nhật...");
+                    },
                     success: function (data) {
                         $('#show_seo_header').text($('#seo_header').val());
                         $('#show_seo_description').text($('#seo_description').val());
@@ -1581,6 +1694,10 @@
                     error: function (xhr) {
                         toastError();
                         $("html, body").animate({ scrollTop: 0 }, 600);
+                    },
+                    complete: function (xhr, status) {
+                        $('#btn_update').prop('disabled', false);
+                        $('#btn_update').text("Cập nhật");
                     }
                 });
             }

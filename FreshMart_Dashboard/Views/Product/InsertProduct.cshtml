@@ -1894,11 +1894,15 @@
             }
 
             $.ajax({
-            type: "POST",
-            url: '@Url.Action("InsertProduct", "Product", null)',
-            data: fileData,
-            processData: false,
-            contentType: false,
+                type: "POST",
+                url: '@Url.Action("InsertProduct", "Product", null)',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang tạo sản phẩm...");
+                },
                 success: function (data) {
                     //var data_json = JSON.parse(data);
                     var date_obj = new Date();
@@ -1908,12 +1912,16 @@
                     Cookies.set("insert_product_success", "" + data.product_id, { expires: date_obj });
                     var url = '/Product/ProductDetail?id=' + data.product_id;
                     window.location.href = url;
-            },
-            error: function (xhr) {
-                toastError();
-                $("html, body").animate({ scrollTop: 0 }, 600);
-            }
-        });
+                },
+                error: function (xhr) {
+                    toastError();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                },
+                complete: function (xhr, status) {
+                    $('#btn_insert').prop('disabled', false);
+                    $('#btn_insert').text("Xác nhận");
+                }
+            });
         }
     }
 

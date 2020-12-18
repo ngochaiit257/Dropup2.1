@@ -547,5 +547,42 @@ namespace Data.Providers
                 return null;
             }
         }
+
+
+        public List<category> getListBenhNamKhoa()
+        {
+            try
+            {
+                return getListParentCategory().Where(c => (c.status == true && c.show_datetime <= DateTime.Now) && c.type_of_category_id == 1).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<category> getListBenhXaHoi()
+        {
+            try
+            {
+                return getListParentCategory().Where(c => (c.status == true && c.show_datetime <= DateTime.Now) && c.type_of_category_id == 2).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public List<category> getListBenhChinh()
+        {
+            try
+            {
+                return getAll().Where(c => (c.status == true && c.show_datetime <= DateTime.Now) && (c.image != "../Assets/img/category_image/Logo Bach Giai.png" && c.image != "../Assets/img/category_image/BG.png" && c.image != "")).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

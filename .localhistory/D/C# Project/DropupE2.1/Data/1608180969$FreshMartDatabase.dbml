@@ -1,0 +1,1021 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BachGiaiClinic" Class="FreshMartDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BachGiaiClinic;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="BachGiaiClinicConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.address" Member="addresses">
+    <Type Name="address">
+      <Column Name="address_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="branch_name" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="address_location" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="contact_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="contact_address" Member="contact" ThisKey="contact_id" OtherKey="contact_id" Type="contact" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ward" Member="wards">
+    <Type Name="ward">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LatiLongTude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ward_customer" Member="customers" ThisKey="Id" OtherKey="ward_id" Type="customer" />
+      <Association Name="ward_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="ward_id" Type="delivery_address" />
+      <Association Name="ward_user" Member="users" ThisKey="Id" OtherKey="ward_id" Type="user" />
+      <Association Name="district_ward" Member="district" ThisKey="DistrictID" OtherKey="Id" Type="district" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNet_SqlCacheTablesForChangeNotification" Member="AspNet_SqlCacheTablesForChangeNotifications">
+    <Type Name="AspNet_SqlCacheTablesForChangeNotification">
+      <Column Name="tableName" Type="System.String" DbType="NVarChar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="notificationCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="changeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.blog" Member="blogs">
+    <Type Name="blog">
+      <Column Name="blog_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="blog_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="blog_summary" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="blog_content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="blog_seo_alias" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="blog_seo_header" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="blog_seo_description" Type="System.String" DbType="NVarChar(320)" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="blog_category_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="show_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="blog_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="blog_alt_image" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="blog_tag_blog" Member="tag_blogs" ThisKey="blog_id" OtherKey="blog_id" Type="tag_blog" />
+      <Association Name="blog_category_blog" Member="blog_category" ThisKey="blog_category_id" OtherKey="blog_category_id" Type="blog_category" IsForeignKey="true" />
+      <Association Name="user_blog" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.blog_category" Member="blog_categories">
+    <Type Name="blog_category">
+      <Column Name="blog_category_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="blog_category_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="blog_category_seo_alias" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="blog_category_seo_header" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="blog_category_seo_description" Type="System.String" DbType="NVarChar(320)" CanBeNull="true" />
+      <Association Name="blog_category_blog" Member="blogs" ThisKey="blog_category_id" OtherKey="blog_category_id" Type="blog" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cart_of_user" Member="cart_of_users">
+    <Type Name="cart_of_user">
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="cart_or_user_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="cart_of_user_cart_product_variation" Member="cart_product_variations" ThisKey="cart_or_user_id" OtherKey="cart_of_user_id" Type="cart_product_variation" />
+      <Association Name="user_cart_of_user" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="user_cart_of_user1" Member="user1" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cart_product_variation" Member="cart_product_variations">
+    <Type Name="cart_product_variation">
+      <Column Name="cart_product_variation_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cart_of_user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="cart_of_user_cart_product_variation" Member="cart_of_user" ThisKey="cart_of_user_id" OtherKey="cart_or_user_id" Type="cart_of_user" IsForeignKey="true" />
+      <Association Name="product_variation_cart_product_variation" Member="product_variation" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.category" Member="categories">
+    <Type Name="category">
+      <Column Name="category_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="category_name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="category_meta_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="update_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="seo_header" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="seo_description" Type="System.String" DbType="NVarChar(320)" CanBeNull="true" />
+      <Column Name="seo_alias" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="show_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="alt_image" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="type_of_category_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="category_parent_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="category_category" Member="categories" ThisKey="category_id" OtherKey="category_parent_id" Type="category" />
+      <Association Name="category_category_product" Member="category_products" ThisKey="category_id" OtherKey="category_id" Type="category_product" />
+      <Association Name="category_coupon" Member="coupons" ThisKey="category_id" OtherKey="category_id" Type="coupon" />
+      <Association Name="category_tag_category" Member="tag_categories" ThisKey="category_id" OtherKey="category_id" Type="tag_category" />
+      <Association Name="category_category" Member="category1" ThisKey="category_parent_id" OtherKey="category_id" Type="category" IsForeignKey="true" />
+      <Association Name="type_of_category_category" Member="type_of_category" ThisKey="type_of_category_id" OtherKey="type_of_category_id" Type="type_of_category" IsForeignKey="true" />
+      <Association Name="user_category" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.category_product" Member="category_products">
+    <Type Name="category_product">
+      <Column Name="category_product_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="category_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="category_category_product" Member="category" ThisKey="category_id" OtherKey="category_id" Type="category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.combo_product" Member="combo_products">
+    <Type Name="combo_product">
+      <Column Name="combo_product_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="product_variation_combo_product" Member="product_variation" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.comment_product" Member="comment_products">
+    <Type Name="comment_product">
+      <Column Name="comment_product_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rating" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="commentator_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="commentator_email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="comment_string" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="is_spam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comment_parent" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="commentator_phone" Type="System.String" DbType="NChar(15)" CanBeNull="true" />
+      <Association Name="comment_product_comment_product" Member="comment_products" ThisKey="comment_product_id" OtherKey="comment_parent" Type="comment_product" />
+      <Association Name="comment_product_comment_product" Member="comment_product1" ThisKey="comment_parent" OtherKey="comment_product_id" Type="comment_product" IsForeignKey="true" />
+      <Association Name="product_comment_product" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.condition_for_coupon" Member="condition_for_coupons">
+    <Type Name="condition_for_coupon">
+      <Column Name="condition_for_coupon_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="condition_for_coupon_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="condition_for_coupon_coupon" Member="coupons" ThisKey="condition_for_coupon_id" OtherKey="condition_for_coupon_id" Type="coupon" />
+    </Type>
+  </Table>
+  <Table Name="dbo.contact" Member="contacts">
+    <Type Name="contact">
+      <Column Name="contact_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="facebook_link" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="contact_address" Member="addresses" ThisKey="contact_id" OtherKey="contact_id" Type="address" />
+      <Association Name="contact_email" Member="emails" ThisKey="contact_id" OtherKey="contact_id" Type="email" />
+      <Association Name="contact_phone_number" Member="phone_numbers" ThisKey="contact_id" OtherKey="contact_id" Type="phone_number" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cost_for_district_shipping" Member="cost_for_district_shippings">
+    <Type Name="cost_for_district_shipping">
+      <Column Name="cost_for_district_shipping_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="district_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cost_of_local_shipping_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price_for_district_shipping_final" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="price_for_district_shipping_adjust" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="status_district_shipping" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="cost_of_local_shipping_cost_for_district_shipping" Member="cost_of_local_shipping" ThisKey="cost_of_local_shipping_id" OtherKey="cost_of_local_shipping_id" Type="cost_of_local_shipping" IsForeignKey="true" />
+      <Association Name="district_cost_for_district_shipping" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cost_of_local_shipping" Member="cost_of_local_shippings">
+    <Type Name="cost_of_local_shipping">
+      <Column Name="cost_of_local_shipping_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="local_shipping_service_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name_of_cost" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="standard_for_shipping_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="min_value_for_standard" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="max_value_for_standard" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="price_of_cost" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="cost_of_local_shipping_cost_for_district_shipping" Member="cost_for_district_shippings" ThisKey="cost_of_local_shipping_id" OtherKey="cost_of_local_shipping_id" Type="cost_for_district_shipping" />
+      <Association Name="local_shipping_service_cost_of_local_shipping" Member="local_shipping_service" ThisKey="local_shipping_service_id" OtherKey="local_shipping_service_id" Type="local_shipping_service" IsForeignKey="true" />
+      <Association Name="standard_for_shipping_cost_of_local_shipping" Member="standard_for_shipping" ThisKey="standard_for_shipping_id" OtherKey="standard_for_shipping_id" Type="standard_for_shipping" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.country" Member="countries">
+    <Type Name="country">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CountryCode" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CommonName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="FormalName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CountryType" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CountrySubType" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Sovereignty" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Capital" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CurrencyCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CurrencyName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TelephoneCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CountryCode3" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CountryNumber" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="InternetCountryCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Flags" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="country_province" Member="provinces" ThisKey="Id" OtherKey="CountryId" Type="province" />
+    </Type>
+  </Table>
+  <Table Name="dbo.coupon" Member="coupons">
+    <Type Name="coupon">
+      <Column Name="coupon_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="coupon_code" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="allow_use_with_promotion_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="coupon_number_of_uses" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="discount_type_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="discount_value" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="condition_for_coupon_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="coupon_order_cost_from" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="category_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="province_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="object_of_coupon_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="coupon_start_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="coupon_end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="coupon_description" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="coupon_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="count_used" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="customer_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="coupon_order" Member="orders" ThisKey="coupon_id" OtherKey="coupon_id" Type="order" />
+      <Association Name="coupon_product_coupon" Member="product_coupons" ThisKey="coupon_id" OtherKey="coupon_id" Type="product_coupon" />
+      <Association Name="coupon_product_variation_coupon" Member="product_variation_coupons" ThisKey="coupon_id" OtherKey="coupon_id" Type="product_variation_coupon" />
+      <Association Name="category_coupon" Member="category" ThisKey="category_id" OtherKey="category_id" Type="category" IsForeignKey="true" />
+      <Association Name="condition_for_coupon_coupon" Member="condition_for_coupon" ThisKey="condition_for_coupon_id" OtherKey="condition_for_coupon_id" Type="condition_for_coupon" IsForeignKey="true" />
+      <Association Name="customer_coupon" Member="customer" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
+      <Association Name="discount_type_coupon" Member="discount_type" ThisKey="discount_type_id" OtherKey="discount_type_id" Type="discount_type" IsForeignKey="true" />
+      <Association Name="object_of_coupon_coupon" Member="object_of_coupon" ThisKey="object_of_coupon_id" OtherKey="object_of_coupon_id" Type="object_of_coupon" IsForeignKey="true" />
+      <Association Name="province_coupon" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.custom_product_in_order" Member="custom_product_in_orders">
+    <Type Name="custom_product_in_order">
+      <Column Name="custom_product_in_order_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="custom_product_in_order_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="custom_product_in_order_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="custom_product_in_order_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="unit_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="custom_product_quantity_repay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="custom_product_price_repay" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Association Name="order_custom_product_in_order" Member="order" ThisKey="order_id" OtherKey="order_id" Type="order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.customer" Member="customers">
+    <Type Name="customer">
+      <Column Name="customer_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="customer_first_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customer_last_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customer_email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customer_phone_number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="marketing_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="country_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="province_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="district_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ward_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address_detail" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="customer_note" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="customer_birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="gender_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="black_list_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="customer_coupon" Member="coupons" ThisKey="customer_id" OtherKey="customer_id" Type="coupon" />
+      <Association Name="customer_delivery_address" Member="delivery_addresses" ThisKey="customer_id" OtherKey="customer_id" Type="delivery_address" />
+      <Association Name="customer_order" Member="orders" ThisKey="customer_id" OtherKey="customer_id" Type="order" />
+      <Association Name="customer_order1" Member="orders1" ThisKey="customer_id" OtherKey="customer_id" Type="order" />
+      <Association Name="customer_tag_customer" Member="tag_customers" ThisKey="customer_id" OtherKey="customer_id" Type="tag_customer" />
+      <Association Name="ward_customer" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
+      <Association Name="district_customer" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
+      <Association Name="gender_customer" Member="gender" ThisKey="gender_id" OtherKey="gender_id" Type="gender" IsForeignKey="true" />
+      <Association Name="province_customer" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+      <Association Name="user_customer" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.delivery_address" Member="delivery_addresses">
+    <Type Name="delivery_address">
+      <Column Name="delivery_address_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="first_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="last_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="country_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="province_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="district_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ward_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address_detail" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="address_zip" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="customer_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="default_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="delivery_address_order" Member="orders" ThisKey="delivery_address_id" OtherKey="delivery_address_id" Type="order" />
+      <Association Name="customer_delivery_address" Member="customer" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
+      <Association Name="ward_delivery_address" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
+      <Association Name="district_delivery_address" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
+      <Association Name="province_delivery_address" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.discount_type" Member="discount_types">
+    <Type Name="discount_type">
+      <Column Name="discount_type_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="discount_type_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="discount_type_unit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="discount_type_coupon" Member="coupons" ThisKey="discount_type_id" OtherKey="discount_type_id" Type="coupon" />
+      <Association Name="discount_type_promotion" Member="promotions" ThisKey="discount_type_id" OtherKey="discount_type_id" Type="promotion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.district" Member="districts">
+    <Type Name="district">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LatiLongTude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProvinceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="district_ward" Member="wards" ThisKey="Id" OtherKey="DistrictID" Type="ward" />
+      <Association Name="district_cost_for_district_shipping" Member="cost_for_district_shippings" ThisKey="Id" OtherKey="district_id" Type="cost_for_district_shipping" />
+      <Association Name="district_customer" Member="customers" ThisKey="Id" OtherKey="district_id" Type="customer" />
+      <Association Name="district_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="district_id" Type="delivery_address" />
+      <Association Name="district_user" Member="users" ThisKey="Id" OtherKey="district_id" Type="user" />
+      <Association Name="province_district" Member="province" ThisKey="ProvinceId" OtherKey="Id" Type="province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.element_variation" Member="element_variations">
+    <Type Name="element_variation">
+      <Column Name="element_variation_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="product_variation_property_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="element_variation_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="product_variation_element_variation" Member="product_variation" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+      <Association Name="product_variation_property_element_variation" Member="product_variation_property" ThisKey="product_variation_property_id" OtherKey="product_variation_property_id" Type="product_variation_property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.email" Member="emails">
+    <Type Name="email">
+      <Column Name="email_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email_show" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="contact_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="contact_email" Member="contact" ThisKey="contact_id" OtherKey="contact_id" Type="contact" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.gender" Member="genders">
+    <Type Name="gender">
+      <Column Name="gender_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="value" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="gender_customer" Member="customers" ThisKey="gender_id" OtherKey="gender_id" Type="customer" />
+      <Association Name="gender_user" Member="users" ThisKey="gender_id" OtherKey="gender_id" Type="user" />
+    </Type>
+  </Table>
+  <Table Name="dbo.group_action" Member="group_actions">
+    <Type Name="group_action">
+      <Column Name="group_action_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="group_action_descrition" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="group_action_user_group_action" Member="user_group_actions" ThisKey="group_action_id" OtherKey="group_action_id" Type="user_group_action" />
+    </Type>
+  </Table>
+  <Table Name="dbo.image_more" Member="image_mores">
+    <Type Name="image_more">
+      <Column Name="image_more_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="image_more_alt" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="image_more_url" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.local_shipping_service" Member="local_shipping_services">
+    <Type Name="local_shipping_service">
+      <Column Name="local_shipping_service_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="province_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="local_shipping_service_cost_of_local_shipping" Member="cost_of_local_shippings" ThisKey="local_shipping_service_id" OtherKey="local_shipping_service_id" Type="cost_of_local_shipping" />
+      <Association Name="province_local_shipping_service" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.newsletter" Member="newsletters">
+    <Type Name="newsletter">
+      <Column Name="newsletter_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="customer_email" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.object_of_coupon" Member="object_of_coupons">
+    <Type Name="object_of_coupon">
+      <Column Name="object_of_coupon_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="group_customer_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="object_of_coupon_coupon" Member="coupons" ThisKey="object_of_coupon_id" OtherKey="object_of_coupon_id" Type="coupon" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[order]" Member="orders">
+    <Type Name="order">
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="order_code" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="customer_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="source_order" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="delivery_address_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="user_id_create" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="user_id_update" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="coupon_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="coupon_code" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="discount_amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="reason_of_promotion" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="name_of_shipping" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="cost_of_shipping" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="payment_method_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="draft_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="confirm_order_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="payment_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="completed_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="order_note" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Association Name="order_custom_product_in_order" Member="custom_product_in_orders" ThisKey="order_id" OtherKey="order_id" Type="custom_product_in_order" />
+      <Association Name="order_order_log" Member="order_logs" ThisKey="order_id" OtherKey="order_id" Type="order_log" />
+      <Association Name="order_order_tag" Member="order_tags" ThisKey="order_id" OtherKey="order_id" Type="order_tag" />
+      <Association Name="order_product_variation_in_order" Member="product_variation_in_orders" ThisKey="order_id" OtherKey="order_id" Type="product_variation_in_order" />
+      <Association Name="order_transport" Member="transports" ThisKey="order_id" OtherKey="order_id" Type="transport" />
+      <Association Name="coupon_order" Member="coupon" ThisKey="coupon_id" OtherKey="coupon_id" Type="coupon" IsForeignKey="true" />
+      <Association Name="customer_order" Member="customer" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
+      <Association Name="customer_order1" Member="customer1" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
+      <Association Name="delivery_address_order" Member="delivery_address" ThisKey="delivery_address_id" OtherKey="delivery_address_id" Type="delivery_address" IsForeignKey="true" />
+      <Association Name="payment_method_order" Member="payment_method" ThisKey="payment_method_id" OtherKey="payment_method_id" Type="payment_method" IsForeignKey="true" />
+      <Association Name="user_order" Member="user" ThisKey="user_id_create" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="user_order1" Member="user1" ThisKey="user_id_update" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="user_order2" Member="user2" ThisKey="user_id_create" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_log" Member="order_logs">
+    <Type Name="order_log">
+      <Column Name="order_log_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="order_log_description" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="order_log_create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="order_log_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="order_log_payment_information" Member="payment_informations" ThisKey="order_log_id" OtherKey="order_log_id" Type="payment_information" />
+      <Association Name="order_order_log" Member="order" ThisKey="order_id" OtherKey="order_id" Type="order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.order_tag" Member="order_tags">
+    <Type Name="order_tag">
+      <Column Name="order_tag_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="order_tag_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="order_order_tag" Member="order" ThisKey="order_id" OtherKey="order_id" Type="order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.page" Member="pages">
+    <Type Name="page">
+      <Column Name="page_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="page_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="page_content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="page_seo_alias" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="page_seo_header" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="page_seo_description" Type="System.String" DbType="NVarChar(320)" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="show_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="user_id_create" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="user_id_update" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="page_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="page_image_alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="page_summary" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="mount_on_header_menu_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mount_on_footer_menu_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="page_parent_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="page_page" Member="pages" ThisKey="page_id" OtherKey="page_parent_id" Type="page" />
+      <Association Name="page_page" Member="page1" ThisKey="page_parent_id" OtherKey="page_id" Type="page" IsForeignKey="true" />
+      <Association Name="user_page" Member="user" ThisKey="user_id_create" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="user_page1" Member="user1" ThisKey="user_id_update" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.payment_information" Member="payment_informations">
+    <Type Name="payment_information">
+      <Column Name="payment_information_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="order_log_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="value_money" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="pay_gate" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="pay_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="pay_type" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="datetime_confirm" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="order_log_payment_information" Member="order_log" ThisKey="order_log_id" OtherKey="order_log_id" Type="order_log" IsForeignKey="true" />
+      <Association Name="user_payment_information" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.payment_method" Member="payment_methods">
+    <Type Name="payment_method">
+      <Column Name="payment_method_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="payment_method_description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="payment_method_order" Member="orders" ThisKey="payment_method_id" OtherKey="payment_method_id" Type="order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.phone_number" Member="phone_numbers">
+    <Type Name="phone_number">
+      <Column Name="phone_number_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="phone_number_show" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="contact_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="contact_phone_number" Member="contact" ThisKey="contact_id" OtherKey="contact_id" Type="contact" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product" Member="products">
+    <Type Name="product">
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_code" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="product_meta_title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="seo_header" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="seo_description" Type="System.String" DbType="NVarChar(320)" CanBeNull="true" />
+      <Column Name="seo_alias" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="promotion_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="view_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="create_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="update_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="supplier_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="unit_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vat_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="show_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="alt_image" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="barcode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="qrcode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="allow_ordering_while_out_of_stock_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="warehouse_management_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="product_video" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="product_weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="allow_delivery" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_video_url" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="rent_cost" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="rent_cost_promotion" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="video_filename" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="content_2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="content_3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="product_comment_product" Member="comment_products" ThisKey="product_id" OtherKey="product_id" Type="comment_product" />
+      <Association Name="product_product_coupon" Member="product_coupons" ThisKey="product_id" OtherKey="product_id" Type="product_coupon" />
+      <Association Name="product_product_variation" Member="product_variations" ThisKey="product_id" OtherKey="product_id" Type="product_variation" />
+      <Association Name="product_promotion_product" Member="promotion_products" ThisKey="product_id" OtherKey="product_id" Type="promotion_product" />
+      <Association Name="product_super_sale" Member="super_sales" ThisKey="product_id" OtherKey="product_id" Type="super_sale" />
+      <Association Name="product_tag_product" Member="tag_products" ThisKey="product_id" OtherKey="product_id" Type="tag_product" />
+      <Association Name="supplier_product" Member="supplier" ThisKey="supplier_id" OtherKey="supplier_id" Type="supplier" IsForeignKey="true" />
+      <Association Name="unit_product" Member="unit" ThisKey="unit_id" OtherKey="unit_id" Type="unit" IsForeignKey="true" />
+      <Association Name="user_product" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_coupon" Member="product_coupons">
+    <Type Name="product_coupon">
+      <Column Name="product_coupon_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="coupon_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="coupon_product_coupon" Member="coupon" ThisKey="coupon_id" OtherKey="coupon_id" Type="coupon" IsForeignKey="true" />
+      <Association Name="product_product_coupon" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_element" Member="product_elements">
+    <Type Name="product_element">
+      <Column Name="product_element_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="element_value" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="property_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="product_variation_property_product_element" Member="product_variation_property" ThisKey="property_id" OtherKey="product_variation_property_id" Type="product_variation_property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_variation" Member="product_variations">
+    <Type Name="product_variation">
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="product_variation_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_variation_code" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_barcode" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="product_variation_image_alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_in_stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="allow_ordering_while_out_of_stock_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="allow_delivery" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="product_variation_price_comparison" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_variation_weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="product_variation_rent_cost" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_variation_rent_cost_comparision" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Association Name="product_variation_cart_product_variation" Member="cart_product_variations" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="cart_product_variation" />
+      <Association Name="product_variation_combo_product" Member="combo_products" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="combo_product" />
+      <Association Name="product_variation_element_variation" Member="element_variations" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="element_variation" />
+      <Association Name="product_variation_product_variation_coupon" Member="product_variation_coupons" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation_coupon" />
+      <Association Name="product_variation_product_variation_coupon1" Member="product_variation_coupons1" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation_coupon" />
+      <Association Name="product_variation_product_variation_in_order" Member="product_variation_in_orders" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation_in_order" />
+      <Association Name="product_product_variation" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_variation_coupon" Member="product_variation_coupons">
+    <Type Name="product_variation_coupon">
+      <Column Name="product_variation_coupon_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="coupon_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="coupon_product_variation_coupon" Member="coupon" ThisKey="coupon_id" OtherKey="coupon_id" Type="coupon" IsForeignKey="true" />
+      <Association Name="product_variation_product_variation_coupon" Member="product_variation" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+      <Association Name="product_variation_product_variation_coupon1" Member="product_variation1" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_variation_in_order" Member="product_variation_in_orders">
+    <Type Name="product_variation_in_order">
+      <Column Name="product_vatiation_in_order_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_variation_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="product_variation_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_variation_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="unit_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_quantity_repay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="product_variation_price_repay" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="product_variation_image" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="product_variation_price_comparison" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="allow_delivery" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="product_variation_weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="product_variation_rent_cost" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="product_variation_rent_cost_comparision" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Association Name="order_product_variation_in_order" Member="order" ThisKey="order_id" OtherKey="order_id" Type="order" IsForeignKey="true" />
+      <Association Name="product_variation_product_variation_in_order" Member="product_variation" ThisKey="product_variation_id" OtherKey="product_variation_id" Type="product_variation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.product_variation_property" Member="product_variation_properties">
+    <Type Name="product_variation_property">
+      <Column Name="product_variation_property_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="product_variation_property_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="product_variation_property_element_variation" Member="element_variations" ThisKey="product_variation_property_id" OtherKey="product_variation_property_id" Type="element_variation" />
+      <Association Name="product_variation_property_product_element" Member="product_elements" ThisKey="product_variation_property_id" OtherKey="property_id" Type="product_element" />
+    </Type>
+  </Table>
+  <Table Name="dbo.promotion" Member="promotions">
+    <Type Name="promotion">
+      <Column Name="promotion_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="promotion_name" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="discount_type_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="promotion_start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="promotion_end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="promotion_description" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Association Name="promotion_promotion_product" Member="promotion_products" ThisKey="promotion_id" OtherKey="promotion_id" Type="promotion_product" />
+      <Association Name="discount_type_promotion" Member="discount_type" ThisKey="discount_type_id" OtherKey="discount_type_id" Type="discount_type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.promotion_product" Member="promotion_products">
+    <Type Name="promotion_product">
+      <Column Name="promotion_product_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="promotion_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="product_promotion_product" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+      <Association Name="promotion_promotion_product" Member="promotion" ThisKey="promotion_id" OtherKey="promotion_id" Type="promotion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.province" Member="provinces">
+    <Type Name="province">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TelephoneCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ZipCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CountryCode" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="province_coupon" Member="coupons" ThisKey="Id" OtherKey="province_id" Type="coupon" />
+      <Association Name="province_customer" Member="customers" ThisKey="Id" OtherKey="province_id" Type="customer" />
+      <Association Name="province_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="province_id" Type="delivery_address" />
+      <Association Name="province_district" Member="districts" ThisKey="Id" OtherKey="ProvinceId" Type="district" />
+      <Association Name="province_local_shipping_service" Member="local_shipping_services" ThisKey="Id" OtherKey="province_id" Type="local_shipping_service" />
+      <Association Name="province_user" Member="users" ThisKey="Id" OtherKey="province_id" Type="user" />
+      <Association Name="country_province" Member="country" ThisKey="CountryId" OtherKey="Id" Type="country" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.role" Member="roles">
+    <Type Name="role">
+      <Column Name="role_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="value" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="role_user" Member="users" ThisKey="role_id" OtherKey="role_id" Type="user" />
+    </Type>
+  </Table>
+  <Table Name="dbo.shipping_status" Member="shipping_status">
+    <Type Name="shipping_status">
+      <Column Name="shipping_status_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="shipping_status_description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="shipping_status_transport" Member="transports" ThisKey="shipping_status_id" OtherKey="shipping_status_id" Type="transport" />
+    </Type>
+  </Table>
+  <Table Name="dbo.standard_for_shipping" Member="standard_for_shippings">
+    <Type Name="standard_for_shipping">
+      <Column Name="standard_for_shipping_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="standard_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="standard_for_shipping_cost_of_local_shipping" Member="cost_of_local_shippings" ThisKey="standard_for_shipping_id" OtherKey="standard_for_shipping_id" Type="cost_of_local_shipping" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_banner" Member="store_banners">
+    <Type Name="store_banner">
+      <Column Name="store_banner_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="main_text" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="child_text" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="is_showing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="video_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_branch" Member="store_branches">
+    <Type Name="store_branch">
+      <Column Name="store_branch_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="store_branch_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="store_branch_summary" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="store_branch_content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="store_branch_address" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="store_branch_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="store_branch_icon" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="store_branch_work_time" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="store_branch_work_day" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="store_branch_hotline_1" Type="System.String" DbType="NChar(15)" CanBeNull="true" />
+      <Column Name="store_branch_hotline_2" Type="System.String" DbType="NChar(15)" CanBeNull="true" />
+      <Column Name="store_branch_email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="store_branch_lat" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="store_branch_long" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_contact" Member="store_contacts">
+    <Type Name="store_contact">
+      <Column Name="store_contact_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="NChar(255)" CanBeNull="true" />
+      <Column Name="working_day" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="working_hour" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="map" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_customer_say" Member="store_customer_says">
+    <Type Name="store_customer_say">
+      <Column Name="store_customer_say_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="cname" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="cposition" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ccomment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="cimage" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="cimage_alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_logo" Member="store_logos">
+    <Type Name="store_logo">
+      <Column Name="store_logo_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="type_logo_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="store_type_logo_store_logo" Member="store_type_logo" ThisKey="type_logo_id" OtherKey="store_type_logo_id" Type="store_type_logo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_membership" Member="store_memberships">
+    <Type Name="store_membership">
+      <Column Name="membership_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mname" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="mposition" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="mfacebook_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="mzalo_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="mtwitter_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="minstagram_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="myoutube_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="msummary" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="mavatar" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_message" Member="store_messages">
+    <Type Name="store_message">
+      <Column Name="store_message_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sender_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="sender_email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="sender_phone_number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="sender_subject" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="sender_message" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="reading_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_partner" Member="store_partners">
+    <Type Name="store_partner">
+      <Column Name="store_partner_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="link_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_slide" Member="store_slides">
+    <Type Name="store_slide">
+      <Column Name="store_slide_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="alt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="main_text" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="child_text_1" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="child_text_2" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="link_url" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="is_showing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.store_type_logo" Member="store_type_logos">
+    <Type Name="store_type_logo">
+      <Column Name="store_type_logo_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="store_type_logo_store_logo" Member="store_logos" ThisKey="store_type_logo_id" OtherKey="type_logo_id" Type="store_logo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.super_sale" Member="super_sales">
+    <Type Name="super_sale">
+      <Column Name="super_sale_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="super_sale_last_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="product_super_sale" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.supplier" Member="suppliers">
+    <Type Name="supplier">
+      <Column Name="supplier_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="supplier_name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="supplier_address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="supplier_phone_number" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="supplier_email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="supplier_image" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Column Name="date_of_contract" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="supplier_product" Member="products" ThisKey="supplier_id" OtherKey="supplier_id" Type="product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.support_online" Member="support_onlines">
+    <Type Name="support_online">
+      <Column Name="support_online_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fullname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="skype" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="facebook_link" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.system_log" Member="system_logs">
+    <Type Name="system_log">
+      <Column Name="system_log_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="system_log_description" Type="System.String" DbType="NVarChar(550) NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="system_log_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="system_log_url" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="system_log_object_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="user_system_log" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.system_notification" Member="system_notifications">
+    <Type Name="system_notification">
+      <Column Name="system_notification_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="system_notification_title" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="system_notification_create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="system_notification_url_obj" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag" Member="tags">
+    <Type Name="tag">
+      <Column Name="tag_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tag_name" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="tag_tag_blog" Member="tag_blogs" ThisKey="tag_id" OtherKey="tag_id" Type="tag_blog" />
+      <Association Name="tag_tag_category" Member="tag_categories" ThisKey="tag_id" OtherKey="tag_id" Type="tag_category" />
+      <Association Name="tag_tag_customer" Member="tag_customers" ThisKey="tag_id" OtherKey="tag_id" Type="tag_customer" />
+      <Association Name="tag_tag_product" Member="tag_products" ThisKey="tag_id" OtherKey="tag_id" Type="tag_product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag_blog" Member="tag_blogs">
+    <Type Name="tag_blog">
+      <Column Name="tag_blog_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tag_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="blog_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="blog_tag_blog" Member="blog" ThisKey="blog_id" OtherKey="blog_id" Type="blog" IsForeignKey="true" />
+      <Association Name="tag_tag_blog" Member="tag" ThisKey="tag_id" OtherKey="tag_id" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag_category" Member="tag_categories">
+    <Type Name="tag_category">
+      <Column Name="tag_category_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tag_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="category_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="category_tag_category" Member="category" ThisKey="category_id" OtherKey="category_id" Type="category" IsForeignKey="true" />
+      <Association Name="tag_tag_category" Member="tag" ThisKey="tag_id" OtherKey="tag_id" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag_customer" Member="tag_customers">
+    <Type Name="tag_customer">
+      <Column Name="tag_customer_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tag_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="customer_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="customer_tag_customer" Member="customer" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
+      <Association Name="tag_tag_customer" Member="tag" ThisKey="tag_id" OtherKey="tag_id" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tag_product" Member="tag_products">
+    <Type Name="tag_product">
+      <Column Name="tag_product_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tag_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="product_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="product_tag_product" Member="product" ThisKey="product_id" OtherKey="product_id" Type="product" IsForeignKey="true" />
+      <Association Name="tag_tag_product" Member="tag" ThisKey="tag_id" OtherKey="tag_id" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.transport" Member="transports">
+    <Type Name="transport">
+      <Column Name="transport_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="order_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="get_cost_cod" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="shipping_fee" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="shipping_status_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="transport_description" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="package_lenght" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="package_width" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="package_height" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="package_weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="get_money_status_id" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="waybill_code" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="compare_waybill_code_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="user_id_create" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="warehouse_to_get" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="transport_method" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="transport_service" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="allow_check_product" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="user_id_update" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="update_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="transport_transport_log" Member="transport_logs" ThisKey="transport_id" OtherKey="transport_id" Type="transport_log" />
+      <Association Name="order_transport" Member="order" ThisKey="order_id" OtherKey="order_id" Type="order" IsForeignKey="true" />
+      <Association Name="shipping_status_transport" Member="shipping_status" ThisKey="shipping_status_id" OtherKey="shipping_status_id" Type="shipping_status" IsForeignKey="true" />
+      <Association Name="user_transport" Member="user" ThisKey="user_id_create" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="user_transport1" Member="user1" ThisKey="user_id_update" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.transport_log" Member="transport_logs">
+    <Type Name="transport_log">
+      <Column Name="transport_log_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="transport_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="transport_log_description" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="transport_log_create_datetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="transport_transport_log" Member="transport" ThisKey="transport_id" OtherKey="transport_id" Type="transport" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.type_of_category" Member="type_of_categories">
+    <Type Name="type_of_category">
+      <Column Name="type_of_category_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type_of_category_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="show_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="create_datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="type_of_category_category" Member="categories" ThisKey="type_of_category_id" OtherKey="type_of_category_id" Type="category" />
+    </Type>
+  </Table>
+  <Table Name="dbo.unit" Member="units">
+    <Type Name="unit">
+      <Column Name="unit_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="unit_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="unit_product" Member="products" ThisKey="unit_id" OtherKey="unit_id" Type="product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[user]" Member="users">
+    <Type Name="user">
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="firstname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="lastname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="phone_number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="gender_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="role_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="address_detail" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="join_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="province_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="district_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ward_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="avatar" Type="System.String" DbType="NVarChar(550)" CanBeNull="true" />
+      <Association Name="user_blog" Member="blogs" ThisKey="user_id" OtherKey="user_id" Type="blog" />
+      <Association Name="user_cart_of_user" Member="cart_of_users" ThisKey="user_id" OtherKey="user_id" Type="cart_of_user" />
+      <Association Name="user_cart_of_user1" Member="cart_of_users1" ThisKey="user_id" OtherKey="user_id" Type="cart_of_user" />
+      <Association Name="user_category" Member="categories" ThisKey="user_id" OtherKey="user_id" Type="category" />
+      <Association Name="user_customer" Member="customers" ThisKey="user_id" OtherKey="user_id" Type="customer" />
+      <Association Name="user_order" Member="orders" ThisKey="user_id" OtherKey="user_id_create" Type="order" />
+      <Association Name="user_order1" Member="orders1" ThisKey="user_id" OtherKey="user_id_update" Type="order" />
+      <Association Name="user_order2" Member="orders2" ThisKey="user_id" OtherKey="user_id_create" Type="order" />
+      <Association Name="user_page" Member="pages" ThisKey="user_id" OtherKey="user_id_create" Type="page" />
+      <Association Name="user_page1" Member="pages1" ThisKey="user_id" OtherKey="user_id_update" Type="page" />
+      <Association Name="user_payment_information" Member="payment_informations" ThisKey="user_id" OtherKey="user_id" Type="payment_information" />
+      <Association Name="user_product" Member="products" ThisKey="user_id" OtherKey="user_id" Type="product" />
+      <Association Name="user_system_log" Member="system_logs" ThisKey="user_id" OtherKey="user_id" Type="system_log" />
+      <Association Name="user_transport" Member="transports" ThisKey="user_id" OtherKey="user_id_create" Type="transport" />
+      <Association Name="user_transport1" Member="transports1" ThisKey="user_id" OtherKey="user_id_update" Type="transport" />
+      <Association Name="user_user_group_action" Member="user_group_actions" ThisKey="user_id" OtherKey="user_id" Type="user_group_action" />
+      <Association Name="district_user" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
+      <Association Name="gender_user" Member="gender" ThisKey="gender_id" OtherKey="gender_id" Type="gender" IsForeignKey="true" />
+      <Association Name="province_user" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+      <Association Name="role_user" Member="role" ThisKey="role_id" OtherKey="role_id" Type="role" IsForeignKey="true" />
+      <Association Name="ward_user" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_group_action" Member="user_group_actions">
+    <Type Name="user_group_action">
+      <Column Name="user_group_action_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="group_action_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="group_action_user_group_action" Member="group_action" ThisKey="group_action_id" OtherKey="group_action_id" Type="group_action" IsForeignKey="true" />
+      <Association Name="user_user_group_action" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

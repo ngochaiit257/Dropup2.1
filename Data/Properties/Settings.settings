@@ -418,5 +418,21 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=112.78.2.73,1433;Initial Catalog=bun53642_bunnydb;Persist Security Info=True;User ID=bun53642_haiit;Password=Ngochaiit257!</Value>
     </Setting>
+    <Setting Name="BachGiaiClinicConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BachGiaiClinic;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BachGiaiClinic;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="dak00318_dakhoabachgiaidbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.73,1433;Initial Catalog=dak00318_dakhoabachgiaidb;Persist Security Info=True;User ID=dak00318_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.73,1433;Initial Catalog=dak00318_dakhoabachgiaidb;Persist Security Info=True;User ID=dak00318_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

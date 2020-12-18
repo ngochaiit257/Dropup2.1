@@ -38,7 +38,7 @@
 <!-- end row -->
 
 <div class="row">
-    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
         <div class="card card-statistics" id="div_page_info">
             <div class="card-header">
                 <div class="card-heading">
@@ -304,8 +304,8 @@
 <div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
     <div class="col-12" style="margin-top: 15px;">
         <div class="pb-2" style="text-align:right">
-            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy</a>
-            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert" onclick="insertPage()">Xác nhận</a>
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy</button>
+            <button class="btn btn-primary" id="btn_insert" onclick="insertPage()">Xác nhận</button>
         </div>
     </div>
 </div>
@@ -617,7 +617,11 @@
             url: '@Url.Action("InsertPage", "Page", null)',
             data: fileData,
             processData: false,
-            contentType: false,
+                contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang tạo danh mục...");
+                },
                 success: function (data) {
                     var date_obj = new Date();
                     var minutes = 30;
@@ -626,11 +630,15 @@
                     var url = '/Page/PageDetail?id=' + data.page_id;
                     window.location.href = url;
             },
-            error: function (xhr) {
-                toastError();
-                $("html, body").animate({ scrollTop: 0 }, 600);
-            }
-        });
+                error: function (xhr) {
+                    toastError();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                },
+                complete: function (xhr, status) {
+                    $('#btn_insert').prop('disabled', false);
+                    $('#btn_insert').text("Xác nhận");
+                }
+            });
         }
     }
 

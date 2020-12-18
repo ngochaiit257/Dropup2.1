@@ -1,0 +1,62 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "DoiNguBacSi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_nhan_su = new StoreMembershipProvider().getAll();
+}
+
+<!-- Start Reviews Area -->
+<section class="reviews-area ptb-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="dashboard-profile">
+                    <div class="profile-box">
+                        <img src="../Assets/img/profile.jpg" alt="image">
+
+                        <div class="profile-designation">
+                            <h3>Dr. Addison Smith</h3>
+                            <p>MBBS, M.D of Medicine</p>
+                            <span>BDS, FCPS (Hons), Ph.D. (USA)</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-12">
+                <div class="reviews-list">
+                    @foreach (var ns in list_nhan_su)
+                    {
+                        <div class="reviews-box">
+                            <div class="image-box">
+                                <img src="@urlCMS/@ns.mavatar" alt="@ns.mname">
+                            </div>
+
+                            <div class="reviews-content">
+                                <h3>@ns.mname</h3>
+                                <span>@ns.mposition</span>
+                                <p>@ns.msummary</p>
+                                <a href="#" class="reply-btn">Đặt lịch tư vấn</a>
+                                <div class="rating">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Reviews Area -->

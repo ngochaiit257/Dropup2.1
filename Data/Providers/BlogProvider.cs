@@ -177,6 +177,18 @@ namespace Data.Providers
             }
         }
 
+        public List<blog> getByCategoryIdShowing(long blog_category_id)
+        {
+            try
+            {
+                return db.blogs.Where(b => b.blog_category.blog_category_id == blog_category_id && b.status == true && b.show_datetime <= DateTime.Now).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -379,6 +391,18 @@ namespace Data.Providers
             catch
             {
                 return false;
+            }
+        }
+
+        public List<blog> getNewest()
+        {
+            try
+            {
+                return getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+            }
+            catch
+            {
+                return null;
             }
         }
     }

@@ -1,0 +1,69 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "DoiNguBacSi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_nhan_su = new StoreMembershipProvider().getAll();
+}
+<!-- Start Main Banner Area -->
+<div class="main-banner">
+    <div class="main-banner-slider owl-carousel owl-theme">
+        <div class="main-banner-item" style="background-image: url('../Assets/images/ads.jpg');"></div>
+        <div class="main-banner-item" style="background-image: url('../Assets/images/bn2.jpg');"></div>
+    </div>
+</div>
+<!-- End Main Banner Area -->
+<!-- Start Reviews Area -->
+<section class="reviews-area ptb-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="dashboard-profile">
+                    <div class="profile-box">
+                        <img src="../Assets/img/profile.jpg" alt="image">
+
+                        <div class="profile-designation">
+                            <h3>Đội ngũ bác sĩ</h3>
+                            <p>Phòng khám Đa khoa Bách Giai</p>
+                            <span>813 Giải Phóng - Hoàng Mai- Hà Nội</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-12">
+                <div class="reviews-list">
+                    @foreach (var ns in list_nhan_su)
+                    {
+                        <div class="reviews-box">
+                            <div class="image-box">
+                                <img src="@urlCMS/@ns.mavatar" alt="@ns.mname">
+                            </div>
+
+                            <div class="reviews-content">
+                                <h3>@ns.mname</h3>
+                                <span>@ns.mposition</span>
+                                <p>@ns.msummary</p>
+                                <a href="javascript:void(0)" class="reply-btn">Đặt lịch tư vấn</a>
+                                <div class="rating">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Reviews Area -->

@@ -3,6 +3,7 @@ D:\C# Project\DropupE2.1\HM-Media\bin\HM-Media.dll.config
 D:\C# Project\DropupE2.1\HM-Media\bin\HM-Media.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\HM-Media.pdb
 D:\C# Project\DropupE2.1\HM-Media\bin\Antlr3.Runtime.dll
+D:\C# Project\DropupE2.1\HM-Media\bin\Common.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\Data.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\Microsoft.AI.Agent.Intercept.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\Microsoft.AI.DependencyCollector.dll
@@ -25,6 +26,7 @@ D:\C# Project\DropupE2.1\HM-Media\bin\System.Web.WebPages.Deployment.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\System.Web.WebPages.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\System.Web.WebPages.Razor.dll
 D:\C# Project\DropupE2.1\HM-Media\bin\WebGrease.dll
+D:\C# Project\DropupE2.1\HM-Media\bin\Common.pdb
 D:\C# Project\DropupE2.1\HM-Media\bin\Data.pdb
 D:\C# Project\DropupE2.1\HM-Media\bin\Data.dll.config
 D:\C# Project\DropupE2.1\HM-Media\bin\PagedList.xml
@@ -48,5 +50,3 @@ D:\C# Project\DropupE2.1\HM-Media\obj\Release\HM-Media.csproj.CoreCompileInputs.
 D:\C# Project\DropupE2.1\HM-Media\obj\Release\HM-Media.csproj.CopyComplete
 D:\C# Project\DropupE2.1\HM-Media\obj\Release\HM-Media.dll
 D:\C# Project\DropupE2.1\HM-Media\obj\Release\HM-Media.pdb
-D:\C# Project\DropupE2.1\HM-Media\bin\Common.dll
-D:\C# Project\DropupE2.1\HM-Media\bin\Common.pdb

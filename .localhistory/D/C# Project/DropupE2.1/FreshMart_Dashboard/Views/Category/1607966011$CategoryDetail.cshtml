@@ -1,0 +1,853 @@
+﻿@model Data.category
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = System.Configuration.ConfigurationManager.AppSettings["urlPresentationFreshMart"];
+    DateTime current_datetime = System.DateTime.Now;
+
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>@Model.category_name</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Category/Index">Danh mục sản phẩm</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">@Model.category_name</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics" id="div_category_info">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin danh mục</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="control-label" for="label_categoryName">Tên danh mục <span class="requirement-star-text">&ast;</span></label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="category_name" name="category_name" value="@Model.category_name" placeholder="Nhập tên danh mục" onchange="checkNameCategory('@Model.category_name')">
+                                <div class="invalid-feedback" id="category_name_feedback">
+                                    Yêu cầu nhập tên danh mục.
+                                </div>
+                                <div class="invalid-feedback" id="category_name_check_duplicate_false">
+                                    Tên danh mục đã có trong cơ sở dữ liệu. Vui lòng chọn tên khác.
+                                </div>
+                                <div class="valid-feedback" id="category_name_check_duplicate_true">
+                                    Tên danh mục có thể sử dụng được.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="label_categoryName">Mô tả</label>
+                            <div class="mb-2">
+                                <div id="summernote" class="summernote">@Html.Raw(Model.description)</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Xem trước kết quả tìm kiếm</h4>
+                        </div>
+                        <div class="col-md-6 div-card-title-right">
+                            <a class="card-title text-primary" href="javascript:void(0)" id="seo_custom"><i class="fa fa-pencil"></i>&nbsp; Tùy chỉnh SEO</a>
+                        </div>
+                    </div>
+                    <div class="note-for-card-title">
+                        <a id="show_seo_header" class="text-info font-22 font-bold">@Model.seo_header</a><br />
+                        <a id="show_seo_alias" class="text-primary" target="_blank" href="@url/collections/@Model.seo_alias">@url/collections/@Model.seo_alias</a><br />
+                        <a id="show_seo_description">
+                            @Model.seo_description
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" id="body_of_seo_category">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_header">Tiêu đề trang</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_header"> @(70 - Model.seo_header.Length)</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" maxlength="70" value="@Model.seo_header" class="form-control" id="seo_header" name="seo_header" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_description">Thẻ mô tả</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_description"> @(320 - Model.seo_description.Length)</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <textarea class="form-control" id="seo_description" name="seo_description" rows="3" maxlength="320">@Model.seo_description</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="seo_alias">Đường dẫn / Alias</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">@url/collections/</span>
+                                </div>
+                                <input type="text" value="@Model.seo_alias" class="form-control" name="seo_alias" id="seo_alias" aria-describedby="basic-addon3" maxlength="150">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Trạng thái </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        @if (Model.status == true && current_datetime >= Model.show_datetime)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="show" value="true" checked>
+                                <label class="form-check-label" for="show">
+                                    Hiển thị
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="hidden" value="false">
+                                <label class="form-check-label" for="hidden">
+                                    Ẩn
+                                </label>
+                            </div>
+                            <div class="div_show_datetime_title" style="padding-bottom: 5px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="javascript:void:(0)" class="card-title text-primary show_datetime_title">Đặt lịch hiển thị</a>
+                                    </div>
+                                    <div class="col-md-6" style="text-align:right">
+                                        <span>
+                                            <a id="icon_remove_set_time_show" style="display:none" href="javascript:void:(0)" class="text-primary"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div_show_datetime" style="display:none">
+                                <div class="form-group">
+                                    <div class="input-group date" id="datepicker-bottom-left">
+                                        <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="category_date_to_show" name="category_date_to_show" placeholder="Nhập ngày hiển thị">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group input-append">
+                                        <input class="form-control inputmask sel-time-am" type="text" id="category_time_to_show" name="category_time_to_show" placeholder="Nhập giờ hiển thị">
+                                        <span class="input-group-addon open_clock_face">
+                                            <i class="fe fe-clock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (Model.status == true && current_datetime < Model.show_datetime)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="show" value="true">
+                                <label class="form-check-label" for="show">
+                                    Hiển thị
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="hidden" value="false" checked>
+                                <label class="form-check-label" for="hidden">
+                                    Ẩn
+                                </label>
+                            </div>
+                            <div class="div_show_datetime_title" style="padding-bottom: 5px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="javascript:void:(0)" class="card-title text-primary show_datetime_title">Đặt lịch hiển thị</a>
+                                    </div>
+                                    <div class="col-md-6" style="text-align:right">
+                                        <span>
+                                            <a id="icon_remove_set_time_show" href="javascript:void:(0)" class="text-primary"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div_show_datetime">
+                                <div class="form-group">
+                                    <div class="input-group date" id="datepicker-bottom-left">
+                                        <input value="@Model.show_datetime.Value.ToString("MM/dd/yyy")" class="form-control inputmask" data-mask="99/99/9999" type="text" id="category_date_to_show" name="category_date_to_show" placeholder="Nhập ngày hiển thị">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group input-append">
+                                        <input value="@Model.show_datetime.Value.ToString("HH:mm")" class="form-control inputmask sel-time-am" type="text" id="category_time_to_show" name="category_time_to_show" placeholder="Nhập giờ hiển thị">
+                                        <span class="input-group-addon open_clock_face">
+                                            <i class="fe fe-clock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="show" value="true">
+                                <label class="form-check-label" for="show">
+                                    Hiển thị
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="set_time_show" id="hidden" value="false" checked>
+                                <label class="form-check-label" for="hidden">
+                                    Ẩn
+                                </label>
+                            </div>
+                            <div class="div_show_datetime_title" style="padding-bottom: 5px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="javascript:void:(0)" class="card-title text-primary show_datetime_title" style="display:none">Đặt lịch hiển thị</a>
+                                    </div>
+                                    <div class="col-md-6" style="text-align:right">
+                                        <span>
+                                            <a id="icon_remove_set_time_show" style="display:none" href="javascript:void:(0)" class="text-primary"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div_show_datetime" style="display:none">
+                                <div class="form-group">
+                                    <div class="input-group date" id="datepicker-bottom-left">
+                                        <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="category_date_to_show" name="category_date_to_show" placeholder="Nhập ngày hiển thị">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group input-append">
+                                        <input class="form-control inputmask sel-time-am" type="text" id="category_time_to_show" name="category_time_to_show" placeholder="Nhập giờ hiển thị">
+                                        <span class="input-group-addon open_clock_face">
+                                            <i class="fe fe-clock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Ảnh danh mục</h4>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    @if (Model.image == null || Model.image == "")
+                    {
+                        <div class="displayImageUpload" style="display: none">
+                            <img id="pictureUpload" />
+
+                            <div class="row" id="bottomImageupload">
+                                <div class="col-md-4">
+                                    <a href="javascript:void(0);" class="text-primary" id="edit_image_btn">Tạo Alt</a>
+                                </div>
+                                <div class="col-md-4" style="text-align: center">
+                                    <label for="file">
+                                        <a class="text-primary">Đổi Ảnh</a>
+                                    </label>
+                                </div>
+                                <div class="col-md-4" style="text-align: right">
+                                    <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa Ảnh</a>
+                                </div>
+                            </div>
+
+                            <div style="display: none" id="div_alt_image">
+                                <label class="control-label" for="alt_image">Alt của hình ảnh</label>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control" id="alt_image" name="alt_image" placeholder="Nhập alt của hình ảnh">
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <input type="file" id="file" accept="image/*" hidden>
+                        </form>
+                        <div class="custom-card-body custom-file">
+                            <div>
+                                <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                            </div>
+                            <div>
+                                <label for="file" class="btn btn-warning custom-btn-file">
+                                    Upload ảnh
+                                </label>
+                            </div>
+                        </div>
+                        <div class="alert alert-icon alert-outline-danger alert_image_limit" role="alert" id="alert_image_limit">
+                            <i class="fa fa-info-circle"></i> Hình ảnh vượt giới hạn 3MB
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="displayImageUpload">
+                            <img id="pictureUpload" src="@Model.image" alt="@Model.alt_image" />
+
+                            <div class="row" id="bottomImageupload">
+                                <div class="col-md-4">
+                                    <a href="javascript:void(0);" class="text-primary" id="edit_image_btn">Sửa Alt</a>
+                                </div>
+                                <div class="col-md-4" style="text-align: center">
+                                    <label for="file">
+                                        <a class="text-primary">Đổi Ảnh</a>
+                                    </label>
+                                </div>
+                                <div class="col-md-4" style="text-align: right">
+                                    <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa Ảnh</a>
+                                </div>
+                            </div>
+
+                            <div style="display: none" id="div_alt_image">
+                                <label class="control-label" for="alt_image">Alt của hình ảnh</label>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control" id="alt_image" name="alt_image" value="@Model.alt_image" placeholder="Nhập alt của hình ảnh">
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <input type="file" id="file" accept="image/*" hidden>
+                        </form>
+                        <div class="custom-card-body custom-file" style="display:none">
+                            <div>
+                                <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                            </div>
+                            <div>
+                                <label for="file" class="btn btn-warning custom-btn-file">
+                                    Upload ảnh
+                                </label>
+                            </div>
+                        </div>
+                        <div class="alert alert-icon alert-outline-danger alert_image_limit" role="alert" id="alert_image_limit">
+                            <i class="fa fa-info-circle"></i> Hình ảnh vượt giới hạn 3MB
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Phân loại</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div>
+                            <div class="form-group bs-select-1">
+                                <label for="select_type_of_category">Loại danh mục sản phẩm</label>
+                                <select class="custom-select input_slect_border" id="select_type_of_category">
+                                    <option disabled>Chọn loại danh mục sản phẩm</option>
+                                    @if (ViewData["ListTypeOfCategory"] != null)
+                                    {
+                                        foreach (var toc in ViewData["ListTypeOfCategory"] as List<type_of_category>)
+                                        {
+                                            if (Model.type_of_category_id == toc.type_of_category_id)
+                                            {
+                                                <option value="@toc.type_of_category_id" selected>@toc.type_of_category_name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@toc.type_of_category_id">@toc.type_of_category_name</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            @if (Model.category_parent_id != null)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="check_has_category_parent" checked>
+                                    <label class="form-check-label" for="check_has_category_parent">
+                                        Danh mục này có danh mục cha
+                                    </label>
+                                </div>
+                                <div class="form-group bs-select-1">
+                                    <select class="custom-select input_slect_border" id="select_category_parent">
+                                        <option disabled>Chọn danh mục cha</option>
+                                        @if (ViewData["ListCategory"] != null)
+                                        {
+                                            foreach (var c in ViewData["ListCategory"] as List<category>)
+                                            {
+                                                if (Model.category_parent_id == c.category_id)
+                                                {
+                                                    <option value="@c.category_id" selected>@c.category_name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@c.category_id">@c.category_name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="check_has_category_parent">
+                                    <label class="form-check-label" for="check_has_category_parent">
+                                        Danh mục này có danh mục cha
+                                    </label>
+                                </div>
+                                <div class="form-group bs-select-1">
+                                    <select class="custom-select input_slect_border hidden_element" id="select_category_parent">
+                                        <option selected="" disabled>Chọn danh mục cha</option>
+                                        @if (ViewData["ListCategoryParent"] != null)
+                                        {
+                                            foreach (var c in ViewData["ListCategoryParent"] as List<category>)
+                                            {
+                                                <option value="@c.category_id">@c.category_name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Gắn thẻ danh mục</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div class="form-group mb-0 bs-select-1">
+                            <input type="text" class="bs-input" value="" placeholder="Nhập thẻ tag" data-role="tagsinput" id="tag_category" />
+                        </div>
+                    </form>
+                    <div class="list_tag mt-2" id="list_tag">
+                        @Html.Action("GetTagCategory", "Category", new { category_id = Model.category_id })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</button>
+            <button class="btn btn-primary" id="btn_insert">Cập nhật</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#category').addClass('active');
+        $(".autoNumericInput").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        if (Cookies.get("insert_category_success") != null) {
+            showToast("success", 'Danh mục đã được tạo.', "Tạo thành công");
+            Cookies.remove('insert_category_success');
+        }
+
+        $('#category_time_to_show').clockface({
+            format: 'HH:mm',
+        });
+
+        $('.open_clock_face').click(function (e) {
+            //e.stoppropagation();
+            $('#category_time_to_show').clockface('toggle');
+        });
+
+        $.fn.noMask = function (regex) {
+            this.on("keypress", function (e) {
+                if (regex.test(String.fromCharCode(e.which))) {
+                    return false;
+                }
+            });
+        }
+
+        $("#category_time_to_show").noMask(/[a-zA-Z]/);
+
+        $('form, .summernote').trigger("reset");
+        $('#summernote').summernote({
+            followingToolbar: false,
+            height: 500,
+            toolbar: [
+                ['undo', ['undo',]],
+                ['redo', ['redo',]],
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['table', ['bootstrap-grid']],
+                ['strikethrough', ['strikethrough']],
+                ['superscript', ['superscript']],
+                ['subscript', ['subscript']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']],
+            ],
+            callbacks: {
+                onKeyup: function (e) {
+                    form_has_changed = true;
+                    var category_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+
+                    if (category_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+
+                    $('#seo_description').val(category_description.slice(0, 320));
+
+                    var textlenght = maxLengthDescription - category_description.length;
+                    $('#count_seo_description').text(textlenght);
+                    if (category_description.length > 320) {
+                        $('#count_seo_description').text("0");
+                    }
+                },
+                onPaste: function () {
+                    var category_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+                    if (category_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+                },
+            }
+        });
+    });
+
+    $('input:radio[name="set_time_show"]').change(function () {
+        if (this.checked && this.value == 'true') {
+            $('.div_show_datetime').css('display', 'none');
+            $('.show_datetime_title').css('display', 'none');
+            $('#icon_remove_set_time_show').css('display', 'none');
+        }
+        else {
+            //$('.div_show_datetime').css('display', 'block');
+            $('.show_datetime_title').css('display', 'block');
+        }
+    });
+
+    $('.show_datetime_title').click(function () {
+        $('#icon_remove_set_time_show').css('display', 'block');
+        $('.div_show_datetime').css('display', 'block');
+    });
+
+    $('#icon_remove_set_time_show').click(function () {
+        $('.div_show_datetime').css('display', 'none');
+        $('#icon_remove_set_time_show').css('display', 'none');
+
+        $('form#div_show_datetime_title').trigger("reset");
+    });
+
+    function imageIsLoaded(e) {
+        $('#pictureUpload').attr('src', e.target.result);
+        $('.displayImageUpload').css({
+            display: 'block',
+        });
+        $('.custom-card-body').css({
+            display: 'none'
+        });
+    };
+
+    var form_has_changed = false;
+    var status_image_change = false;
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+                form_has_changed = true;
+                status_image_change = true;
+            }
+        });
+    });
+
+    function deleteImg() {
+        $('.displayImageUpload').css({
+            display: 'none',
+        });
+        $('.custom-card-body').css({
+            display: 'block'
+        });
+        $('#file').val("");
+        $("#pictureUpload").attr("src", "");
+        status_image_change = true;
+    }
+
+    $('#edit_image_btn').click(function () {
+        $('#div_alt_image').css('display', 'block');
+    });
+
+
+    $('#check_has_category_parent').change(function () {
+        if (this.checked) {
+            $('#select_category_parent').removeClass('hidden_element');
+        } else {
+            $('#select_category_parent').addClass('hidden_element');
+        }
+    });
+
+    var checkDupplicated = false;
+    function checkNameCategory(old_name) {
+        var category_name = $("#category_name").val().trim();
+        if (category_name == old_name) {
+            $("#category_name").removeClass('is-invalid');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'none');
+            $("#category_name_feedback").css('display', 'none');
+        }
+        else {
+            if ((category_name == null || category_name == "")) {
+                $("#category_name_feedback").css('display', 'block');
+                $("#category_name").addClass('is-invalid');
+                $("#category_name_check_duplicate_true").css('display', 'none');
+                $("#category_name_check_duplicate_false").css('display', 'none');
+            }
+            else {
+                $.ajax({
+                    url: "/Category/checkDuplicate",
+                    data: {
+                        category_name: category_name,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        if (data != "True") {
+                            checkDupplicated = false;
+                            $("#category_name").removeClass('is-invalid');
+                            $("#category_name").addClass('is-valid');
+                            $("#category_name_check_duplicate_true").css('display', 'block');
+                            $("#category_name_check_duplicate_false").css('display', 'none');
+                            $("#category_name_feedback").css('display', 'none');
+                        }
+                        else {
+                            checkDupplicated = true;
+                            $("#category_name").removeClass('is-valid');
+                            $("#category_name").addClass('is-invalid');
+                            $("#category_name_check_duplicate_true").css('display', 'none');
+                            $("#category_name_check_duplicate_false").css('display', 'block');
+                            $("#category_name_feedback").css('display', 'none');
+                        }
+                    },
+                    error: function (xhr, status) {
+                        $("#valid-feedback").val("Lỗi");
+                    },
+                    complete: function (xhr, status) {
+                        //$('#showresults').slideDown('slow')
+                    }
+                });
+            }
+        }
+
+    }
+
+    var maxLength = 70;
+    $('input[id=category_name]').keyup(function () {
+        var category_name = $('#category_name').val().trim();
+
+        $("#seo_header").val(category_name.slice(0, 70));
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+        if (category_name.length > 70) {
+            $('#count_seo_header').text("0");
+        }
+
+        $("#seo_alias").val(ConvertToSeoTitle(category_name));
+        $("#alt_image").val(ConvertToSeoTitle(category_name));
+        $("#category_name").removeClass('is-invalid');
+        $("#category_name").removeClass('is-valid');
+
+        $("#category_name_check_duplicate_true").css('display', 'none');
+        $("#category_name_check_duplicate_false").css('display', 'none');
+
+        $("#category_name_feedback").css('display', 'none');
+    });
+
+    $('input[id=seo_header]').keyup(function () {
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+    });
+
+    var maxLengthDescription = 320;
+    $('textarea#seo_description').keyup(function () {
+        var textlenght = maxLengthDescription - $('textarea#seo_description').val().length;
+        $('#count_seo_description').text(textlenght);
+    });
+
+    $('#btn_insert').click(function () {
+        var category_name = $('#category_name').val().trim();
+        if (category_name == null || category_name == "") {
+            $("#category_name_feedback").css('display', 'block');
+            $("#category_name").addClass('is-invalid');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'none');
+            $("html, body").animate({ scrollTop: 0 }, 600);
+        }
+        else if (checkDupplicated == true) {
+            $("#category_name_feedback").css('display', 'none');
+            $("#category_name").addClass('is-invalid');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'block');
+            $("html, body").animate({ scrollTop: 0 }, 600);
+        }
+        else {
+            $("#category_name_feedback").css('display', 'none');
+            $("#category_name_check_duplicate_true").css('display', 'none');
+            $("#category_name_check_duplicate_false").css('display', 'none');
+            $("#category_name").removeClass('is-invalid');
+            $("#category_name").removeClass('is-valid');
+            var fileData = new FormData();
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+            var list_tag_category = $("#tag_category").tagsinput('items');
+
+            for (var i = 0; i < list_tag_category.length; i++) {
+                fileData.append("tags[" + i + "]", list_tag_category[i]);
+            }
+            if (files[0] != null) {
+                fileData.append("category_image", files[0]);
+            }
+            fileData.append("category_name", $("#category_name").val().trim());
+            fileData.append("category_id", @Model.category_id);
+            fileData.append("description", $('#summernote').summernote('code'));
+            fileData.append("seo_alias", $("#seo_alias").val());
+            fileData.append("seo_description", $("#seo_description").val());
+            fileData.append("seo_header", $("#seo_header").val());
+            fileData.append("alt_image", $("#alt_image").val());
+            fileData.append("type_of_category_id", $("#select_type_of_category").val());
+            fileData.append("status_image_change", status_image_change);
+            if ($('#check_has_category_parent').is(':checked') && $('#select_category_parent').val() != null) {
+                fileData.append("category_parent_id", $("#select_category_parent").val());
+            }
+
+            //Set time show
+            var is_showing = true;
+            if ($("input[name='set_time_show']:checked").val() == "false" || $("input[name='set_time_show']:checked").val() == false) {
+                is_showing = false;
+                fileData.append("is_showing", is_showing);
+                fileData.append("category_date_to_show", $("#category_date_to_show").val().trim());
+                fileData.append("category_time_to_show", $('#category_time_to_show').val());
+            }
+            else {
+                fileData.append("is_showing", is_showing);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateCategory", "Category", null)',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang cập nhật...");
+                },
+                success: function (data) {
+                    $('#show_seo_header').text($('#seo_header').val());
+                    $('#show_seo_description').text($('#seo_description').val());
+                    $('#show_seo_alias').text('@ViewBag.PrefixUrl' + "/collections/" + $('#seo_alias').val());
+                    $('#show_seo_alias').attr('href','@ViewBag.PrefixUrl' + "/collections/" + $('#seo_alias').val());
+                    $('#tag_category').tagsinput('removeAll');
+                    updateTagCategory(@Model.category_id);
+                    showToast("success", 'Danh mục đã được cập nhật.', "Cập nhật thành công");
+                },
+                error: function (xhr) {
+                    toastError();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                }
+            });
+        }
+    });
+
+    function updateTagCategory(category_id) {
+        $.ajax({
+            url: '@Url.Action("GetTagCategory", "Category")',
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            data: { category_id: category_id },
+            success: function (result) {
+                $('#list_tag').html(result);
+            } 
+        });
+    }
+</script>

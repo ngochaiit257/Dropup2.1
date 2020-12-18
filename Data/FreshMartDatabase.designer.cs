@@ -22,7 +22,7 @@ namespace Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="hmm85459_hmmediadb")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Elysien")]
 	public partial class FreshMartDatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -261,7 +261,7 @@ namespace Data
     #endregion
 		
 		public FreshMartDatabaseDataContext() : 
-				base(global::Data.Properties.Settings.Default.hmm85459_hmmediadbConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.ElysienConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

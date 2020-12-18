@@ -22,7 +22,7 @@
             <th scope="col">Giá bán</th>
             <th scope="col" hidden>Giá thuê/Ngày</th>
             <th scope="col">Số lượng</th>
-            <th scope="col">Action</th>
+            @*<th scope="col">Action</th>*@
         </tr>
     </thead>
     <tbody>
@@ -102,13 +102,13 @@
                             }
                         </div>
                     </td>
-                    <td>
+                    @*<td>
                         <a href="javascript:void(0);" class="btn btn-icon btn-primary" onclick="showModalEditProductVariation('@pv.product_variation_id')"><i class="fa fa-edit"></i></a>
                         @if (Model.Count > 1)
                         {
                             <a href="javascript:void(0);" class="btn btn-icon btn-secondary" onclick="showModalDeleteProductVariation('@pv.product_variation_id')"><i class="fa fa-trash"></i></a>
                         }
-                    </td>
+                    </td>*@
                 </tr>
             }
         }

@@ -1124,7 +1124,7 @@ namespace Data.Providers
             try
             {
                 var model = getById(product_id);
-                if(model.warehouse_management_status != status)
+                if (model.warehouse_management_status != status)
                 {
                     model.warehouse_management_status = status;
                 }
@@ -1136,5 +1136,76 @@ namespace Data.Providers
                 return false;
             }
         }
+
+        public bool updatePriceForAll(long product_id, decimal new_price, decimal price_comparision)
+        {
+            try
+            {
+                var product = getById(product_id);
+                var list_pv = db.product_variations.Where(pv => pv.product_id == product_id).ToList();
+
+                if (new_price >= 0)
+                {
+                    product.promotion_price = new_price;
+                    foreach (var pv in list_pv)
+                    {
+                        pv.product_variation_price = new_price;
+                    }
+                }
+
+                if (price_comparision > 0)
+                {
+                    product.price = price_comparision;
+                    foreach (var pv in list_pv)
+                    {
+                        pv.product_variation_price_comparison = price_comparision;
+                    }
+                }
+                else
+                {
+                    product.price = null;
+                    foreach (var pv in list_pv)
+                    {
+                        pv.product_variation_price_comparison = null;
+                    }
+                }
+
+                db.SubmitChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //Bách Giai clinic
+        public List<product> getByCategoryIdOnSiteBachGiai(long category_id)
+        {
+            try
+            {
+                var list_return = new List<product>();
+                var list_category_product = db.category_products.Where(cp => cp.category.category_id == category_id).ToList();
+                foreach (var obj in list_category_product)
+                {
+                    foreach (var product in getAll())
+                    {
+                        if (product.show_datetime <= DateTime.Now && product.status == true && product.product_id == obj.product_id)
+                        {
+                            if (!list_return.Contains(product))
+                            {
+                                list_return.Add(product);
+                            }
+                        }
+                    }
+                }
+                return list_return;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

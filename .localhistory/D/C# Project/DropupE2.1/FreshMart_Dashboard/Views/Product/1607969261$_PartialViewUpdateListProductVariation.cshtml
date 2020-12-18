@@ -1,0 +1,189 @@
+﻿@model List<product_variation>
+@using Data;
+@using Data.Providers;
+
+<table class="table table-hover mb-0">
+    <thead>
+        <tr>
+            <th scope="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="true" id="check_all_element_variation">
+                    <label class="form-check-label" for="check_all_element_variation">
+
+                    </label>
+                </div>
+            </th>
+            <th scope="col"></th>
+            @foreach (var item in ViewData["list_product_variation_property"] as List<product_variation_property>)
+            {
+                <th scope="col">@item.product_variation_property_name</th>
+            }
+            <th scope="col">Mã sản phẩm</th>
+            <th scope="col">Giá bán</th>
+            <th scope="col" hidden>Giá thuê/Ngày</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            foreach (var pv in Model)
+            {
+                <tr>
+                    <th align="center">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@pv.product_variation_id" id="Check_@pv.product_variation_id" style="border: 1px solid #dee2e6;">
+                            <label class="form-check-label checkbox-table check-table" for="Check_@pv.product_variation_id"></label>
+                        </div>
+                    </th>
+                    <td>
+                        <input onchange="img_pv_change('@pv.product_variation_id')" type="file" style="display: none" accept="image/gif, image/jpeg, image/jpg, image/png" id="file_img_product_variation_@pv.product_variation_id" />
+                        <label for="file_img_product_variation_@pv.product_variation_id" style="cursor: pointer;" data-toggle="tooltip" data-original-title="Click để thay hình ảnh" class="tooltip-wrapper" data-placement="top">
+                            <span id="append_img_product_variation_@pv.product_variation_id">
+                                @if (pv.product_variation_image != null)
+                                {
+                                    <img id="img_product_variation_@pv.product_variation_id" alt="@pv.product_variation_image_alt" src="@pv.product_variation_image" style="background-color: hsl(210, 8%, 90%); object-fit:contain" class="img-fluid bg-img" />
+                                    <a onclick="remove_img_pv('@pv.product_variation_id')" data-toggle="tooltip" data-original-title="Xóa hình ảnh" data-placement="top" class="text-primary tooltip-wrapper" id="remove_img_product_variation_@pv.product_variation_id" href="javascript:void(0)" style="position: absolute; left: 135px;"><i class="fa fa-times-circle"></i></a>
+                                }
+                                else
+                                {
+                                    <img id="img_product_variation_@pv.product_variation_id" src="../Assets/images/Icon/iconImg.png" style="background-color: hsl(210, 8%, 90%);object-fit:contain" class="img-fluid bg-img" />
+                                }
+                            </span>
+                        </label>
+                    </td>
+                    @foreach (var ev in new ElementVariationProvider().getByProductVariationId(pv.product_variation_id))
+                    {
+                        <td>
+                            <div class="mb-2">
+                                <input type="text" maxlength="255" class="form-control" placeholder="Tên thuộc tính" id="input_ev_name_@ev.element_variation_id" value="@ev.element_variation_name">
+                            </div>
+                        </td>
+                    }
+                    <td>
+                        <div class="mb-2">
+                            <input type="text" maxlength="255" class="form-control" placeholder="Mã sản phẩm" id="input_product_variation_code_@pv.product_variation_id" value="@pv.product_variation_code">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-2">
+                            @if (pv.product_variation_price != null)
+                            {
+                                <input type="text" class="showNumeric form-control" placeholder="₫" id="input_product_variation_price_@pv.product_variation_id" value="@pv.product_variation_price">
+                            }
+                            else
+                            {
+                                <input type="text" class="showNumeric form-control" placeholder="--- ₫" id="input_product_variation_price_@pv.product_variation_id" value="">
+                            }
+                        </div>
+                    </td>
+                    <td hidden>
+                        <div class="mb-2">
+                            @if (pv.product_variation_rent_cost != null)
+                            {
+                                <input type="text" class="showNumeric form-control" placeholder="₫" id="input_product_variation_rent_cost_@pv.product_variation_id" value="@pv.product_variation_rent_cost">
+                            }
+                            else
+                            {
+                                <input type="text" class="showNumeric form-control" placeholder="--- ₫" id="input_product_variation_rent_cost_@pv.product_variation_id" value="">
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="mb-2">
+                            @if (pv.product_variation_in_stock != null)
+                            {
+                                <input type="number" min="0" max="100000000000" maxlength="255" class="form-control" placeholder="" id="input_product_variation_in_stock_@pv.product_variation_id" value="@pv.product_variation_in_stock">
+                            }
+                            else
+                            {
+                                <input title="Không quản lý số lượng tồn kho" type="number" min="0" max="100000000000" maxlength="255" class="form-control" placeholder="---" id="input_product_variation_in_stock_@pv.product_variation_id" value="">
+                            }
+                        </div>
+                    </td>
+                    @*<td>
+                        <a href="javascript:void(0);" class="btn btn-icon btn-primary" onclick="showModalEditProductVariation('@pv.product_variation_id')"><i class="fa fa-edit"></i></a>
+                        @if (Model.Count > 1)
+                        {
+                            <a href="javascript:void(0);" class="btn btn-icon btn-secondary" onclick="showModalDeleteProductVariation('@pv.product_variation_id')"><i class="fa fa-trash"></i></a>
+                        }
+                    </td>*@
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Product/GetArrayProductVariationId",
+            data: {
+                product_id: product_id_start
+            },
+            context: document.body,
+            type: "GET",
+            success: function (data) {
+                list_product_variation_id = data.get_list_pv_id;
+                list_pv_model = data.list_pv_model;
+            },
+            error: function (xhr) {
+                toastError()
+            }
+        });
+
+
+    });
+
+    var product_id_start = @ViewBag.ProductId;
+    var list_product_variation_id = [];
+    var list_pv_model = [];
+    var list_pv_id_changed_image = [];
+
+    function getListEVID(product_variation_id) {
+        var list_return = [];
+        $.each(list_pv_model, function (key, value_item) {
+            if (product_variation_id == value_item.product_variation_id) {
+                list_return = value_item.get_list_ev;
+            }
+        });
+        return list_return;
+    }
+
+    function img_pv_change(id_item) {
+        var files = $("#file_img_product_variation_" + id_item).get(0).files;
+        if (files[0].size <= (3 * 1048576)) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(files[0]);
+            $('#remove_img_product_variation_' + id_item).remove();
+            $('#append_img_product_variation_' + id_item).append('<a onclick="remove_img_pv(' + id_item + ')" class="text-primary" data-placement="top" id="remove_img_product_variation_' + id_item + '" href="javascript:void(0)" style="position: absolute; left: 135px;"><i class="fa fa-times-circle"></i></a>');
+            $('#img_product_variation_' + id_item).css({ border: '1px solid rgba(0,0,0,.125)' });
+
+            //Image Product Variation
+            function imageIsLoaded(e) {
+                $('#img_product_variation_' + id_item).attr('src', e.target.result);
+            };
+
+            if (!findValueInArrayProductVariationId(id_item, list_pv_id_changed_image)) {
+                list_pv_id_changed_image.push(id_item);
+            }
+        }
+        else {
+            showToast("error", "Hình ảnh vượt quá kích thước cho phép. Giới hạn là 3Mb.", "Lỗi upload hình ảnh");
+            $('#img_product_variation_' + id_item).css({ border: '1px solid #e3324c' });
+        }
+
+    }
+
+    function remove_img_pv(id_item) {
+        $('#file_img_product_variation_' + id_item).val("");
+        $("#img_product_variation_" + id_item).attr("src", "../Assets/images/Icon/iconImg.png");
+        $('#remove_img_product_variation_' + id_item).remove();
+    }
+
+
+
+</script>

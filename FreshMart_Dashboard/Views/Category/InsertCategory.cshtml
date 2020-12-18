@@ -407,8 +407,8 @@
 <div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
     <div class="col-12" style="margin-top: 15px;">
         <div class="pb-2" style="text-align:right">
-            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</a>
-            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert">Xác nhận</a>
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</button>
+            <button class="btn btn-primary" id="btn_insert">Xác nhận</button>
         </div>
     </div>
 </div>
@@ -889,6 +889,10 @@
                 data: fileData,
                 processData: false,
                 contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang tạo danh mục...");
+                },
                 success: function (data) {
                      //var data_json = JSON.parse(data);
                     var date_obj = new Date();
@@ -902,6 +906,10 @@
                 error: function (xhr) {
                     toastError();
                     $("html, body").animate({ scrollTop: 0 }, 600);
+                },
+                complete: function (xhr, status) {
+                    $('#btn_insert').prop('disabled', false);
+                    $('#btn_insert').text("Xác nhận");
                 }
             });
         }

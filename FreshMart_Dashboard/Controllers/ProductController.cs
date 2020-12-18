@@ -604,8 +604,17 @@ namespace DropupManagement.Controllers
                         pv_model.product_variation_price_comparison = model.price;
                         pv_model.product_variation_rent_cost = model.rent_cost;
                         pv_model.product_variation_rent_cost_comparision = model.rent_cost_promotion;
-                        pv_model.product_variation_image = path_of_product_variation_image;
-                        pv_model.product_variation_image_alt = item.product_variation_image_alt;
+                        if(path_of_product_variation_image == null || path_of_product_variation_image == "")
+                        {
+                            pv_model.product_variation_image = product.product_image;
+                            pv_model.product_variation_image_alt = product.alt_image;
+                        }
+                        else
+                        {
+                            pv_model.product_variation_image = path_of_product_variation_image;
+                            pv_model.product_variation_image_alt = item.product_variation_image_alt;
+                        }
+                        
                         pv_model.product_variation_weight = model.product_weight;
                         pv_model.allow_delivery = model.allow_delivery;
                         if (pv_model.allow_delivery == null)
@@ -1448,9 +1457,26 @@ namespace DropupManagement.Controllers
                         }
                     }
                 }
-                
+
             }
             return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdatePrice(long product_id, decimal new_price, decimal new_price_comparision)
+        {
+            if (product_provider.updatePriceForAll(product_id, new_price, new_price_comparision))
+            {
+                var product = product_provider.getById(product_id);
+                system_log system_log = new system_log();
+                system_log.system_log_description = "đã cập nhật giá cho sản phẩm " + product.product_name;
+                system_log.user_id = getUserLoged().user_id;
+                system_log.system_log_time = System.DateTime.Now;
+                system_log.system_log_url = "/Product/ProductDetail";
+                system_log.system_log_object_id = product_id;
+                system_log_provider.insertSystemLog(system_log);
+            }
+            return Json("Update Success");
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_nhan_su = new StoreMembershipProvider().getAll();
+
+}
+
+<h2>Index</h2>
+

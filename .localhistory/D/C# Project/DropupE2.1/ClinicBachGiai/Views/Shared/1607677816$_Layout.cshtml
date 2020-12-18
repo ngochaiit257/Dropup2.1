@@ -1,0 +1,524 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    var list_benh_nam_khoa = new CategoryProvider().getListParentCategory().Where(c => (c.status == true && c.show_datetime <= DateTime.Now) && c.type_of_category_id == 1);
+    var list_benh_xa_hoi = new CategoryProvider().getListParentCategory().Where(c => (c.status == true && c.show_datetime <= DateTime.Now) && c.type_of_category_id == 2);
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+    var list_page_2 = list_page_link.Where(p => p.mount_on_header_menu_status == false && p.mount_on_footer_menu_status == false).ToList();
+}
+
+<!doctype html>
+<html lang="vi">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../Assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="../Assets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="../Assets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="../Assets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="../Assets/css/flaticon.css">
+    <!-- Odometer Min CSS -->
+    <link rel="stylesheet" href="../Assets/css/odometer.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="../Assets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="../Assets/css/owl.theme.default.min.css">
+    <!-- Popup CSS -->
+    <link rel="stylesheet" href="../Assets/css/magnific-popup.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="../Assets/css/nice-select.css">
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="../Assets/css/datetimepicker.min.css">
+    <!-- Month CSS -->
+    <link rel="stylesheet" href="../Assets/css/month.min.css">
+    <!-- Imagelightbox CSS -->
+    <link rel="stylesheet" href="../Assets/css/imagelightbox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../Assets/css/style.css">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../Assets/css/responsive.css">
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="icon" type="image/png" href="@urlCMS/@favicon.image">
+
+    
+</head>
+
+<body>
+    <!-- Start Top Bar Area -->
+    <div class="top-bar-area bg-color">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12">
+                    <ul class="top-bar-information">
+                        <li>
+                            <marquee style="margin-top: 5px;">Địa chỉ: 813 Giải Phóng, Quận Thanh Xuân, Thành phố Hà Nội</marquee>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <ul class="top-bar-optional">
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-pinterest-alt'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Bar Area -->
+
+    <div class="">
+        <div class="main-nav-custom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-6 col-md-6 logo-header-custom">
+                        <a class="navbar-brand" href="/">
+                            <img class="logo" src="@urlCMS/@logo_header.image" alt="@logo_header.alt" />
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-lg-3 col-md-6 cf-div hidden-sm hidden-xs">
+                        <div class="">
+                            <div class="cf-img">
+                                <img src="~/Assets/images/icon-time.png" />
+                            </div>
+                            <div class="contact-custom">
+                                <h4>Lịch Tư Vấn</h4>
+                                <h6>Thứ 2 - Thứ 7 | 8:00 - 20:00</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-lg-3 col-md-6 cf-div hidden-sm hidden-xs">
+                        <div class="">
+                            <div class="cf-img">
+                                <img src="~/Assets/images/icon-phone.png" />
+                            </div>
+                            <div class="contact-custom">
+                                <h4>Liên Hệ</h4>
+                                <h6>036 933 5252</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Navbar Area -->
+    <div class="navbar-area">
+        <div class="main-responsive-nav">
+            <div class="container">
+                <div class="main-responsive-menu">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="menu-contact menu-contact-1">
+                                <img src="~/Assets/images/icon-phone.png" />
+                                <div class="menu-contact-content">
+                                    <p>Tư vấn MIỄN PHÍ</p>
+                                    <a href="tel:0369335252" class="m-convertion">036.933.52.52</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="menu-contact menu-contact-2">
+                                <img src="~/Assets/images/icon-time.png" />
+                                <div class="menu-contact-content">
+                                    <p>Làm việc:</p>
+                                    <a>8:00 - 20:00</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link active">
+                                    <i class="flaticon-"></i> Trang chủ
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Giới thiệu
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Đội ngũ bác sĩ
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Cơ sở vật chất
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    Bệnh nam khoa
+                                    <i class='bx bx-chevron-down'></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    @foreach (var bnk in list_benh_nam_khoa)
+                                    {
+                                        var list_category_child = new CategoryProvider().getByCategoryParentId(bnk.category_id);
+                                        if (list_category_child.Count > 0)
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/category/@bnk.seo_alias" class="nav-link">
+                                                    @bnk.category_name <i class='bx bx-chevron-down'></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var cc in list_category_child)
+                                                    {
+                                                        if (cc.status == true && cc.show_datetime <= DateTime.Now)
+                                                        {
+                                                            <li class="nav-item">
+                                                                <a href="/category/@cc.seo_alias" class="nav-link">
+                                                                    @cc.category_name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/category/@bnk.seo_alias" class="nav-link">
+                                                    @bnk.category_name
+                                                </a>
+                                            </li>
+                                        }
+
+                                    }
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    Bệnh xã hội
+                                    <i class='bx bx-chevron-down'></i>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    @foreach (var bxh in list_benh_xa_hoi)
+                                    {
+                                        var list_category_child = new CategoryProvider().getByCategoryParentId(bxh.category_id);
+                                        if (list_category_child.Count > 0)
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/category/@bxh.seo_alias" class="nav-link">
+                                                    @bxh.category_name <i class='bx bx-chevron-down'></i>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach (var cc in list_category_child)
+                                                    {
+                                                        if (cc.status == true && cc.show_datetime <= DateTime.Now)
+                                                        {
+                                                            <li class="nav-item">
+                                                                <a href="/category/@cc.seo_alias" class="nav-link">
+                                                                    @cc.category_name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/category/@bxh.seo_alias" class="nav-link">
+                                                    @bxh.category_name
+                                                </a>
+                                            </li>
+                                        }
+
+                                    }
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="contact.html" class="nav-link">
+                                    Liên hệ
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="others-options d-flex align-items-center">
+                            <div class="option-item">
+                                <a href="javascript:void(0)" class="default-btn" id="show-modal-form">ĐẶT LỊCH HẸN</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar Area -->
+    @RenderBody()
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Đặt lịch hẹn online</h4>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Tên của bạn</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên của bạn tại đây">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn tại đây">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Nhập ngày tháng</label>
+                                <input id="datetimepicker" type="text" class="form-control" placeholder="@DateTime.Now.ToString("dd.MM.yyyy")">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="default-btn" id="show-modal-form">GỬI THÔNG TIN</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Start Footer Area -->
+    <section class="footer-area bg-color pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <a href="index.html">
+                            <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt">
+                        </a>
+                        <p>Với sự nỗ lực không ngừng, Phòng khám Đa khoa Bách Giai cam kết mang đến những dịch vụ chăm sóc sức khỏe hoàn hảo nhất, xứng danh là “Nơi gửi trọn niềm tin” của quý khách hàng.</p>
+
+                        <ul class="footer-social">
+                            <li>
+                                <a href="/" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" target="_blank">
+                                    <i class='bx bxl-pinterest-alt'></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget pl-5">
+                        <h2>Về chúng tôi</h2>
+
+                        <ul class="quick-links">
+                            <li>
+                                <a href="services-details.html">Giới thiệu</a>
+                            </li>
+                            <li>
+                                <a href="#">Đội ngũ bác sĩ</a>
+                            </li>
+                            <li>
+                                <a href="#">Cơ sở vật chất</a>
+                            </li>
+                            <li>
+                                <a href="#">Chỉ đường</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>Opening Hours</h2>
+
+                        <ul class="opening-hours">
+                            <li>Mon-Tues: <span>6:00-10:00</span></li>
+                            <li>Wed-Thurs: <span>6:00-10:00</span></li>
+                            <li>Sat-Sun: <span>6:00-10:00</span></li>
+                            <li>Friday: <span>Closed</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget pl-5">
+                        <h2>Get In Touch</h2>
+
+                        <ul class="footer-contact-info">
+                            <li>
+                                <i class='bx bxs-phone'></i>
+                                <span>Phone</span>
+                                <a href="tel:882569756">882-569-756</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-envelope'></i>
+                                <span>Email</span>
+                                <a href="mailto:hello@mediva.com">hello@mediva.com</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-map'></i>
+                                <span>Address</span>
+                                175 5th Ave Premium Area, UK
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Footer Area -->
+    <!-- Start Copy Right Area -->
+    <div class="copyright-area bg-color">
+        <div class="container">
+            <div class="copyright-area-content">
+                <p>
+                    Copyright 2020 Bach Giai Clinic. All Rights Reserved by
+                    <a href="https://diwe.vn/" target="_blank">
+                        Diwe.vn
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End Copy Right Area -->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class='bx bx-up-arrow-alt'></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Slim JS -->
+    <script src="../Assets/js/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="../Assets/js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="../Assets/js/jquery.meanmenu.js"></script>
+    <!-- Appear Min JS -->
+    <script src="../Assets/js/jquery.appear.min.js"></script>
+    <!-- Odometer Min JS -->
+    <script src="../Assets/js/odometer.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="../Assets/js/owl.carousel.min.js"></script>
+    <!-- Popup JS -->
+    <script src="../Assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="../Assets/js/jquery.nice-select.min.js"></script>
+    <!-- Datetimepicker JS -->
+    <script src="../Assets/js/datetimepicker.min.js"></script>
+    <!-- Month JS -->
+    <script src="../Assets/js/month.min.js"></script>
+    <!-- Imagelightbox JS -->
+    <script src="../Assets/js/imagelightbox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="../Assets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="../Assets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="../Assets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="../Assets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../Assets/js/main.js"></script>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("show-modal-form");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

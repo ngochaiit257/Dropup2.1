@@ -21,6 +21,7 @@ D:\C# Project\DropupE2.0\TestEndCode\obj\Release\TestEndCode.pdb
 D:\C# Project\DropupE2.1\TestEndCode\bin\Release\TestEndCode.exe.config
 D:\C# Project\DropupE2.1\TestEndCode\bin\Release\TestEndCode.exe
 D:\C# Project\DropupE2.1\TestEndCode\bin\Release\TestEndCode.pdb
+D:\C# Project\DropupE2.1\TestEndCode\obj\Release\TestEndCode.csprojAssemblyReference.cache
 D:\C# Project\DropupE2.1\TestEndCode\obj\Release\TestEndCode.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\TestEndCode\obj\Release\TestEndCode.exe
 D:\C# Project\DropupE2.1\TestEndCode\obj\Release\TestEndCode.pdb

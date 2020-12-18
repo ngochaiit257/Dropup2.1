@@ -257,7 +257,6 @@
                             <div class="form-group bs-select-1 select_in_product_insert_form">
                                 <label for="select_category_blog_id">Danh mục Blog</label>
                                 <select class="custom-select input_slect_border" id="select_category_blog_id">
-                                    <option selected="" disabled>Chọn danh mục Blog</option>
                                     @foreach (var bc in new BlogCategoryProvider().getAll())
                                     {
                                         <option value="@bc.blog_category_id">@bc.blog_category_name</option>
@@ -291,8 +290,8 @@
 <div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
     <div class="col-12" style="margin-top: 15px;">
         <div class="pb-2" style="text-align:right">
-            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy</a>
-            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert" onclick="insertBlog()">Xác nhận</a>
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy</button>
+            <button class="btn btn-primary" id="btn_insert" onclick="insertBlog()">Xác nhận</button>
         </div>
     </div>
 </div>
@@ -604,23 +603,32 @@
             fileData.append("blog_seo_header", $("#seo_header").val().trim());
 
             $.ajax({
-            type: "POST",
-            url: '@Url.Action("InsertBlog", "Blog", null)',
-            data: fileData,
-            processData: false,
-            contentType: false,
+                type: "POST",
+                url: '@Url.Action("InsertBlog", "Blog", null)',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang tạo blog...");
+                },
+
                 success: function (data) {
                     var date_obj = new Date();
-                    var minutes = 30;
-                    date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
-                    Cookies.set("insert_blog_success", "" + data.blog_id, { expires: date_obj });
-                    var baseUrl="@Url.Action("Index", "Blog")";
-                       window.location.href=baseUrl;
-            },
-            error: function (xhr) {
+                        var minutes = 30;
+                        date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                        Cookies.set("insert_blog_success", "" + data.blog_id, { expires: date_obj });
+                        var baseUrl="@Url.Action("Index", "Blog")";
+                           window.location.href=baseUrl;
+                },
+                error: function (xhr) {
                 toastError();
                 $("html, body").animate({ scrollTop: 0 }, 600);
-            }
+                },
+                complete: function (xhr, status) {
+                    $('#btn_insert').prop('disabled', false);
+                    $('#btn_insert').text("Xác nhận");
+                }
         });
         }
     }

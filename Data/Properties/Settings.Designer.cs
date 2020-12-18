@@ -580,5 +580,27 @@ namespace Data.Properties {
                 return ((string)(this["bun53642_bunnydbConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BachGiaiClinic;Integrated Security=Tr" +
+            "ue")]
+        public string BachGiaiClinicConnectionString {
+            get {
+                return ((string)(this["BachGiaiClinicConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.73,1433;Initial Catalog=dak00318_dakhoabachgiaidb;Persist Se" +
+            "curity Info=True;User ID=dak00318_haiit;Password=Ngochaiit257!")]
+        public string dak00318_dakhoabachgiaidbConnectionString {
+            get {
+                return ((string)(this["dak00318_dakhoabachgiaidbConnectionString"]));
+            }
+        }
     }
 }

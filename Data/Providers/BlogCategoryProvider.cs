@@ -22,5 +22,18 @@ namespace Data.Providers
             }
         }
 
+        public blog_category getBySeoAlias(string seo_alias)
+        {
+            try
+            {
+                var bc = new blog_category();
+                bc = db.blog_categories.Where(c => c.blog_category_seo_alias == seo_alias).FirstOrDefault();
+                return bc;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

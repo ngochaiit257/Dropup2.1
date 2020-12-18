@@ -3,19 +3,19 @@ Flaticon icon font: Flaticon
 */
 @font-face {
 	font-family: "Flaticon";
-	src: url("../fonts/Flaticon.eot");
-	src: url("../fonts/Flaticond41d.eot?#iefix") format("embedded-opentype"),
-	url("../fonts/Flaticon.woff2") format("woff2"),
-	url("../fonts/Flaticon.woff") format("woff"),
-	url("../fonts/Flaticon.ttf") format("truetype"),
-	url("../fonts/Flaticon.svg#Flaticon") format("svg");
+	src: url("../Assets/fonts/Flaticon.eot");
+	src: url("../Assets/fonts/Flaticond41d.eot?#iefix") format("embedded-opentype"),
+	url("../Assets/fonts/Flaticon.woff2") format("woff2"),
+	url("../Assets/fonts/Flaticon.woff") format("woff"),
+	url("../Assets/fonts/Flaticon.ttf") format("truetype"),
+	url("../Assets/fonts/Flaticon.svg#Flaticon") format("svg");
 	font-weight: normal;
 	font-style: normal;
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	@font-face {
 		font-family: "Flaticon";
-		src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+		src: url("../Assets/fonts/Flaticon.svg#Flaticon") format("svg");
 	}
 }
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,

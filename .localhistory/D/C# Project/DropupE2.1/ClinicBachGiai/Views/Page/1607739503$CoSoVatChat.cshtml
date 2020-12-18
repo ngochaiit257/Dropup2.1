@@ -1,0 +1,214 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Giới thiệu cơ sở vật chất Phòng khám Đa khoa Bách Giai | Phòng khám nam khoa Hà Nội";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_may_moc = new ProductProvider().getAll();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+}
+
+<!-- Start Main Banner Area -->
+<div class="main-banner">
+    <div class="main-banner-item item-three">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="main-banner-content">
+                        <h1>Cở sở vật chất hiện đại mang tầm bệnh viện quốc tế</h1>
+                        <p>Với hệ thống tòa nhà 7 tầng với tổng diện tích lên đến gần 2.000.000 m2, mang đến cho người bệnh không gian khám chữa bệnh rộng rãi, hiện đại, tiện nghi đầy đủ mang tầm “bệnh viện quốc tế”.</p>
+
+                        <div class="banner-btn">
+                            <a href="#" class="default-btn">Tư vấn ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Main Banner Area -->
+
+<section class="section-method">
+    <div class="section-title">
+        <h2>Phòng khám đầy đủ các phòng chức năng chuyên biệt</h2>
+        <p>Mang đến sự tiện nghi cho bệnh nhân trong quá trình thăm khám tại Phòng khám Đa khoa Bách Giai</p>
+        <div class="bar"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Quầy tiếp đón bệnh nhân</h3>
+                        <h3>
+                            <a>Nơi người bệnh đăng ký khám, nhận kết quả khám chữa bệnh và đây cũng là nơi chỉ dẫn, giải thích những thắc mắc của người bệnh.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Phòng xét nghiệm</h3>
+                        <h3>
+                            <a>Sử dụng các trang thiết bị tối tân đã được đồng bộ hóa để thực hiện các loại xét nghiệm theo chỉ định của bác sỹ.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Phòng siêu âm</h3>
+                        <h3>
+                            <a>Hình ảnh siêu âm rõ nét, độ phân giải cao,.. phòng khám luôn tự tin đi đầu trong lĩnh vực chẩn đoán hình ảnh.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Phòng truyền dịch</h3>
+                        <h3>
+                            <a>Chuyên dụng, sạch sẽ, thoáng mát và khép kín. Khi có bất kỳ vấn đề gì, chỉ cần bấm chuông, đội ngũ y tá sẽ có mặt tức thì để phục vụ bạn.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Phòng tiểu phẫu đạt chuẩn</h3>
+                        <h3>
+                            <a>Được đảm bảo vô trùng bởi các thiết bị làm sạch không khí và khử trùng, giảm thiểu tối đa nguy cơ viêm nhiễm trong quá trình tiểu phẫu.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>Phòng chờ tiện nghi</h3>
+                        <h3>
+                            <a>Có nhiều tiện ích như điều hòa, wifi, sách báo, nước uống,... để quá trình thăm khám luôn thoải mái nhất.</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="categories-area pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>Hệ thống máy xét nghiệm</h2>
+            <p>Toàn bộ cơ sở vật chất, hệ thống trang thiết bị y tế tại phòng khám đều được các cơ quan chức năng kiểm duyệt đạt tiêu chuẩn.</p>
+            <div class="bar"></div>
+        </div>
+
+        <div class="may-moc-slider owl-carousel owl-theme">
+            @foreach (var product in list_may_moc)
+            {
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 col-md-5">
+                            <div class="doctor-details-image">
+                                <img src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-7 col-md-7">
+                            <div class="doctor-details-desc product-details-desc">
+                                <h2>@product.product_name</h2>
+                                <div class="product-review">
+                                    <div class="rating">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                </div>
+                                @Html.Raw(product.content)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="categories-shape">
+        <img src="../Assets/img/categories-shape-2.png" alt="image">
+    </div>
+</section>
+
+<!-- Start Consult Area -->
+<section class="consult-area ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="consult-content">
+                    <h3>Hệ thống máy hỗ trợ điều trị</h3>
+                    <p>Chúng tôi mang đến các phương pháp điều trị hiện đại, mang lại hiệu quả tối ưu, nhanh chóng, tiết kiệm thời gian và chi phí cho bệnh nhân.</p>
+
+                    <div class="consult-inner-content">
+                        <div class="icon">
+                            <i class="flaticon-gastroenterologist"></i>
+                        </div>
+                        <h4>Máy điều trị viêm tiền liệt tuyến bằng nhiệt năng</h4>
+                        <p>Không gây tổn thương cho các tổ chức lân cận với tuyến tiền liệt, đảm bảo điều trị chuẩn xác và tương đối an toàn, và giúp tăng khả năng miễn dịch của cơ thể, nâng cao hiệu quả lên gấp 2 lần.</p>
+                    </div>
+
+                    <div class="consult-inner-content">
+                        <div class="icon">
+                            <i class="flaticon-thinking"></i>
+                        </div>
+                        <h4>Máy Laser bán dẫn</h4>
+                        <p>Giúp tiêu viêm, tiêu sưng, tiêu diệt vi khuẩn, phòng sưng nề, giảm đau,... Thúc đẩy quá trình lên da non, phục hồi nhanh các tổ chức tổn thương, đẩy nhanh việc phục hồi vết thương.</p>
+                    </div>
+
+                    <div class="consult-inner-content">
+                        <div class="icon">
+                            <i class="flaticon-thinking"></i>
+                        </div>
+                        <h4>Máy phục hồi chức năng sinh lý</h4>
+                        <p>Thông qua sự kích thích xung điện tại các huyệt trung ương, với công nghệ điện tử kỹ thuật số không xâm lấn, không gây tổn thương giúp cải thiện sự cương cứng của dương vật</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="consult-image">
+                    <img src="../Assets/img/consult/consult.png" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="consult-shape">
+        <img src="../Assets/img/consult/consult-shape.png" alt="image">
+    </div>
+</section>

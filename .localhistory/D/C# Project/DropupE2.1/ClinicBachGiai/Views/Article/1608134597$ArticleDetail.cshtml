@@ -1,0 +1,243 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+    string link_chat = "https://tawk.to/chat/5fd72a71df060f156a8cccb0/1epg7rjec?$_tawk_sk=5fd72cbaad69343bd30123c4&$_tawk_tk=fccc8f04b834d927142ad2ae1ef4fde1&v=698";
+
+    var list_tag = new TagProvider().getByBlogId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_nhan_su = new StoreMembershipProvider().getAll();
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/articles/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/articles/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/articles/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div class="page-banner-area-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-banner-content-two">
+                    <h2>@Model.product_name</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+
+                        @if (category_parent != null && category_parent.category_id > 0)
+                        {
+                            <li><a href="/category/@category_parent.seo_alias" target="_self">@category_parent.category_name</a></li>
+                        }
+
+                        @if (category_child_1 != null && category_child_1.category_id > 0)
+                        {
+                            <li><a href="/category/@category_child_1.seo_alias" target="_self">@category_child_1.category_name</a></li>
+                        }
+
+                        @if (category_child_2 != null && category_child_2.category_id > 0)
+                        {
+                            <li><a href="/category/@category_child_2.seo_alias" target="_self">@category_child_2.category_name</a></li>
+                        }
+
+                        <li>@Model.product_name</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Reviews Area -->
+
+<section class="reviews-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="container-fluid">
+                    @Html.Raw(Model.content)
+                </div>
+                <div class="fb-like" data-href="@urlSite/articles/@Model.seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                <div class="fb-comments" data-href="@urlSite/blogs/@Model.seo_alias" data-numposts="10" data-width="100%"></div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <aside class="widget-area" id="widget-area">
+                    <section class="widget widget_mediva_posts_thumb" id="widget_mediva_posts_thumb">
+                        <h3 class="widget-title">Cùng chủ đề</h3>
+                        @foreach (var article in list_related)
+                        {
+                            if (article.product_id != Model.product_id)
+                            {
+                                <article class="item">
+                                    <a href="/articles/@article.seo_alias" class="thumb">
+                                        <span class="fullimage cover" role="img" style="background-image:url(@urlCMS/@article.product_image)"></span>
+                                    </a>
+                                    <div class="info">
+                                        <span>@article.show_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                        <h4 class="title usmall"><a href="/articles/@article.seo_alias">@article.product_name</a></h4>
+                                    </div>
+                                </article>
+                            }
+                        }
+                    </section>
+
+                    <section class="widget widget_tag_cloud" id="widget_tag_cloud">
+                        <h3 class="widget-title">Đặt lịch online</h3>
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Tên của bạn <span class="require">* </span></label>
+                                        <input id="cname" type="text" class="form-control" placeholder="Nhập tên tại đây">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Số điện thoại <span class="require">* </span></label>
+                                        <input id="cphone" type="text" class="form-control" placeholder="Nhập số điện thoại tại đây">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Nhập ngày tháng <span class="require">* </span></label>
+                                        <input id="datetimepicker" type="text" class="form-control" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group" style="text-align: center">
+                                        <a href="javascript:void(0)" onclick="sendMessage()" class="default-btn" id="btn-submit">Đăng Ký Ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="widget widget_categories" id="widget_categories">
+                        <h3 class="widget-title">Đội ngũ bác sĩ</h3>
+                        <div class="doctor-2-slider owl-carousel owl-theme">
+                            @foreach (var ns in list_nhan_su)
+                            {
+                                <div class="team-card team-card-2">
+                                    <a href="/"><img class="lazyload" src="~/Assets/images/loader/img-loader.gif" data-src="@urlCMS/@ns.mavatar" alt="@ns.mname"></a>
+                                    <div class="content">
+                                        <h5>
+                                            <a href="javascript:void(0)">@ns.mname</a>
+                                        </h5>
+                                        <span>@ns.mposition</span>
+                                        <p>@ns.msummary</p>
+                                    </div>
+                                    <div class="button-contact-card">
+                                        <a href="javascript:void(0)" class="default-btn btn-2" onclick="showModal()">Đặt Lịch</a>
+                                        <a href="@link_chat" class="default-btn">Tư Vấn</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Reviews Area -->
+
+<script>
+    function sendMessage() {
+        var cphone = $("#cphone").val();
+        var cemail = "";
+        var cname = $("#cname").val();
+        var cmessage = "Đặt lịch hẹn";
+        var csubject = $('#datetimepicker').val();
+        if (cname == "" || cname == null) {
+            alert("Yêu cầu nhập tên trước khi gửi");
+        }
+        else if (cphone == "") {
+            alert("Yêu cầu nhập số điện thoại trước khi gửi");
+        }
+        else if (!phonenumber(cphone)) {
+            alert("Số điện thoại không đúng định dạng");
+        }
+        else if (csubject == "") {
+            alert("Yêu cầu nhập ngày đặt lịch trước khi gửi");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Page/SendMessage",
+                data: {
+                    sender_name: cname,
+                    sender_phone_number: cphone,
+                    sender_email: cemail,
+                    sender_subject: csubject,
+                    sender_message: cmessage,
+                },
+                context: document.body,
+                dataType: "html",
+                beforeSend: function () {
+                    $('#btn-submit').prop('disabled', true);
+                    $('#btn-submit').text("Đang Gửi...");
+                },
+                success: function (data) {
+                    $("#cname").val("");
+                    $("#cphone").val("");
+                    $("#datetimepicker").val("");
+                    alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn. Cảm ơn bạn đã quan tâm!");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                complete: function (xhr, status) {
+                    $('#btn-submit').text("Đăng Ký Ngay");
+                    $('#btn-submit').prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    function phonenumber(inputtxt) {
+        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        if (inputtxt.match(phoneno)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+</script>

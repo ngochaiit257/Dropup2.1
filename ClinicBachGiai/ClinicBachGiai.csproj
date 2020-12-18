@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,6 +45,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -139,15 +144,16 @@
     <Reference Include="Microsoft.AI.Web">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,14 +179,52 @@
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\fonts\boxiconsd41d.svg" />
     <Content Include="Assets\fonts\Flaticon.svg" />
+    <Content Include="Assets\images\loader\img-loader.gif" />
+    <Content Include="Assets\images\PageCoSoVatChat\main-banner-cover.jpg" />
     <Content Include="Assets\images\ads.jpg" />
+    <Content Include="Assets\images\Anh-tap-the.png" />
     <Content Include="Assets\images\BacSy.png" />
+    <Content Include="Assets\images\Banner-benh-xa-hoi.png" />
+    <Content Include="Assets\images\Banner-cat-bao-quy-dau.png" />
+    <Content Include="Assets\images\banner-cover.jpg" />
+    <Content Include="Assets\images\Banner-xuat-tinh-som.png" />
     <Content Include="Assets\images\BenhNhan.png" />
+    <Content Include="Assets\images\bg-header.png" />
     <Content Include="Assets\images\bn2.jpg" />
+    <Content Include="Assets\images\BS1.jpg" />
+    <Content Include="Assets\images\BS8.jpg" />
+    <Content Include="Assets\images\icon\f1.png" />
+    <Content Include="Assets\images\icon\f3.png" />
+    <Content Include="Assets\images\icon\ic3.png" />
+    <Content Include="Assets\images\icon\ic4.png" />
+    <Content Include="Assets\images\icon\ic5.png" />
     <Content Include="Assets\images\KinhNghiem.png" />
     <Content Include="Assets\images\logo-top.png" />
     <Content Include="Assets\images\icon-phone.png" />
     <Content Include="Assets\images\icon-time.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\cong-nghe-hien-dai.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\phong-cho.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\phong-sieu am.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\phong-thi-nghiem.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\phong-tieu-phau.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\phong-truyen-dich.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\quay-don-tiep.png" />
+    <Content Include="Assets\images\PageCoSoVatChat\trang-thiet-bi-hien-dai.jpg" />
+    <Content Include="Assets\images\PageDoiNguBacSi\doi-ngu-bac-si.jpg" />
+    <Content Include="Assets\images\PageGioiThieu\Dong-y.png" />
+    <Content Include="Assets\images\PageGioiThieu\Image-gioi-thieu-min.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-bac-sy-dau-nganh.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-chi-phi.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-co-so-cap-phep.png" />
+    <Content Include="Assets\images\PageGioiThieu\Cung-ban-cham-soc.png" />
+    <Content Include="Assets\images\PageGioiThieu\DHA-lau.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-dieu-tri-hieu-qua.png" />
+    <Content Include="Assets\images\PageGioiThieu\DNA-sui-mao-ga.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-dich-vu-chuyen-nghiep.png" />
+    <Content Include="Assets\images\PageGioiThieu\icon-thiet-bi-hien-dai.png" />
+    <Content Include="Assets\images\PageGioiThieu\Tieu-phau-bao-quy-dau.png" />
+    <Content Include="Assets\images\PageGioiThieu\Ung-dung-cong-nghe.png" />
+    <Content Include="Assets\images\phan-hoi-khach-hang-min.png" />
     <Content Include="Assets\img\404.png" />
     <Content Include="Assets\img\about\about-1.jpg" />
     <Content Include="Assets\img\about\about-2.jpg" />
@@ -310,6 +354,7 @@
     <Content Include="Assets\js\imagelightbox.min.js" />
     <Content Include="Assets\js\jquery.ajaxchimp.min.js" />
     <Content Include="Assets\js\jquery.appear.min.js" />
+    <Content Include="Assets\js\jquery.lazyload.js" />
     <Content Include="Assets\js\jquery.magnific-popup.min.js" />
     <Content Include="Assets\js\jquery.meanmenu.js" />
     <Content Include="Assets\js\jquery.min.js" />
@@ -320,10 +365,14 @@
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\popper.min.js" />
     <Content Include="Assets\js\wow.min.js" />
+    <Content Include="Assets\template\YouHaveFastOrder.html" />
+    <Content Include="Assets\template\YouHaveMessage.html" />
+    <Content Include="Assets\template\YouHaveOrder.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Assets\css\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -342,12 +391,18 @@
     <Content Include="Assets\fonts\Flaticon.woff" />
     <Content Include="Assets\fonts\Flaticon.woff2" />
     <Content Include="Assets\fonts\Flaticond41d.eot" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -365,6 +420,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Page\GioiThieu.cshtml" />
+    <Content Include="Views\Page\CoSoVatChat.cshtml" />
+    <Content Include="Views\Page\DoiNguBacSi.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\_PartialViewListBlog.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\_PartialViewListArticles.cshtml" />
+    <Content Include="Views\Blog\BlogDetail.cshtml" />
+    <Content Include="Views\Article\ArticleDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,6 +446,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{f4f128a5-b7f8-4f2a-bf77-f2756556f8fb}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{93536850-bdb5-47b2-86f0-c97066160701}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -411,12 +485,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

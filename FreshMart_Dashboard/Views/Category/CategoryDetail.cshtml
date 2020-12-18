@@ -503,8 +503,8 @@
 <div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
     <div class="col-12" style="margin-top: 15px;">
         <div class="pb-2" style="text-align:right">
-            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</a>
-            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert">Cập nhật</a>
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy & Quay lại</button>
+            <button class="btn btn-primary" id="btn_update">Cập nhật</button>
         </div>
     </div>
 </div>
@@ -753,7 +753,7 @@
         $('#count_seo_description').text(textlenght);
     });
 
-    $('#btn_insert').click(function () {
+    $('#btn_update').click(function () {
         var category_name = $('#category_name').val().trim();
         if (category_name == null || category_name == "") {
             $("#category_name_feedback").css('display', 'block');
@@ -817,6 +817,10 @@
                 data: fileData,
                 processData: false,
                 contentType: false,
+                beforeSend: function () {
+                    $('#btn_update').prop('disabled', true);
+                    $('#btn_update').text("Đang cập nhật...");
+                },
                 success: function (data) {
                     $('#show_seo_header').text($('#seo_header').val());
                     $('#show_seo_description').text($('#seo_description').val());
@@ -829,6 +833,10 @@
                 error: function (xhr) {
                     toastError();
                     $("html, body").animate({ scrollTop: 0 }, 600);
+                },
+                complete: function (xhr, status) {
+                    $('#btn_update').prop('disabled', false);
+                    $('#btn_update').text("Cập nhật");
                 }
             });
         }

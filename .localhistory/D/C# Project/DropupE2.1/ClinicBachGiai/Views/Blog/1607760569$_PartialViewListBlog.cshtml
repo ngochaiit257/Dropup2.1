@@ -1,0 +1,42 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="row center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <div class="reviews-box">
+            <div class="image-box">
+                <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+            </div>
+
+            <div class="reviews-content">
+                <h3>@blog.blog_title</h3>
+                <span>@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                <p>@ns.msummary</p>
+                <a href="javascript:void(0)" class="reply-btn">Đặt lịch tư vấn</a>
+                <div class="rating">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                </div>
+            </div>
+        </div>
+    }
+}

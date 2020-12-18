@@ -1,0 +1,96 @@
+﻿@model Data.blog
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "BlogDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+    var list_nhan_su = new StoreMembershipProvider().getAll();
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<div class="page-banner-area-two">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-banner-content-two">
+                    <h2>@Model.blog_title</h2>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ</a>
+                        </li>
+                        <li>@Model.blog_title</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Start Reviews Area -->
+
+<section class="reviews-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <aside class="widget-area">
+                    <section class="widget widget_mediva_posts_thumb">
+                        <h3 class="widget-title">Bài viết mới nhất</h3>
+                        @foreach (var blog in list_blog_newest)
+                        {
+                            <article class="item">
+                                <a href="#" class="thumb">
+                                    <span class="fullimage cover" role="img" style="background-image:url(@urlCMS/@blog.blog_image)"></span>
+                                </a>
+                                <div class="info">
+                                    <span>@blog.show_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                    <h4 class="title usmall"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_summary</a></h4>
+                                </div>
+                            </article>
+                        }
+                    </section>
+
+                    <section class="widget widget_tag_cloud">
+                        <h3 class="widget-title">Tags</h3>
+
+                        <div class="tagcloud">
+                            <a href="#">Urology</a>
+                            <a href="#">Orthopedic</a>
+                            <a href="#">Neurology</a>
+                            <a href="#">Cardiology</a>
+                            <a href="#">Gastrology</a>
+                            <a href="#">Dentist</a>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Reviews Area -->

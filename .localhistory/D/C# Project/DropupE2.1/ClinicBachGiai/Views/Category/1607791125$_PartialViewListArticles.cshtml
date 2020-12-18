@@ -1,0 +1,49 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="row center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <div class="reviews-box">
+            <div class="image-box" style="width: 170px; height:170px;">
+                <a href="/articles/@blog.blog_seo_alias">
+                    <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                </a>
+            </div>
+
+            <div class="reviews-content">
+                <h3><a href="/articles/@blog.blog_seo_alias">@blog.blog_title</a></h3>
+                <span>@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                <p>@blog.blog_summary</p>
+                <a href="/articles/@blog.blog_seo_alias" class="reply-btn">Đọc Thêm</a>
+                <div class="rating">
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                    <i class='bx bxs-star'></i>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList bài viết</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetArticles", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+}

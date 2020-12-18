@@ -1,0 +1,401 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Giới thiệu phòng khám Đa Khoa Bách Giai | Phòng khám nam khoa Hà Nội";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+}
+<!-- Start Main Banner Area -->
+<div class="main-banner">
+    <div class="main-banner-slider owl-carousel owl-theme">
+        <div class="main-banner-item" style="background-image: url('../Assets/images/ads.jpg');"></div>
+        <div class="main-banner-item" style="background-image: url('../Assets/images/bn2.jpg');"></div>
+    </div>
+</div>
+<!-- End Main Banner Area -->
+<!-- Start Overview Area -->
+<section class="overview-area pb-70">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="overview-content">
+                    <div class="section-title section-title-left">
+                        <h2>Phòng khám Đa Khoa Bách Giai</h2>
+                        <span>- Nơi Gửi Trọn Niềm Tin Sức Khỏe -</span>
+                        <div class="bar"></div>
+                        <p><b>Phòng khám Đa khoa Bách Giai nằm trong Top 3 địa chỉ chăm sóc sức khỏe sinh sản uy tín hàng đầu miền Bắc được Sở Y tế  cấp phép hoạt động và được hàng triệu người bệnh tin cậy lựa chọn. </b></p>
+                        <p>Trải qua nhiều năm phát triển, phòng khám đã xây dựng được hệ thống cơ sở vật chất khang trang mang tầm “bệnh viện quốc tế”, trang thiết bị y tế hiện đại, đội ngũ bác sỹ chuyên khoa đầu ngành, phương pháp điều trị tiên tiến,... mang đến dịch vụ chăm sóc sức khỏe toàn diện nhất đến với người bệnh. </p>
+                    </div>
+                    <!-- Start Fun Facts Area -->
+                    <section class="fun-facts-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="single-fun-fact">
+                                        <img src="~/Assets/images/KinhNghiem.png" />
+                                        <h3>
+                                            <span class="odometer" data-count="20">00</span>
+                                        </h3>
+                                        <p>Năm kinh nghiệm trong ngành</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="single-fun-fact">
+                                        <img src="~/Assets/images/BacSy.png" />
+                                        <h3>
+                                            <span class="odometer" data-count="200">00</span>
+                                        </h3>
+                                        <p>Cán bộ nhân viên chuyên môn cao</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="single-fun-fact">
+                                        <img src="~/Assets/images/BenhNhan.png" />
+                                        <h3>
+                                            <span class="odometer" data-count="400">00</span>
+                                        </h3>
+                                        <p>Lượt bệnh nhân thăm khám mỗi ngày</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="overview-image">
+                    <img src="~/Assets/images/Anh-tap-the.png" alt="gioi thieu" />
+                    <a href="https://www.youtube.com/watch?v=Buhosl-jJGA" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Overview Area -->
+<!-- Start Categories Area -->
+<section class="categories-area pb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>6 thế mạnh</h2>
+            <p>Tạo nên thương hiệu của Phòng khám Đa khoa Bách Giai</p>
+            <div class="bar"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-co-so-cap-phep.png" alt="cơ sở ý tế được cấp phép"/>
+                    <h3>
+                        <a>Cơ sở y tế được sở y tế cấp phép</a>
+                    </h3>
+                    <p>
+                        Mọi hạng mục khám đều đảm bảo tính pháp lý nên người bệnh hoàn toàn yên tâm thăm khám và điều trị.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-bac-sy-dau-nganh.png" alt="bác sĩ đầu ngành"/>
+                    <h3>
+                        <a>Đội ngũ bác sĩ y khoa đầu ngành</a>
+                    </h3>
+                    <p>
+                        Quy tụ đội ngũ bác sỹ chuyên khoa trên 30 năm kinh nghiệm, từng làm việc tại các bệnh viện lớn tuyến Trung Ương.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-thiet-bi-hien-dai.png" alt="trang thiết bị hiện đại"/>
+                    <h3>
+                        <a>Trang thiết bị y tế hiện đại</a>
+                    </h3>
+                    <p>
+                        Trang thiết bị y tế hiện đại được nhập khâu 100% từ nước ngoài cho kết quả khám chữa bệnh nhanh chóng và chính xác.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-dieu-tri-hieu-qua.png" alt="phương pháp điều trị hiệu quả"/>
+                    <h3>
+                        <a>Phương pháp điều trị hiệu quả (99% khỏi bệnh)</a>
+                    </h3>
+                    <p>
+                        Áp dụng các phương pháp điều trị tiên tiến, không chỉ an toàn mà còn điều trị dứt điểm (99% khỏi bệnh) chỉ với 1 liệu trình chữa trị.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-chi-phi.png" alt="chi phí hợp lý"/>
+                    <h3>
+                        <a>Chi phí khám chữa bệnh hợp lý</a>
+                    </h3>
+                    <p>
+                        Phù hợp với tất cả mọi bệnh nhân và được niêm yết, công khai minh bạch theo đúng quy định của Sở Y tế.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-6">
+                <div class="categories-item-box categories-item-box-2">
+                    <img src="~/Assets/images/PageGioiThieu/icon-dich-vu-chuyen-nghiep.png" alt="dịch vụ chuyên nghiệp"/>
+                    <h3>
+                        <a>Dịch vụ y tế chuyên nghiệp</a>
+                    </h3>
+                    <p>
+                        Đội ngũ nhân viên y tế tiếp đón chu đáo, tận tình, thủ tục nhanh gọn không phải chờ đợi lâu, mọi thông tin cá nhân bảo mật tuyệt đối.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories-shape">
+        <img src="../Assets/img/categories-shape-2.png" alt="image">
+    </div>
+</section>
+<!-- End Categories Area -->
+<!-- Start Specialist Area -->
+<section class="specialist-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="specialist-inner two">
+                    <div class="specialist-content">
+                        <div class="title">
+                            <h3>Cơ sở vật chất</h3>
+                            <span>Mô hình thăm khám hiện đại cùng hệ thống dịch vụ đạt chuẩn tiêu chuẩn khách sạn 4 sao, dịch vụ chu đáo, tiện nghi</span>
+                        </div>
+
+                        <p>1. Nằm tại số 813 Giải Phóng - Hoàng Mai – Hà Nội, đây là một trong những tuyến đường trung tâm của Hà Nội với nhiều nút giao thông trọng điểm nên người dân có thể di chuyển và tìm đến Phòng khám một cách dễ dàng.</p>
+                        <p>2. Phòng khám được xây dựng trên tổng diện tích trên 2.000.000 m2, mang đến cho người bệnh không gian khám chữa bệnh khang trang, hiện đại mang tầm “bệnh viện quốc tế”.</p>
+                        <p>3. Phòng khám có đầy đủ các phòng chức năng: phòng thủ thuật, phòng siêu âm, phòng xét nghiệm, phòng hội chẩn,… được vô khuẩn với thiết bị tối tân hiện đại, tạo nên môi trường y tế chuyên nghiệp đẳng cấp số 1 Việt Nam. </p>
+                        <p>4. Dụng cụ y tế được vô trùng tuyệt đối và hấp sấy bằng máy chuyên dụng giảm thiểu tối đa nguy cơ viêm nhiễm trong quá trình thực hiện khám chữa bệnh.</p>
+                        <p>5. Phòng khám được trang bị đầy đủ tiện ích như: tivi, tủ cá nhân, tủ lạnh, wifi, thiết bị kết nối nhân viên y tế,… Tại khu vực sảnh chờ bố trí ghế sofa, người bệnh có thể xem phim, thưởng thức âm nhạc và đọc sách báo.</p>
+                        <p>6.Các phòng chức năng được bố trí riêng biệt trong không gian rộng rãi, thoáng đãng, tuyệt đối không có mùi bệnh viện.</p>
+                    </div>
+
+                    <div class="specialist-shape">
+                        <img src="../Assets/img/specialist/specialist-shape.png" alt="image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="specialist-image two"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Specialist Area -->
+
+<section class="section-method">
+    <div class="section-title">
+        <h2>Phương pháp điều trị hiệu quả</h2>
+        <p>Được hàng triệu người bệnh lựa chọn</p>
+        <div class="bar"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="single-stats-box">
+                    <div class="icon">
+                        <i class="flaticon-like"></i>
+                    </div>
+                    <h3>Hiệu quả điều trị 99%</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-stats-box bg-2">
+                    <div class="icon">
+                        <i class="flaticon-doctor-2"></i>
+                    </div>
+                    <h3>Hạn chế đau đớn</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-stats-box bg-3">
+                    <div class="icon">
+                        <i class="flaticon-appointment"></i>
+                    </div>
+                    <h3>An toàn nhanh chóng</h3>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-stats-box bg-4">
+                    <div class="icon">
+                        <i class="flaticon-money"></i>
+                    </div>
+                    <h3>Tiết kiệm chi phí</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <img src="~/Assets/images/PageGioiThieu/Tieu-phau-bao-quy-dau.png" alt="Tieu-phau-bao-quy-dau"/>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>
+                            <a>Phương pháp tiểu phẫu xâm lấn tối thiểu ứng dụng trong cắt bao quy đầu</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <img src="~/Assets/images/PageGioiThieu/DNA-sui-mao-ga.png" alt="DNA-sui-mao-ga"/>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>
+                            <a>Phương pháp kích hoạt miễn dịch DNA ứng dụng trong điều trị sùi mào gà</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <img src="~/Assets/images/PageGioiThieu/Dong-y.png" alt="Dong-y"/>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>
+                            <a>Phương pháp DHA và kỹ thuật phục hồi GENE DNA ứng dụng điều trị lậu</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="single-blog">
+                    <div class="blog-image-gioi-thieu">
+                        <a><img src="../Assets/img/blog/blog-4.jpg" alt="image"></a>
+                    </div>
+                    <div class="blog-content-gioi-thieu">
+                        <h3>
+                            <a>Phương pháp Đông - Tây Y kết hợp</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start Live Area -->
+<section class="live-area ptb-100">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="live-image">
+                    <img src="../Assets/img/live/live.png" alt="image">
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="live-inner-box">
+                    <div class="title">
+                        <h3>Cùng bạn chăm sóc sức khỏe toàn diện</h3>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="live-content">
+                                <div class="icon">
+                                    <i class="flaticon-doctor"></i>
+                                </div>
+                                <h4>Kết nối với bác sĩ 24/7</h4>
+                                <p>Giải đáp mọi thắc mắc của bạn một cách tận tình, nhanh chóng nhất.</p>
+                            </div>
+                            <div class="live-content">
+                                <div class="icon">
+                                    <i class="flaticon-money"></i>
+                                </div>
+                                <h4>Tiết kiệm thời gian và chi phí của bệnh nhân</h4>
+                                <p>
+                                    Đăng ký khám trực tuyến bạn không phải xếp hàng chờ đợi mà còn được hưởng nhiều ưu đãi.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="live-content">
+                                <div class="icon">
+                                    <i class="flaticon-padlock"></i>
+                                </div>
+                                <h4>Bảo mật và đáng tin cậy</h4>
+                                <p>1 bác sỹ với 1 bệnh nhân và 1 phòng bệnh</p>
+                            </div>
+                            <div class="live-content">
+                                <div class="icon">
+                                    <i class="flaticon-appointment"></i>
+                                </div>
+                                <h4>Mô hình khám chữa bệnh chuyên nghiệp</h4>
+                                <p>
+                                    Đảm bảo bảo mật tuyệt đối hồ sơ sức khỏe của bạn
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End Live Area -->
+<!-- Start Consult Area -->
+<section class="consult-area ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="consult-content">
+                    <h3>Ứng dụng công nghệ và kỹ thuật tiên tiến</h3>
+                    <p>Chúng tôi mang đến các phương pháp điều trị hiện đại, mang lại hiệu quả tối ưu, nhanh chóng, tiết kiệm thời gian và chi phí cho bệnh nhân.</p>
+
+                    <div class="consult-inner-content">
+                        <div class="icon">
+                            <i class="flaticon-gastroenterologist"></i>
+                        </div>
+                        <h4>Kỹ thuật miễn dịch đường tiết niệu bằng công nghệ Laser bán dẫn</h4>
+                        <p>Điều trị và tỷ lệ hồi phục của các bệnh lý viêm nhiễm sinh dục nam nói chung và viêm niệu đạo nói riêng.</p>
+                    </div>
+
+                    <div class="consult-inner-content">
+                        <div class="icon">
+                            <i class="flaticon-thinking"></i>
+                        </div>
+                        <h4>Kỹ thuật sóng ngắn</h4>
+                        <p>Ứng dụng công nghệ sóng ngắn trong điều trị bệnh tiền liệt tuyến, bệnh bao quy đầu, có tác dụng tiêu viêm giảm đau, đạt được hiệu quả tốt trong tái tạo và hồi phục các tổ chức bị tổn thương.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="consult-image">
+                    <img src="../Assets/img/consult/consult.png" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="consult-shape">
+        <img src="../Assets/img/consult/consult-shape.png" alt="image">
+    </div>
+</section>
+<!-- End Consult Area -->
