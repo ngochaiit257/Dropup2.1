@@ -1,0 +1,770 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Đông trùng hạ thảo - Bio Việt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var list_product = new ProductProvider().getNewestShowing();
+    var list_feedback = new StoreCustomerSayProvider().getAll();
+    var list_mem = new StoreMembershipProvider().getAll();
+}
+
+<!-- START homeclassicmain REVOLUTION SLIDER 6.0.1 -->
+<rs-module-wrap id="rev_slider_1_1_wrapper" data-source="gallery">
+    <rs-module id="rev_slider_1_1" data-version="6.1.2" class="rev_slider_1_1_height">
+        <rs-slides>
+            <rs-slide data-key="rs-1" data-title="Slide" data-thumb="../Assets/images/slides/slider-mainbg-001.jpg" data-anim="ei:d;eo:d;s:d;r:0;t:zoomout;sl:d;">
+                <img src="../Assets/images/slides/slider-mainbg-001.jpg" title="sliderbg-01" width="1920" height="705" class="rev-slidebg" data-no-retina>
+            </rs-slide>
+            <rs-slide data-key="rs-2" data-title="Slide" data-thumb="../Assets/images/slides/slider-mainbg-002.jpg" data-anim="ei:d;eo:d;s:d;r:0;t:zoomout;sl:d;">
+                <img src="../Assets/images/slides/slider-mainbg-002.jpg" title="sliderbg-02" width="1920" height="705" class="rev-slidebg" data-no-retina>
+            </rs-slide>
+        </rs-slides>
+    </rs-module>
+</rs-module-wrap>
+<!-- END REVOLUTION SLIDER -->
+<!--site-main start-->
+<div class="site-main">
+    <!-- aboutus-section -->
+    <section class="ttm-row first-about-section bg-img1 clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-5">
+                    <!-- ttm_single_image-wrapper -->
+                    <div class="ttm_single_image-wrapper mr_95 res-991-mr-0 position-relative z-1 res-991-center">
+                        <img class="img-fluid" src="../Assets/images/single-img-one.png" title="single-img-one" alt="single-img-one">
+                    </div><!-- ttm_single_image-wrapper end -->
+                </div>
+                <div class="col-lg-7">
+                    <div class="spacing-1 ttm-bgcolor-white bordertop-12px-solid skincolor-border">
+                        <!-- section title -->
+                        <div class="section-title clearfix">
+                            <div class="title-header">
+                                <h5>Về chúng tôi</h5>
+                                <h2 class="title">Đông Trùng Hạ Thảo Bio Việt</h2>
+                            </div>
+                            <div class="heading-seperator">
+                                <span></span>
+                            </div>
+                        </div><!-- section title end -->
+                        <p>
+                            Công ty Cổ phần Việt Minh Như ( Bioviet)  được thành lập tháng 11 năm 2012, là doanh nghiệp chuyên sản xuất các sản phẩm trong ngành nông nghiệp công nghệ cao, trồng cây dược liệu( chế bên nuôi cấy nấm Đông Trùng Hạ Thảo), hương liệu, cây gia vị.
+                        </p>
+                        <p>
+                            Với trang thiết bị hiện đại, cùng với đội ngũ Giáo Sư, Tiến sỹ, kỹ sư đầu ngành và quản lý sản xuất  chuyên nghiệp, Bioviet hứa hẹn sẽ mang đến những sản phẩm có giá trị chất lượng cao, đảm bảo tiến độ giao hàng, giá thành hợp lý nhằm đáp ứng nhu cầu khác nhau của khách hàng.
+                        </p>
+                        <div class="row mt-30">
+                            <div class="col-md-4 col-lg-4 col-sm-4">
+                                <div class="text-left pt-15">
+                                    <img src="../Assets/images/about-sign.png" alt="about-sign">
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-8 col-sm-8">
+                                <!--  featured-icon-box -->
+                                <div class="featured-icon-box without-icon style1 text-left pt-15">
+                                    <a class="ttm-btn ttm-btn-size-md ttm-btn-style-border ttm-btn-color-darkgrey mb-40" href="#" title="">Đọc Thêm</a>
+                                </div><!--  featured-icon-box END -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row end -->
+        </div>
+    </section>
+    <!-- aboutus-section end -->
+    <!-- process-section end -->
+    <section class="ttm-row process-section clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ttm-processbox-wrapper">
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img class="img-fluid" src="../Assets/images/step-one.jpg" alt="step-one" title="step-one">
+                                <div class="process-num">
+                                    <span class="number">01</span>
+                                </div>
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Đam mê</h5></div>
+                                <div class="ttm-box-description">
+                                    Chúng tôi yêu thích việc tạo ra những sản phẩm tuyệt vời cho khách hàng, không ngừng nỗ lực trong hăng say để nâng tầm sản phẩm và dịch vụ.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img class="img-fluid" src="../Assets/images/step-two.jpg" alt="step-two" title="step-two">
+                                <div class="process-num">
+                                    <span class="number">02</span>
+                                </div>
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Nhiệt huyết</h5></div>
+                                <div class="ttm-box-description">
+                                    Để tạo ra giá trị thực sự, chúng tôi qui tụ những con người có tinh thần cao, tin vào những việc mình làm, say mê công việc để cống hiến cho khách hàng & xã hội.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img class="img-fluid" src="../Assets/images/step-three.jpg" alt="step-three" title="step-three">
+                                <div class="process-num">
+                                    <span class="number">03</span>
+                                </div>
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Tôn nghiêm</h5></div>
+                                <div class="ttm-box-description">Là những doanh nhân đòi hỏi cao, hướng đến sự hoàn hảo, đội ngũ Bio Việt không chấp nhận những tiêu chuẩn bình thường trong kinh doanh.</div>
+                            </div>
+                        </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img class="img-fluid" src="../Assets/images/step-four.jpg" alt="step-four" title="step-four">
+                                <div class="process-num">
+                                    <span class="number">04</span>
+                                </div>
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Tầm nhìn</h5></div>
+                                <div class="ttm-box-description">Chúng tôi tin tưởng khách hàng không chỉ yêu cầu về chất lượng sản phẩm mà còn đòi hỏi trải nghiệm dịch vụ đỉnh cao. Vì vậy Bio Việt ở đây để xây dựng điều đó.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </section>
+    <!-- process-section end -->
+
+    <section class="ttm-row portfolio-text-section ttm-bgcolor-grey clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header">
+                            <h5>Đông trùng hạ thảo</h5>
+                            <h2 class="title">Sản phẩm của Bio Việt</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+        </div>
+    </section>
+
+    <section class="ttm-row topzero-padding-section clearfix">
+        <div class="container">
+            <div class="row multi-columns-row ttm-boxes-spacing-10px ttm-bgcolor-white mt_140">
+                @foreach (var product in list_product)
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="product">
+                            <!-- product -->
+                            <div class="product-thumbnail">
+                                <!-- product-thumbnail -->
+                                <a href="/@product.seo_alias">
+                                    <img class="img-fluid w-100" src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                                </a>
+                            </div><!-- product-thumbnail end -->
+                            <div class="product-content text-center">
+                                <!-- product-content -->
+                                <div class="product-title">
+                                    <!-- product-title -->
+                                    <h2><a href="/@product.seo_alias">@product.product_name</a></h2>
+                                </div>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-price">
+                                    @if (product.price > 0)
+                                    {
+                                        <del>
+                                            <span class="product-Price-amount">
+                                                <span class="product-Price-currencySymbol showNumeric">@product.price</span>
+                                            </span>
+                                        </del>
+                                    }
+
+                                    <!-- product-Price -->
+                                    <span class="product-Price-currencySymbol showNumeric promotion-price">@product.promotion_price</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @foreach (var product in list_product)
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="product">
+                            <!-- product -->
+                            <div class="product-thumbnail">
+                                <!-- product-thumbnail -->
+                                <a href="/@product.seo_alias">
+                                    <img class="img-fluid w-100" src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                                </a>
+                            </div><!-- product-thumbnail end -->
+                            <div class="product-content text-center">
+                                <!-- product-content -->
+                                <div class="product-title">
+                                    <!-- product-title -->
+                                    <h2><a href="/@product.seo_alias">@product.product_name</a></h2>
+                                </div>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-price">
+                                    @if (product.price > 0)
+                                    {
+                                    <del>
+                                        <span class="product-Price-currencySymbol showNumeric">@product.price</span>
+                                    </del>
+                                    }
+
+                                    <!-- product-Price -->
+                                    <span class="product-Price-currencySymbol showNumeric promotion-price">@product.promotion_price</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- row -->
+        </div>
+
+        <div class="text-center">
+            <a class="ttm-btn ttm-btn-size-md ttm-btn-style-border ttm-btn-color-darkgrey mb-40" href="#" title="">Tất Cả Sản Phẩm</a>
+        </div>
+
+    </section>
+
+
+    <!-- portfolio-text-section -->
+    <section class="ttm-row portfolio-text-section ttm-bgcolor-grey clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header">
+                            <h5>Một số hình ảnh</h5>
+                            <h2 class="title">Hoạt động nghiên cứu của Bio Việt</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+        </div>
+    </section>
+    <!-- portfolio-text-section -->
+    <!-- portfolio-section -->
+    <section class="ttm-row topzero-padding-section clearfix">
+        <div class="container">
+            <div class="row multi-columns-row ttm-boxes-spacing-10px ttm-bgcolor-white mt_140">
+                <!-- row -->
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/01.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/01.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">Robotics in Harvests</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Fresh Garden</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/02.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/02.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">The Farming Season</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Dairy Farm</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/03.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/03.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">Natural Stone Walks</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Garden Care</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/04.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/04.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">Barley Crop Field</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Dairy Farm</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/05.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/05.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">Garden Supplies</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Garden Care</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+                <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                    <!-- featured-imagebox -->
+                    <div class="featured-imagebox featured-imagebox-portfolio style1">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail-->
+                            <img class="img-fluid" src="../Assets/images/portfolio/06.jpg" alt="image">
+                        </div><!-- featured-thumbnail END-->
+                        <div class="ttm-box-view-overlay">
+                            <!-- ttm-box-view-overlay -->
+                            <div class="ttm-media-link">
+                                <!-- ttm-media-link-->
+                                <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="" href="../Assets/images/portfolio/06.jpg" data-rel="prettyPhoto">
+                                    <i class="ti ti-search"></i>
+                                </a>
+                            </div>
+                            <div class="featured-content">
+                                <!-- featured-content-->
+                                <div class="featured-title">
+                                    <!-- featured-title-->
+                                    <h5><a href="#">Organic Cultural Effect</a></h5>
+                                </div>
+                                <div class="category">
+                                    <!-- category -->
+                                    <p>Fresh Garden, Dairy Farm</p>
+                                </div>
+                            </div>
+                        </div><!-- ttm-box-view-overlay end-->
+                    </div>
+                    <!-- featured-imagebox -->
+                </div>
+            </div><!-- row -->
+        </div>
+    </section>
+    <!-- portfolio-section -->
+    <!-- testimonial-section -->
+    <section class="ttm-row second-testimonial-section ttm-bgcolor-darkgrey ttm-bg ttm-bgimage-yes bg-img9 clearfix testi-bg">
+        <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50">
+                            <h5>Lắng nghe phản hồi</h5>
+                            <h2 class="title">Khách hàng và Đối tác nói gì về chúng tôi?</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+            <div class="row">
+                <div class="col-lg-6 col-md-9 m-auto">
+                    <div class="testimonials-nav">
+                        @foreach (var feed in list_feedback)
+                        {
+                            <div class="testimonial-avatar">
+                                <div class="testimonial-img">
+                                    <img class="img-fluid" src="@urlCMS/@feed.cimage" alt="@feed.cimage_alt">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <!-- testimonials -->
+                    <div class="testimonials-info">
+                        @foreach (var feed in list_feedback)
+                        {
+                            <div class="testimonials">
+                                <div class="testimonial-content">
+                                    <div class="ttm-ratting-star">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <blockquote class="testimonial-text">@feed.ccomment</blockquote>
+                                    <div class="testimonial-caption ttm-textcolor-white">
+                                        <h6>@feed.cname</h6>
+                                        <label>@feed.cposition</label>
+                                    </div>
+                                </div>
+                            </div><!-- testimonials end -->
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- testimonial-section -->
+    <!-- services-section -->
+    <section class="ttm-row faqpage-section clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50">
+                            <h5>Bạn quan tâm đến sản phẩm của chúng tôi?</h5>
+                            <h2 class="title">Trả lời những câu hỏi thường gặp</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row end -->
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- ttm_single_image-wrapper -->
+                    <div class="ttm_single_image-wrapper">
+                        <img class="img-fluid" src="../Assets/images/single-img-eight.jpg" title="single-img-eight" alt="single-img-eight">
+                    </div><!-- ttm_single_image-wrapper end -->
+                </div>
+                <div class="col-lg-6">
+                    <!-- acadion -->
+                    <div class="accordion grey-background res-991-mt-30">
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Đông trùng hạ thảo có nguồn gốc ở đâu?</a>
+                            </div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Loại thảo dược này được nhắc đến đầu tiên trong 4 câu thơ về y văn của của tác giả Bồ Tùng Linh. Sau khi từ bỏ hy vọng đỗ đạt quan trường dưới triều đại nhà Thanh, Bồ Tùng Linh trở về quê dạy học, viết truyện, thơ và chữa bệnh. Trong một lần, ông đã chữa khỏi bệnh viêm phổi mãn tính cho một thương gia giàu có nên đã viết ngay bài thơ về dược liệu quý hiếm này trong đơn thuốc của mình.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwo" class="active">Đông trùng hạ thảo mọc ở đâu?</a>
+                            </div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Đông trùng hạ thảo trong tự nhiên chủ yếu được tìm thấy vào mùa hè ở cao nguyên Thanh Tạng (viết tắt cao nguyên Thanh Hải – Tây Tạng), Tứ Xuyên, Vân Nam và Cam Túc. Sau này, người ta cũng tìm thấy đông trùng hạ thảo ở thêm ở Bhutan và Nepal nhưng với số lượng không đáng kể. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Đông trùng hạ thảo tự nhiên là động vật hay thực vật?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Đông trùng hạ thảo gồm cả phần động vật và phần thực vật. Khi côn trùng chế.t đi, xác chúng trở thành nguồn dưỡng chất cho nấm phát triển. Vì vậy, phần “hạ thảo”, tức là phần thực vật sẽ tích tụ các thành phần quý hiếm và có công dụng tốt trong y học.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Đông trùng hạ thảo có tác dụng như thế nào?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Theo lý luận Y học cổ truyền, Đông trùng hạ thảo là thảo dược duy nhất hội tụ đủ Tam Âm và Tam Dương tức là ba yếu tố mang tính Âm và yếu tố mang tính Dương. Chính vì vậy, đông trùng hạ thảo có tác dụng cân bằng, điều hòa và bồi bổ đối với hầu hết các cơ quan tạng phủ trong cơ thể.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                    </div><!-- acadion  end-->
+                </div>
+            </div>
+            <!-- row end -->
+        </div>
+    </section>
+    <!-- services-section end -->
+    <!-- team-section -->
+    <section class="ttm-row first-team-section position-relative z-1 mt_60 res-991-mt-0 ttm-bgcolor-white clearfix">
+        <div class="container">
+            <!-- section-title -->
+            <div class="section-title style2 clearfix">
+                <div class="title-header">
+                    <h5>Nhân sự công ty</h5>
+                    <h2 class="title">Đội ngũ chuyên gia kinh nghiệm của Bio Việt</h2>
+                </div>
+                <div class="title-desc">Cảm ơn các đối tác & quý khách hàng đã tin tưởng và ủng hộ Bio Việt! Sức khỏe & Sự hài lòng của quý khách hàng là phần thưởng lớn nhất đối với chúng tôi!</div>
+            </div><!-- section-title end -->
+            <!-- row end -->
+            <!-- row -->
+            <div class="row slick_slider ttm-boxes-spacing-15px" data-slick='{"slidesToShow": 4, "slidesToScroll": 4, "dots":true, "arrows":false, "autoplay":true, "infinite":true, "centerMode":false}'>
+
+                @foreach (var mem in list_mem)
+                {
+                    <div class="ttm-box-col-wrapper col-lg-12">
+                        <!-- featured-imagebox-team -->
+                        <div class="featured-imagebox featured-imagebox-team style1">
+                            <div class="featured-thumbnail">
+                                <!-- featured-thumbnail -->
+                                <img class="img-fluid" src="@urlCMS/@mem.mavatar" alt="@mem.mname">
+                            </div>
+                            <div class="featured-content box-shadow">
+                                <div class="featured-title">
+                                    <!-- featured-title -->
+                                    <h5><a href="">@mem.mname</a></h5>
+                                </div>
+                                <p class="category">@mem.mposition</p><!-- category -->
+                            </div>
+                        </div><!-- featured-imagebox-team end-->
+                    </div>
+                }
+            </div>
+            <!-- row end-->
+        </div>
+    </section>
+    <!-- team-section end -->
+    <!-- blog-section -->
+    <section class="ttm-row first-blog-section ttm-bgcolor-grey clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50">
+                            <h5>Tin tức và sự kiện</h5>
+                            <h2 class="title">Cập nhật bài viết mới</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+            <div class="row slick_slider" data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "dots":false, "arrows":false, "autoplay":false, "infinite":true, "centerMode":false}'>
+                <div class="col-lg-12">
+                    <!-- featured-imagebox-blog -->
+                    <div class="featured-imagebox featured-imagebox-blog style1 box-shadow">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail -->
+                            <img class="img-fluid" src="../Assets/images/blog/04.jpg" alt="">
+                            <div class="blog-icon">
+                                <i class="ti ti-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!-- featured-content -->
+                            <div class="post-meta">
+                                <!-- post-meta -->
+                                <span class="ttm-meta-line"><i class="fa fa-calendar"></i>August 25, 2019</span>
+                                <span class="ttm-meta-line"><i class="fa fa-comments"></i>2,comments</span>
+                            </div>
+                            <div class="featured-title">
+                                <!-- featured-title -->
+                                <h5><a href="single-blog.html">Outdoor Vintage Flower Garden Decor</a></h5>
+                            </div>
+                        </div>
+                    </div><!-- featured-imagebox-blog end -->
+                </div>
+                <div class="col-lg-12">
+                    <!-- featured-imagebox-blog -->
+                    <div class="featured-imagebox featured-imagebox-blog style1 box-shadow">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail -->
+                            <img class="img-fluid" src="../Assets/images/blog/07.jpg" alt="">
+                            <div class="blog-icon">
+                                <i class="ti ti-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!-- featured-content -->
+                            <div class="post-meta">
+                                <!-- post-meta -->
+                                <span class="ttm-meta-line"><i class="fa fa-calendar"></i>August 25, 2019</span>
+                                <span class="ttm-meta-line"><i class="fa fa-comments"></i>2,comments</span>
+                            </div>
+                            <div class="featured-title">
+                                <!-- featured-title -->
+                                <h5><a href="single-blog.html">Better Nature For Better Green World</a></h5>
+                            </div>
+                        </div>
+                    </div><!-- featured-imagebox-blog end -->
+                </div>
+                <div class="col-lg-12">
+                    <!-- featured-imagebox-blog -->
+                    <div class="featured-imagebox featured-imagebox-blog style1 box-shadow">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail -->
+                            <img class="img-fluid" src="../Assets/images/blog/06.jpg" alt="">
+                            <div class="blog-icon">
+                                <i class="ti ti-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!-- featured-content -->
+                            <div class="post-meta">
+                                <!-- post-meta -->
+                                <span class="ttm-meta-line"><i class="fa fa-calendar"></i>August 25, 2019</span>
+                                <span class="ttm-meta-line"><i class="fa fa-comments"></i>2,comments</span>
+                            </div>
+                            <div class="featured-title">
+                                <!-- featured-title -->
+                                <h5><a href="single-blog.html">Rural Infrastructure for Great Agriculture</a></h5>
+                            </div>
+                        </div>
+                    </div><!-- featured-imagebox-blog end -->
+                </div>
+                <div class="col-lg-12">
+                    <!-- featured-imagebox-blog -->
+                    <div class="featured-imagebox featured-imagebox-blog style1 box-shadow">
+                        <div class="featured-thumbnail">
+                            <!-- featured-thumbnail -->
+                            <img class="img-fluid" src="../Assets/images/blog/07.jpg" alt="">
+                            <div class="blog-icon">
+                                <i class="ti ti-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!-- featured-content -->
+                            <div class="post-meta">
+                                <!-- post-meta -->
+                                <span class="ttm-meta-line"><i class="fa fa-calendar"></i>August 25, 2019</span>
+                                <span class="ttm-meta-line"><i class="fa fa-comments"></i>2,comments</span>
+                            </div>
+                            <div class="featured-title">
+                                <!-- featured-title -->
+                                <h5><a href="single-blog.html">Better Nature For Better Green World</a></h5>
+                            </div>
+                        </div>
+                    </div><!-- featured-imagebox-blog end -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- blog-section -->
+
+</div><!--site-main end-->

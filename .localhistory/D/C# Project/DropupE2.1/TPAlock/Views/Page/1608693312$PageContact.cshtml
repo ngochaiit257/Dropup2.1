@@ -1,0 +1,42 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ TPA Lock";
+    ViewBag.Description = "Liên hệ với TPA Lock để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">Tin tức và sự kiện</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Tin tức và sự kiện</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->

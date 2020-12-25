@@ -1,0 +1,266 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "Liên hệ Bio Việt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Bio Việt";
+    ViewBag.Description = "Liên hệ với Bio Việt để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">Liên hệ</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">Liên hệ</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- contactbox-section -->
+    <section class="ttm-row contact-box-section ttm-bgcolor-grey clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-3">
+                    <!--  featured-icon-box -->
+                    <div class="featured-icon-box left-icon p-15 mb-20">
+                        <div class="featured-icon">
+                            <!--  featured-icon -->
+                            <div class="ttm-icon ttm-icon_element-bgcolor-skincolor ttm-icon_element-size-sm">
+                                <i class="flaticon flaticon-phone-call"></i><!--  ttm-icon -->
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!--  featured-content -->
+                            <div class="featured-title">
+                                <!--  featured-title -->
+                                <h5>Điện thoại</h5>
+                            </div>
+                            <div class="featured-desc">
+                                <!--  featured-desc -->
+                                <p>@contact.phone_number</p>
+                            </div>
+                        </div>
+                    </div><!--  featured-icon-box END -->
+                </div>
+                <div class="col-lg-3">
+                    <!--  featured-icon-box -->
+                    <div class="featured-icon-box left-icon p-15 mb-20">
+                        <div class="featured-icon">
+                            <!--  featured-icon -->
+                            <div class="ttm-icon ttm-icon_element-bgcolor-skincolor ttm-icon_element-size-sm">
+                                <i class="flaticon flaticon-envelope"></i><!--  ttm-icon -->
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!--  featured-content -->
+                            <div class="featured-title">
+                                <!--  featured-title -->
+                                <h5>Email</h5>
+                            </div>
+                            <div class="featured-desc">
+                                <!--  featured-desc -->
+                                <p>@contact.email</p>
+                            </div>
+                        </div>
+                    </div><!--  featured-icon-box END -->
+                </div>
+                <div class="col-lg-6">
+                    <!--  featured-icon-box -->
+                    <div class="featured-icon-box left-icon p-15 mb-20">
+                        <div class="featured-icon">
+                            <!--  featured-icon -->
+                            <div class="ttm-icon ttm-icon_element-bgcolor-skincolor ttm-icon_element-size-sm">
+                                <i class="flaticon flaticon-placeholder"></i><!--  ttm-icon -->
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <!--  featured-content -->
+                            <div class="featured-title">
+                                <!--  featured-title -->
+                                <h5>Địa chỉ</h5>
+                            </div>
+                            <div class="featured-desc">
+                                <!--  featured-desc -->
+                                <p>@contact.address</p>
+                            </div>
+                        </div>
+                    </div><!--  featured-icon-box END -->
+                </div>
+            </div><!-- row end -->
+        </div>
+    </section>
+    <!-- contactbox-section end -->
+    <!-- contactbox-section -->
+    <section class="ttm-row contact-form-section clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="~/Assets/images/bg-image/contact.png" />
+                </div>
+                <!-- row -->
+                <div class="col-lg-6">
+                    <div class="spacing-6 mt-0 mb-0">
+                        <form id="ttm-quote-form" class="row ttm-quote-form clearfix">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <input id="cname" name="name" type="text" class="form-control with-border bg-white" placeholder="Tên của bạn*" required="required">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input id="cphone" name="phone" type="text" placeholder="Điện thoại*" required="required" class="form-control with-border bg-white">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input id="cemail" name="address" type="text" placeholder="Email*" required="required" class="form-control with-border bg-white">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <input id="csubject" name="subject" type="text" placeholder="Tiêu đề" required="required" class="form-control with-border bg-white">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <textarea id="cmessage" name="Massage" rows="4" placeholder="Để lại lời nhắn..." required="required" class="form-control with-border bg-white"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="text-left">
+                                    <button type="button" id="submit" class="ttm-btn ttm-btn-size-md ttm-btn-bgcolor-darkgrey w-100" onclick="sendMessage()">
+                                        Gửi yêu cầu
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </section>
+    <!-- contactbox-section end -->
+    <!-- map-section -->
+    <div class="ttm-row zero-padding-section clearfix">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--map-start-->
+                    <div class="map-wrapper">
+                        @Html.Raw(contact.map)
+                    </div>
+                    <!--map-end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- map-section end -->
+
+</div><!--site-main end-->
+
+<script>
+    function sendMessage() {
+        var cphone = $("#cphone").val();
+        var cemail = $("#cemail").val();
+        var cname = $("#cname").val();
+        var cmessage = $('#cmessage').val();
+        var csubject = $('#csubject').val();
+        if (cname == "" || cname == null) {
+            alert("Yêu cầu nhập tên trước khi gửi");
+        }
+        else if (cemail == "" || cemail == null) {
+            alert("Yêu cầu nhập email trước khi gửi");
+        }
+        else if (!isEmail(cemail)) {
+            alert("Email không đúng định dạng");
+        }
+        else if (cphone == "") {
+            alert("Yêu cầu nhập số điện thoại trước khi gửi");
+        }
+        else if (!phonenumber(cphone)) {
+            alert("Số điện thoại không đúng định dạng");
+        }
+        else if (csubject == "") {
+            alert("Yêu cầu nhập chủ đề cần tư vấn trước khi gửi");
+        }
+        else if (cmessage == "") {
+            alert("Yêu cầu nhập số điện thoại trước khi gửi");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Page/SendMessage",
+                data: {
+                    sender_name: cname,
+                    sender_phone_number: cphone,
+                    sender_email: cemail,
+                    sender_subject: csubject,
+                    sender_message: cmessage,
+                },
+                context: document.body,
+                dataType: "html",
+                beforeSend: function () {
+                    $('#submit').prop('disabled', true);
+                    $('#submit').text("Loading...");
+                },
+                success: function (data) {
+                    $("#cname").val("");
+                    $("#cemail").val("");
+                    $("#cphone").val("");
+                    $("#csubject").val("");
+                    $("#cmessage").val("");
+                    alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                complete: function (xhr, status) {
+                    $('#submit').text("Gửi thông tin");
+                    $('#submit').prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    function phonenumber(inputtxt) {
+        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        if (inputtxt.match(phoneno)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+</script>

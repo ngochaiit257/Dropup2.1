@@ -1,0 +1,12 @@
+﻿.main-menu ul li > a {
+    font-size: 18px;
+}
+
+.main-menu ul li .mega-menu a {
+    font-size: 18px;
+}
+
+    .main-menu ul li .mega-menu .mega-title a, .main-menu ul li .mega-menu a.mega-title {
+        font-size: 18px;
+        font-weight: 500;
+    }

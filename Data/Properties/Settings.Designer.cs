@@ -602,5 +602,47 @@ namespace Data.Properties {
                 return ((string)(this["dak00318_dakhoabachgiaidbConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BioViet;Integrated Security=True")]
+        public string BioVietConnectionString {
+            get {
+                return ((string)(this["BioVietConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.112,1433;Initial Catalog=bio03550_biovietdb;Persist Security" +
+            " Info=True;User ID=bio03550_haiit;Password=Ngochaiit257!")]
+        public string bio03550_biovietdbConnectionString {
+            get {
+                return ((string)(this["bio03550_biovietdbConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=TPAlock;Integrated Security=True")]
+        public string TPAlockConnectionString {
+            get {
+                return ((string)(this["TPAlockConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.112,1433;Initial Catalog=tpa19428_tpalockdb;Persist Security" +
+            " Info=True;User ID=tpa19428_haiit;Password=Ngochaiit257!")]
+        public string tpa19428_tpalockdbConnectionString {
+            get {
+                return ((string)(this["tpa19428_tpalockdbConnectionString"]));
+            }
+        }
     }
 }

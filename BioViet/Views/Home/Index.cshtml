@@ -1,752 +1,554 @@
-﻿
+﻿@using Data;
+@using Data.Providers;
 @{
-    ViewBag.Title = "Đông trùng hạ thảo Bio Việt";
+    ViewBag.Title = "Đông trùng hạ thảo - Bio Việt";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var list_product = new ProductProvider().getNewestShowing();
+    var list_feedback = new StoreCustomerSayProvider().getAll();
+    var list_mem = new StoreMembershipProvider().getAll();
+    var list_da = new BlogProvider().getByCategoryName("Dự Án").Take(6).ToList();
+    var list_newest_blog = new BlogProvider().getIsShowing().Where(b => b.blog_category.blog_category_name != "Dự Án").Take(5).ToList();
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var page_gioi_thieu = new PageProvider().getById(1);
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Bio Việt, đông trùng hạ thảo, dong trung ha thao";
+    ViewBag.Description = "Công ty Cổ phần Việt Minh Như (Bioviet)  được thành lập tháng 11 năm 2012, là doanh nghiệp chuyên sản xuất các sản phẩm trong ngành nông nghiệp công nghệ cao, trồng cây dược liệu (chế bên nuôi cấy nấm Đông Trùng Hạ Thảo)";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
 }
 
-<!-- Banner Section -->
-<section class="banner-section banner-two">
-    <div class="banner-carousel owl-theme owl-carousel">
-        <!-- Slide Item -->
-        <div class="slide-item">
-            <div class="image-layer" style="background-image: url(../Assets/images/main-slider/4.jpg);"></div>
-            <div class="auto-container">
-                <div class="content-box">
-                    <div class="content clearfix">
-                        @*<div class="inner">
-                                <div class="subtitle">Luôn tỉnh táo mỗi ngày</div>
-                                <h1>Đông trùng hạ thảo Bio Việt</h1>
-                                <div class="link-box clearfix">
-                                    <a href="about.html" class="theme-btn btn-style-one"><span class="btn-title">Xem Thêm <i class="arrow flaticon-play-button-1"></i></span></a>
-                                    <a href="contact.html" class="theme-btn btn-style-three"><span class="btn-title">Liên Hệ <i class="arrow flaticon-play-button-1"></i></span></a>
-                                </div>
-
-                            </div>*@
+<!-- START homeclassicmain REVOLUTION SLIDER 6.0.1 -->
+<rs-module-wrap id="rev_slider_1_1_wrapper" data-source="gallery">
+    <rs-module id="rev_slider_1_1" data-version="6.1.2" class="rev_slider_1_1_height">
+        <rs-slides>
+            @foreach (var slide in list_slide)
+            {
+                <rs-slide data-key="rs-1" data-title="Slide" data-thumb="@urlCMS/@slide.image" data-anim="ei:d;eo:d;s:d;r:0;t:zoomout;sl:d;">
+                    <img src="@urlCMS/@slide.image" title="@slide.alt" width="1920" height="705" class="rev-slidebg" data-no-retina style="background-size: contain;">
+                </rs-slide>
+            }
+        </rs-slides>
+    </rs-module>
+</rs-module-wrap>
+<!-- END REVOLUTION SLIDER -->
+<!--site-main start-->
+<div class="site-main">
+    <!-- aboutus-section -->
+    <section class="ttm-row first-about-section bg-img1 clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-5">
+                    <!-- ttm_single_image-wrapper -->
+                    <div class="ttm_single_image-wrapper mr_95 res-991-mr-0 position-relative z-1 res-991-center img-ab">
+                        <img class="img-fluid" src="@urlCMS/@page_gioi_thieu.page_image" title="single-img-one" alt="@page_gioi_thieu.page_image_alt">
+                    </div><!-- ttm_single_image-wrapper end -->
+                </div>
+                <div class="col-lg-7">
+                    <div class="spacing-1 ttm-bgcolor-white bordertop-12px-solid skincolor-border">
+                        <!-- section title -->
+                        <div class="section-title clearfix">
+                            <div class="title-header">
+                                <h5>Về chúng tôi</h5>
+                                <h2 class="title">Đông Trùng Hạ Thảo Bio Việt</h2>
+                            </div>
+                            <div class="heading-seperator">
+                                <span></span>
+                            </div>
+                        </div><!-- section title end -->
+                        <p>
+                            Công ty Cổ phần Việt Minh Như ( Bioviet)  được thành lập tháng 11 năm 2012, là doanh nghiệp chuyên sản xuất các sản phẩm trong ngành nông nghiệp công nghệ cao, trồng cây dược liệu( chế bên nuôi cấy nấm Đông Trùng Hạ Thảo), hương liệu, cây gia vị.
+                        </p>
+                        <p>
+                            Với trang thiết bị hiện đại, cùng với đội ngũ Giáo Sư, Tiến sỹ, kỹ sư đầu ngành và quản lý sản xuất  chuyên nghiệp, Bioviet hứa hẹn sẽ mang đến những sản phẩm có giá trị chất lượng cao, đảm bảo tiến độ giao hàng, giá thành hợp lý nhằm đáp ứng nhu cầu khác nhau của khách hàng.
+                        </p>
+                        <div class="row mt-30">
+                            <div class="col-md-8 col-lg-8 col-sm-8">
+                                <!--  featured-icon-box -->
+                                <div class="featured-icon-box without-icon style1 text-left pt-15">
+                                    <a class="ttm-btn ttm-btn-size-md ttm-btn-style-border ttm-btn-color-darkgrey mb-40" href="#" title="">Đọc Thêm</a>
+                                </div><!--  featured-icon-box END -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- row end -->
         </div>
-    </div>
-</section>
-<!--End Banner Section -->
-<!--Areas Section-->
-<section class="areas-section">
-    <div class="auto-container">
-        <div class="inner-container">
-            <div class="row clearfix">
-                <!--Area Block-->
-                <div class="area-block col-lg-4 col-md-12 col-sm-12">
-                    <div class="inner">
-                        <div class="content">
-                            <div class="icon"><span class="flaticon-flower-shop"></span></div>
-                            <h5><a href="#">Commercial Area</a></h5>
-                            <div class="sub-text">Land local open spaces</div>
-                        </div>
-                        <div class="link-box"><a href="#" class="theme-btn"><span class="flaticon-plus-1"></span></a></div>
-                    </div>
-                </div>
-                <!--Area Block-->
-                <div class="area-block col-lg-4 col-md-12 col-sm-12">
-                    <div class="inner">
-                        <div class="content">
-                            <div class="icon"><span class="flaticon-house-1"></span></div>
-                            <h5><a href="#">Residential Area</a></h5>
-                            <div class="sub-text">Land surrounding a home</div>
-                        </div>
-                        <div class="link-box"><a href="#" class="theme-btn"><span class="flaticon-plus-1"></span></a></div>
-                    </div>
-                </div>
-                <!--Area Block-->
-                <div class="area-block col-lg-4 col-md-12 col-sm-12">
-                    <div class="inner">
-                        <div class="content">
-                            <div class="icon"><span class="flaticon-park-3"></span></div>
-                            <h5><a href="#">Public Area</a></h5>
-                            <div class="sub-text">Land open to the Public</div>
-                        </div>
-                        <div class="link-box"><a href="#" class="theme-btn"><span class="flaticon-plus-1"></span></a></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--About Two-->
-<section class="about-two">
-    <div class="auto-container">
-        <div class="row clearfix">
-            <!--Text Column-->
-            <div class="text-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="sec-title">
-                        <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-two.png" alt="" title=""></span></div>
-                        <div class="subtitle">Về chúng tôi</div>
-                        <h2>Sản phẩm Đông trùng hạ thảo <span>Bio Việt</span></h2>
-                    </div>
-                    <div class="text">
-                        <p class="bigger-text">Việt Nam "rừng vàng, biển bạc" là một trong những điều kiện để Y học cổ truyền Việt phát triển từ rất sớm.</p>
-                        <p>Ngay từ thời của thiền sư Tuệ Tĩnh đã sử dụng thảo dược để chữa bệnh, cứu người, lấy tiêu chí trong chữa bệnh là "Nam dược trị Nam nhân" - Thuốc của người Việt, chữa bệnh cho người Việt.</p>
-                    </div>
-                    <div class="insured">
-                        <div class="icon"><span class="flaticon-insurance"></span></div>
-                        <h5>Được nghiên cứu và sản xuất tại Việt Nam</h5>
-                        <div class="text">Trăn trở trước những giá trị tuyệt vời của y học cổ truyền đang bị “đe dọa”, Bio Việt đã được thành lập gồm các bác sĩ tận tâm với người bệnh, chuyên môn cao và hết lòng với y học cổ truyền.</div>
-                    </div>
-                    <div class="lower-box clearfix">
-                        <div class="link-box">
-                            <a href="about.html" class="theme-btn btn-style-three alternate"><span class="btn-title">Xem Chi Tiết <i class="arrow flaticon-play-button-1"></i></span></a>
-                        </div>
-                        <div class="iso">
-                            <div class="iso-icon"><span class="icon"><img src="../Assets/images/icons/iso-icon.png" alt=""></span></div>
-                            <div class="txt">Chứng chỉ của chúng tôi</div>
-                            <div class="number">ISO 9001:2015</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Image Column-->
-            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="image-box">
-                        <figure class="image"><img src="../Assets/images/resource/anim-image-3.png" alt="" title=""></figure>
-
-                        <a href="https://www.youtube.com/watch?v=CB_rXABU8DI" class="vid-link lightbox-image">
-                            <span class="image"><img src="../Assets/images/resource/vid-thumb-1.jpg" alt="" title=""></span>
-                            <span class="icon flaticon-play-button-1"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--Facts Section-->
-<section class="facts-two">
-    <div class="outer-container">
-        <div class="row clearfix">
-            <!--Title Column-->
-            <div class="fact-block col-lg-3 col-md-6 col-sm-12">
-                <div class="inner">
-                    <div class="icon-box"><span class="flaticon-gardener"></span></div>
-                    <div class="fact-count"><div class="count-box"><span class="count-text" data-stop="14" data-speed="2000">0</span><span class="title">Sản Phẩm</span></div></div>
-                    <div class="sub-text">Đã Được Sản Xuất</div>
-                </div>
-            </div>
-
-            <!--Title Column-->
-            <div class="fact-block col-lg-3 col-md-6 col-sm-12">
-                <div class="inner">
-                    <div class="icon-box"><span class="flaticon-park"></span></div>
-                    <div class="fact-count"><div class="count-box"><span class="count-text" data-stop="35" data-speed="2000">0</span><span class="title">Dự Án</span></div></div>
-                    <div class="sub-text">Đã Nghiên Cứu</div>
-                </div>
-            </div>
-
-            <!--Title Column-->
-            <div class="fact-block col-lg-3 col-md-6 col-sm-12">
-                <div class="inner">
-                    <div class="icon-box"><span class="flaticon-medal"></span></div>
-                    <div class="fact-count"><div class="count-box"><span class="count-text" data-stop="23" data-speed="2000">0</span>+<span class="title">Đề Tài</span></div></div>
-                    <div class="sub-text">Nghiên Cứu Khoa Học</div>
-                </div>
-            </div>
-
-            <!--Title Column-->
-            <div class="fact-block col-lg-3 col-md-6 col-sm-12">
-                <div class="inner">
-                    <div class="icon-box"><span class="flaticon-customer-review-1"></span></div>
-                    <div class="fact-count"><div class="count-box"><span class="count-text" data-stop="50" data-speed="2000">0</span>+<span class="title">Đối Tác</span></div></div>
-                    <div class="sub-text">Đăng Ký Phân Phối</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-<!--Main Services Section-->
-<section class="main-services">
-    <div class="auto-container">
-        <div class="title-box">
-            <div class="row clearfix">
-                <div class="left-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="sec-title alternate">
-                        <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-four.png" alt="" title=""></span></div>
-                        <div class="subtitle">Nghiên cứu và sản xuất</div>
-                        <h2>Sản phẩm của Bio Việt</h2>
-                    </div>
-                </div>
-                <div class="right-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="text">Sau hơn 3 năm nghiên cứu và phát triển. Chúng tôi đã tiến hành thử nghiệm và đưa ra sản xuất với quy mô lớn.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row clearfix">
-            <!--Service block-->
-            <div class="service-block col-lg-3 col-md-4 col-sm-12">
-                <div class="inner-box">
-                    <div class="upper">
-                        <div class="image-box">
-                            <img src="../Assets/images/resource/featured-image-9.jpg" alt="" title="">
-                        </div>
-                    </div>
-                    <div class="lower">
-                        <h5><a href="spring-service.html">Quả Đông trùng hạ thảo</a></h5>
-                        <div class="text">
-                            <p>Loại sản phẩm: Thực phẩm</p>
-                            <p>Đặc điểm: dạng quả thể khô</p>
-                            <p>Bao gói: Đóng hộp</p>
-                            <p>Dung tích: 10g</p>
-                        </div>
-                        <div class="more-link"><a href="spring-service.html">Xem Chi Tiết <i class="icon fa fa-caret-right"></i></a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Service block-->
-            <div class="service-block col-lg-3 col-md-4col-sm-12">
-                <div class="inner-box">
-                    <div class="upper">
-                        <div class="image-box">
-                            <img src="../Assets/images/resource/featured-image-9.jpg" alt="" title="">
-                        </div>
-                    </div>
-                    <div class="lower">
-                        <h5><a href="spring-service.html">Quả Đông trùng hạ thảo</a></h5>
-                        <div class="text">
-                            <p>Loại sản phẩm: Thực phẩm</p>
-                            <p>Đặc điểm: dạng quả thể khô</p>
-                            <p>Bao gói: Đóng hộp</p>
-                            <p>Dung tích: 10g</p>
-                        </div>
-                        <div class="more-link"><a href="spring-service.html">Xem Chi Tiết <i class="icon fa fa-caret-right"></i></a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Service block-->
-            <div class="service-block col-lg-3 col-md-4 col-sm-12">
-                <div class="inner-box">
-                    <div class="upper">
-                        <div class="image-box">
-                            <img src="../Assets/images/resource/featured-image-9.jpg" alt="" title="">
-                        </div>
-                    </div>
-                    <div class="lower">
-                        <h5><a href="spring-service.html">Quả Đông trùng hạ thảo</a></h5>
-                        <div class="text">
-                            <p>Loại sản phẩm: Thực phẩm</p>
-                            <p>Đặc điểm: dạng quả thể khô</p>
-                            <p>Bao gói: Đóng hộp</p>
-                            <p>Dung tích: 10g</p>
-                        </div>
-                        <div class="more-link"><a href="spring-service.html">Xem Chi Tiết <i class="icon fa fa-caret-right"></i></a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Service block-->
-            <div class="service-block col-lg-3 col-md-4 col-sm-12">
-                <div class="inner-box">
-                    <div class="upper">
-                        <div class="image-box">
-                            <img src="../Assets/images/resource/featured-image-9.jpg" alt="" title="">
-                        </div>
-                    </div>
-                    <div class="lower">
-                        <h5><a href="spring-service.html">Quả Đông trùng hạ thảo</a></h5>
-                        <div class="text">
-                            <p>Loại sản phẩm: Thực phẩm</p>
-                            <p>Đặc điểm: dạng quả thể khô</p>
-                            <p>Bao gói: Đóng hộp</p>
-                            <p>Dung tích: 10g</p>
-                        </div>
-                        <div class="more-link"><a href="spring-service.html">Xem Chi Tiết <i class="icon fa fa-caret-right"></i></a></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!--Work Process Section-->
-<section class="work-process-two">
-    <div class="auto-container">
-        <div class="title-box">
-            <div class="row clearfix">
-                <div class="left-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="sec-title alternate">
-                        <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-four.png" alt="" title=""></span></div>
-                        <div class="subtitle">Lý do lựa chọn sản phẩm của Bio Việt</div>
-                        <h2>Lựa chọn chất lượng</h2>
-                    </div>
-                </div>
-                <div class="right-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="text">Với sự nhiệt huyết đam mê không ngừng nghỉ của đội ngũ chuyên gia về ngành Sinh - Hóa - Dược của Bio Việt</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="process">
-            <div class="row clearfix">
-                <!--Process Block-->
-                <div class="process-block-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon">
-                                <span class="flaticon-consulting"></span>
+    </section>
+    <!-- aboutus-section end -->
+    <!-- process-section end -->
+    <section class="process-section bg-img2 clearfix">
+        <div class="container">
+            <div class="container">
+                <div class="row">
+                    <!-- row -->
+                    <div class="col-lg-12">
+                        <!-- section title -->
+                        <div class="section-title text-center clearfix">
+                            <div class="title-header">
+                                <h5>Giá trị của chúng tôi</h5>
+                                <h2 class="title">Được tạo nên từ những cố gắng không ngừng</h2>
                             </div>
-                            <div class="count"><span class="number">01</span></div>
-                        </div>
-                        <h5>Tư vấn bởi chuyên gia</h5>
-                        <div class="text">Bio Việt có đội ngũ chuyên gia với hơn 30 năm kinh nghiệm trong lĩnh vực nghiên cứu và điều trị.</div>
-                    </div>
-                </div>
-
-                <!--Process Block-->
-                <div class="process-block-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon">
-                                <span class="flaticon-blueprint"></span>
+                            <div class="heading-seperator">
+                                <span></span>
                             </div>
-                            <div class="count"><span class="number">02</span></div>
-                        </div>
-                        <h5>Được cấp phép hoạt động</h5>
-                        <div class="text">Bio Việt được cấp phép hoạt động nghiên cứu, thí nghiệm và sản xuất bởi Sở Y tế Thành phố Hà Nội.</div>
+                        </div><!-- section title end -->
                     </div>
-                </div>
-
-                <!--Process Block-->
-                <div class="process-block-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon">
-                                <span class="flaticon-gardener-2"></span>
-                            </div>
-                            <div class="count"><span class="number">03</span></div>
-                        </div>
-                        <h5>Chứng chỉ hành nghề</h5>
-                        <div class="text">Đội ngũ huyên gia được Bộ Y Tế cấp chứng chỉ hành nghề khám chữa bệnh bằng YHCT.</div>
-                    </div>
-                </div>
-
-                <!--Process Block-->
-                <div class="process-block-two col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon">
-                                <span class="flaticon-trees"></span>
-                            </div>
-                            <div class="count"><span class="number">04</span></div>
-                        </div>
-                        <h5>Dược liệu sạch</h5>
-                        <div class="text">Toàn bộ dược liệu sử dụng trong khám chữa bệnh tại Bio Việt là 100% dược liệu sạch.</div>
-                    </div>
-                </div>
-
+                </div><!-- row -->
             </div>
-        </div>
-
-    </div>
-</section>
-
-<!--Team Section-->
-<section class="team-section">
-    <div class="auto-container">
-        <div class="upper-box clearfix">
-            <div class="sec-title">
-                <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-two.png" alt="" title=""></span></div>
-                <div class="subtitle">Đội ngũ nhân sự</div>
-                <h2>Chuyên gia - Cố vấn của Bio Việt</h2>
-            </div>
-            <div class="link-box">
-                <a href="#" class="theme-btn btn-style-four"><span class="btn-title">Xem chi tiết <i class="arrow flaticon-play-button-1"></i></span></a>
-            </div>
-        </div>
-
-        <div class="team-box">
-            <div class="row clearfix">
-                <!--Team block-->
-                <div class="team-block col-lg-3 col-md-4 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/team-1.jpg" alt="" title="">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ttm-processbox-wrapper">
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img src="~/Assets/images/sumenh/dam-me.jpg" alt="dam-me" class="img-fluid" />
                             </div>
-                        </div>
-                        <div class="lower">
-                            <div class="phone">
-                                <a href="#">TS. Phùng Thu Huế</a>
-                            </div>
-                            <div class="designation">Viện trưởng Viện Nghiên cứu và Phát triển Y học cổ truyền Bio Việt</div>
-                        </div>
-                    </div>
-                </div>
-                <!--Team block-->
-                <div class="team-block col-lg-3 col-md-4 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/team-1.jpg" alt="" title="">
-                            </div>
-                        </div>
-                        <div class="lower">
-                            <div class="phone">
-                                <a href="#">TS. Phùng Thu Huế</a>
-                            </div>
-                            <div class="designation">Viện trưởng Viện Nghiên cứu và Phát triển Y học cổ truyền Bio Việt</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Team block-->
-                <div class="team-block col-lg-3 col-md-4 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/team-1.jpg" alt="" title="">
-                            </div>
-                        </div>
-                        <div class="lower">
-                            <div class="phone">
-                                <a href="#">TS. Phùng Thu Huế</a>
-                            </div>
-                            <div class="designation">Viện trưởng Viện Nghiên cứu và Phát triển Y học cổ truyền Bio Việt</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Team block-->
-                <div class="team-block col-lg-3 col-md-4 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/team-1.jpg" alt="" title="">
-                            </div>
-                        </div>
-                        <div class="lower">
-                            <div class="phone">
-                                <a href="#">TS. Phùng Thu Huế</a>
-                            </div>
-                            <div class="designation">Viện trưởng Viện Nghiên cứu và Phát triển Y học cổ truyền Bio Việt</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!--Testimonials Section-->
-<section class="testimonials-two">
-    <div class="pattern-layer"></div>
-    <div class="auto-container">
-
-        <div class="row clearfix">
-            <!--Column-->
-            <div class="carousel-col col-lg-6 col-md-12 col-sm-12">
-                <div class="sec-title">
-                    <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-two.png" alt="" title=""></span></div>
-                    <div class="subtitle">Phản hồi</div>
-                    <h2>Lắng nghe người tiêu dùng</h2>
-                </div>
-                <div class="carousel-box">
-                    <div class="testimonial-carousel-two owl-theme owl-carousel">
-
-                        <!--Block-->
-                        <div class="testi-block-two">
-                            <div class="inner-box">
-                                <div class="content">
-                                    <div class="info">
-                                        <div class="quote-icon"><span></span></div>
-                                        <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                                        <h6 class="title">Thank you for an excellent job</h6>
-                                    </div>
-                                    <div class="text">Your crew did a great job following your drawing and left property immaculate. We were extremely happy with the finished job. The house looks 30 years younger. ”</div>
-                                    <div class="author">
-                                        <span class="name">Louie Daxon,</span>
-                                        <span class="region">New Orleans, United States</span>
-                                    </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Đam mê</h5></div>
+                                <div class="ttm-box-description">
+                                    Chúng tôi yêu thích việc tạo ra những sản phẩm tuyệt vời cho khách hàng, không ngừng nỗ lực trong hăng say để nâng tầm sản phẩm và dịch vụ.
                                 </div>
                             </div>
                         </div>
-
-                        <!--Block-->
-                        <div class="testi-block-two">
-                            <div class="inner-box">
-                                <div class="content">
-                                    <div class="info">
-                                        <div class="quote-icon"><span></span></div>
-                                        <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                                        <h6 class="title">Thank you for an excellent job</h6>
-                                    </div>
-                                    <div class="text">Your crew did a great job following your drawing and left property immaculate. We were extremely happy with the finished job. The house looks 30 years younger. ”</div>
-                                    <div class="author">
-                                        <span class="name">Luke Mattew,</span>
-                                        <span class="region">San Antonio, United States</span>
-                                    </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img src="~/Assets/images/sumenh/nhiet-huyet.jpg" alt="nhiet-huyet" class="img-fluid" />
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Nhiệt huyết</h5></div>
+                                <div class="ttm-box-description">
+                                    Để tạo ra giá trị thực sự, chúng tôi qui tụ những con người có tinh thần cao, tin vào những việc mình làm, say mê công việc để cống hiến cho khách hàng & xã hội.
                                 </div>
                             </div>
                         </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img src="~/Assets/images/sumenh/ton-nghiem.jpg" alt="ton-nghiem" class="img-fluid" />
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Tôn nghiêm</h5></div>
+                                <div class="ttm-box-description">Là những chuyên gia đòi hỏi cao, hướng đến sự hoàn hảo, đội ngũ Bio Việt không chấp nhận những tiêu chuẩn bình thường trong từng nghiên cứu.</div>
+                            </div>
+                        </div>
+                        <div class="ttm-processbox text-center">
+                            <div class="ttm-box-image">
+                                <img src="~/Assets/images/sumenh/tam-nhin.jpg" alt="tam-nhin" class="img-fluid"/>
+                            </div>
+                            <div class="featured-content">
+                                <div class="featured-title"><h5>Tầm nhìn</h5></div>
+                                <div class="ttm-box-description">Chúng tôi tin tưởng khách hàng không chỉ yêu cầu về chất lượng sản phẩm mà còn đòi hỏi trải nghiệm dịch vụ đỉnh cao. Vì vậy Bio Việt ở đây để xây dựng điều đó.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </section>
+    <!-- process-section end -->
 
-                        <!--Block-->
-                        <div class="testi-block-two">
-                            <div class="inner-box">
-                                <div class="content">
-                                    <div class="info">
-                                        <div class="quote-icon"><span></span></div>
-                                        <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                                        <h6 class="title">Thank you for an excellent job</h6>
+    <section class="ttm-row portfolio-text-section ttm-bgcolor-grey bg-img-title clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header">
+                            <h5>Đông trùng hạ thảo</h5>
+                            <h2 class="title">Sản phẩm của Bio Việt</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+        </div>
+    </section>
+
+    <section class="ttm-row topzero-padding-section clearfix">
+        <div class="container">
+            <div class="row multi-columns-row ttm-boxes-spacing-10px ttm-bgcolor-white mt_140">
+                @foreach (var product in list_product)
+                {
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="product">
+                            <!-- product -->
+                            <div class="product-thumbnail">
+                                <!-- product-thumbnail -->
+                                <a href="/@product.seo_alias">
+                                    <img class="img-fluid w-100" src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                                </a>
+                            </div><!-- product-thumbnail end -->
+                            <div class="product-content text-center">
+                                <!-- product-content -->
+                                <div class="product-title">
+                                    <!-- product-title -->
+                                    <h2><a href="/@product.seo_alias">@product.product_name</a></h2>
+                                </div>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-price">
+                                    @if (product.price > 0)
+                                    {
+                                        <del>
+                                            <span class="product-Price-amount">
+                                                <span class="product-Price-currencySymbol showNumeric">@product.price</span>
+                                            </span>
+                                        </del>
+                                    }
+
+                                    <!-- product-Price -->
+                                    <span class="product-Price-currencySymbol showNumeric promotion-price">@product.promotion_price</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- row -->
+        </div>
+    </section>
+
+
+    <!-- portfolio-text-section -->
+    <section class="ttm-row portfolio-text-section ttm-bgcolor-grey clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header">
+                            <h5>Một số hình ảnh</h5>
+                            <h2 class="title">Hoạt động nghiên cứu của Bio Việt</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+        </div>
+    </section>
+    <!-- portfolio-text-section -->
+    <!-- portfolio-section -->
+    <section class="ttm-row topzero-padding-section clearfix">
+        <div class="container">
+            <div class="row multi-columns-row ttm-boxes-spacing-10px ttm-bgcolor-white mt_140">
+                <!-- row -->
+                @foreach (var da in list_da)
+                {
+                    <div class="ttm-box-col-wrapper col-lg-4 col-md-6 col-sm-6">
+                        <!-- featured-imagebox -->
+                        <div class="featured-imagebox featured-imagebox-portfolio style1">
+                            <div class="featured-thumbnail">
+                                <!-- featured-thumbnail-->
+                                <img class="img-fluid" src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image">
+                            </div><!-- featured-thumbnail END-->
+                            <div class="ttm-box-view-overlay">
+                                <!-- ttm-box-view-overlay -->
+                                <div class="ttm-media-link">
+                                    <!-- ttm-media-link-->
+                                    <a class="ttm_prettyphoto ttm_image" data-gal="prettyPhoto[gallery1]" title="@da.blog_title" href="@urlCMS/@da.blog_image" data-rel="prettyPhoto">
+                                        <i class="ti ti-search"></i>
+                                    </a>
+                                </div>
+                                <div class="featured-content">
+                                    <!-- featured-content-->
+                                    <div class="featured-title">
+                                        <!-- featured-title-->
+                                        <h5><a href="/blogs/@da.blog_seo_alias">@da.blog_title</a></h5>
                                     </div>
-                                    <div class="text">Your crew did a great job following your drawing and left property immaculate. We were extremely happy with the finished job. The house looks 30 years younger. ”</div>
-                                    <div class="author">
-                                        <span class="name">Rory Blake,</span>
-                                        <span class="region">Nottingham, United Kingdom</span>
+                                    <div class="category">
+                                        <!-- category -->
+                                        <p>@da.blog_category.blog_category_name</p>
+                                    </div>
+                                </div>
+                            </div><!-- ttm-box-view-overlay end-->
+                        </div>
+                        <!-- featured-imagebox -->
+                    </div>
+
+                }
+
+            </div><!-- row -->
+        </div>
+    </section>
+    <!-- portfolio-section -->
+    <!-- testimonial-section -->
+    <section class="ttm-row second-testimonial-section ttm-bgcolor-darkgrey ttm-bg ttm-bgimage-yes clearfix testi-bg" style="padding-top: 0">
+        <div class="ttm-row-wrapper-bg-layer ttm-bg-layer"></div>
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50">
+                            <h5>Lắng nghe phản hồi</h5>
+                            <h2 class="title">Khách hàng và Đối tác nói gì về chúng tôi?</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row -->
+            <div class="row">
+                <div class="col-lg-6 col-md-9 m-auto">
+                    <div class="testimonials-nav">
+                        @foreach (var feed in list_feedback)
+                        {
+                            <div class="testimonial-avatar">
+                                <div class="testimonial-img">
+                                    <img class="img-fluid" src="@urlCMS/@feed.cimage" alt="@feed.cimage_alt">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <!-- testimonials -->
+                    <div class="testimonials-info">
+                        @foreach (var feed in list_feedback)
+                        {
+                            <div class="testimonials">
+                                <div class="testimonial-content">
+                                    <div class="ttm-ratting-star">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <blockquote class="testimonial-text">@feed.ccomment</blockquote>
+                                    <div class="testimonial-caption ttm-textcolor-white">
+                                        <h6>@feed.cname</h6>
+                                        <label>@feed.cposition</label>
+                                    </div>
+                                </div>
+                            </div><!-- testimonials end -->
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- testimonial-section -->
+    <!-- services-section -->
+    <section class="ttm-row faqpage-section clearfix" style="padding-top: 0">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50">
+                            <h5>Bạn quan tâm đến sản phẩm của chúng tôi?</h5>
+                            <h2 class="title">Trả lời những câu hỏi thường gặp</h2>
+                        </div>
+                        <div class="heading-seperator">
+                            <span></span>
+                        </div>
+                    </div><!-- section title end -->
+                </div>
+            </div><!-- row end -->
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- ttm_single_image-wrapper -->
+                    <div class="ttm_single_image-wrapper">
+                        <img class="img-fluid" src="@urlCMS/@banner.image" title="single-img-eight" alt="@banner.alt">
+                    </div><!-- ttm_single_image-wrapper end -->
+                </div>
+                <div class="col-lg-6">
+                    <!-- acadion -->
+                    <div class="accordion grey-background res-991-mt-30">
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Đông trùng hạ thảo có tác dụng gì?</a>
+                            </div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Giúp phục hồi tổn thương gan, phòng điều trị ung thư, đặc trị hen suyễn, ho, bệnh về đường hô hấp,viêm phế quản, hỗ trợ điều trị những bệnh liên quan đến tim mạch tăng lượng hồng cầu trong máu, kháng viêm, tăng cường sinh lý nam, đẹp da, tan huyết khối, phục hồi sức khỏe tăng miễn dịch cho những người mới ốm dậy, ứng dụng trong điều trị bệnh nhân HIV/AIDS…</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!--Block-->
-                        <div class="testi-block-two">
-                            <div class="inner-box">
-                                <div class="content">
-                                    <div class="info">
-                                        <div class="quote-icon"><span></span></div>
-                                        <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                                        <h6 class="title">Thank you for an excellent job</h6>
-                                    </div>
-                                    <div class="text">Your crew did a great job following your drawing and left property immaculate. We were extremely happy with the finished job. The house looks 30 years younger. ”</div>
-                                    <div class="author">
-                                        <span class="name">Louie Daxon,</span>
-                                        <span class="region">New Orleans, United States</span>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsetwo" class="active">Người bị bệnh tim mạch có dùng được Đông trùng hạ thảo không?</a>
+                            </div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Thành phần Adenosine là thành phần chủ yếu có trong thuốc điều trị tim mạch do vậy Đông trùng hạ thảo có tác dụng kiểm soát huyết áp và có hiệu quả hạ huyết áp và tăng huyết áp. Tuy nhiên, bệnh nhân bị tăng huyết áp nặng nên thận trọng. ĐTHTcũng có hiệu quả trong các bệnh tim mạch như suy tim, suy dinh dưỡng cơ tim, bệnh mạch vành và đau thắt ngực. Ngoài ra ĐTHT còn được sử dụng cho các đơn thuốc khẩn cấp như sốc tim hoặc chết đuối tạm thời.</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Những đối tượng nào không dùng được Đông trùng hạ thảo?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Những người bị dị ứng với nhộng tằm không nên dùng đông trùng hạ thảo. Bởi trong thành phần nuôi cấy của Đông trùng hạ thảo có bột nhộng tằm không thích hợp với những người có cơ địa dị ứng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Trẻ em có dùng được Đông trùng hạ thảo không?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Theo quan niệm của Đông y thì cơ thể trẻ thường “nóng” do đó không nên sử dụng những thuốc bổ có tính âm nóng. Vì vậy, trẻ dưới 5 tuổi không nên dùng đông trùng hạ thảo. Nhưng trong trường hợp trẻ bị viêm A, viêm phế quản hoăc hen xuyễn, ho lâu ngày không khỏi thì có thể cho trẻ sử dụng đông trùng hạ thảo ngâm mật ong sẽ cho kết quả rất tốt nhưng chỉ nên cho khoảng 1 thìa cà phê cùng 3 đến 5 sợi nấm đã ngâm pha cùng nước ấm (lưu ý: với những trẻ không bị dị ứng với mật ong)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Trẻ em có dùng được Đông trùng hạ thảo không?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Theo quan niệm của Đông y thì cơ thể trẻ thường “nóng” do đó không nên sử dụng những thuốc bổ có tính âm nóng. Vì vậy, trẻ dưới 5 tuổi không nên dùng đông trùng hạ thảo. Nhưng trong trường hợp trẻ bị viêm A, viêm phế quản hoăc hen xuyễn, ho lâu ngày không khỏi thì có thể cho trẻ sử dụng đông trùng hạ thảo ngâm mật ong sẽ cho kết quả rất tốt nhưng chỉ nên cho khoảng 1 thìa cà phê cùng 3 đến 5 sợi nấm đã ngâm pha cùng nước ấm (lưu ý: với những trẻ không bị dị ứng với mật ong)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                        <!-- toggle -->
+                        <div class="toggle">
+                            <div class="toggle-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree">Bệnh phế quản, hen suyễn có nên dùng Đông trùng hạ thảo không? Liều dùng như thế nào là tốt nhất?</a></div>
+                            <div class="toggle-content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="mb-0">Bệnh phế quản, hen xuyễn là đối tượng rất phù hợp để dùng Đông trùng hạ thảo ngâm mật ong. Lấy khoảng từ 2 đến 3 thìa cà phê cùng 5 đến 7 sợi nấm cho vào cùng 50 – 70ml nước ấm 30 độ khuấy đều sau đó uống. Nên sử dụng sau bữa ăn 30 phút</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- toggle end -->
+                    </div><!-- acadion  end-->
+                    <div style="text-align:center">
+                        <a class="ttm-btn ttm-btn-size-md ttm-btn-style-border ttm-btn-color-darkgrey mb-40" href="/pages/cau-hoi-thuong-cap" title="">Xem các câu hỏi khác</a>
                     </div>
                 </div>
             </div>
-
-            <!--Column-->
-            <div class="thumbs-col col-lg-6 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="image-thumb">
-                        <div class="image"><img src="../Assets/images/resource/testi-thumb-4.jpg" alt="" title=""></div>
-                        <div class="icon"><span class="fa fa-quote-left"></span></div>
-                    </div>
-                    <div class="image-thumb">
-                        <div class="image"><img src="../Assets/images/resource/testi-thumb-5.jpg" alt="" title=""></div>
-                        <div class="icon"><span class="fa fa-quote-left"></span></div>
-                    </div>
-                    <div class="image-thumb">
-                        <div class="image"><img src="../Assets/images/resource/testi-thumb-6.jpg" alt="" title=""></div>
-                        <div class="icon"><span class="fa fa-quote-left"></span></div>
-                    </div>
-                    <div class="image-thumb">
-                        <div class="image"><img src="../Assets/images/resource/testi-thumb-7.jpg" alt="" title=""></div>
-                        <div class="icon"><span class="fa fa-quote-left"></span></div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- row end -->
         </div>
-    </div>
-</section>
+    </section>
+    <!-- services-section end -->
+    <!-- team-section -->
+    <section class="ttm-row first-team-section position-relative z-1 mt_60 res-991-mt-0 ttm-bgcolor-white clearfix">
+        <div class="container">
+            <!-- section-title -->
+            <div class="section-title style2 clearfix">
+                <div class="title-header">
+                    <h5>Nhân sự công ty</h5>
+                    <h2 class="title">Đội ngũ chuyên gia kinh nghiệm của Bio Việt</h2>
+                </div>
+                <div class="title-desc">Cảm ơn các đối tác & quý khách hàng đã tin tưởng và ủng hộ Bio Việt! Sức khỏe & Sự hài lòng của quý khách hàng là phần thưởng lớn nhất đối với chúng tôi!</div>
+            </div><!-- section-title end -->
+            <!-- row end -->
+            <!-- row -->
+            <div class="row slick_slider ttm-boxes-spacing-15px" data-slick='{"slidesToShow": 4, "slidesToScroll": 4, "dots":true, "arrows":false, "autoplay":true, "infinite":true, "centerMode":false}'>
 
-<!--Blog Section-->
-<section class="blog-section">
-    <div class="auto-container">
-        <div class="title-box">
-            <div class="row clearfix">
-                <div class="left-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="sec-title alternate">
-                        <div class="title-icon"><span class="icon"><img src="../Assets/images/icons/leaf-four.png" alt="" title=""></span></div>
-                        <div class="subtitle">Bài viết mới nhất</div>
-                        <h2>Tin tức - Sự kiện - Chia sẻ</h2>
+                @foreach (var mem in list_mem)
+                {
+                    <div class="ttm-box-col-wrapper col-lg-12">
+                        <!-- featured-imagebox-team -->
+                        <div class="featured-imagebox featured-imagebox-team style1">
+                            <div class="featured-thumbnail">
+                                <!-- featured-thumbnail -->
+                                <img class="img-fluid" src="@urlCMS/@mem.mavatar" alt="@mem.mname">
+                            </div>
+                            <div class="featured-content box-shadow">
+                                <div class="featured-title">
+                                    <!-- featured-title -->
+                                    <h5><a class="name-mem">@mem.mname</a></h5>
+                                </div>
+                                <p class="category">@mem.mposition</p><!-- category -->
+                            </div>
+                        </div><!-- featured-imagebox-team end-->
                     </div>
-                </div>
-                <div class="right-col col-xl-6 col-lg-12 col-md-12">
-                    <div class="text">Chia sẻ tới quý bạn đọc những bài viết về dự án, sự kiện và tin tức của Bio Việt.</div>
-                </div>
+                }
             </div>
+            <!-- row end-->
         </div>
-
-        <div class="blog-posts">
-            <div class="row clearfix">
-                <!--News block-->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/news-image-1.jpg" alt="" title="">
-                            </div>
-                            <div class="info clearfix">
-                                <div class="cat"><a href="blog-single.html">Garden Tips</a></div>
-                                <div class="date"><span class="icon far fa-calendar"></span> April 25, 2020</div>
-                            </div>
-                            <div class="hvr-link theme-btn"><a href="blog-single.html"><span class="flaticon-cross"></span></a></div>
+    </section>
+    <!-- team-section end -->
+    <!-- blog-section -->
+    <section class="ttm-row first-blog-section clearfix" style="padding-top: 0">
+        <div class="container">
+            <div class="row">
+                <!-- row -->
+                <div class="col-lg-12">
+                    <!-- section title -->
+                    <div class="section-title text-center clearfix">
+                        <div class="title-header mb-50" style="margin-top: 0;">
+                            <h5>Tin tức và sự kiện</h5>
+                            <h2 class="title">Cập nhật bài viết mới</h2>
                         </div>
-                        <div class="lower">
-                            <h5><a href="blog-single.html">Reduce Your Carbon Footprint with Gardening Robots</a></h5>
-                            <div class="posted-by"><span class="icon far fa-user"></span> Edward Samuel</div>
-                            <div class="more-link"><a href="blog-single.html"><span class="icon flaticon-right-arrow"></span></a></div>
+                        <div class="heading-seperator">
+                            <span></span>
                         </div>
-                    </div>
+                    </div><!-- section title end -->
                 </div>
+            </div><!-- row -->
+            <div class="row slick_slider" data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "dots":false, "arrows":false, "autoplay":false, "infinite":true, "centerMode":false}'>
 
-                <!--News block-->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/news-image-2.jpg" alt="" title="">
+                @foreach (var blog in list_newest_blog)
+                {
+                    <div class="col-lg-12">
+                        <!-- featured-imagebox-blog -->
+                        <div class="featured-imagebox featured-imagebox-blog style1 box-shadow">
+                            <div class="featured-thumbnail">
+                                <!-- featured-thumbnail -->
+                                <a href="/blogs/@blog.blog_seo_alias">
+                                    <img class="img-fluid" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                </a>
+                                <div class="blog-icon">
+                                    <i class="ti ti-pencil"></i>
+                                </div>
                             </div>
-                            <div class="info clearfix">
-                                <div class="cat"><a href="blog-single.html">Discussion</a></div>
-                                <div class="date"><span class="icon far fa-calendar"></span> April 10, 2020</div>
+                            <div class="featured-content">
+                                <!-- featured-content -->
+                                <div class="post-meta">
+                                    <!-- post-meta -->
+                                    <span class="ttm-meta-line"><i class="fa fa-calendar"></i>@blog.create_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                    <span class="ttm-meta-line"><i class="fa fa-comments"></i>@blog.user.username</span>
+                                </div>
+                                <div class="featured-title">
+                                    <!-- featured-title -->
+                                    <h5><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
+                                </div>
                             </div>
-                            <div class="hvr-link theme-btn"><a href="blog-single.html"><span class="flaticon-cross"></span></a></div>
-                        </div>
-                        <div class="lower">
-                            <h5><a href="blog-single.html">Landscaping Design - Industrial Buildings & Warehouses</a></h5>
-                            <div class="posted-by"><span class="icon far fa-user"></span> Lika Joshua</div>
-                            <div class="more-link"><a href="blog-single.html"><span class="icon flaticon-right-arrow"></span></a></div>
-                        </div>
+                        </div><!-- featured-imagebox-blog end -->
                     </div>
-                </div>
-
-                <!--News block-->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <div class="upper">
-                            <div class="image-box">
-                                <img src="../Assets/images/resource/news-image-3.jpg" alt="" title="">
-                            </div>
-                            <div class="info clearfix">
-                                <div class="cat"><a href="blog-single.html">Garden Tips</a></div>
-                                <div class="date"><span class="icon far fa-calendar"></span> March 18, 2020</div>
-                            </div>
-                            <div class="hvr-link theme-btn"><a href="blog-single.html"><span class="flaticon-cross"></span></a></div>
-                            <div class="video-link theme-btn"><a href="blog-single.html"><span class="flaticon-play-button-3"></span></a></div>
-                        </div>
-                        <div class="lower">
-                            <h5><a href="blog-single.html">Three Ways Melting Snow Can Impact the Water</a></h5>
-                            <div class="posted-by"><span class="icon far fa-user"></span> Edward Samuel</div>
-                            <div class="more-link"><a href="blog-single.html"><span class="icon flaticon-right-arrow"></span></a></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!--Contact Section-->
-<section class="contact-two">
-    <div class="pattern-layer"></div>
-    <div class="auto-container">
-        <div class="row clearfix">
-            <!--Map Column-->
-            <div class="map-column col-xl-7 col-lg-12 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="title">
-                        <h2>Bạn muốn lắng nghe tư vấn hoặc có mong muốn trở thành nhà phân phối dòng sản phẩm của Bio Việt?</h2>
-                    </div>
-                    <div class="map-outer">
-                        <div class="map-box">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d77179.27405929092!2d144.96587780970705!3d-37.8497500129152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d34379057b1%3A0xf0456760532d450!2sQueen%20Victoria%20Market!5e0!3m2!1sen!2s!4v1602054031836!5m2!1sen!2s" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                        </div>
-                        <div class="info-box">
-                            <ul class="info clearfix">
-                                <li>
-                                    <span class="icon flaticon-internet"></span>
-                                    <div class="text">53 Garden Street <br>Los Anegles 90029 USA</div>
-                                </li>
-                                <li>
-                                    <span class="icon flaticon-message-1"></span>
-                                    <div class="text"><a href="tel:(+5)6789012345">(+5) 678 90 12 345</a><br><a href="mailto:service@Prunersteam.com">service@Prunersteam.com</a></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Text Column-->
-            <div class="form-column col-xl-5 col-lg-12 col-md-12 col-sm-12">
-                <div class="inner">
-                    <div class="form-outer">
-                        <div class="title-box"><h4>Để lại lời nhắn</h4></div>
-                        <div class="form-box">
-                            <div class="text">Điền đầy đủ các trường thông tin dưới đây và chúng tôi sẽ liên hệ lại với bạn sớm nhất!.</div>
-                            <!--Appointment-->
-                            <div class="default-form">
-                                <form>
-                                    <div class="form-group">
-                                        <div class="field-inner">
-                                            <input type="text" name="name" value="" placeholder="Your Name *" required>
-                                        </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                            <div class="field-inner">
-                                                <input type="text" name="phone" value="" placeholder="Phone *" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                            <div class="field-inner">
-                                                <input type="email" name="email" value="" placeholder="Email *" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="field-inner">
-                                            <select class="custom-select-box" name="service">
-                                                <option>Choose Service</option>
-                                                <option>Spring Cleanup</option>
-                                                <option>Plants Planting</option>
-                                                <option>Water Fountain</option>
-                                                <option>Hard Scaping</option>
-                                                <option>Garden Care</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="field-inner">
-                                            <select class="custom-select-box" name="service">
-                                                <option>Property Type</option>
-                                                <option>Commercial</option>
-                                                <option>Residential</option>
-                                                <option>Industries</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="field-inner">
-                                            <button type="submit" class="theme-btn btn-style-four alternate"><span class="btn-title">Time Schedule <i class="arrow flaticon-play-button-1"></i></span></button>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <!-- blog-section -->
 
+</div><!--site-main end-->

@@ -206,6 +206,8 @@
     <Content Include="Assets\img\feedback\client-2.png" />
     <Content Include="Assets\img\feedback\client-3.png" />
     <Content Include="Assets\img\feedback\feedback-bg.jpg" />
+    <Content Include="Assets\img\flag\vi.jpg" />
+    <Content Include="Assets\img\flag\en.jpg" />
     <Content Include="Assets\img\germany.png" />
     <Content Include="Assets\img\logo-2.png" />
     <Content Include="Assets\img\logo-3.png" />
@@ -286,6 +288,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

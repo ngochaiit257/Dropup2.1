@@ -1,0 +1,256 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">@Model.blog_title</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                @if (Model.blog_category != null)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/">@Model.blog_category.blog_category_name</a></li>
+                                }
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">@Model.blog_title</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== blog-content1-area-start=============================================== -->
+<div class="blog-content-area pt-100 pb-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">
+                        @Html.Raw(Model.blog_content)
+                    </p>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content1-area-end  -->
+
+<!-- ====== blog-content-area-start=============================================== -->
+<div class="blog-content-area pb-90 border-bottom over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded.</p>
+                    <p>For me, the most important part of improving at photography has been sharing it. Sign up for an Exposure account, or post regularly to Tumblr, or both. Tell people you’re trying to get better at photography. Talk about it. When you talk about it, other people get excited about it.</p>
+                    <div class="blog-footer d-sm-flex justify-content-between pt-50">
+                        <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content-area-end  -->
+<!-- ====== author-area-start ========================================= -->
+<div class="author-post-area pt-100 pb-110 over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="single-author-post pl-55 pr-55">
+                    <div class="author-post-details gray-bg2 pl-30 pr-30 pt-30 pb-20">
+                        <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="100%" data-numposts="10"></div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- author-area-end  -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="blog-post-area pb-55 pt-55 over-hidden gray-bg2 border-bottom border-top">
+    <div class="container-wrapper px-1">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-40 pb-30">
+                    <h3>You Might Also Like</h3>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="blog-post-active">
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img1.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Supt In Qui Officia Deserunt</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img2.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">How Wear The Summer Style</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img3.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Men Wearing Canvas Boots</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class="blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img4.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Miranda Skoaled Homestead</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img5.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Girl With Hat In The Beach</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img6.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Sunglasses To Wear This Summer</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /blog-active -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="reply-form-area pb-100 pt-95">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="reply-form contact-form-right pl-55 pr-55">
+                    <h3 class="pb-10">Leave a Reply </h3>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    <form action="#" class="mt-40">
+                        <div class="comment mb-30">
+                            <textarea name="message" class="form-control" id="message" placeholder="Comments"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="name mb-30">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name*">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="email mb-30">
+                                    <input type="email" class="form-control" name="email" id="c-email" placeholder="Email*">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="url mb-30">
+                                    <input type="url" class="form-control" name="url" id="url" placeholder="Website*">
+                                </div>
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+                        <div class="save-info d-flex align-items-sm-center mb-25">
+                            <input class="p-0" type="checkbox" aria-label="Checkbox for following text input">
+                            <p class="mb-0 pl-10">Save my name, email, and website in this browser for the next time I comment.</p>
+                        </div>
+                        <a href="#" class="btn text-white dark-black-bg transition-3">Post Comments</a>
+                    </form>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->

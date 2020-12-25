@@ -1,0 +1,1569 @@
+﻿@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = "Thêm mã giảm giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Tạo mã giảm giá</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Mã giảm giá
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Tạo mã giảm giá</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+
+<div id="show_recommend">
+
+</div>
+
+<div class="row">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin về mã giảm giá</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="product_name">Mã giảm giá <span class="requirement-star-text">&ast;</span></label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href="javascript:void(0)" class="text-primary" onclick="makeCouponCodeRandom('12')"><i class="fa fa-refresh"></i>&nbsp; Sinh mã tự động</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" name="coupon_code" id="coupon_code" maxlength="80" placeholder="Nhập mã mã giảm giá">
+                                <div class="invalid-feedback" id="coupon_code_feedback">
+                                    Yêu cầu nhập mã giảm giá.
+                                </div>
+                                <div class="invalid-feedback" id="coupon_code_check_duplicate_false">
+                                    Mã giảm giá này đã có trong cơ sở dữ liệu. Vui lòng chọn mã khác.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="allow_use_with_promotion_status" name="allow_use_with_promotion_status">
+                            <label class="form-check-label" for="allow_use_with_promotion_status">Cho phép sử dụng chung với chương trình khuyến mãi</label>
+                        </div>
+
+                        <div class="line_div"></div>
+                        <div class="form-group">
+                            <label class="control-label">Số lần sử dụng mã giảm giá này</label>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="div_sex">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="number_of_use_coupon" id="unlimit" value="false" checked>
+                                            <label class="form-check-label" for="unlimit">
+                                                Không giới hạn
+                                            </label>
+                                        </div>
+                                        <div class="form-check radio_btn_coupon">
+                                            <input class="form-check-input" type="radio" name="number_of_use_coupon" id="limit" value="true">
+                                            <label class="form-check-label" for="limit">
+                                                Giới hạn số lần là
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="div_input_number_of_use_coupon">
+                                    <input type="text" class="form-control quantity_input" id="number_of_use" name="number_of_use" placeholder="Nhập số lần sử dụng" readonly>
+                                    <div class="invalid-feedback" id="number_of_use_feedback">
+                                        Yêu cầu nhập số lần sử dụng.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line_div"></div>
+                        <div class="form-group">
+                            <label class="control-label">Tùy chỉnh mã giảm giá theo</label>
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="type_of_coupon" id="percent" value="1" checked>
+                                        <label class="form-check-label" for="percent">
+                                            Phần trăm (%)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="type_of_coupon" id="money" value="2">
+                                        <label class="form-check-label" for="money">
+                                            Tiền mặt (₫)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="type_of_coupon" id="same_money" value="3">
+                                        <label class="form-check-label" for="same_money">
+                                            Đồng giá
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="type_of_coupon" id="free_ship" value="4">
+                                        <label class="form-check-label" for="free_ship">
+                                            Miễn phí vận chuyển
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div_money_percent_samemoney_freeship">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="" id="title_money_percent_samemoney_freeship">Giảm </label> <span class="requirement-star-text">*</span>
+                                        <input type="text" class="form-control" placeholder=" %" id="form_value_input_money_percent_samemoney">
+                                        <div class="invalid-feedback" id="form_value_input_money_percent_samemoney_feedback">
+                                            Yêu cầu nhập giá trị.
+                                        </div>
+                                        <div class="form-group bs-select-1" id="form_select_province" style="display: none">
+                                            <select class="custom-select" style="border-radius: .25rem;" id="select_province">
+                                                <option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>
+                                                @foreach (var province in ViewData["ListProvince"] as List<province>)
+                                                {
+                                                    <option value="@province.Id">@province.Name</option>
+                                                }
+                                            </select>
+                                            <div class="invalid-feedback" id="form_select_province_feedback">
+                                                Yêu cầu chọn Tỉnh/Thành phố.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="">Áp dụng cho</label>
+                                                <div class="form-group bs-select-1">
+                                                    <select class="custom-select" id="select_condition_for_coupon" style="border-radius: .25rem">
+                                                        <option value="1">Tất cả các đơn hàng</option>
+                                                        <option value="2">Giá trị đơn hàng từ</option>
+                                                        <option value="3">Danh mục sản phẩm</option>
+                                                        <option value="4">Sản phẩm</option>
+                                                        <option value="5">Biến thể sản phẩm</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="div_input_value" style="display:none">
+                                                <label class="" id="title_input_value">Giá trị</label>
+                                                <input type="text" class="form-control autoNumericInput" id="input_value">
+                                                <div class="invalid-feedback" id="input_value_feedback">
+                                                    Yêu cầu nhập giá trị đơn hàng.
+                                                </div>
+                                            </div>
+
+                                            <div id="div_select_value">
+                                                <div class="form-group bs-select-1">
+                                                    <label class="" id="title_select_value">Tùy chọn danh sách áp dụng</label>
+                                                    <select class="custom-select" id="select_value" style="border-radius: .25rem;">
+                                                        <option value="" selected>-- Không chọn --</option>
+                                                    </select>
+                                                    <div class="invalid-feedback" id="select_value_feedback">
+                                                        Yêu cầu chọn danh sách áp dụng.
+                                                    </div>
+                                                    <div class="alert alert-icon alert-outline-primary alert_height_40 hidden_element" id="product_info_selected" role="alert">
+                                                        <i class="fa fa-times" id="icon_remove_product_selected" onclick="removeProductSelected()"></i><a id="text_product_info"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line_div"></div>
+                        <div>
+                            <label>Đối tượng áp dụng mã giảm giá</label>
+                            <div class="row select-wrapper">
+                                <div class="col-md-6">
+                                    <div class="form-group bs-select-1">
+                                        <select class="custom-select" id="select_group_customer_for_coupon" style="border-radius: .25rem">
+                                            <option value="1">Tất cả khách hàng hợp lệ</option>
+                                            <option value="2">Nhóm khách hàng nhận Email marketing</option>
+                                            <option value="3">Nhóm khách hàng thân thiết</option>
+                                            <option value="4">Nhóm khách hàng tiềm năng</option>
+                                            <option value="5">Khách hàng cụ thể</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 selects-contant">
+                                    <div class="alert alert-icon alert-outline-primary alert_height_40 hidden_element" id="customer_info_selected" role="alert">
+                                        <i class="fa fa-times" id="icon_remove_customer_selected" onclick="removeCustomerSelected()"></i><a id="text_customer_info"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Thời gian áp dụng </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div>
+                            <label>Ngày và giờ bắt đầu</label>
+                            <div class="form-group">
+                                <div class="input-group date" id="datepicker-bottom-left">
+                                    <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="coupon_start_date" name="coupon_start_date" placeholder="Nhập ngày bắt đầu">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-append">
+                                    <input class="form-control inputmask sel-time-am" type="text" id="coupon_start_time" name="coupon_start_time" placeholder="Nhập giờ bắt đầu">
+                                    <span class="input-group-addon open_clock_face_start">
+                                        <i class="fe fe-clock"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback" id="coupon_start_time_is_invalid_feedback">
+                                    Sai định dạng thời gian (HH:mm). Yêu cầu nhập lại
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line_div"></div>
+                        <div>
+                            <label>Ngày và giờ kết thúc</label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="check_never_expires" checked>
+                                    <label class="form-check-label" for="check_never_expires">Chưa xác định ngày - giờ hết hạn</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group date" id="datepicker-top-left">
+                                    <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="coupon_end_date" name="coupon_end_date" placeholder="Nhập ngày kết thúc">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback" id="coupon_end_date_feedback">
+                                    Yêu cầu nhập ngày kết thúc.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-append">
+                                    <input class="form-control inputmask sel-time-am" type="text" id="coupon_end_time" name="coupon_end_time" placeholder="Nhập giờ kết thúc">
+                                    <span class="input-group-addon open_clock_face_end">
+                                        <i class="fe fe-clock"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback" id="coupon_end_time_feedback">
+                                    Yêu cầu nhập giờ kết thúc.
+                                </div>
+                                <div class="invalid-feedback" id="coupon_end_time_is_invalid_feedback">
+                                    Sai định dạng thời gian (HH:mm). Yêu cầu nhập lại.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy</a>
+            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert_coupon">Xác nhận</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalSelectListProductForCoupon" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modalBigDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Chọn sản phẩm cho mã giảm giá này
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelSelectProductForCoupon()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="list_product_data">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="input-group mb-3">
+                            <form id="form_filter">
+                                <div class="btn-group">
+                                    <select class="custom-select" id="select-filter">
+                                        <option value="all" selected="">Lọc sản phẩm theo</option>
+                                        <option value="product_status">Trạng thái sản phẩm</option>
+                                        <option value="category">Danh mục sản phẩm</option>
+                                        <option value="supplier">Nhà cung cấp</option>
+                                    </select>
+
+                                    <select class="custom-select" id="filter-by-product-status" style="display: none">
+                                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                                        <option value="hidden">Đang ẩn</option>
+                                        <option value="show">Đang hiển thị</option>
+                                    </select>
+
+                                    <select class="custom-select" id="filter-by-category" style="display: none">
+                                        <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                        @foreach (var category in new CategoryProvider().getAll())
+                                        {
+                                            <option value="@category.category_name">@category.category_name</option>
+                                        }
+                                    </select>
+
+                                    <select class="custom-select" id="filter-by-supplier" style="display: none">
+                                        <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                        @foreach (var supplier in new SupplierProvider().getAll())
+                                        {
+                                            <option value="@supplier.supplier_name">@supplier.supplier_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </form>
+
+                            <input type="text" class="form-control" id="search_input" name="search_input" value="@ViewBag.FilterValue" placeholder="Tìm kiếm sản phẩm..." aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" onclick="searchProduct()">
+                                    <i class="nav-icon ti ti-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:right">
+                        <form id="">
+                            <div class="btn-group">
+                                <select class="custom-select" id="sort_list_product_return_select">
+                                    <option selected="" value="name_az" disabled>Sắp xếp thứ tự theo</option>
+                                    <option value="name_az">Tên danh mục: A -> Z</option>
+                                    <option value="name_za">Tên danh mục: Z -> A</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="supplier_az">Tên nhà cung cấp: A -> Z</option>
+                                    <option value="supplier_za">Tên nhà cung cấp: Z -> A</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="warehouse_asc">Lượng tồn kho: Tăng dần</option>
+                                    <option value="warehouse_dec">Lượng tồn kho: Giảm dần</option>
+                                </select>
+                            </div>
+                            <div class="btn-group">
+                                <select class="custom-select" id="size_of_page_select_product">
+                                    <option selected="" value="10" disabled>Hiển thị</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="" id="data_table_list_product">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelSelectProductForCoupon()">Hủy và quay lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalSelectListProductVariationForCoupon" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modalBigDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Lựa chọn danh sách biến thể sản phẩm cho đơn hàng này
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelSelectListProductVariationForCoupon()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="input-group mb-3">
+                            <form id="form_filter_for_product_variation">
+                                <div class="btn-group">
+                                    <select class="custom-select" id="select_filter_product_variation">
+                                        <option value="all" selected="">Lọc sản phẩm theo</option>
+                                        <option value="product_status">Trạng thái sản phẩm</option>
+                                        <option value="category">Danh mục sản phẩm</option>
+                                        <option value="supplier">Nhà cung cấp</option>
+                                    </select>
+
+                                    <select class="custom-select" id="filter_by_product_status_for_product_variation" style="display: none">
+                                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                                        <option value="hidden">Đang ẩn</option>
+                                        <option value="show">Đang hiển thị</option>
+                                    </select>
+
+                                    <select class="custom-select" id="filter_by_category_for_product_variation" style="display: none">
+                                        <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                        @foreach (var category in new CategoryProvider().getAll())
+                                        {
+                                            <option value="@category.category_name">@category.category_name</option>
+                                        }
+                                    </select>
+
+                                    <select class="custom-select" id="filter_by_supplier_for_product_variation" style="display: none">
+                                        <option selected="" disabled>Chọn điều kiện lọc...</option>
+                                        @foreach (var supplier in new SupplierProvider().getAll())
+                                        {
+                                            <option value="@supplier.supplier_name">@supplier.supplier_name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </form>
+
+                            <input type="text" class="form-control" id="search_input_for_product_variation" name="search_input_for_product_variation" value="@ViewBag.FilterValue" placeholder="Tìm kiếm sản phẩm..." aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="button-addon2" onclick="searchProductForProductVariation()">
+                                    <i class="nav-icon ti ti-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:right">
+                        <form>
+                            <div class="btn-group">
+                                <select class="custom-select" id="sort_list_product_return_select_for_product_variation">
+                                    <option selected="" value="name_az" disabled>Sắp xếp thứ tự theo</option>
+                                    <option value="name_az">Tên danh mục: A -> Z</option>
+                                    <option value="name_za">Tên danh mục: Z -> A</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="supplier_az">Tên nhà cung cấp: A -> Z</option>
+                                    <option value="supplier_za">Tên nhà cung cấp: Z -> A</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="warehouse_asc">Lượng tồn kho: Tăng dần</option>
+                                    <option value="warehouse_dec">Lượng tồn kho: Giảm dần</option>
+                                </select>
+                            </div>
+                            <div class="btn-group">
+                                <select class="custom-select" id="size_of_page_select_product_for_product_variation">
+                                    <option selected="" value="10" disabled>Hiển thị</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="" id="data_table_product_variation">
+                
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelSelectListProductVariationForCoupon()">Hủy và quay lại</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_confirm_list_product_variation">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalSelectListCustomerForCoupon" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog modalBigDialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Lựa chọn khách hàng cho mã giảm giá này
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="tab nav-border-bottom" style="width:100%; padding: 10px 15px;" id="tab_list_customer">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show active" id="tab_all_customer" data-toggle="tab" href="#all_customer" role="tab" aria-controls="all_customer" aria-selected="true">
+                                    <i class="fa fa-list-ul"></i> Tất cả khách hàng
+                                </a>
+                            </li>
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show" id="tab_marketing_customer" data-toggle="tab" href="#marketing_customer" role="tab" aria-controls="marketing_customer" aria-selected="false">
+                                    <i class="fa fa-envelope"></i> Nhận email quảng cáo
+                                </a>
+                            </li>
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show" id="tab_close_customer" data-toggle="tab" href="#close_customer" role="tab" aria-controls="close_customer" aria-selected="false">
+                                    <i class="fa fa-shopping-bag"></i> Khách hàng thân thiết
+                                </a>
+                            </li>
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show" id="tab_potential_customer" data-toggle="tab" href="#potential_customer" role="tab" aria-controls="potential_customer" aria-selected="false">
+                                    <i class="fa fa-shopping-basket"></i> Khách hàng tiềm năng
+                                </a>
+                            </li>
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show" id="tab_customer_has_caneled_order" data-toggle="tab" href="#customer_has_caneled_order" role="tab" aria-controls="customer_has_caneled_order" aria-selected="false">
+                                    <i class="fa fa-times-rectangle-o"></i> Có đơn hàng đã hủy
+                                </a>
+                            </li>
+                            <li class="nav-item li_tab_list_customer_to_select">
+                                <a class="nav-link show" id="tab_customer_has_caneled_order" data-toggle="tab" href="#customer_has_caneled_order" role="tab" aria-controls="customer_has_caneled_order" aria-selected="false">
+                                    <i class="fa fa-user-times"></i> Thuộc danh sách đen
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="div_list_in_tab">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="input-group mb-3">
+                                            <form id="">
+                                                <div class="btn-group">
+                                                    <select class="custom-select" id="select_filter_customer">
+                                                        <option value="all" selected="">Lọc khách hàng theo</option>
+                                                        <option value="money_purchased">Số tiền đã mua</option>
+                                                        <option value="number_of_order">Đơn hàng</option>
+                                                        <option value="time_to_order">Thời điểm đặt hàng</option>
+                                                        <option value="customer_tag">Thẻ tag</option>
+                                                        <option value="customer_address">Địa chỉ/Khu vực</option>
+                                                        <option value="customer_month_of_birth">Sinh nhật</option>
+                                                    </select>
+
+                                                    <select class="custom-select" id="select_condition_filter" style="display: none">
+                                                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                                                    </select>
+                                                    <input type="text" class="form-control input_no_border_radius" value="0" id="value_select_condition" name="value_select_condition" style="display: none">
+                                                </div>
+                                            </form>
+
+                                            <input type="text" class="form-control" id="search_input_customer" name="search_input_customer" value="@ViewBag.FilterValue" placeholder="Tìm kiếm khách hàng theo tên..." aria-describedby="button-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" id="btn_search" onclick="searchCustomer()">
+                                                    <i class="nav-icon ti ti-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="text-align:right">
+                                        <form id="">
+                                            <div class="btn-group">
+                                                <select class="custom-select" id="sort_list_return_select">
+                                                    <option selected="" value="name_az" disabled>Sắp xếp thứ tự theo</option>
+                                                    <option value="name_az">Tên khách hàng: A -> Z</option>
+                                                    <option value="name_za">Tên khách hàng: Z -> A</option>
+                                                    <option disabled>------------------------------------------</option>
+                                                    <option value="count_order_asc">Lượng đơn hàng: Tăng</option>
+                                                    <option value="count_order_dec">Lượng đơn hàng: Giảm</option>
+                                                </select>
+                                            </div>
+                                            <div class="btn-group">
+                                                <select class="custom-select" id="size_of_page_select">
+                                                    <option selected="" value="10" disabled>Hiển thị</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="data_table">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelSelectCustomerForCoupon()">Hủy Và Quay Lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#coupon').addClass('active');
+        $('#add_coupon').addClass('active');
+
+        $('#select_value').attr('disabled', 'true');
+        $('form').trigger('reset');
+
+        $('#coupon_start_date').val(today);
+        $('#coupon_start_time').val(current_time);
+
+        $('#coupon_end_date').val("Chưa xác định");
+        $('#coupon_end_time').val("Chưa xác định");
+        $('#coupon_end_date').attr('disabled', true);
+        $('#coupon_end_time').attr('disabled', true);
+
+        now.setDate(now.getDate());
+        $('#coupon_start_date').datepicker({
+            startDate: now
+        });
+        $('#coupon_end_date').datepicker({
+            startDate: now
+        });
+
+        $('#coupon_start_time').clockface({
+            format: 'HH:mm',
+        });
+        $('#coupon_end_time').clockface({
+            format: 'HH:mm',
+        });
+        $('.open_clock_face_start').click(function (e) {
+            //e.stoppropagation();
+            $('#coupon_start_time').clockface('toggle');
+        });
+        $('.open_clock_face_end').click(function (e) {
+            //e.stoppropagation();
+            $('#coupon_end_time').clockface('toggle');
+        });
+        $.fn.noMask = function (regex) {
+            this.on("keypress", function (e) {
+                if (regex.test(String.fromCharCode(e.which))) {
+                    return false;
+                }
+            });
+        }
+        $("#coupon_start_time").noMask(/[a-zA-Z]/);
+        $("#coupon_end_time").noMask(/[a-zA-Z]/);
+
+        //$('form').dirrty({
+        //    preventLeaving: true
+        //}).on("dirty", function () {
+        //    //$("#btn_insert").removeClass("disabled");
+        //}).on("clean", function () {
+        //    //$("#btn_insert").addClass("disabled");
+        //    });
+
+        //Tab List Customer
+        tabFilter();
+
+        //
+        $('#form_value_input_money_percent_samemoney').autoNumeric('init', { aSign: ' %', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+    });
+
+    function makeCouponCodeRandom(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        $('#coupon_code').val(result);
+        $('#coupon_code').removeClass('is-invalid');
+        $('#coupon_code_feedback').css({ display: 'none' });
+    }
+
+    $('input:radio[name="number_of_use_coupon"]').change(function () {
+        if (this.checked && this.value == 'false') {
+            $('#number_of_use').prop('readonly', true);
+            $('#number_of_use').removeClass('is-invalid');
+            $('#number_of_use_feedback').css({ display: 'none' });
+        }
+        else {
+            $('#number_of_use').prop('readonly', false);
+        }
+    });
+
+    //CUSTOMER
+    function tabFilter() {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("id");
+            var search_string = $('#search_input_customer').val().trim();
+            var quick_filter_select = $("#select_filter_customer option:selected").val();
+            var quick_filter_condition = $("#select_condition_filter option:selected").val();
+            var quick_filter_value = $("#value_select_condition").val();
+            var size_of_page = $("#size_of_page_select option:selected").val();
+            var sort_list_return = $("#sort_list_return_select option:selected").val();
+            var quick_filer_tab = target;
+            if (quick_filter_value == null) {
+                quick_filter_value = 0;
+            }
+            $.ajax({
+                url: "/Customer/IndexCustomerListSelect",
+                data: {
+                    search_string: search_string,
+                    page_num: 1,
+                    quick_filter_select: quick_filter_select,
+                    quick_filter_condition: quick_filter_condition,
+                    quick_filter_value: 0,
+                    size_of_page: size_of_page,
+                    quick_filer_tab: quick_filer_tab,
+                    sort_list_return: sort_list_return,
+                },
+                context: document.body,
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        });
+    }
+
+    $('input:radio[name="type_of_coupon"]').change(function () {
+        if (this.value == '1') {
+            $('#form_select_province').css({ display: 'none' });
+            $('#form_value_input_money_percent_samemoney').css({ display: 'block' });
+            $('#title_money_percent_samemoney_freeship').text('Giảm');
+            $('#form_value_input_money_percent_samemoney').attr('placeholder', ' %');
+            $("#form_value_input_money_percent_samemoney").autoNumeric('destroy');
+            $('#form_value_input_money_percent_samemoney').autoNumeric('init', { aSign: ' %', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#select_province').removeClass('is-invalid');
+            $('#form_select_province_feedback').css({ display: 'none' });
+
+            $("#select_condition_for_coupon option[value=" + 1 + "]").removeAttr('disabled');
+            $("#select_condition_for_coupon option[value=" + 2 + "]").removeAttr('disabled');
+        }
+        else if (this.value == '2') {
+            $('#form_select_province').css({ display: 'none' });
+            $('#form_value_input_money_percent_samemoney').css({ display: 'block' });
+            $('#title_money_percent_samemoney_freeship').text('Giảm');
+            $('#form_value_input_money_percent_samemoney').attr('placeholder', ' ₫');
+            $("#form_value_input_money_percent_samemoney").autoNumeric('destroy');
+            $('#form_value_input_money_percent_samemoney').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#select_province').removeClass('is-invalid');
+            $('#form_select_province_feedback').css({ display: 'none' });
+
+            $("#select_condition_for_coupon option[value=" + 1 + "]").removeAttr('disabled');
+            $("#select_condition_for_coupon option[value=" + 2 + "]").removeAttr('disabled');
+        }
+        else if (this.value == '3') {
+            $('#form_select_province').css({ display: 'none' });
+            $('#form_value_input_money_percent_samemoney').css({ display: 'block' });
+            $('#title_money_percent_samemoney_freeship').text('Là');
+            $('#form_value_input_money_percent_samemoney').attr('placeholder', ' ₫');
+            $("#form_value_input_money_percent_samemoney").autoNumeric('destroy');
+            $('#form_value_input_money_percent_samemoney').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            $('#select_province').removeClass('is-invalid');
+            $('#form_select_province_feedback').css({ display: 'none' });
+
+            $("#select_condition_for_coupon").val('3');
+            $("#select_condition_for_coupon option[value=" + 1 + "]").attr('disabled', 'disabled');
+            $("#select_condition_for_coupon option[value=" + 2 + "]").attr('disabled', 'disabled');
+
+            list_product_variation_id_selected = [];
+                product_id_selected = 0;
+                $('#select_value').css({ display: 'block' });
+                $('#product_info_selected').css({ display: 'none' });
+
+                $("#div_input_value").css({ display: 'none' });
+                $("#div_select_value").css({ display: 'block' });
+                $('#select_value').removeAttr('disabled');
+                $.ajax({
+                    type: "GET",
+                    data: {},
+                    url: '@Url.Action("GetCategoryForCoupon", "Coupon")',
+                    success: function (data) {
+                        $("#select_value").empty();
+                        $("#select_value").append('<option value="-1" disabled selected>-- Chọn danh mục --</option>');
+                        $.each(data, function (key, value) {
+                            $("#select_value").append('<option value="' + value.category_id + '"> ' + value.category_name + '</option>');
+                        });
+                    },
+                    error: function (xhr) {
+                        toastExportError();
+                    }
+                });
+        }
+        else {
+            $('#form_value_input_money_percent_samemoney').css({ display: 'none' });
+            $('#form_select_province').css({ display: 'block' });
+            $('#title_money_percent_samemoney_freeship').text('Khu vực');
+            $('#form_value_input_money_percent_samemoney').removeClass('is-invalid');
+            $('#form_value_input_money_percent_samemoney_feedback').css({ display: 'none' });
+
+            $("#select_condition_for_coupon option[value=" + 1 + "]").removeAttr('disabled');
+            $("#select_condition_for_coupon option[value=" + 2 + "]").removeAttr('disabled');
+        }
+    });
+
+    $('#select_condition_for_coupon').on('change', function () {
+        var value_select = this.value;
+        switch (value_select) {
+            case "1":
+                list_product_variation_id_selected = [];
+                product_id_selected = 0;
+                $('#select_value').css({ display: 'block' });
+                $('#product_info_selected').css({ display: 'none' });
+
+                $("#div_input_value").css({ display: 'none' });
+                $("#div_select_value").css({ display: 'block' });
+                $('#select_value').empty();
+                $("#select_value").append('<option value="-1">-- Không chọn --</option>');
+                $('#select_value').attr('disabled', 'true');
+                break;
+            case "2":
+                list_product_variation_id_selected = [];
+                product_id_selected = 0;
+                $('#select_value').css({ display: 'block' });
+                $('#product_info_selected').css({ display: 'none' });
+
+                $("#div_select_value").css({ display: 'none' });
+                $("#div_input_value").css({ display: 'block' });
+                $('#input_value').attr('placeholder', ' ₫');
+                $('#input_value').autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+                break;
+            case "3":
+                list_product_variation_id_selected = [];
+                product_id_selected = 0;
+                $('#select_value').css({ display: 'block' });
+                $('#product_info_selected').css({ display: 'none' });
+
+                $("#div_input_value").css({ display: 'none' });
+                $("#div_select_value").css({ display: 'block' });
+                $('#select_value').removeAttr('disabled');
+                $.ajax({
+                    type: "GET",
+                    data: {},
+                    url: '@Url.Action("GetCategoryForCoupon", "Coupon")',
+                    success: function (data) {
+                        $("#select_value").empty();
+                        $("#select_value").append('<option value="-1" disabled selected>-- Chọn danh mục --</option>');
+                        $.each(data, function (key, value) {
+                            $("#select_value").append('<option value="' + value.category_id + '"> ' + value.category_name + '</option>');
+                        });
+                    },
+                    error: function (xhr) {
+                        toastExportError();
+                    }
+                });
+                break;
+            case "4":
+                list_product_variation_id_selected = [];
+                $("#div_input_value").css({ display: 'none' });
+                $("#div_select_value").css({ display: 'block' });
+                $('#select_value').empty();
+                $("#select_value").append('<option value="-1">-- Không chọn --</option>');
+                $('#select_value').attr('disabled', 'true');
+
+                $('#modalSelectListProductForCoupon').modal('show');
+                filterProductCommon();
+                break;
+            case "5":
+                product_id_selected = 0;
+                $('#select_value').css({ display: 'block' });
+                $('#product_info_selected').css({ display: 'none' });
+                $("#div_input_value").css({ display: 'none' });
+                $("#div_select_value").css({ display: 'block' });
+                $('#select_value').empty();
+                $("#select_value").append('<option value="-1">-- Không chọn --</option>');
+                $('#select_value').attr('disabled', 'true');
+
+                $('#modalSelectListProductVariationForCoupon').modal('show');
+                filterProductVariationCommon();
+                break;
+        }
+    });
+
+    $('#select_group_customer_for_coupon').on('change', function () {
+        var value_select = this.value;
+        if (value_select == "5") {
+            $('#modalSelectListCustomerForCoupon').modal('show');
+            searchCustomerCommon();
+        } else {
+            customer_id_selected = 0;
+            $('#customer_info_selected').css({ display: 'none' });
+        }
+    });
+
+    $('#select_filter_customer').on('change', function () {
+        var select_filter_customer = this.value;
+        var search_string = $('#search_input_customer').val().trim();
+        if (select_filter_customer != "all") {
+            $('#select_condition_filter').css('display', 'block');
+            switch (select_filter_customer) {
+                case "money_purchased":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'block' });
+                    $('#value_select_condition').attr('placeholder','₫');
+                    $("#value_select_condition").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+                    $("#select_condition_filter").append('<option value="' + "money_purchased_>" + '">' + "Lớn hơn" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "money_purchased_<" + '">' + "Nhỏ hơn" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "money_purchased_=" + '">' + "Bằng" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "money_purchased_#" + '">' + "Khác" + '</option>');
+                    break;
+                case "number_of_order":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'block' });
+                    $('#value_select_condition').attr('placeholder', 'Nhập số lượng');
+                    $("#value_select_condition").autoNumeric('init', { aSign: ' ', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+                    $("#select_condition_filter").append('<option value="' + "number_of_order_>" + '">' + "Có số lượng lớn hơn" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "number_of_order_<" + '">' + "Có số lượng nhỏ hơn" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "number_of_order_=" + '">' + "Có số lượng bằng" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "number_of_order_#" + '">' + "Có số lượng khác" + '</option>');
+                    break;
+                case "time_to_order":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_this_week" + '">' + "Trong tuần này" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_this_month" + '">' + "Trong tháng này" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_today" + '">' + "Trong ngày hôm nay" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_yesterday" + '">' + "Trong ngày hôm qua" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_before_day" + '">' + "Trước ngày" + '</option>');
+                    $("#select_condition_filter").append('<option value="' + "time_to_order_after_day" + '">' + "Sau ngày" + '</option>');
+                    break;
+                case "customer_tag":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'block' });
+                    $('#value_select_condition').attr('placeholder', 'Nhập từ khóa tag');
+                    $("#value_select_condition").autoNumeric('destroy');
+
+                    $("#select_condition_filter").append('<option value="' + "tag_string_contain>" + '">' + "Chứa từ" + '</option>');
+                    break;
+                case "customer_address":
+                    $('#select_condition_filter').empty();
+                    $('#value_select_condition').css({ display: 'none' });
+
+                    $.ajax({
+                        type: "GET",
+                        data: {  },
+                        url: '@Url.Action("GetAllProvince", "GetLocal")',
+                        success: function (data) {
+                            $("#select_condition_filter").append('<option value="-1" disabled selected>-- Chọn Tỉnh/Thành phố --</option>');
+                            $.each(data, function (key, value) {
+                                $("#select_condition_filter").append('<option value="' + value.province_name + '"> ' + value.province_name + '</option>');
+                            });
+                        },
+                        error: function (xhr) {
+                            toastExportError();
+                        }
+                    });
+                    break;
+                case "customer_month_of_birth":
+                    $('#value_select_condition').css({ display: 'none' });
+                    var arr_month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+                    $('#select_condition_filter').empty();
+                    $("#select_condition_filter").append('<option value="all">-- Chọn tháng --</option>');
+                    $.each(arr_month, function (key, value) {
+                        $("#select_condition_filter").append('<option value="' + value + '"> ' + "Tháng " + value + '</option>');
+                    });
+                    break;
+                default:
+                    console.log('Not Find Result');
+            }
+        }
+        else {
+            $('#select_condition_filter').css({ display: 'none' });
+            $('#value_select_condition').css({ display: 'none' });
+            searchCustomerCommon();
+        }
+    });
+
+    $('#size_of_page_select').on('change', function () {
+        searchCustomerCommon();
+    });
+
+    $('#sort_list_return_select').on('change', function () {
+        searchCustomerCommon();
+    });
+
+    $('#select_condition_filter').on('change', function () {
+        searchCustomerCommon();
+    });
+
+    $('#search_input_customer').keypress(function (e) {
+        if (e.which == 13) {
+            searchCustomerCommon();
+        }
+    });
+
+    function searchCustomer() {
+        searchCustomerCommon();
+    }
+
+    function searchCustomerCommon() {
+        var search_string = $('#search_input_customer').val().trim();
+        var target = $('ul > li.li_tab_list_customer_to_select> a.active').attr("id");
+        var quick_filter_select = $("#select_filter_customer option:selected").val();
+        var quick_filter_condition = $("#select_condition_filter option:selected").val();
+        var quick_filter_value = $("#value_select_condition").val();
+        var size_of_page = $("#size_of_page_select option:selected").val();
+        var sort_list_return = $("#sort_list_return_select option:selected").val();
+        var quick_filer_tab = target;
+        if (quick_filter_value == null) {
+            quick_filter_value = 0;
+        }
+
+        $.ajax({
+            url: "/Customer/IndexCustomerListSelect",
+            data: {
+                search_string: search_string,
+                page_num: 1,
+                quick_filter_select: quick_filter_select,
+                quick_filter_condition: quick_filter_condition,
+                quick_filter_value: 0,
+                size_of_page: size_of_page,
+                quick_filer_tab: quick_filer_tab,
+                sort_list_return: sort_list_return,
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+    $('#check_never_expires').on('change', function () {
+        if ($('input#check_never_expires').is(':checked')) {
+            $('#coupon_end_date').attr('disabled', true);
+            $('#coupon_end_time').attr('disabled', true);
+            $('#coupon_end_date').val("Chưa xác định");
+            $('#coupon_end_time').val("Chưa xác định");
+        } else {
+            $('#coupon_end_date').removeAttr('disabled');
+            $('#coupon_end_time').removeAttr('disabled');
+            $('#coupon_end_date').val(today);
+            $('#coupon_end_time').val(current_time);
+        }
+    });
+
+    $('#btn_confirm_list_product_variation').click(function () {
+        $('#select_value').append('<option selected disabled>Đã chọn ' + list_product_variation_id_selected.length + '  biến thể sản phẩm</option>');
+        $('#modalSelectListProductVariationForCoupon').modal('hide');
+    });
+
+    function cancelSelectCustomerForCoupon() {
+        $('#select_group_customer_for_coupon').val(1);
+    }
+
+    function cancelSelectProductForCoupon() {
+        $('#select_condition_for_coupon').val(1);
+    }
+
+    function cancelSelectListProductVariationForCoupon() {
+        $('#select_condition_for_coupon').val(1);
+    }
+
+
+    var customer_id_selected = 0;
+    function selectThisCustomer(customer_id) {
+        customer_id_selected = customer_id;
+        $.ajax({
+            url: "/Customer/GetCustomerByCustomerId",
+            data: {
+                customer_id: customer_id
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var customer = JSON.parse(data);
+                $('#customer_info_selected').css({ display: 'block' });
+                $('#text_customer_info').html(customer.customer_first_name + " " + customer.customer_last_name + " - " + customer.customer_email);
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+    function removeCustomerSelected() {
+        customer_id_selected = null;
+        $('#select_group_customer_for_coupon').val(1);
+        $('#customer_info_selected').css({ display: 'none' });
+        $('#text_customer_info').html('');
+    }
+
+    //PRODUCT
+    $('#select-filter').on('change', function () {
+        var filter_value_parent = this.value;
+        var search_string = $('#search_input').val().trim();
+        if (filter_value_parent == "product_status") {
+            $('#filter-by-product-status').css('display', 'block');
+            $('#filter-by-category').css('display', 'none');
+            $('#filter-by-supplier').css('display', 'none');
+        }
+        else if (filter_value_parent == "category") {
+            $('#filter-by-product-status').css('display', 'none');
+            $('#filter-by-category').css('display', 'block');
+            $('#filter-by-supplier').css('display', 'none');
+        }
+        else if (filter_value_parent == "supplier") {
+            $('#filter-by-product-status').css('display', 'none');
+            $('#filter-by-category').css('display', 'none');
+            $('#filter-by-supplier').css('display', 'block');
+        }
+        else {
+            $('#form_filter.custom-select').trigger("reset");
+            $('#filter-by-product-status').css('display', 'none');
+            $('#filter-by-supplier').css('display', 'none');
+            $('#filter-by-category').css('display', 'none');
+            string_value_to_filter = "";
+            filterProductCommon();
+        }
+    });
+
+    var string_value_to_filter = "";
+    $('#filter-by-product-status').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductCommon();
+    });
+
+    $('#filter-by-category').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductCommon();
+    });
+
+    $('#filter-by-supplier').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductCommon();
+    });
+
+    $('#search_input').keypress(function (e) {
+        if (e.which == 13) {
+            filterProductCommon();
+        }
+    });
+
+    function filterProductCommon() {
+        var search_string = $('#search_input').val().trim();
+        var quick_filter_value = string_value_to_filter;
+        var quick_filter = $("#select-filter option:selected").val();
+        var size_of_page = $("#size_of_page_select_product option:selected").val();
+        var sort_list_return = $("#sort_list_product_return_select option:selected").val();
+        $.ajax({
+            url: "/Product/IndexProductListSelect",
+            data: {
+                search_string: search_string,
+                page_num: 1,
+                quick_filter_value: quick_filter_value,
+                quick_filter: quick_filter,
+                size_of_page: size_of_page,
+                sort_list_return: sort_list_return,
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data_table_list_product").html($(data).find("#data_table_list_product"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+    $('#size_of_page_select_product').on('change', function () {
+        filterProductCommon();
+    });
+
+    $('#sort_list_product_return_select').on('change', function () {
+        filterProductCommon();
+    });
+
+    function searchProduct() {
+        filterProductCommon();
+    }
+
+    var product_id_selected = null;
+    function selectThisProduct(product_id) {
+        $('#modalSelectListProductForCoupon').modal('hide');
+        $.ajax({
+            url: "/Product/GetProductByProductId",
+            data: {
+                product_id: product_id
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                product_id_selected = product_id;
+                var product = JSON.parse(data);
+                $('#select_value').css({ display: 'none' });
+                $('#product_info_selected').css({ display: 'block' });
+                $('#text_product_info').text(product.product_name);
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+    function removeProductSelected() {
+        product_id_selected = null;
+        $('#select_value').css({ display: 'block' });
+        $('#product_info_selected').css({ display: 'none' });
+        $('#select_value').val(-1);
+        $('#select_condition_for_coupon').val(1);
+        $('#text_product_info').text("");
+    }
+
+    //PRODUCT VARIATION
+    $('#select_filter_product_variation').on('change', function () {
+        var filter_value_parent = this.value;
+        var search_string = $('#search_input_for_product_variation').val().trim();
+        if (filter_value_parent == "product_status") {
+            $('#filter_by_product_status_for_product_variation').css('display', 'block');
+            $('#filter_by_category_for_product_variation').css('display', 'none');
+            $('#filter_by_supplier_for_product_variation').css('display', 'none');
+        }
+        else if (filter_value_parent == "category") {
+            $('#filter_by_product_status_for_product_variation').css('display', 'none');
+            $('#filter_by_category_for_product_variation').css('display', 'block');
+            $('#filter_by_supplier_for_product_variation').css('display', 'none');
+        }
+        else if (filter_value_parent == "supplier") {
+            $('#filter_by_product_status_for_product_variation').css('display', 'none');
+            $('#filter_by_category_for_product_variation').css('display', 'none');
+            $('#filter_by_supplier_for_product_variation').css('display', 'block');
+        }
+        else {
+            $('#form_filter_for_product_variation.custom-select').trigger("reset");
+            $('#filter_by_product_status_for_product_variation').css('display', 'none');
+            $('#filter_by_supplier_for_product_variation').css('display', 'none');
+            $('#filter_by_category_for_product_variation').css('display', 'none');
+            string_value_to_filter = "";
+            filterProductVariationCommon();
+        }
+    });
+
+    var string_value_to_filter = "";
+    $('#filter_by_product_status_for_product_variation').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductVariationCommon();
+    });
+
+    $('#filter_by_category_for_product_variation').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductVariationCommon();
+    });
+
+    $('#filter_by_supplier_for_product_variation').on('change', function () {
+        string_value_to_filter = this.value;
+        filterProductVariationCommon();
+    });
+
+    $('#search_input_for_product_variation').keypress(function (e) {
+        if (e.which == 13) {
+            filterProductVariationCommon();
+        }
+    });
+
+    function filterProductVariationCommon() {
+        var search_string = $('#search_input_for_product_variation').val().trim();
+        var quick_filter_value = string_value_to_filter;
+        var quick_filter = $("#select_filter_product_variation option:selected").val();
+        var size_of_page = $("#size_of_page_select_product_for_product_variation option:selected").val();
+        var sort_list_return = $("#sort_list_product_return_select_for_product_variation option:selected").val();
+        $.ajax({
+            url: "/Product/IndexProductVariation",
+            data: {
+                search_string: search_string,
+                page_num: 1,
+                quick_filter_value: quick_filter_value,
+                quick_filter: quick_filter,
+                size_of_page: size_of_page,
+                sort_list_return: sort_list_return,
+            },
+            context: document.body,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                $("#data_table_product_variation").html($(data).find("#data_table_product_variation"));
+            },
+            error: function (xhr, status) {
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+    $('#size_of_page_select_product_for_product_variation').on('change', function () {
+        filterProductVariationCommon();
+    });
+
+    $('#sort_list_product_return_select_for_product_variation').on('change', function () {
+        filterProductVariationCommon();
+    });
+
+    function searchProductForProductVariation() {
+        filterProductVariationCommon();
+    }
+
+    var list_product_variation_id_selected = [];
+    //INSERT TO DATABASE
+    $('#btn_insert_coupon').click(function () {
+        var coupon_code = $('#coupon_code').val().trim();
+        var allow_use_with_promotion_status = $('#allow_use_with_promotion_status').is(':checked');
+        var number_of_use_coupon = $('input[name=number_of_use_coupon]:checked').val();
+        var discount_type_id = $('input[name=type_of_coupon]:checked').val();
+        var discount_value = $('#form_value_input_money_percent_samemoney').autoNumeric('get');
+        var province_id = $('#select_province').val();
+        var condition_for_coupon_id = $('#select_condition_for_coupon').val();
+        var coupon_order_cost_from = $('#input_value').autoNumeric('get');
+        var category_id = $('#select_value').val();
+        var object_of_coupon_id = $('#select_group_customer_for_coupon').val();
+        var product_id = product_id_selected;
+        var customer_id = customer_id_selected;
+        var list_product_variation_id = list_product_variation_id_selected;
+        var coupon_start_date = $('#coupon_start_date').val().trim();
+        var coupon_start_time = $('#coupon_start_time').val().trim();
+        var coupon_end_date = $('#coupon_end_date').val().trim();
+        var coupon_end_time = $('#coupon_end_time').val().trim();
+        var coupon_number_of_uses = $('#number_of_use').autoNumeric('get');
+        $('html, body').animate({
+            scrollTop: $(".page-title").offset().top
+        }, 600);
+        if (coupon_code == "") {
+            $('#coupon_code').addClass('is-invalid');
+            $('#coupon_code_feedback').css({ display: 'block' });
+            $('#coupon_code_check_duplicate_false').css({ display: 'none' });
+            showToast("error", "Yêu cầu nhập <strong>mã giảm giá</strong>.", "Lỗi");
+        }
+        else if ((number_of_use_coupon == "true" && coupon_number_of_uses == "") || (number_of_use_coupon == "true" && coupon_number_of_uses <= 0)) {
+            $('#number_of_use').addClass('is-invalid');
+            $('#number_of_use_feedback').css({ display: 'block' });
+            showToast("error", "Yêu cầu nhập <strong>số lần sử dụng mã giảm giá</strong> và <strong> phải lớn hơn 0.</strong>.", "Lỗi");
+        }
+        //--------------------
+        else if (discount_type_id == "4" && (province_id == "" || province_id == null)) {
+            $('#select_province').addClass('is-invalid');
+            $('#form_select_province_feedback').css({ display: 'block' });
+            showToast("error", "Yêu cầu chọn <strong>khu vực Tỉnh/Thành phố</strong>.", "Lỗi");
+        }
+        else if ((discount_type_id == "1" || discount_type_id == "2" || discount_type_id == "3") && (discount_value == "" || discount_value == null)) {
+            $('#form_value_input_money_percent_samemoney').addClass('is-invalid');
+            $('#form_value_input_money_percent_samemoney_feedback').css({ display: 'block' });
+            $('#form_select_province_feedback').css({ display: 'none' });
+            showToast("error", "Yêu cầu nhập <strong>giá trị giảm cho mã giảm giá</strong>.", "Lỗi");
+        }
+        //Get order_cost_from
+        else if (condition_for_coupon_id == "2" && (coupon_order_cost_from == "" || coupon_order_cost_from == null)) {
+            $('#input_value').addClass('is-invalid');
+            $('#input_value_feedback').css({ display: 'block' });
+            showToast("error", "Yêu cầu nhập <strong>giá trị tối thiểu cho đơn hàng</strong> để được nhận mã giảm giá.", "Lỗi");
+        }
+        //Get category_id
+        else if (condition_for_coupon_id == "3" && (category_id == "" || category_id == null)) {
+            $('#select_value').addClass('is-invalid');
+            $('#select_value_feedback').css({ display: 'block' });
+            showToast("error", "Yêu cầu chọn <strong>danh mục sản phẩm được nhận mã giảm giá</strong>.", "Lỗi");
+        }
+        //--------------
+        else {
+            var obj = {};
+            obj.coupon_code = coupon_code;
+            obj.allow_use_with_promotion_status = allow_use_with_promotion_status;
+            if (number_of_use_coupon == "true") {
+                obj.coupon_number_of_uses = coupon_number_of_uses;
+            }
+            obj.discount_type_id = discount_type_id;
+            if (discount_type_id == "4") {
+                obj.province_id = province_id;
+                obj.discount_value = null;
+            } else {
+                obj.discount_value = discount_value;
+            }
+            obj.condition_for_coupon_id = condition_for_coupon_id;
+            if (condition_for_coupon_id == "2") {
+                obj.coupon_order_cost_from = coupon_order_cost_from;
+            } else if (condition_for_coupon_id == "3") {
+                obj.category_id = category_id;
+                obj.coupon_order_cost_from = null;
+            } else if (condition_for_coupon_id == "4") {
+                obj.product_id = product_id;
+                obj.coupon_order_cost_from = null;
+            } else {
+                obj.coupon_order_cost_from = null;
+            }
+
+            obj.object_of_coupon_id = object_of_coupon_id;
+            if (object_of_coupon_id == "5") {
+                obj.customer_id = customer_id;
+            }
+
+            if (coupon_end_date == "Chưa xác định") {
+                coupon_end_date = null;
+            }
+            if (coupon_end_time == "Chưa xác định") {
+                coupon_end_time = null;
+            }
+
+            $.ajax({
+                url: "/Coupon/InsertCoupon",
+                data: {
+                    obj: obj,
+                    list_product_variation_id: list_product_variation_id,
+                    coupon_start_date: coupon_start_date,
+                    coupon_start_time: coupon_start_time,
+                    coupon_end_date: coupon_end_date,
+                    coupon_end_time: coupon_end_time,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    //$('form').trigger('reset');
+                    //$('form').dirrty({
+                    //    preventLeaving: false
+                    //})
+
+                    var date_obj = new Date();
+                    var minutes = 30;
+                    date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                    Cookies.set("insert_coupon_success", "" + coupon_code, { expires: date_obj });
+                    var baseUrl="@Url.Action("Index", "Coupon")";
+                       window.location.href=baseUrl;
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    });
+
+    var pattern = /(([0-9])|([0-1][0-9])|([2][0-3])):(([0-9])|([0-5][0-9]))/;
+    function checkTimeFormat(str) {
+        return pattern.test(str);
+    }
+
+    $('#coupon_end_date').change(function () {
+        var coupon_end_date = $('#coupon_end_date').val().trim();
+        if (coupon_end_date == "" || coupon_end_date == null) {
+            $('#coupon_end_date').val(today);
+        }
+    });
+
+    $('#coupon_end_time').change(function () {
+        var coupon_end_time = $('#coupon_end_time').val().trim();
+        if (coupon_end_time == "" || coupon_end_time == null) {
+            $('#coupon_end_time').val(current_time);
+        }
+    });
+
+    $('#coupon_start_time').change(function () {
+        var coupon_start_time = $('#coupon_start_time').val().trim();
+        if (coupon_start_time == "" || coupon_start_time == null) {
+            $('#coupon_start_time').val(current_time);
+        }
+    });
+
+    $('#coupon_start_date').change(function () {
+        var coupon_start_date = $('#coupon_start_date').val().trim();
+        if (coupon_start_date == "" || coupon_start_date == null) {
+            $('#coupon_start_date').val(today);
+        }
+    });
+
+    $('#coupon_start_time').keyup(function () {
+        $('#coupon_start_time').removeClass('is-invalid');
+        $('#coupon_start_time_is_invalid_feedback').css({ display: 'none' })
+    });
+
+    $(document).on('click', function (e) {
+        var coupon_end_time = $('#coupon_end_time').val().trim();
+        if (coupon_end_time != "Chưa xác định" && checkTimeFormat(coupon_end_time) == false && e.target.id != '#coupon_end_time') {
+            $('#coupon_end_time').val(current_time);
+        }
+
+        var coupon_start_time = $('#coupon_start_time').val().trim();
+        if (checkTimeFormat(coupon_start_time) == false && e.target.id != '#coupon_start_time') {
+            $('#coupon_start_time').val(current_time);
+        }
+    });
+
+    $('#coupon_code').keyup(function () {
+        var coupon_code = $('#coupon_code').val().trim();
+        if (coupon_code != "" || coupon_code != null) {
+            $('#coupon_code').removeClass('is-invalid');
+            $('#coupon_code_feedback').css({ display: 'none' });
+        }
+    });
+
+    $('#number_of_use').keyup(function () {
+        var number_of_use = $('#number_of_use').autoNumeric('get');
+        if (number_of_use != "" || number_of_use != null) {
+            $('#number_of_use').removeClass('is-invalid');
+            $('#number_of_use_feedback').css({ display: 'none' });
+        }
+    });
+
+
+    $('#form_value_input_money_percent_samemoney').keyup(function () {
+        var discount_value = $('#form_value_input_money_percent_samemoney').autoNumeric('get');
+        if (discount_value != "" || discount_value != null) {
+            $('#form_value_input_money_percent_samemoney').removeClass('is-invalid');
+            $('#form_value_input_money_percent_samemoney_feedback').css({ display: 'none' });
+        }
+    });
+
+    $('#select_province').change(function () {
+        $('#select_province').removeClass('is-invalid');
+        $('#form_select_province_feedback').css({ display: 'none' });
+    });
+
+    $('#select_value').change(function () {
+        $('#select_value').removeClass('is-invalid');
+        $('#select_value_feedback').css({ display: 'none' });
+    });
+
+    $('#input_value').keyup(function () {
+        var coupon_order_cost_from = $('#input_value').autoNumeric('get');
+        if (coupon_order_cost_from != "" || coupon_order_cost_from != null) {
+            $('#input_value').removeClass('is-invalid');
+            $('#input_value_feedback').css({ display: 'none' });
+        }
+    });
+
+</script>

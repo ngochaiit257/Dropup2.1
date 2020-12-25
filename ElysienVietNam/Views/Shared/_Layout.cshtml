@@ -29,6 +29,7 @@
     var logo_mobile = new StoreLogoProvider().getLogoMobile();
 
     var contact = new StoreContactProvider().get1Contact();
+    var list_contact = new StoreContactProvider().getAll();
 
     string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
     string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
@@ -36,7 +37,7 @@
     string twitter_link = System.Configuration.ConfigurationManager.AppSettings["twitter_link"];
     string google_link = System.Configuration.ConfigurationManager.AppSettings["google_link"];
     string youtube_link = System.Configuration.ConfigurationManager.AppSettings["youtube_link"];
-
+    var get1member = new StoreMembershipProvider().getAll().FirstOrDefault();
 }
 
 <!DOCTYPE html>
@@ -84,42 +85,6 @@
 
 </head>
 <body>
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                xfbml: true,
-                version: 'v9.0'
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
-    <!-- Your Chat Plugin code -->
-    <div class="fb-customerchat"
-         attribution=setup_tool
-         page_id="174489709573256">
-    </div>
-
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=664509467832505&autoLogAppEvents=1" nonce="g3z33419"></script>
-
-    <!-- main layout start from here -->
-    <!--====== PRELOADER PART START ======-->
-    <!-- <div id="preloader">
-        <div class="preloader">
-            <span></span>
-            <span></span>
-        </div>
-    </div> -->
-    <!--====== PRELOADER PART ENDS ======-->
     <div id="main">
         <!-- Header Start -->
         <header class="main-header home-2">
@@ -132,22 +97,22 @@
                             <div class="header-right-nav" style="float: unset; margin-top: 5px">
                                 <ul class="res-xs-flex">
                                     <li>
-                                        <a href="/">
+                                        <a href="@get1member.myoutube_url">
                                             <i class="ion-social-youtube"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/">
+                                        <a href="@get1member.minstagram_url">
                                             <i class="ion-social-instagram"></i>
                                         </a>
                                     </li>
                                     <li class="after-n">
-                                        <a href="/">
+                                        <a href="@get1member.mfacebook_url">
                                             <i class="ion-social-facebook"></i>
                                         </a>
                                     </li>
                                     <li class="after-n">
-                                        <a href="/">
+                                        <a href="@get1member.mtwitter_url">
                                             <i class="ion-social-twitter"></i>
                                         </a>
                                     </li>
@@ -175,7 +140,7 @@
                         <!-- Logo Start -->
                         <div class="col-md-2 col-sm-2">
                             <div class="logo">
-                                <a href="/"><img class="img-logo brightness" src="@urlCMS/@logo_header.image" alt="@logo_header.alt" /></a>
+                                <a href="/"><img class="img-logo" src="@urlCMS/@logo_header.image" alt="@logo_header.alt" /></a>
                             </div>
                         </div>
                         <!-- Logo End -->
@@ -295,43 +260,56 @@
                         <div class="mobile-menu">
                             <nav id="mobile-menu-active">
                                 <ul class="menu-overflow">
+                                    @if (list_page_parent.Count > 0)
+                                    {
+                                        foreach (var pp in list_page_parent)
+                                        {
+                                            if (pp.mount_on_header_menu_status == true)
+                                            {
+                                                var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                if (list_page_child.Count > 0)
+                                                {
+                                                    <li>
+                                                        <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                            @pp.page_title
+                                                        </a>
+                                                        <ul>
+                                                            @foreach (var pc in list_page_child)
+                                                            {
+                                                                <li>
+                                                                    <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                        @pc.page_title
+                                                                    </a>
+                                                                </li>
+                                                            }
+
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+
+                                    }
                                     <li>
-                                        <a href="#">Về Elysien &nbsp;<i class="ion-ios-arrow-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="#">Câu chuyện thương hiệu <i class="ion-ios-arrow-down"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Giá trị cốt lõi <i class="ion-ios-arrow-down"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Ưu đãi <i class="ion-ios-arrow-down"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Tuyển dụng <i class="ion-ios-arrow-down"></i></a>
-                                            </li>
-                                        </ul>
+                                        <a href="/collections/my-pham">Mỹ phẩm</a>
                                     </li>
                                     <li>
-                                        <a href="#">SPA</a>
+                                        <a href="/pages/spa">SPA</a>
                                     </li>
                                     <li>
-                                        <a href="#">Mỹ Phẩm</a>
+                                        <a href="/collections/may-moc-va-dung-cu-spa">Máy móc và dụng cụ SPA</a>
                                     </li>
                                     <li>
-                                        <a href="#">Máy Móc và Dụng Cụ SPA</a>
+                                        <a href="/pages/oem-odm">OEM/ODM</a>
                                     </li>
                                     <li>
-                                        <a href="#">OEM / ODM</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Đào Tạo</a>
+                                        <a href="/pages/dao-tao">Đào tạo</a>
                                     </li>
                                     <li>
                                         <a href="/blogs">Blog</a>
                                     </li>
                                     <li>
-                                        <a href="#">Liên Hệ</a>
+                                        <a href="/pages/lien-he">Liên Hệ</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -345,6 +323,14 @@
         <!-- Header End -->
         <!-- Slider Arae Start -->
         @RenderBody()
+
+        <div id="open-modal" class="modal-window">
+            <div style="text-align: center;">
+                <img src="~/Assets/images/loader/loader-order.gif" style="width: 260px" />
+                <h1>Vui lòng chờ trong giây lát...</h1>
+            </div>
+        </div>
+
         <!-- Footer Area start -->
         <footer class="footer-area">
             <div class="footer-top">
@@ -414,18 +400,22 @@
                         <!-- footer single wedget -->
                         <div class="col-md-6 col-lg-4 mt-res-md-50px mt-res-sx-30px mt-res-md-30px">
                             <div class="single-wedge">
-                                <h4 class="footer-herading">Elysien Việt Nam</h4>
-                                <strong class="text-main-color">
-                                    Kiến tạo nhận thức giá trị đẹp đích thực an toàn, hiệu quả!
-                                </strong>
-                                <ul>
-                                    <li><strong>Địa chỉ văn phòng Hà Nội:</strong> 15M2, Ngõ 112 Trung Kính, Yên Hoà, Cầu Giấy, Hà Nội</li>
-                                    <li><strong>Địa chỉ văn phòng Hồ Chí Minh:</strong> Tầng 7, Toà nhà Diamond Plaza, 34 Lê Duẩn, Quận 1, Hồ Chí Minh</li>
-                                    <li><strong>Hotline:</strong> 024 7300 2336</li>
-                                    <li><strong>Email:</strong> elysienvietnam@gmail.com</li>
+                                <h4 class="footer-herading">Theo dõi chúng tôi</h4>
+                                <div class="fb-page" data-href="https://www.facebook.com/elysienvietnam" data-tabs="timeline" data-width="380" data-height="180" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/elysienvietnam" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/elysienvietnam">Elysien Vietnam</a></blockquote></div>
+                                <ul style="margin-top: 10px;">
+                                    <li>
+                                        <strong class="text-main-color">
+                                            Kiến tạo nhận thức giá trị đẹp đích thực an toàn <br /> hiệu quả!
+                                        </strong>
+                                    </li>
+                                    @foreach (var item in list_contact)
+                                    {
+                                        <li>@Html.Raw(item.address)</li>
+                                    }
+                                    <li><strong>Hotline:</strong> @contact.phone_number</li>
+                                    <li><strong>Email:</strong> @contact.email</li>
+                                    <li>Vui lòng liên hệ vào giờ hành chính để được phục vụ tốt nhất !</li>
                                 </ul>
-                                <em>Vui lòng liên hệ vào giờ hành chính để được phục vụ tốt nhất !</em>
-                                @*<div class="fb-page" data-href="https://www.facebook.com/elysienvietnam" data-tabs="timeline" data-width="" data-height="260" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/elysienvietnam" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/elysienvietnam">Elysien Vietnam</a></blockquote></div>*@
                             </div>
                         </div>
                         <!-- footer single wedget -->
@@ -437,7 +427,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
-                            <p class="copy-text">Copyright © <a href="https://elysien.vn/"> Elysien.vn</a>. All Rights Reserved</p>
+                            <p class="copy-text">Bản quyền thuộc về <a href="https://elysien.vn/"> Elysien.vn</a>. Thiết kế bởi <a href="https://diwe.vn">Diwe.vn</a></p>
                         </div>
                     </div>
                 </div>
@@ -450,10 +440,28 @@
             <div>
                 <div class="diwe-popup diwe-modal__transition-enter-done">
                     <div class="diwe-popup__overlay"></div>
-                    <div class="diwe-popup__container">
-                        <a class="cZGZ-T" href="/m/samsung-dien-may?smtt=200.111126">
-                            <img class="_2c__Iu" src="https://cf.shopee.vn/file/f1caea78b9f4da073321361df0cc2845_xxhdpi" alt="home_popup_banner">
-                        </a>
+                    <div class="diwe-popup__container" style="background: #fff;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 ">
+                                    <img src="~/Assets/images/banner-image/img-popup.jpg" class="brand-popup" />
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6">
+                                    <div class="content-popup">
+                                        <img src="@urlCMS/@logo_header.image" alt="@logo_header.alt" />
+                                        <h3>Đăng kí thành viên để nhận ngay</h3>
+                                        <p>MIỄN PHÍ 01 BUỔI CHĂM SÓC DA MẶT TIÊU CHUẨN HÀN QUỐC CẤP ẨM VÀ TÁI TẠO DA VÀ GIẢM 30% VỚI HOÁ ĐƠN MUA MỸ PHẨM ĐẦU TIÊN</p>
+                                    </div>
+                                    <div class="form-popup">
+                                        <input id="rphone" class="input-modal" placeholder="Để lại số điện thoại *" type="text" maxlength="13" autocomplete="off">
+                                        <input id="remail" class="input-modal" placeholder="Để lại email *" type="text" maxlength="255" autocomplete="off">
+                                        <div class="btn-slider-custom">
+                                            <button type="button" href="javascript:void(0)" class="shop-btn btn-popup" onclick="registerBtn()">Gửi thông tin</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="diwe-popup__close-btn">
                             <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="diwe-svg-icon ">
                                 <path d="m10.7 9.2-3.8-3.8 3.8-3.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-3.8 3.7-3.8-3.7c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l3.8 3.7-3.8 3.8c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l3.8-3.8 3.8 3.8c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4z"></path>
@@ -462,7 +470,60 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function registerBtn() {
+                    var cphone = $('#rphone').val();
+                    var cemail = $('#remail').val();
+                    var cname = "Khách hàng truy cập website";
+                    var cmessage = "Khách hàng nhập SỐ ĐIỆN THOẠI và EMAIL trên POPUP quảng cáo";
+                    var csubject = "ĐĂNG KÝ THÀNH VIÊN";
+                    if (cphone == null || cphone == "") {
+                        alert("Yêu cầu nhập SỐ ĐIỆN THOẠI.");
+                    }
+                    else if (!phonenumber(cphone)) {
+                        alert("Số điện thoại KHÔNG HỢP LỆ");
+                    }
+                    else if (cemail == null || cemail == "") {
+                        alert("Yêu cầu nhập EMAIL.");
+                    }
+                    else if (!isEmail(cemail)) {
+                        alert("Email KHÔNG HỢP LỆ");
+                    }
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Page/SendMessage",
+                            data: {
+                                sender_name: cname,
+                                sender_phone_number: cphone,
+                                sender_email: cemail,
+                                sender_subject: csubject,
+                                sender_message: cmessage,
+                            },
+                            context: document.body,
+                            dataType: "html",
+                            beforeSend: function () {
+                                $('.btn-popup').prop('disabled', true);
+                                $('.btn-popup').text("Đang gửi...");
+                            },
+                            success: function (data) {
+                                $("#rphone").val("");
+                                $("#remail").val("");
+                                alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                            },
+                            error: function (xhr, status) {
+                                alert("Có lỗi xảy ra.");
+                            },
+                            complete: function (xhr, status) {
+                                $('.btn-popup').prop('disabled', false);
+                                $('.btn-popup').text("Gửi thông tin");
+                            }
+                        });
+                    }
+                }
+            </script>
         </div>
+
     </div>
 
     @Scripts.Render("~/bundles/jsCoreSecond")
@@ -476,6 +537,21 @@
             $("img.lazyload").lazyload();
             $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
         });
+
+        function phonenumber(inputtxt) {
+            var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (inputtxt.match(phoneno)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
 
         if (sessionStorage["ShowModal"] != 'show') {
             setTimeout(function () {
@@ -596,5 +672,35 @@
         }
 
     </script>
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=664509467832505&autoLogAppEvents=1" nonce="g3z33419"></script>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="174489709573256"
+         logged_in_greeting="Chào bạn! Elysien có thể giúp gì cho bạn?"
+         logged_out_greeting="Chào bạn! Elysien có thể giúp gì cho bạn?">
+    </div>
+
+
 </body>
 </html>

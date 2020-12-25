@@ -1,0 +1,373 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+    var list_newest_blog = new BlogProvider().getNewest().Take(6).ToList();
+
+}
+<!doctype html>
+<html class="no-js" lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="manifest" href="site.html">
+    <link rel="apple-touch-icon" href="icon.html">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" href="../Assets/images/icon/favicons.png" type="image/x-icon">
+
+    <!-- All css here -->
+    <link rel="stylesheet" href="../Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../Assets/css/slick.css">
+    <link rel="stylesheet" href="../Assets/css/magnific-popup.html">
+    <link rel="stylesheet" href="../Assets/css/nice-select.css">
+    <link rel="stylesheet" href="../Assets/css/animate.css">
+    <link rel="stylesheet" href="../Assets/css/meanmenu.css">
+    <link rel="stylesheet" href="../Assets/css/flaticon.css">
+    <link rel="stylesheet" href="../Assets/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="../Assets/css/icomoon.css">
+    <link rel="stylesheet" href="../Assets/css/default.css">
+    <link rel="stylesheet" href="../Assets/css/style.css">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+    <link href="~/Assets/css/PagedList.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../Assets/css/responsive.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,600,700,800,900|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <script src="../Assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=237727621047446&autoLogAppEvents=1" nonce="4VsP1zGE"></script>
+    <!--  ====== header-area-start=======================================  -->
+    <header>
+        <div id="header-sticky" class="header-area white-bg border-bottom">
+            <div class="header header-2 position-relative pl-35 pr-35">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-xl-2  col-lg-7 col-md-7 col-sm-7 col-8">
+                            <div class="logo float-right float-xl-left">
+                                <a href="/"><img src="@urlCMS/@logo_header.image" alt="@logo_header.alt"></a>
+                            </div>
+                            <div class="d-block d-xl-none">
+                                <a class="mobile-menubar" href="javascript:void(0);"><i class="fas fa-bars"></i></a>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-8 col-lg-1 col-md-1 col-sm-1 col-1 d-none d-lg-flex align-items-lg-center justify-content-lg-center position-static">
+                            <div class="main-menu">
+                                <nav id="mobile-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="/">Trang chủ</a>
+                                        </li>
+
+                                        @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                        {
+                                            if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                            {
+                                                var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                                                if (list_child_1.Count > 0)
+                                                {
+                                                    <li>
+                                                        <a href="/collections/@c_parent.seo_alias">
+                                                            @c_parent.category_name
+                                                        </a>
+                                                        <ul class="mega-menu mega-dropdown-menu">
+                                                            @foreach (var child_1 in list_child_1)
+                                                            {
+                                                                var list_child_2 = new CategoryProvider().getByCategoryParentId(child_1.category_id);
+                                                                if (list_child_2.Count > 0)
+                                                                {
+                                                                    <li class="position-relative">
+                                                                        <a href="/collections/@child_1.seo_alias">
+                                                                            @child_1.category_name <span class="pr-20 float-right"><i class="fas fa-angle-right"></i></span>
+                                                                        </a>
+                                                                        <div class="mega-menu mega-sub-menu">
+                                                                            <ul>
+                                                                                @foreach (var child_2 in list_child_2)
+                                                                                {
+                                                                                    <li><a href="/collections/@child_2.seo_alias"> @child_2.category_name</a></li>
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+
+                                                                    </li>
+                                                                }
+
+                                                                else
+                                                                {
+                                                                    <li><a href="/collections/@child_1.seo_alias">@child_1.category_name</a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="">
+                                                        <a href="/collections/@c_parent.seo_alias" title="@c_parent.category_name">
+                                                            @c_parent.category_name
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+
+                                        @if (list_page_parent.Count > 0)
+                                        {
+                                            foreach (var pp in list_page_parent)
+                                            {
+                                                if (pp.mount_on_header_menu_status == true)
+                                                {
+                                                    var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                    if (list_page_child.Count > 0)
+                                                    {
+                                                        <li class="">
+                                                            <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                                @pp.page_title
+                                                            </a>
+                                                            <ul class="mega-menu mega-dropdown-menu">
+                                                                @foreach (var pc in list_page_child)
+                                                                {
+                                                                    <li class="">
+                                                                        <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                            @pc.page_title
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="">
+                                                            <a href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                                @pp.page_title
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+
+                                        }
+
+                                        <li>
+                                            <a href="/blogs">Tin tức</a>
+                                        </li>
+                                        <li>
+                                            <a href="/pages/lien-he">Liên hệ</a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div><!-- /main-menu -->
+                        </div><!-- /col -->
+                        <div class="col-xl-2  col-lg-4 col-md-5 col-sm-5 col-4">
+                            <div class="header-right d-flex justify-content-end">
+                                <ul class="header-search d-none d-xl-block">
+                                    <li><a href="javascript:void(0);"><span class="icon-search"></span></a></li>
+                                </ul>
+                            </div><!-- /header-right -->
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div>
+        </div><!-- /header-bottom -->
+    </header>
+    <!--  header-area-end  -->
+    <!--  ====== header extra info start================================== -->
+    <!-- side-mobile-menu start -->
+    <div class="side-mobile-menu bg-white pt-30 pb-30 pl-30 pr-30">
+        <div class="close-icon float-right pt-10">
+            <a href="javascript:void(0);"><span class="icon-clear"></span></a>
+        </div>
+        <div class="header-search-content pt-110">
+            <h4 class="pb-10 text-center">Searching</h4>
+            <ul class="">
+                <li><a class="active" href="shop.html">All categories</a></li>
+                <li><a href="shop.html">Bedroom</a></li>
+                <li><a href="shop.html">Decor</a></li>
+                <li><a href="shop.html">Decoration</a></li>
+                <li><a href="shop.html">Kitchen</a></li>
+                <li><a href="shop.html">Lamp</a></li>
+            </ul>
+            <form class="position-relative pt-10 pb-15">
+                <input type="text" placeholder="Search Products...">
+                <a class="position-absolute" href="javascript:void(0)"><span class="icon-search"></span></a>
+            </form>
+        </div>
+        <div class="mobile-menu"></div>
+        <div class="menu-login pt-50 pb-200">
+            <ul class="header-login d-flex justify-content-between border-bottom-gray">
+                <li><a href="index.html">Login / register</a></li>
+                <li><a href="javascript:void(0)"><span class="icon-users"></span></a></li>
+            </ul>
+            <ul class="header-heart d-flex justify-content-between border-bottom-gray">
+                <li><a href="javascript:void(0)">Wishlist</a></li>
+                <li><a href="wishlist.html"><span class="icon-heart"></span></a></li>
+            </ul>
+        </div><!-- /header-right -->
+    </div><!-- /side-mobile-menu -->
+    <div class="body-overlay"></div>
+    <!-- header search details start -->
+    <div class="header-search-details text-center white-bg pt-60 pl-230 pr-230">
+        <div class="close-icon float-right">
+            <a href="javascript:void(0);"><span class="icon-clear"></span></a>
+        </div>
+        <div class="header-search-content pt-200 ml-150 mr-150">
+            <h4 class="mb-25">Searching</h4>
+            <ul class="d-flex justify-content-center">
+                <li><a class="active" href="shop.html">All categories</a></li>
+                <li><a href="shop.html">Bedroom</a></li>
+                <li><a href="shop.html">Decor</a></li>
+                <li><a href="shop.html">Decoration</a></li>
+                <li><a href="shop.html">Kitchen</a></li>
+                <li><a href="shop.html">Lamp</a></li>
+            </ul>
+            <form action="#" class="position-relative pt-10">
+                <input type="text" placeholder="Search Products...">
+                <a class="position-absolute" href="#"><span class="icon-search"></span></a>
+            </form>
+        </div>
+    </div><!-- /extra-info -->
+    <!-- header-shopping-cart-details start -->
+    <div class="header-shopping-cart-details white-bg pt-50 pb-40 pl-50 pr-40">
+        <div class="close-icon float-right">
+            <a href="javascript:void(0);"><span class="icon-clear"></span></a>
+        </div>
+        <h5 class="mb-30">Your Cart</h5>
+        <p>No products in the cart.</p>
+    </div><!-- /header-shopping-cart-details -->
+    <!-- header extra info end  -->
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- ====== footer-area-start ============================================ -->
+    <footer>
+        <div class="footer-area widget-area pt-100 dark-black-bg">
+            <div class="border-footer pb-35">
+                <div class="container-wrapper pl-15 pr-15">
+                    <div class="row">
+                        <div class="col-xl-2  col-lg-2  col-md-4  col-sm-4 col-6">
+                            <div class="footer-widget pb-30">
+                                <h4 class="text-uppercase text-white ">Sản phẩm</h4>
+                                <ul class="footer-info pt-35">
+                                    @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                    {
+                                        if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                        {
+                                            <li><a href="/collections/@c_parent.seo_alias">@c_parent.category_name</a></li>
+
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-2  col-lg-2  col-md-4  col-sm-4 col-6 d-flex justify-content-center">
+                            <div class="footer-widget pb-30">
+                                <h4 class="text-uppercase text-white">Liên kết nhanh</h4>
+                                <ul class="footer-info pt-35">
+                                    @foreach (var page in list_page_link)
+                                    {
+                                        if (page.mount_on_footer_menu_status == true)
+                                        {
+                                            <li><a href="/pages/@page.page_seo_alias">@page.page_title</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-2  col-lg-2  col-md-4  col-sm-4 col-12 d-flex justify-content-end">
+                            <div class="footer-widget pb-30">
+                                <h4 class="text-uppercase text-white">Bài viết mới nhất</h4>
+                                <ul class="footer-info pt-35">
+                                    @foreach (var blog in list_newest_blog)
+                                    {
+                                        <li><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div><!-- /col -->
+                        <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12">
+                            <div class="footer-widget subscriber-area pb-30 pl-100">
+                                <h4 class="text-uppercase text-white">TPA Lock</h4>
+                                <div class="footer-info pt-30">
+                                    <p>HAPPY LIFE WITH TPA LOCK</p>
+                                    <ul class="footer-address">
+                                        <li>Địa chỉ: @contact.address</li>
+                                        <li>Điện thoại: @contact.phone_number</li>
+                                        <li>Email: @contact.email</li>
+                                        <li>
+                                            @Html.Raw(contact.map)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div><!-- /widget-area -->
+            <div class="copyright-area pt-50 pb-50">
+                <div class="container-wrapper pl-15 pr-15">
+                    <div class="row align-items-center center-div">
+                        <div class="col-xl-5  col-lg-12 col-md-12 col-sm-12 col-12 pr-0 ">
+                            <div class="copyright-text position-relative">
+                                <p>
+                                    Bản quyền thuộc về TPA Lock. Thiết kế bởi <a href="https://diwe.vn">Diwe.vn</a>
+                                </p>
+                            </div>
+                        </div><!-- /col -->
+                    </div>
+                </div><!-- /container -->
+            </div><!-- /copyright-area -->
+        </div>
+    </footer>
+
+    <!-- back top -->
+    <div class="position-relative">
+        <div class="top text-center border-gray2"><span class="icon-chevrons-up"></span></div>
+    </div>
+
+    <!-- All js here -->
+    <script src="../Assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="../Assets/js/popper.min.js"></script>
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <script src="../Assets/js/jquery.inputarrow.js"></script>
+    <script src="../Assets/js/jquery.nice-select.min.js"></script>
+    <script src="../Assets/js/jquery.fancybox.min.js"></script>
+    <script src="../Assets/js/slick.min.js"></script>
+    <script src="../Assets/js/isotope.pkgd.min.js"></script>
+    <script src="../Assets/js/plugins.js"></script>
+    <script src="../Assets/js/countdown.min.js"></script>
+    <script src="../Assets/js/jquery.meanmenu.min.js"></script>
+    <script src="~/Assets/js/autoNumeric.js"></script>
+    <script src="../Assets/js/main.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            //$("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+
+        });
+    </script>
+</body>
+</html>

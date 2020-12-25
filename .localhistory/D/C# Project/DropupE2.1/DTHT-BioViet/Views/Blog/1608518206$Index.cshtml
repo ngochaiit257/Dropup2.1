@@ -1,0 +1,179 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Chia sẻ bạn đọc | Bio Việt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var list_product = new ProductProvider().getNewestShowing();
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, Bio Việt";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Bio Việt";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+    var contact = new StoreContactProvider().get1Contact();
+    var list_da = new BlogProvider().getByCategoryName("Dự Án").Take(9).ToList();
+}
+
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">Tin tức và sự kiện</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">Tin tức và sự kiện</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- sidebar -->
+    <div class="sidebar ttm-sidebar ttm-bgcolor-white clearfix">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-9 content-area" id="data_table">
+                    <!-- ttm-blog-classic -->
+                    <article class="post ttm-blog-classic clearfix">
+                        <!-- post-featured-wrapper -->
+                        <div class="ttm-post-featured-wrapper ttm-featured-wrapper">
+                            <div class="ttm-post-featured">
+                                <img class="img-fluid" src="images/blog/post-02.jpg" alt="post-02">
+                            </div>
+                        </div><!-- post-featured-wrapper end -->
+                        <!-- ttm-blog-classic-content -->
+                        <div class="ttm-blog-classic-content">
+                            <div class="entry-content">
+                                <div class="ttm-post-catagory">
+                                    <span><a href="#">Flower</a></span>
+                                </div>
+                                <header class="entry-header">
+                                    <h2 class="entry-title"><a href="blog-single.html">Outdoor Vintage Flower Garden Decor</a></h2>
+                                </header>
+                                <div class="ttm-post-entry-header">
+                                    <div class="post-meta">
+                                        <span class="ttm-meta-line byline"><img src="images/admin.jpg" class="img-fluid" alt=""> By Admin</span>
+                                        <span class="ttm-meta-line entry-date"><i class="fa fa-calendar"></i><time class="entry-date published" datetime="2018-07-28T00:39:29+00:00">July 28, 2018</time></span>
+                                        <span class="ttm-meta-line tags-links"><i class="fa fa-comment-o"></i>1 Comments</span>
+                                    </div>
+                                </div>
+                                <div class="ttm-box-desc-text">
+                                    <p>Crop protection encompasses: Pesticide-based approaches such as herbicides, insecticides and fungicides some form, by injected humour, or randomised words which don’t look even slightly believable. If you are going to use a passage of Lorem Ipsum,</p>
+                                </div>
+                                <div class="ttm-blogbox-desc-footer">
+                                    <div class="ttm-blogbox-footer-readmore d-inline-block">
+                                        <a class="ttm-btn ttm-btn-size-sm ttm-btn-color-skincolor btn-inline ttm-icon-btn-right mt-10" href="#">Read More <i class="ti ti-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- ttm-blog-classic-content end -->
+                    </article>
+                    <!-- ttm-blog-classic end -->
+                </div>
+                <div class="col-lg-3 widget-area">
+                    <aside class="widget widget-search">
+                        <form role="search" method="get" class="search-form" action="#">
+                            <div class="form-group">
+                                <input name="search" type="text" class="form-control with-border" placeholder="Search....">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </form>
+                    </aside>
+                    <aside class="widget widget-categories">
+                        <h3 class="widget-title">Sản phẩm của chúng tôi</h3>
+                        <ul class="widget-post ttm-recent-post-list">
+                            @foreach (var product in list_product)
+                            {
+                                <li>
+                                    <a href="/@product.seo_alias"><img src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                                    <a href="single-blog.html">@product.product_name</a>
+                                </li>
+                            }
+                        </ul>
+                        
+                    </aside>
+                    <aside class="widget post-widget">
+                        <h3 class="widget-title">Tin tức mới nhất</h3>
+                        <ul class="widget-post ttm-recent-post-list">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <li>
+                                    <a href="/blogs/@blog.blog_seo_alias"><img src="@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                                    <span class="post-date"><i class="fa fa-calendar"></i>@blog.create_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                    <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                </li>
+                            }
+                        </ul>
+                    </aside>
+                    <aside class="widget widget_media_image">
+                        <div class="banner-img-box ttm-textcolor-white text-left">
+                            <div class="featured-content featured-content-banner">
+                                <i class="flaticon flaticon-call"></i>
+                                <div class="featured-title ttm-box-title">
+                                    <h5>Chúng tôi có thể giúp bạn?</h5>
+                                </div>
+                                <div class="featured-desc">
+                                    <p>Nếu cần tư vấn<br> hãy gọi cho Bio Việt.</p>
+                                </div>
+                                <ul>
+                                    <li><i class="fa fa-phone"></i>@contact.phone_number</li>
+                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:@contact.email">@contact.email</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                    <aside class="widget widget widget_media_gallery">
+                        <h3 class="widget-title">Hình ảnh hoạt động</h3>
+                        <div class="">
+                            <div class="gallery-item">
+                                <img src="images/blog/11.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/12.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/13.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/14.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/15.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/16.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/17.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/18.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/blog/19.jpg" class="img-fluid" alt="blog-img">
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </div>
+    <!-- sidebar end -->
+</div><!--site-main end-->

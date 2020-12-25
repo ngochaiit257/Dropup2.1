@@ -1,0 +1,18 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}

@@ -1,0 +1,122 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    var list_service = new ProductProvider().getAll();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_da = new BlogProvider().getByCategoryName("Dự Án").Take(9).ToList();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">@Model.blog_title</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">@Model.blog_title</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- sidebar -->
+    <div class="sidebar ttm-sidebar ttm-bgcolor-white clearfix">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-9 content-area" id="data_table">
+                    @Html.Raw(Model.blog_content)
+
+                    <div>
+                        <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-numposts="10"></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 widget-area" id="widget-area">
+                    <aside class="widget post-widget" id="post-widget">
+                        <h3 class="widget-title">Tin tức mới nhất</h3>
+                        <ul class="widget-post ttm-recent-post-list">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <li>
+                                    <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                                    <span class="post-date"><i class="fa fa-calendar"></i>@blog.create_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                    <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                </li>
+                            }
+                        </ul>
+                    </aside>
+                    <aside class="widget widget_media_image" id="widget_media_image">
+                        <div class="banner-img-box ttm-textcolor-white text-left">
+                            <div class="featured-content featured-content-banner">
+                                <i class="flaticon flaticon-call"></i>
+                                <div class="featured-title ttm-box-title">
+                                    <h5>Chúng tôi có thể giúp bạn?</h5>
+                                </div>
+                                <div class="featured-desc">
+                                    <p>Nếu cần tư vấn<br> hãy gọi cho Bio Việt.</p>
+                                </div>
+                                <ul>
+                                    <li><i class="fa fa-phone"></i>@contact.phone_number</li>
+                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:@contact.email">@contact.email</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                    <aside class="widget widget widget_media_gallery" id="widget_media_gallery">
+                        <h3 class="widget-title">Hình ảnh hoạt động</h3>
+                        <div class="">
+                            @foreach (var da in list_da)
+                            {
+                                <div class="gallery-item">
+                                    <img src="@urlCMS/@da.blog_image" class="img-fluid" alt="@da.blog_alt_image">
+                                </div>
+                            }
+                        </div>
+                    </aside>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </div>
+    <!-- sidebar end -->
+</div>
+<!--site-main end--
+

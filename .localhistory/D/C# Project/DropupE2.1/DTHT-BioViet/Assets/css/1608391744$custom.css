@@ -1,0 +1,44 @@
+﻿:root {
+    --mainColor: #b86429;
+    --childColor: #ffd67b;
+    --gradientColor: linear-gradient(90deg, #00d1c0, #00d17a);
+    --gradientOrange: linear-gradient(90deg, #ff9190, #fdc094);
+    --gradientRed: linear-gradient(90deg, #ee0979, #ff6a00);
+}
+
+
+.ttm-bgcolor-grey > .ttm-bg-layer, .ttm-bgcolor-grey, .ttm-btn-bgcolor-grey, .ttm-topbar-wrapper, .ttm-search-overlay .ttm-site-searchform input[type="search"], .ttm-icon_element-bgcolor-grey, .sidebar .ttm-bgcolor-grey > .ttm-bg-layer, .ttm-blog-single-content .social-icons li > a, .ttm_single_image-wrapper.after-border.style3:before, .ttm_single_image-wrapper.after-border.style3:after, .accordion.grey-background .toggle-title a, .widget.widget-nav-menu ul li a, .widget-download ul.download li, .ttm-tabs.ttm-tab-style-horizontal.grey-background ul.tabs li.active a, .ttm-pf-single-detail-box, .social-icons.grey-background ul li a, .comment-body, div.product ul.tabs li a {
+    background-color: #b86429;
+}
+
+.top-contact {
+    font-size: 16px;
+    color: #fff;
+}
+
+
+.ttm-topbar-wrapper .social-icons li > a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.ttm-header-style-01 .top-contact li {
+    border-left: none;
+    border-right: none;
+}
+
+.top-contact li {
+    padding-left: 0;
+}
+
+.ttm-header-style-01 .ttm-topbar-wrapper .ttm-social-links-wrapper {
+    border-right: none;
+    padding-right: 0;
+}
+
+@media only screen and (min-width: 1200px) {
+    .ttm-header-style-01 .site-header-menu {
+        background-color: var(--mainColor);
+        height: 65px;
+    }
+}

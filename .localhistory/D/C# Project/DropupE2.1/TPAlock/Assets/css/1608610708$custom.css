@@ -1,0 +1,8 @@
+﻿.main-menu ul li > a {
+    color: #fff;
+    font-size: 18px;
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 38px 0;
+    position: relative;
+}

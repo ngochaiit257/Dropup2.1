@@ -1,0 +1,194 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var product_related = new ProductProvider().getNewestShowing().Where(p => p.product_id != Model.product_id).ToList();
+    var list_img_more = new ImageMoreProvider().getByProductId(Model.product_id);
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">@Model.product_name</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span>
+                            <a title="Sản phẩm của Bio Việt" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Sản phẩm của Bio Việt</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">@Model.product_name</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- sidebar -->
+    <div class="sidebar ttm-bgcolor-white clearfix">
+        <div class="container">
+            <div class="content-area">
+                <div class="ttm-single-product-details product product-detail">
+                    <div class="ttm-single-product-info clearfix">
+                        <div class="product-gallery images">
+                            <figure class="ttm-product-gallery__wrapper">
+                                <div class="product-gallery__image">
+                                    <img class="img-fluid" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                </div>
+                            </figure>
+
+                            @if (list_img_more.Count > 0)
+                            {
+                                <div class="row">
+                                    @foreach (var img_more in list_img_more)
+                                    {
+                                        <div class="col-lg-4 col-md-3">
+                                            <a href="javascript:void(0)">
+                                                <img class="img-fluid" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                        </div>
+
+                        <div class="summary entry-summary">
+                            <h3 class="singel_product_title">@Model.product_name</h3>
+                            <div class="product-rating clearfix">
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <a href="#reviews" class="review-link" rel="nofollow">SKU: @Model.product_code</a>
+                            </div>
+                            <p class="price">
+                                @if (Model.price > 0)
+                                {
+                                    <del>
+                                        <span class="product-Price-amount">
+                                            <span class="product-Price-currencySymbol showNumeric">@Model.price</span>
+                                        </span>
+                                    </del>
+                                }
+                                <span class="Price-amount amount">
+                                    <span class="Price-currencySymbol showNumeric promotion-price">@Model.promotion_price</span>
+                                </span>
+                            </p>
+                            <div class="product-details__short-description">
+                                <p>@Html.Raw(Model.content_3)</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="ttm-tabs tabs-for-single-products" data-effect="fadeIn">
+                        <ul class="tabs clearfix">
+                            <li class="tab active"><a href="#">Chi tiết sản phẩm</a></li>
+                            <li class="tab"><a href="#">Thành phần</a></li>
+                            <li class="tab"><a href="#">Bình luận</a></li>
+                        </ul>
+                        <div class="content-tab ttm-bgcolor-white">
+                            <!-- content-inner -->
+                            <div class="content-inner active">
+                                @Html.Raw(Model.content)
+                            </div><!-- content-inner end-->
+                            <!-- content-inner -->
+                            <div class="content-inner">
+                                @Html.Raw(Model.content_2)
+                            </div><!-- content-inner end-->
+                            <!-- content-inner -->
+                            <div class="content-inner">
+                                <div id="reviews" class="woocommerce-Reviews">
+                                    <div class="fb-comments" data-href="@urlSite/@Model.seo_alias" data-width="100%" data-numposts="10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="related products">
+                    <h3>Sản phẩm khác</h3>
+                    <div class="row">
+                        @foreach (var product in product_related)
+                        {
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="product">
+                                    <!-- product -->
+                                    <div class="product-thumbnail">
+                                        <!-- product-thumbnail -->
+                                        <a href="/@product.seo_alias">
+                                            <img class="img-fluid w-100" src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                                        </a>
+                                    </div><!-- product-thumbnail end -->
+                                    <div class="product-content text-center">
+                                        <!-- product-content -->
+                                        <div class="product-title">
+                                            <!-- product-title -->
+                                            <h2><a href="/@product.seo_alias">@product.product_name</a></h2>
+                                        </div>
+                                        <div class="ttm-ratting-star">
+                                            <!-- ratting-star -->
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <span class="product-price">
+                                            @if (product.price > 0)
+                                            {
+                                                <del>
+                                                    <span class="product-Price-amount">
+                                                        <span class="product-Price-currencySymbol showNumeric">@product.price</span>
+                                                    </span>
+                                                </del>
+                                            }
+                                            <!-- product-Price -->
+                                            <span class="product-Price-currencySymbol showNumeric">@product.promotion_price</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- sidebar end -->
+</div><!--site-main end-->

@@ -1,0 +1,64 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-xl-3  col-lg-3  col-md-4  col-sm-6 col-12 mb-40">
+                <div class="single-product bg-white position-relative pb-30">
+                    <div class="single-product-img position-relative">
+                        <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                        <div class="single-product-hover-img position-absolute">
+                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                            @if (img_more != null)
+                            {
+                                <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
+                            }
+                        </div><!-- /single-product-hover-img -->
+                    </div><!-- /single-product-img -->
+
+                    <h5 class="product-name pt-20 pl-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
+                    <div class="product-price pl-20">
+                        @if (product.price > 0)
+                        {
+                            <span class="old-price">
+                                <del class="showNumeric">@product.price</del>
+                            </span>
+                        }
+                        <span class="black-color showNumeric">@product.promotion_price</span>
+                    </div>
+                </div><!-- /single-product -->
+            </div><!-- /col -->
+        }
+    </div><!-- /row -->
+    <div style="text-align: center">
+        <a style="font-size: 18px;">Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            //$("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
+}

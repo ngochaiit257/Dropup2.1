@@ -21,3 +21,4 @@ D:\C# Project\DropupE2.1\Common\bin\Release\Common.pdb
 D:\C# Project\DropupE2.1\Common\obj\Release\Common.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\Common\obj\Release\Common.dll
 D:\C# Project\DropupE2.1\Common\obj\Release\Common.pdb
+D:\C# Project\DropupE2.1\Common\obj\Release\Common.csprojAssemblyReference.cache

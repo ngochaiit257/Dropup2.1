@@ -22,7 +22,7 @@ D:\C# Project\DropupE2.0\Data\obj\Release\Data.pdb
 D:\C# Project\DropupE2.1\Data\bin\Release\Data.dll.config
 D:\C# Project\DropupE2.1\Data\bin\Release\Data.dll
 D:\C# Project\DropupE2.1\Data\bin\Release\Data.pdb
-D:\C# Project\DropupE2.1\Data\obj\Release\Data.csprojAssemblyReference.cache
 D:\C# Project\DropupE2.1\Data\obj\Release\Data.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\Data\obj\Release\Data.dll
 D:\C# Project\DropupE2.1\Data\obj\Release\Data.pdb
+D:\C# Project\DropupE2.1\Data\obj\Release\Data.csprojAssemblyReference.cache

@@ -1,0 +1,262 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tin tức và sự kiện TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, TPA lock";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ TPA Lock";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../images/blog/bg-blog-1-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">Tin tức và sự kiện</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Tin tức và sự kiện</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== blog-sidebar-area-start=============================================== -->
+<div class="blog-box-landing-area pt-110 pb-10 over-hidden">
+    <div class="container-fluid pl-35 pr-35">
+        <div class="row">
+            <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12 pr-15 d-flex align-items-end">
+                <div class="single-blog-box blog-large-img mb-40 position-relative">
+                    <img class="width100" src="images/blog/blog-img1.jpg" alt="">
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Photography</a></li>
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Travel</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="blog-right-sidebar.html">Sunt In Qui Officia Deserunt</a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>443 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12">
+                <div class="row">
+                    <div class="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                        <div class="single-blog-box mb-40 position-relative">
+                            <img class="width100" src="images/blog/blog-img2.jpg" alt="">
+                            <div class="single-box-content position-absolute">
+                                <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                                    <div class="single-blog-box-hover">
+                                        <ul class="blog-tag d-flex pb-10">
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Creative</a></li>
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Image</a></li>
+                                        </ul>
+                                        <h4><a class="text-white d-block" href="blog-right-sidebar.html">How Wear The Summer Stlye</a></h4>
+                                    </div>
+                                    <ul class="blog-post-data d-flex">
+                                        <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>443 Views</li>
+                                        <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /col -->
+                    <div class="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                        <div class="single-blog-box mb-40 position-relative">
+                            <img class="width100" src="images/blog/blog-img3.jpg" alt="">
+                            <div class="single-box-content position-absolute">
+                                <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                                    <div class="single-blog-box-hover">
+                                        <ul class="blog-tag d-flex pb-10">
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Photography</a></li>
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Travel</a></li>
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Image</a></li>
+                                        </ul>
+                                        <h4><a class="text-white d-block" href="blog-right-sidebar.html">Men Wearing Canvas Boots</a></h4>
+                                    </div>
+                                    <ul class="blog-post-data d-flex">
+                                        <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>443 Views</li>
+                                        <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /col -->
+                    <div class="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                        <div class="single-blog-box mb-40 position-relative">
+                            <img class="width100" src="images/blog/blog-img1.jpg" alt="">
+                            <div class="single-box-content position-absolute">
+                                <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                                    <div class="single-blog-box-hover">
+                                        <ul class="blog-tag d-flex pb-10">
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Image</a></li>
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Travel</a></li>
+                                        </ul>
+                                        <h4><a class="text-white d-block" href="blog-right-sidebar.html">The three best herbal teas</a></h4>
+                                    </div>
+                                    <ul class="blog-post-data d-flex">
+                                        <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>443 Views</li>
+                                        <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /col -->
+                    <div class="col-xl-6  col-lg-6  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                        <div class="single-blog-box mb-40 position-relative">
+                            <img class="width100" src="images/blog/blog-img4.jpg" alt="">
+                            <div class="single-box-content position-absolute">
+                                <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                                    <div class="single-blog-box-hover">
+                                        <ul class="blog-tag d-flex pb-10">
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Photography</a></li>
+                                            <li><a class="text-white bg-transparent d-inline-block pl-0" href="#"> Wordpress</a></li>
+                                        </ul>
+                                        <h4><a class="text-white d-block" href="blog-right-sidebar.html">Girl With Hat In The Beach</a></h4>
+                                    </div>
+                                    <ul class="blog-post-data d-flex">
+                                        <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>13 Views</li>
+                                        <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="row">
+            <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                <div class="single-blog-box mb-40 position-relative">
+                    <img class="width100" src="images/blog/blog-img2.jpg" alt="">
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Creative</a></li>
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Image</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="blog-right-sidebar.html">Romantic Letters Decoration</a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>45 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                <div class="single-blog-box mb-40 position-relative">
+                    <img class="width100" src="images/blog/blog-img1.jpg" alt="">
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Uncategorized</a></li>
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Travel</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="blog-right-sidebar.html">Sunt In Qui Officia Deserunt</a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>44 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                <div class="single-blog-box mb-40 position-relative">
+                    <img class="width100" src="images/blog/blog-img5.jpg" alt="">
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#"> Wordpress</a></li>
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Creative</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="blog-right-sidebar.html">Sunglasses To Wear This </a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>43 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                <div class="single-blog-box mb-40 position-relative">
+                    <img class="width100" src="images/blog/blog-img6.jpg" alt="">
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Photography</a></li>
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0" href="#">Travel</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="blog-right-sidebar.html">Simple & Easy DIY Flower Deco</a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>643 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-sidebar-area-end -->
+<!-- ====== pagination-area-start ========================================= -->
+<div class="pagination-area blog-pagination-area pb-110 mt-10 over-hidden">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row ">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <nav class="agota-page" aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- pagination-area-end  -->

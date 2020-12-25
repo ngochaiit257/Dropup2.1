@@ -1,0 +1,57 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">@Model.page_title</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">@Model.page_title</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+
+
+<div class="blog-content-area pt-100 pb-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">
+                        @Html.Raw(Model.page_content)
+                    </p>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content1-area-end  -->

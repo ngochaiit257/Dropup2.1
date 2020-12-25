@@ -1,0 +1,699 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    long user_id_loged = 0;
+    string email_loged = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+        email_loged = username;
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+
+    var contact = new StoreContactProvider().get1Contact();
+    var list_contact = new StoreContactProvider().getAll();
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+    string twitter_link = System.Configuration.ConfigurationManager.AppSettings["twitter_link"];
+    string google_link = System.Configuration.ConfigurationManager.AppSettings["google_link"];
+    string youtube_link = System.Configuration.ConfigurationManager.AppSettings["youtube_link"];
+    var get1member = new StoreMembershipProvider().getAll().FirstOrDefault();
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="@urlCMS/@favicon.image" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+
+    <meta name="keywords" content="@ViewBag.Keywords">
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="HaiDN - ngochaiit257@gmail.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="revisit" content="1 days">
+    <meta name="robots" content="noodp,index,follow" />
+
+    <!-- Helpers ================================================== -->
+    <meta name="apple-mobile-web-app-title" content="Elysien">
+    <meta name="application-name" content="Elysien">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noodp,index, follow" />
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    <link rel="alternate" href="@ViewBag.Alternate" hreflang="vi-vn" />
+    <meta itemprop="name" content="@ViewBag.Title">
+    <meta itemprop="description" content="@ViewBag.Description">
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content="@ViewBag.Url" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:site_name" content="Elysien" />
+    <meta property="og:image" content="@ViewBag.Image" />
+    <meta property="og:type" content="website">
+    <meta property="og:image:secure_url" content="@ViewBag.Image" />
+    <!-- Google Fonts -->
+    @Styles.Render("~/bundles/styleCore")
+    @Scripts.Render("~/bundles/jsCoreFirst")
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,600,600i,700,700i,800&amp;display=swap" rel="stylesheet" />
+
+
+</head>
+<body>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="174489709573256">
+    </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=664509467832505&autoLogAppEvents=1" nonce="g3z33419"></script>
+
+    <!-- main layout start from here -->
+    <!--====== PRELOADER PART START ======-->
+    <!-- <div id="preloader">
+        <div class="preloader">
+            <span></span>
+            <span></span>
+        </div>
+    </div> -->
+    <!--====== PRELOADER PART ENDS ======-->
+    <div id="main">
+        <!-- Header Start -->
+        <header class="main-header home-2">
+            <!-- Header Top Start -->
+            <div class="header-top-nav">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!--Left Start-->
+                        <div class="col-lg-8 col-md-8">
+                            <div class="header-right-nav" style="float: unset; margin-top: 5px">
+                                <ul class="res-xs-flex">
+                                    <li>
+                                        <a href="@get1member.myoutube_url">
+                                            <i class="ion-social-youtube"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@get1member.minstagram_url">
+                                            <i class="ion-social-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="after-n">
+                                        <a href="@get1member.mfacebook_url">
+                                            <i class="ion-social-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="after-n">
+                                        <a href="@get1member.mtwitter_url">
+                                            <i class="ion-social-twitter"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <!--Left End-->
+                        <!--Right Start-->
+                        <div class="col-lg-4 col-md-4">
+                            <div class="text-right text-right-header" style="margin-top:5px;">
+                                <marquee style="font-size: 16px; letter-spacing: 0.06em;">Elysien xin chào, vì ngày hôm nay bạn đã chọn chúng tôi!</marquee>
+                            </div>
+                        </div>
+                        <!--Right End-->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Top End -->
+            <!-- Header Buttom Start -->
+            <div class="header-navigation sticky-nav">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Logo Start -->
+                        <div class="col-md-2 col-sm-2">
+                            <div class="logo">
+                                <a href="/"><img class="img-logo" src="@urlCMS/@logo_header.image" alt="@logo_header.alt" /></a>
+                            </div>
+                        </div>
+                        <!-- Logo End -->
+                        <!-- Navigation Start -->
+                        <div class="col-md-10 col-sm-10">
+                            <!--Main Navigation Start -->
+                            <div class="main-navigation d-none d-lg-block">
+                                <ul>
+                                    @if (list_page_parent.Count > 0)
+                                    {
+                                        foreach (var pp in list_page_parent)
+                                        {
+                                            if (pp.mount_on_header_menu_status == true)
+                                            {
+                                                var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                if (list_page_child.Count > 0)
+                                                {
+                                                    <li class="menu-dropdown">
+                                                        <a class="a-submenu" href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                            @pp.page_title
+                                                            &nbsp;<i class="ion-ios-arrow-down"></i>
+                                                        </a>
+
+                                                        <ul class="sub-menu">
+                                                            @foreach (var pc in list_page_child)
+                                                            {
+                                                                <li class="menu-dropdown position-static">
+                                                                    <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                        @pc.page_title <i class="ion-ios-arrow-down"></i>
+                                                                    </a>
+                                                                </li>
+                                                            }
+
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                    <li>
+                                        <a class="a-submenu" href="/collections/my-pham">Mỹ phẩm</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/pages/spa">SPA</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/collections/may-moc-va-dung-cu-spa">Máy móc và dụng cụ SPA</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/pages/oem-odm">OEM/ODM</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/pages/dao-tao">Đào tạo</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/blogs">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a class="a-submenu" href="/pages/lien-he">Liên Hệ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--Main Navigation End -->
+                            <!--Header Bottom Account Start -->
+                            <div class="header_account_area">
+                                <!--Seach Area Start -->
+                                <div class="header_account_list search_list">
+                                    <a href="javascript:void(0)"><i class="ion-ios-search-strong"></i></a>
+                                    <div class="dropdown_search">
+                                        <form>
+                                            <input id="input_search_desktop" placeholder="Tìm kiếm sản phẩm tại đây..." type="text" />
+                                            <button type="button" onclick="searchDesktop()"><i class="ion-ios-search-strong"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <script>
+                                    function searchMobile() {
+                                        var keyword = $('#input_search_mobile').val();
+                                        search(keyword);
+                                    }
+
+                                    function searchDesktop() {
+                                        var keyword = $('#input_search_desktop').val();
+                                        search(keyword);
+                                    }
+
+                                    $('#input_search_desktop').keypress(function (e) {
+                                        if (e.which == 13) {
+                                            var keyword = $(this).val();
+                                            search(keyword);
+                                        }
+                                    });
+
+                                    function search(keyword) {
+                                        if (keyword == "" || keyword == null) {
+                                            alert("Vui lòng nhập từ khóa tìm kiếm");
+                                        } else {
+                                            location.href = '/search/keyword=' + keyword;
+                                        }
+                                    }
+                                </script>
+                                <!--Seach Area End -->
+                                <!--Cart info Start -->
+                                <div class="cart-info d-flex">
+                                    <div class="mini-cart-warp">
+                                        <a href="/cart" class="count-cart"><span class="cart-count-item">0</span> item(s)</a>
+                                    </div>
+                                </div>
+                                <!--Cart info End -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- mobile menu -->
+                    <div class="mobile-menu-area">
+                        <div class="mobile-menu">
+                            <nav id="mobile-menu-active">
+                                <ul class="menu-overflow">
+                                    <li>
+                                        <a href="#">Về Elysien &nbsp;<i class="ion-ios-arrow-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="#">Câu chuyện thương hiệu <i class="ion-ios-arrow-down"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Giá trị cốt lõi <i class="ion-ios-arrow-down"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Ưu đãi <i class="ion-ios-arrow-down"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Tuyển dụng <i class="ion-ios-arrow-down"></i></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">SPA</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Mỹ Phẩm</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Máy Móc và Dụng Cụ SPA</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">OEM / ODM</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Đào Tạo</a>
+                                    </li>
+                                    <li>
+                                        <a href="/blogs">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Liên Hệ</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- mobile menu end-->
+                </div>
+            </div>
+            <!--Header Bottom Account End -->
+        </header>
+        <!-- Header End -->
+        <!-- Slider Arae Start -->
+        @RenderBody()
+
+        <div id="open-modal" class="modal-window">
+            <div style="text-align: center; width:225px;">
+                <img src="~/Assets/images/loader/loader-order.gif" />
+                <h1>Vui lòng chờ trong giây lát...</h1>
+            </div>
+        </div>
+
+        <!-- Footer Area start -->
+        <footer class="footer-area">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <!-- footer single wedget -->
+                        <div class="col-md-6 col-lg-4">
+                            <!-- footer logo -->
+                            <div class="footer-logo">
+                                <a href="/"><img class="img-logo-footer" src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" /></a>
+                            </div>
+                            <!-- footer logo -->
+                            <div class="about-footer">
+                                <p class="text-info">Được thành lập từ năm 2002 tại Hàn Quốc, hơn 20 năm kinh nghiệm OEM/ODM sản xuất mĩ phẩm, máy móc, Raparay (Elysien) được công nhận bởi các Hiệp hội da liễu khó tính nhất Hàn Quốc. Hướng đến trở thành đơn vị tiên phong kiến tạo nhận thức đúng đắn về làm đẹp an toàn, hiệu quả đến phụ nữ Việt Nam bằng các lĩnh vực chúng tôi có: cơ sở Spa, sản phẩm chuyên nghiệp, máy móc, OEM, đào tạo, setup Spa.</p>
+                                <div class="social-info">
+                                    <ul>
+                                        <li>
+                                            <a href="@fb_link"><i class="ion-social-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="@twitter_link"><i class="ion-social-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="@youtube_link"><i class="ion-social-youtube"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="@google_link"><i class="ion-social-google"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="@instagram_link"><i class="ion-social-instagram"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- footer single wedget -->
+                        <div class="col-md-6 col-lg-2 mt-res-sx-30px mt-res-md-30px">
+                            <div class="single-wedge">
+                                <h4 class="footer-herading">Danh mục</h4>
+                                <div class="footer-links">
+                                    <ul>
+                                        @foreach (var category in new CategoryProvider().getListCategoryAreShowing())
+                                        {
+                                            <li><a href="/collections/@category.seo_alias">@category.category_name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- footer single wedget -->
+                        <div class="col-md-6 col-lg-2 mt-res-md-50px mt-res-sx-30px mt-res-md-30px">
+                            <div class="single-wedge">
+                                <h4 class="footer-herading">Liên kết</h4>
+                                <div class="footer-links">
+                                    <ul>
+                                        @foreach (var page in list_page_link)
+                                        {
+                                            if (page.mount_on_footer_menu_status == true)
+                                            {
+                                                <li><a href="/pages/@page.page_seo_alias">@page.page_title</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- footer single wedget -->
+                        <div class="col-md-6 col-lg-4 mt-res-md-50px mt-res-sx-30px mt-res-md-30px">
+                            <div class="single-wedge">
+                                <h4 class="footer-herading">Theo dõi chúng tôi</h4>
+
+                                <ul>
+                                    <li>
+                                        <strong class="text-main-color">
+                                            Kiến tạo nhận thức giá trị đẹp đích thực an toàn, hiệu quả!
+                                        </strong>
+                                    </li>
+                                    @foreach (var item in list_contact)
+                                    {
+                                        <li>@item.address</li>
+                                    }
+                                    <li><strong>Hotline:</strong> @contact.phone_number</li>
+                                    <li><strong>Email:</strong> @contact.email</li>
+                                    <li>Vui lòng liên hệ vào giờ hành chính để được phục vụ tốt nhất !</li>
+                                </ul>
+
+                                <div class="fb-page" data-href="https://www.facebook.com/elysienvietnam" data-tabs="timeline" data-width="475" data-height="260" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/elysienvietnam" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/elysienvietnam">Elysien Vietnam</a></blockquote></div>
+                            </div>
+                        </div>
+                        <!-- footer single wedget -->
+                    </div>
+                </div>
+            </div>
+            <!--  Footer Bottom Area start -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <p class="copy-text">Bản quyền thuộc về <a href="https://elysien.vn/"> Elysien.vn</a>. Thiết kế bởi <a href="https://diwe.vn">Diwe.vn</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  Footer Bottom Area End-->
+        </footer>
+        <!--  Footer Area End -->
+
+        <div id="modal">
+            <div>
+                <div class="diwe-popup diwe-modal__transition-enter-done">
+                    <div class="diwe-popup__overlay"></div>
+                    <div class="diwe-popup__container">
+                        <a class="cZGZ-T row" style="background: #fff;">
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <img class="_2c__Iu" src="~/Assets/images/banner-image/img-popup.jpg" alt="home_popup_banner">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <div class="input-slider-custom">
+                                    <input id="input_phone_number" class="animated" placeholder="Để lại số điện thoại nhận ưu đãi..." type="text" maxlength="13" autocomplete="off">
+                                </div>
+                                <div class="btn-slider-custom">
+                                    <a href="javascript:void(0)" class="shop-btn animated" onclick="">Gửi thông tin</a>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="diwe-popup__close-btn">
+                            <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="diwe-svg-icon ">
+                                <path d="m10.7 9.2-3.8-3.8 3.8-3.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-3.8 3.7-3.8-3.7c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l3.8 3.7-3.8 3.8c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l3.8-3.8 3.8 3.8c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal">
+            <div>
+                <div class="diwe-popup diwe-modal__transition-enter-done">
+                    <div class="diwe-popup__overlay"></div>
+                    <div class="diwe-popup__container" style="background: #fff;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-lg-6 col-md-6">
+                                    <img src="~/Assets/images/banner-image/img-popup.jpg" />
+                                </div>
+                                <div class="col-6 col-lg-6 col-md-6">
+                                    <div class="input-slider-custom">
+                                        <input id="" class="input-modal" placeholder="Để lại số điện thoại nhận ưu đãi..." type="text" maxlength="13" autocomplete="off">
+                                        <input id="" class="input-modal" placeholder="Để lại số điện thoại nhận ưu đãi..." type="text" maxlength="13" autocomplete="off">
+                                    </div>
+                                    <div class="btn-slider-custom">
+                                        <a href="javascript:void(0)" class="shop-btn animated" onclick="">Gửi thông tin</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="diwe-popup__close-btn">
+                            <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="diwe-svg-icon ">
+                                <path d="m10.7 9.2-3.8-3.8 3.8-3.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-3.8 3.7-3.8-3.7c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l3.8 3.7-3.8 3.8c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l3.8-3.8 3.8 3.8c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div id="modal">
+            <div>
+                <div class="diwe-popup diwe-modal__transition-enter-done">
+                    <div class="diwe-popup__overlay"></div>
+                    <div class="diwe-popup__container">
+                        <a class="cZGZ-T row" style="background: #fff;">
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <img class="_2c__Iu" src="~/Assets/images/banner-image/img-popup.jpg" alt="home_popup_banner">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-6">
+                                <div class="input-slider-custom">
+                                    <input id="input_phone_number" class="animated" placeholder="Để lại số điện thoại nhận ưu đãi..." type="text" maxlength="13" autocomplete="off">
+                                </div>
+                                <div class="btn-slider-custom">
+                                    <a href="javascript:void(0)" class="shop-btn animated" onclick="">Gửi thông tin</a>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="diwe-popup__close-btn">
+                            <svg enable-background="new 0 0 11 11" viewBox="0 0 11 11" x="0" y="0" class="diwe-svg-icon ">
+                                <path d="m10.7 9.2-3.8-3.8 3.8-3.7c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-3.8 3.7-3.8-3.7c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l3.8 3.7-3.8 3.8c-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3l3.8-3.8 3.8 3.8c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jsCoreSecond")
+    <script>
+        $(document).ready(function () {
+            if (Cookies.get("ELYSIEN_CART") == null || Cookies.get("ELYSIEN_CART") == undefined || $.parseJSON(Cookies.get("ELYSIEN_CART")).length == 0) {
+                $('.cart-count-item').text(0);
+            } else {
+                getNumOfItemInCart();
+            }
+            $("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+
+        function phonenumber(inputtxt) {
+            var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (inputtxt.match(phoneno)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+
+        if (sessionStorage["ShowModal"] != 'show') {
+            setTimeout(function () {
+                $('#modal').prop('hidden', false);
+                sessionStorage["ShowModal"] = 'show';
+                return false;
+            }, 12000);
+        }
+
+        $('.diwe-popup__close-btn').on('click', function () {
+            $('#modal').prop('hidden', true);
+        });
+
+        function getNumOfItemInCart() {
+            var number_in_order = 0;
+            if (Cookies.get("ELYSIEN_CART") == null || Cookies.get("ELYSIEN_CART") == undefined || $.parseJSON(Cookies.get("ELYSIEN_CART")).length == 0) {
+                number_in_order = 0;
+            } else {
+                $.each(JSON.parse(Cookies.get("ELYSIEN_CART")), function (index, value) {
+                    number_in_order += parseInt(value.quantity);
+                });
+            }
+            $('.cart-count-item').text(number_in_order);
+        }
+
+        function updateCartForUserLoged() {
+            if (@user_id_loged > 0) {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                if (Cookies.get("ELYSIEN_CART") != null || Cookies.get("ELYSIEN_CART") != undefined) {
+                    $.each(JSON.parse(Cookies.get("ELYSIEN_CART")), function (index, value) {
+                        var obj = {};
+                        obj.id = value.id;
+                        obj.quantity = value.quantity;
+                        list_from_cookie.push(obj);
+                    });
+                }
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: @user_id_loged,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function () {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        function updateCookieCartWhenLogin(user_id) {
+            if (Cookies.get("ELYSIEN_CART") == null || Cookies.get("ELYSIEN_CART") == undefined || $.parseJSON(Cookies.get("ELYSIEN_CART")).length == 0) {
+                //Lấy giỏ hàng từ db ra áp vào cookie
+                $.ajax({
+                    url: '/Cart/GetCartFromDbToUpdateCookie/',
+                    data: {
+                        user_id: user_id,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        var data_json = JSON.parse(data);
+                        var list_product_variation_in_cart = [];
+                        $.each(data_json.list_return, function (i, model) {
+                            var product_variation_add_to_cart = {};
+                            product_variation_add_to_cart.id = model.id;
+                            product_variation_add_to_cart.quantity = model.quantity;
+                            list_product_variation_in_cart.push(product_variation_add_to_cart);
+                        });
+                        var date_obj = new Date();
+                        var minutes = 525600;
+                        date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                        var obj_cart = JSON.stringify(list_product_variation_in_cart)
+                        Cookies.set("ELYSIEN_CART", obj_cart, { expires: date_obj, path: '/' });
+                    },
+                    error: function (xhr) {
+                        //alert("Có lỗi xảy ra.");
+                    }
+                });
+            } else {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                $.each(JSON.parse(Cookies.get("ELYSIEN_CART")), function (index, value) {
+                    var obj = {};
+                    obj.id = value.id;
+                    obj.quantity = value.quantity;
+                    list_from_cookie.push(obj);
+                });
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: user_id,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        //LOGIN WITH FACEBOOK ACCOUNT
+        function loginFacebook() {
+            document.location = '@Url.Action("Facebook", "User")';
+        }
+
+    </script>
+</body>
+</html>

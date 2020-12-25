@@ -1,0 +1,70 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_service = new ProductProvider().getAll();
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+    var contact = new StoreContactProvider().get1Contact();
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}
+
+
+<!-- Page Title Start -->
+<div class="page-title title-bg-4">
+    <div class="container">
+        <div class="title-text text-center">
+            <h2>@Model.page_title</h2>
+            <ul>
+                <li>
+                    <a href="/">Trang chủ</a>
+                </li>
+                <li>@Model.page_title</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">Tin tức và sự kiện</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">Tin tức và sự kiện</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- sidebar -->
+    <div class="sidebar ttm-sidebar ttm-bgcolor-white clearfix">
+        <div class="container">
+            @Html.Raw(Model.page_content)
+        </div>
+    </div>
+    <!-- sidebar end -->
+</div><!--site-main end-->

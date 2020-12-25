@@ -1,0 +1,45 @@
+﻿@model Data.page
+
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">@Model.page_title</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>@Model.page_title</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- About Area Start -->
+<section class=" mt-res-md-30px">
+    <div class="container">
+        @Html.Raw(Model.page_content)
+    </div>
+</section>
+
+<!-- About Area End -->

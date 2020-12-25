@@ -1,0 +1,101 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ TPA Lock";
+    ViewBag.Description = "Liên hệ với TPA Lock để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">Liên hệ</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Liên hệ</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== contact-form-area-start=============================================== -->
+<div class="contact-form-area over-hidden">
+    <div class="container-wrapper pl-15 pr-15 pl-80 pr-80 pt-100 pb-70 bg-white">
+        <div class="row">
+            <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12">
+                <div class="contact-form-left mb-30 pr-100">
+                    <div class="section-title text-left pb-30">
+                        <span class="secondary-color pb-2 d-block">Liên hệ với chúng tôi</span>
+                        <h2>
+                            Bạn quan tâm đến sản phẩm của chung tôi hay thắc mắc về vấn đề nào?
+                        </h2>
+                    </div><!-- /section-title -->
+                    <div class="contact-address pb-2">
+                        <span class="blue-color">Địa chỉ</span>
+                        <p>@contact.address.<br> @contact.working_day: @contact.working_hour</p>
+                    </div>
+                    <div class="contact-address pb-2">
+                        <span class="blue-color">Email</span>
+                        <p>
+                           @contact.email
+                        </p>
+                    </div>
+                    <div class="contact-address">
+                        <span class="blue-color">Điện thoại</span>
+                        <p class="m-0">@contact.phone_number</p>
+                    </div>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12">
+                <div class="contact-form-right mb-30">
+                    <form action="#">
+                        <span class="secondary-color pb-10 d-block">Để lại lời nhắn cho chúng tôi</span>
+                        <div class="name mb-30">
+                            <input type="text" class="form-control" name="name" id="cname" placeholder="Tên của bạn*">
+                        </div>
+                        <div class="email mb-30">
+                            <input type="email" class="form-control" name="email" id="cphone" placeholder="Điện thoại*">
+                        </div>
+                        <div class="email mb-30">
+                            <input type="text" class="form-control" name="email" id="cemail" placeholder="Điện thoại*">
+                        </div>
+                        <div class="comment mb-30">
+                            <textarea name="message" class="form-control" id="message" placeholder="Comments"></textarea>
+                        </div>
+                        <a href="#" class="btn form-control text-white transition">Send</a>
+                    </form>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- contact-form-area-end -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="contact-map position-relative">
+    <div class="container-fluid px-0">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.5406050415095!2d-0.12174238460793235!3d51.50329727963452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea92!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2sbd!4v1605927392577!5m2!1sen!2sbd"></iframe>
+    </div>
+</div>
+<!-- blog-area-end  -->

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Có " + ViewBag.NumberAllResult + " sản phẩm " + "" + ViewBag.SearchString + "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "DINO STORE, ICON DENIM, RUNPOW, NOMOUS ESSENTIALS";
+    ViewBag.Description = "Dino Store là chuỗi cửa hàng bán lẻ thời trang nam với xu hướng thời trang hiện đại luôn luôn cập nhật nhanh nhất những trend thời trang mới trên thế giới.";
+    ViewBag.Canonical = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    ViewBag.Alternate = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    ViewBag.Url = urlSite + "/search/keyword=" + ViewBag.SearchString;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">Từ khóa tìm kiếm "@ViewBag.SearchString"</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Từ khóa tìm kiếm "@ViewBag.SearchString"</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== shop-header-area-start=============================================== -->
+<div class="shop-header-area pt-110">
+    <div class="container-wrapper pl-15 pr-15 position-relative">
+        <div class="row position-static">
+            <div class="col-xl-4  col-lg-4  col-md-3   d-none d-md-block">
+                <div class="shop-title pb-50">
+                    <h5 class="mb-0 mt-10"><a>Có @ViewBag.NumberAllResult sản phẩm với từ khóa <strong>"@ViewBag.SearchString"</strong></a></h5>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-3  col-lg-3  col-md-4  col-sm-5 col-12">
+
+            </div><!-- /col -->
+            <div class="col-xl-5  col-lg-5  col-md-5  col-sm-7 col-12 d-sm-flex justify-content-sm-end position-static">
+                <div class="product-selection pb-50 mt-2 mr-2">
+                    <select class="border-0 py-0 pl-0" name="select" id="select" style="display: none;">
+                        <option value="moi-nhat" selected="selected" onclick="">Mới nhất</option>
+                        <option value="pho-bien-nhat">Phổ biến nhất</option>
+                        <option value="ten-az">Tên A đến Z</option>
+                        <option value="ten-za">Tên Z đến A</option>
+                        <option value="gia-cao-thap">Giá cao đến thấp</option>
+                        <option value="gia-thap-cao">Giá thấp đến cao</option>
+                    </select>
+                </div><!-- /product-selection -->
+
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- shop-header-area-end -->
+<!-- ====== all-product-area-start ============================================ -->
+<div class="all-product-area pb-45">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-  col-md-  col-sm- col-">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="col4" role="tabpanel" aria-labelledby="col4">
+                        <div hidden style="text-align: center" id="loader_list_product">
+                            <img src="~/Assets/images/loader/list-loader.gif" width="15%" />
+                        </div>
+                        <!-- ====== column-4-area-start================================ -->
+                        <div id="col-4" class="Bestsellers Products-area">
+
+                            <div class="container-wrapper pl-15 pr-15" id="data_table">
+                                @{Html.RenderAction("GetProductByCategory", "Category", new { num_product = ViewBag.NumProduct, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder });}
+
+                            </div><!-- /container -->
+                        </div>
+                        <!-- column-4-area-end  -->
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div><!-- /all-product-area -->
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.header-area').removeClass('white-bg border-bottom');
+        $('.header').removeClass('header-2 position-relative');
+        $('.header').addClass('position-absolute');
+    });
+</script>

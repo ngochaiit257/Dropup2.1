@@ -1,0 +1,356 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">@Model.blog_title</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                @if (Model.blog_category != null)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/">@Model.blog_category.blog_category_name</a></li>
+                                }
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Tin tức và sự kiện</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== blog-content1-area-start=============================================== -->
+<div class="blog-content-area pt-100 pb-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">
+                        It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify.
+                    </p>
+                    <p class="pb-1">Lighting is a minimal residence located in Tokyo, Japan, designed by Agota. Large tiles were arranged on the counter top plate near the window of the living room, and they were connected to the kitchen counter through the opening in the existing building wall.</p>
+                    <p>The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded.It is accompanied by a case that can contain up to three different diffusers and can be used for dry storage of loose tea. The perfect way to enjoy brewing tea on low hanging fruit to identify. Koma and Torus are three kitchen utensils designed for Ommo, a new design-oriented brand introduced at the Ambiente show in February 2016. Minimalist approach, bright colors, stainless steel and matte plastic, abstract shapes and curved lines are the defining features of these products designed to be extremely functional, user-friendly and fun.</p>
+                    <p>For me, the most important part of improving at photography has been sharing it. Sign up for an Exposure account, or post regularly to Tumblr, or both. Tell people you’re trying to get better at photography. Talk about it. When you talk about it, other people get excited about it. They’ll come on photo walks with you. They’ll pose for portraits. They’ll buy your prints, zines, whatever.</p>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content1-area-end  -->
+<!-- ====== blog-banner-area-start ========================================= -->
+<div class="blog-banner-area pb-65 over-hidden">
+    <div class="container-wrapper ">
+        <div class="row">
+            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12">
+                <div class="blog-banner-left mb-30">
+                    <img src="images/blog/img-blog-left.jpg" alt="">
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12">
+                <div class="blog-banner-right mb-30">
+                    <img src="images/blog/img-blog-right.jpg" alt="">
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- banner-area-end  -->
+<!-- ====== blog-testimonial-area-start ========================================= -->
+<div class="blog-testimonial-area pb-100">
+    <div class="container">
+        <div class="row container-inner pl-40 pr-40">
+            <div class="col-xl-8  col-lg-10  col-md-12  col-sm-12 col-12 offset-xl-2 offset-lg-1">
+                <div class="blog-testimonial text-center">
+                    <div class="quit mb-30">
+                        <a href="#" class="light-blue" tabindex="0"><i class="fas fa-quote-left"></i></a>
+                    </div>
+                    <blockquote class="testimonials-text black-color">
+                        The disk at the bottom of the bowl can be turned counterclockwise to drain water when washing vegetables and it can be turned clockwise to lock the drain and hol condiments.
+                    </blockquote>
+                    <div class="client text-center">
+                        <h5><a class="secondary-color" href="#" tabindex="0">Eren Christopher</a></h5>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-testimonial-area-end  -->
+<!-- ====== blog-gallery-area-start ========================================= -->
+<div class="blog-gallery-area pb-70 over-hidden">
+    <div class="container-wrapper px-xl-2">
+        <div class="row">
+            <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                <div class="single-gallery mb-30">
+                    <img class="width100" src="images/blog/post-01.jpg" alt="">
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                <div class="single-gallery mb-30">
+                    <img class="width100" src="images/blog/post-02.jpg" alt="">
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                <div class="single-gallery mb-30">
+                    <img class="width100" src="images/blog/1-3.jpg" alt="">
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-gallery-area-end  -->
+<!-- ====== blog-content-area-start=============================================== -->
+<div class="blog-content-area pb-90 border-bottom over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded.</p>
+                    <p>For me, the most important part of improving at photography has been sharing it. Sign up for an Exposure account, or post regularly to Tumblr, or both. Tell people you’re trying to get better at photography. Talk about it. When you talk about it, other people get excited about it.</p>
+                    <div class="blog-footer d-sm-flex justify-content-between pt-50">
+                        <ul class="post-tag pb-20">
+                            <li><a class="secondary-color border px-3 py-2 d-block mr-1" href="#">Image</a></li>
+                            <li><a class="secondary-color border px-3 py-2 d-block mr-1" href="#">Photography</a></li>
+                            <li><a class="secondary-color border px-3 py-2 d-block mr-1" href="#">Travel</a></li>
+                        </ul>
+                        <ul class="social-link pb-20">
+                            <li><a class="text-white d-block py-2 px-5 f-bg" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a class="text-white d-block py-2 px-5 t-bg" href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a class="text-white d-block py-2 px-5 g-bg" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content-area-end  -->
+<!-- ====== author-area-start ========================================= -->
+<div class="author-post-area pt-100 pb-110 over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="single-author-post pl-55 pr-55">
+                    <ul class="blog-posts d-sm-flex justify-content-between pb-70">
+                        <li class="mb-30">
+                            <a href="#" class="secondary-color mr-1 d-inline-block mb-10">
+                                <span class="mr-2"><i class="fas fa-chevron-left"></i></span>Previous Post
+                            </a>
+                            <h4>Miranda Skoczek Homestay</h4>
+                        </li>
+                        <li class="text-right mb-30">
+                            <a href="#" class="secondary-color ml-1 d-block mb-10">
+                                Next Post<span class="ml-2"><i class="fas fa-chevron-right"></i></span>
+                            </a>
+                            <h4>How Wear The Summer Stlye</h4>
+                        </li>
+                    </ul>
+                    <div class="author-post-details gray-bg2 pl-30 pr-30 pt-30 pb-20">
+                        <div class="row">
+                            <div class="col-xl-2  col-lg-2  col-md-3  col-sm-12 col-12">
+                                <div class="author-img mb-15">
+                                    <img class="width100" src="images/blog/avata-100x100.png" alt="">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-10  col-lg-10  col-md-9  col-sm-12 col-12">
+                                <div class="author-post mb-15">
+                                    <span class="position-relative black-color d-block pl-50 pb-10">Admin</span>
+                                    <p>The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded</p>
+                                    <a href="#" class="btn text-capitalize mt-20 px-4 py-2 d-inline-block border">all author posts</a>
+                                </div>
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- author-area-end  -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="blog-post-area pb-55 pt-55 over-hidden gray-bg2 border-bottom border-top">
+    <div class="container-wrapper px-1">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-40 pb-30">
+                    <h3>You Might Also Like</h3>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="blog-post-active">
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img1.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Supt In Qui Officia Deserunt</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img2.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">How Wear The Summer Style</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img3.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Men Wearing Canvas Boots</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class="blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img4.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Miranda Skoaled Homestead</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img5.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Girl With Hat In The Beach</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="images/blog/blog-img6.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-sidebar-none.html">Sunglasses To Wear This Summer</a></h4>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /blog-active -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="reply-form-area pb-100 pt-95">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="reply-form contact-form-right pl-55 pr-55">
+                    <h3 class="pb-10">Leave a Reply </h3>
+                    <p>Your email address will not be published. Required fields are marked *</p>
+                    <form action="#" class="mt-40">
+                        <div class="comment mb-30">
+                            <textarea name="message" class="form-control" id="message" placeholder="Comments"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="name mb-30">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Name*">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="email mb-30">
+                                    <input type="email" class="form-control" name="email" id="c-email" placeholder="Email*">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-4  col-lg-4  col-md-  col-sm- col-">
+                                <div class="url mb-30">
+                                    <input type="url" class="form-control" name="url" id="url" placeholder="Website*">
+                                </div>
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+                        <div class="save-info d-flex align-items-sm-center mb-25">
+                            <input class="p-0" type="checkbox" aria-label="Checkbox for following text input">
+                            <p class="mb-0 pl-10">Save my name, email, and website in this browser for the next time I comment.</p>
+                        </div>
+                        <a href="#" class="btn text-white dark-black-bg transition-3">Post Comments</a>
+                    </form>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->

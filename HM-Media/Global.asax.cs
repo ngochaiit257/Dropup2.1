@@ -29,7 +29,7 @@ namespace HM_Media
                     ,"product_variation_in_order", "order", "system_log",
                 "store_logo","store_banner","store_slide","store_membership", "store_branch","store_partner", "store_customer_say","store_contact" };
             //System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connectionString);
-            //System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connectionString, arr_table_cache);
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connectionString, arr_table_cache);
 
             #endregion
         }

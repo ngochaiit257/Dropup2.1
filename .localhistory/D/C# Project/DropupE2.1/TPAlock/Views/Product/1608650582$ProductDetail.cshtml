@@ -1,0 +1,46 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_combo = new ComboProductProvider().getByProductId(Model.product_id);
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}

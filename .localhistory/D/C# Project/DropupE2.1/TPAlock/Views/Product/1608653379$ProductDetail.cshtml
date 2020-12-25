@@ -1,0 +1,248 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div class="p-page-area">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="page-title pt-15">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent">
+                            <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                            @if (category_parent != null && category_parent.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1 != null && category_child_1.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+
+                            @if (category_child_2 != null && category_child_2.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                            }
+                            <li class="breadcrumb-item active text-capitalize text-dark" aria-current="page">@Model.product_name</li>
+                        </ol>
+                    </nav>
+                </div><!-- /page title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== shop-header-area-start=============================================== -->
+<div class="product-view-scroll-area over-hidden">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="p-view-position">
+            <div class="row">
+                <div class="col-xl-7  col-lg-6  col-md-12  col-sm-12 col-12">
+                    <div class="product-left-img-tab d-flex">
+                        <div class="nav product-tabs flex-column nav-pills" id="v-pills-tab1" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link show active" id="img-main-id" data-toggle="pill" href="#img-main-control" role="tab" aria-controls="img-main-control" aria-selected="true">
+                                <img class="product-thumbnail" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                            </a>
+                            @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                            {
+                                <a class="nav-link " id="img-more-id-@img.image_more_id" data-toggle="pill" href="#img-more-control-@img.image_more_id" role="tab" aria-controls="img-more-control-@img.image_more_id" aria-selected="false">
+                                    <img class="product-thumbnail" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                                </a>
+                            }
+                        </div><!-- /nav product-tabs -->
+                        <div class="tab-content width100 text-center position-relative" id="v-pills-tabContent1">
+                            <div class="tab-pane fade show active" id="img-main-control" role="tabpanel" aria-labelledby="img-main-id">
+                                <div class="product-gallery-btn position-absolute right-site mr-4">
+                                    <a href="@urlCMS/@Model.product_image" class="zoom-gallery dark-black-color bg-white d-inline-block m-2 " data-fancybox="images"><i class="fas fa-compress"></i><img class="width100 d-none" src="@urlCMS/@Model.product_image" alt="@Model.alt_image"></a>
+                                </div><!-- /product-gallery-btn -->
+                                <div class="product-img">
+                                    <img class="width100 height100" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                </div><!-- /product-img -->
+                            </div>
+                            @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                            {
+                                <div class="tab-pane fade" id="img-more-control-@img.image_more_id" role="tabpanel" aria-labelledby="img-more-id-@img.image_more_id">
+                                    <div class="product-gallery-btn position-absolute right-site mr-4">
+                                        <a href="@urlCMS/@img.image_more_url" class="zoom-gallery dark-black-color bg-white d-block m-2" data-fancybox="images"><i class="fas fa-compress"></i><img class="d-none width100" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt"></a>
+                                    </div><!-- /product-gallery-btn -->
+                                    <div class="product-img">
+                                        <img class="width100" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                                    </div><!-- /product-img -->
+                                </div>
+                            }
+                        </div><!-- /tab-content -->
+                    </div><!-- /product-left-img-tab -->
+                </div><!-- /col -->
+                <div class="col-xl-5  col-lg-6  col-md-12  col-sm-12 col-12 pl-xl-0">
+                    <div class="product-view-info">
+                        <div class="product-left-img-info">
+                            <h3>@Model.product_name</h3>
+                            <div class="price pb-20 pt-10"><span class="showNumeric">@Model.promotion_price</span></div>
+                            <div class="available">
+                                <p> Tình trạng: <span class="blue-color">Khả dụng</span></p>
+                            </div>
+                            @if (Model.product_code != "")
+                            {
+                                <div class="sku pb-2"><p>SKU: <span>@Model.product_code</span></p></div>
+                            }
+                            <p class="border-bottom">
+                                @Html.Raw(Model.content_2)
+                            </p>
+                            <div class="mega-product pt-30 mb-40">
+                                <p class="mb-1">
+                                    <span>Danh mục:</span>
+                                    @if (category_parent != null && category_parent.category_id > 0)
+                                    {
+                                        <a href="/collections/@category_parent.seo_alias" class="secondary-color">category_parent.category_name,</a>
+                                    }
+
+                                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                                    {
+                                        <a href="/collections/@category_parent.seo_alias" class="secondary-color">category_parent.category_name,</a>
+                                    }
+
+                                    @if (category_child_2 != null && category_child_2.category_id > 0)
+                                    {
+                                        <a href="/collections/@category_parent.seo_alias" class="secondary-color">category_parent.category_name,</a>
+                                    }
+                                </p>
+                                <p class="mb-1">
+                                    <span>Tags:</span>
+                                    <a href="shop.html" class="secondary-color">Agota,</a>
+                                    <a href="shop.html" class="secondary-color">Furniture,</a>
+                                    <a href="shop.html" class="secondary-color">Livingroom,</a>
+                                    <a href="shop.html" class="secondary-color">Table</a>
+                                </p>
+                            </div><!-- /mega-product -->
+                            <ul class="social-sharing d-flex align-items-center">
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul><!-- /social-sharing -->
+                        </div>
+                    </div>
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div>
+    </div><!-- /container -->
+</div>
+<!-- shop-header-area-end -->
+<div class="product-view-tab-area pt-30 pb-70  border-bottom">
+    <div class="container-wrapper pl-15 pr-15">
+        <nav class="d-flex justify-content-center">
+            <div class="nav review-tabs product-view-tab" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link show active px-0 mr-5 pb-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mô tả chi tiết</a>
+                <a class="nav-item nav-link px-0 mr-5 pb-1" id="nav-review-tab" data-toggle="tab" href="#nav-review" role="tab" aria-controls="nav-review" aria-selected="false">Bình luận</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active mt-60" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="describe-area">
+                    @Html.Raw(Model.content)
+                </div>
+            </div><!-- /tab-pane1 -->
+            <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                <div class="review-comments-area pt-60">
+                    <h5 class="desc-title pb-1">Bình luận của bạn:</h5>
+                    <p>Hãy để lại bình luận dưới đây và chúng tôi sẽ phản hồi lại sớm nhất.</p>
+                </div>
+                <div class="reply-form contact-form-right">
+
+                </div>
+            </div>
+        </div><!-- /tab-pane3 -->
+    </div><!-- /container -->
+</div>
+
+<!-- ====== Sale-Products-area-start ==================================== -->
+<div class="Sale-product-area over-hidden mt-20 mb-30">
+    <div class="container-wrapper">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-80 pb-10">
+                    <h2>Có thể bạn cũng quan tâm </h2>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="Sale-Products-active">
+            @foreach (var product in list_related)
+            {
+                <div class="row pl-10 pr-10 pt-25">
+                    <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                        <div class="single-product bg-white position-relative pb-30">
+                            <div class="single-product-img position-relative">
+                                <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                                <div class="single-product-hover-img position-absolute">
+                                    @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                    @if (img_more != null)
+                                    {
+                                        <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
+                                    }
+                                </div><!-- /single-product-hover-img -->
+                            </div><!-- /single-product-img -->
+
+                            <h5 class="product-name pt-20 pl-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
+                            <div class="product-price pl-20">
+                                @if (product.price > 0)
+                                {
+                                    <span class="old-price">
+                                        <del class="showNumeric">@product.price</del>
+                                    </span>
+                                }
+                                <span class="black-color showNumeric">@product.promotion_price</span>
+                            </div>
+                        </div><!-- /single-product -->
+                    </div><!-- /col -->
+                </div>
+            }
+            <!-- /row -->
+
+        </div><!-- /sale-product-active -->
+    </div><!-- /container -->
+</div>
+<!-- Sale-Products-area-end  -->

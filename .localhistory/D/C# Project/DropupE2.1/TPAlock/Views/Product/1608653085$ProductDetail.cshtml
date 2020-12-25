@@ -1,0 +1,459 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<div class="p-page-area">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="page-title pt-15">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent">
+                            <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                            @if (category_parent != null && category_parent.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1 != null && category_child_1.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+
+                            @if (category_child_2 != null && category_child_2.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                            }
+                            <li class="breadcrumb-item active text-capitalize text-dark" aria-current="page">@Model.product_name</li>
+                        </ol>
+                    </nav>
+                </div><!-- /page title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== shop-header-area-start=============================================== -->
+<div class="product-view-scroll-area over-hidden">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="p-view-position">
+            <div class="row">
+                <div class="col-xl-7  col-lg-6  col-md-12  col-sm-12 col-12">
+                    <div class="product-left-img-tab d-flex">
+                        <div class="nav product-tabs flex-column nav-pills" id="v-pills-tab1" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link show active" id="img-main-id" data-toggle="pill" href="#img-main-control" role="tab" aria-controls="img-main-control" aria-selected="true">
+                                <img class="product-thumbnail" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                            </a>
+                            @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                            {
+                                <a class="nav-link " id="img-more-id-@img.image_more_id" data-toggle="pill" href="#img-more-control-@img.image_more_id" role="tab" aria-controls="img-more-control-@img.image_more_id" aria-selected="false">
+                                    <img class="product-thumbnail" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                                </a>
+                            }
+                        </div><!-- /nav product-tabs -->
+                        <div class="tab-content width100 text-center position-relative" id="v-pills-tabContent1">
+                            <div class="tab-pane fade show active" id="img-main-control" role="tabpanel" aria-labelledby="img-main-id">
+                                <div class="product-gallery-btn position-absolute right-site mr-4">
+                                    <a href="@urlCMS/@Model.product_image" class="zoom-gallery dark-black-color bg-white d-inline-block m-2 " data-fancybox="images"><i class="fas fa-compress"></i><img class="width100 d-none" src="@urlCMS/@Model.product_image" alt="@Model.alt_image"></a>
+                                </div><!-- /product-gallery-btn -->
+                                <div class="product-img">
+                                    <img class="width100 height100" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                </div><!-- /product-img -->
+                            </div>
+                            @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                            {
+                                <div class="tab-pane fade" id="img-more-control-@img.image_more_id" role="tabpanel" aria-labelledby="img-more-id-@img.image_more_id">
+                                    <div class="product-gallery-btn position-absolute right-site mr-4">
+                                        <a href="@urlCMS/@img.image_more_url" class="zoom-gallery dark-black-color bg-white d-block m-2" data-fancybox="images"><i class="fas fa-compress"></i><img class="d-none width100" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt"></a>
+                                    </div><!-- /product-gallery-btn -->
+                                    <div class="product-img">
+                                        <img class="width100" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                                    </div><!-- /product-img -->
+                                </div>
+                            }
+                        </div><!-- /tab-content -->
+                    </div><!-- /product-left-img-tab -->
+                </div><!-- /col -->
+                <div class="col-xl-5  col-lg-6  col-md-12  col-sm-12 col-12 pl-xl-0">
+                    <div class="product-view-info">
+                        <div class="product-left-img-info">
+                            <h3>@Model.product_name</h3>
+                            <div class="price pb-20 pt-10"><span class="showNumeric">@Model.promotion_price</span></div>
+                            <div class="available">
+                                <p> Tình trạng: <span class="blue-color">Khả dụng</span></p>
+                            </div>
+                            @if (Model.product_code != "")
+                            {
+                                <div class="sku pb-2"><p>SKU: <span>@Model.product_code</span></p></div>
+                            }
+                            <p class="border-bottom">
+                                @Html.Raw(Model.content_2)
+                            </p>
+                            <div class="mega-product pt-30 mb-40">
+                                <p class="mb-1">
+                                    <span>Danh mục:</span>
+                                    <a href="shop.html" class="secondary-color">Bedroom,</a>
+                                    <a href="shop.html" class="secondary-color">Kitchen,</a>
+                                    <a href="shop.html" class="secondary-color">Outdoor</a>
+                                </p>
+                                <p class="mb-1">
+                                    <span>Tags:</span>
+                                    <a href="shop.html" class="secondary-color">Agota,</a>
+                                    <a href="shop.html" class="secondary-color">Furniture,</a>
+                                    <a href="shop.html" class="secondary-color">Livingroom,</a>
+                                    <a href="shop.html" class="secondary-color">Table</a>
+                                </p>
+                            </div><!-- /mega-product -->
+                            <ul class="social-sharing d-flex align-items-center">
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul><!-- /social-sharing -->
+                        </div>
+                    </div>
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div>
+    </div><!-- /container -->
+</div>
+<!-- shop-header-area-end -->
+<div class="product-view-tab-area pt-30 pb-70  border-bottom">
+    <div class="container-wrapper pl-15 pr-15">
+        <nav class="d-flex justify-content-center">
+            <div class="nav review-tabs product-view-tab" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link show active px-0 mr-5 pb-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Mô tả chi tiết</a>
+                <a class="nav-item nav-link px-0 mr-5 pb-1" id="nav-review-tab" data-toggle="tab" href="#nav-review" role="tab" aria-controls="nav-review" aria-selected="false">Bình luận</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active mt-60" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="describe-area">
+                    @Html.Raw(Model.content)
+                </div>
+            </div><!-- /tab-pane1 -->
+            <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                <div class="review-comments-area pt-60">
+                    <h5 class="desc-title pb-1">Bình luận của bạn:</h5>
+                    <p>Hãy để lại bình luận dưới đây và chúng tôi sẽ phản hồi lại sớm nhất.</p>
+                </div>
+                <div class="reply-form contact-form-right">
+                    <form action="#">
+                        <div class="comment mb-30">
+                            <label>Your Review *</label>
+                            <textarea name="message" class="form-control mt-10" id="message"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12">
+                                <label>Name *</label>
+                                <div class="name mb-30 mt-10">
+                                    <input type="text" class="form-control" name="name" id="name">
+                                </div>
+                            </div><!-- /col -->
+                            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12">
+                                <label>Email *</label>
+                                <div class="email mb-30 mt-10">
+                                    <input type="email" class="form-control" name="email" id="email2">
+                                </div>
+                            </div><!-- /col -->
+                        </div><!-- /row -->
+                        <div class="save-info d-flex align-items-sm-center mb-25">
+                            <input class="p-0" type="checkbox" aria-label="Checkbox for following text input">
+                            <p class="mb-0 pl-10">Save my name, email, and website in this browser for the next time I comment.</p>
+                        </div>
+                        <a href="#" class="btn text-white dark-black-bg transition">Submit</a>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /tab-pane3 -->
+    </div><!-- /container -->
+</div>
+
+<!-- ====== Sale-Products-area-start ==================================== -->
+<div class="Sale-product-area over-hidden mt-20 mb-30">
+    <div class="container-wrapper">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-80 pb-10">
+                    <h2>Related products </h2>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="Sale-Products-active">
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product5.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-5.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Bottle Grinder with Steel Lid"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Bottle Grinder with Steel Lid</a></h5>
+                        <div class="product-price pl-20 d-inline-block">
+                            <span class="black-color">$396.00</span>
+                        </div>
+                        <div class="product-dot d-inline-block float-right pr-20">
+                            <span class="green-bg"></span>
+                            <span class="black-bg"></span>
+                            <span class="yellow-bg"></span>
+                        </div><!-- /product-dot -->
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product6.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-6.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to cart"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Antique Chinese Armchairs"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Antique Chinese Armchairs</a></h5>
+                        <div class="product-price pl-20">
+                            <span class="black-color">$196.00</span>
+                        </div>
+                        <a href="#" class="sale-tag position-absolute text-white text-uppercase d-inline-block">sale</a>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product2.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-2.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Utopia Towels Kitchen"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Utopia Towels Kitchen</a></h5>
+                        <div class="product-price pl-20 d-inline-block">
+                            <span class="black-color">$862.00</span>
+                        </div>
+                        <div class="product-dot d-inline-block float-right pr-20">
+                            <span class="darkblue-bg"></span>
+                            <span class="lower-blue-bg"></span>
+                            <span class="pink-bg"></span>
+                        </div><!-- /product-dot -->
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product1.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-1.jpg" alt=""></a>
+                            </div><!-- /single-product-hover-img -->
+                            <ul class="single-product-button d-flex position-absolute">
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to cart"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Form Armchair Walnut Base"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                            </ul>
+                            <div class="countdown-time d-flex border-gray position-absolute">
+                                <div class="timer">
+                                    <div class="d-flex" data-countdown="2022/01/01"></div>
+                                </div>
+                            </div><!-- /countdown-time -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Form Armchair Walnut Base</a></h5>
+                        <div class="product-price pl-20">
+                            <span class="black-color"><ins>$799.00</ins></span>
+                            <span class="old-price"><del>$829.00</del></span>
+                        </div>
+                        <a href="#" class="sale-tag position-absolute text-white text-uppercase d-inline-block">sale</a>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product8.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-8.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Living Room Lighting"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Living Room Lighting</a></h5>
+                        <div class="product-price pl-20 d-inline-block">
+                            <span class="black-color">$262.00</span>
+                        </div>
+                        <div class="product-dot d-inline-block float-right pr-20">
+                            <span class="darkblue-bg"></span>
+                            <span class="gray-bg"></span>
+                            <span class="yellow-bg"></span>
+                        </div><!-- /product-dot -->
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product3.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-3.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to cart"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Organic Chair High black"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Organic Chair High black</a></h5>
+                        <div class="product-price pl-20">
+                            <span class="black-color">$1,098.00</span>
+                        </div>
+                        <a href="#" class="sale-tag position-absolute text-white text-uppercase d-inline-block">sale</a>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product4.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-4.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Organic Chair High White"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Organic Chair High White</a></h5>
+                        <div class="product-price pl-20 d-inline-block">
+                            <span class="black-color">$96.00</span>
+                        </div>
+                        <div class="product-dot d-inline-block float-right pr-20">
+                            <span class="darkblue-bg"></span>
+                            <span class="black-bg"></span>
+                            <span class="yellow-bg"></span>
+                        </div><!-- /product-dot -->
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product7.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-7.jpg" alt=""></a>
+                                <ul class="single-product-button d-flex position-absolute">
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Living Room Lighting"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                    <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                </ul>
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Living Room Lighting</a></h5>
+                        <div class="product-price pl-20 d-inline-block">
+                            <span class="black-color">$262.00</span>
+                        </div>
+                        <div class="product-dot d-inline-block float-right pr-20">
+                            <span class="darkblue-bg"></span>
+                            <span class="gray-bg"></span>
+                            <span class="yellow-bg"></span>
+                        </div><!-- /product-dot -->
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-10 pr-10 pt-25">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="single-product.html"><img class="height100" src="images/product/home-product1.jpg" alt=""></a>
+                            <div class="single-product-hover-img position-absolute">
+                                <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-1.jpg" alt=""></a>
+                            </div><!-- /single-product-hover-img -->
+                            <ul class="single-product-button d-flex position-absolute">
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to cart"><a href="#"><span class="icon-shopping-bag"></span></a></li>
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Organic Chair High back"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Browse wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                            </ul>
+                            <div class="countdown-time d-flex border-gray position-absolute">
+                                <div class="timer">
+                                    <div class="d-flex" data-countdown="2021/10/01"></div>
+                                </div>
+                            </div><!-- /countdown-time -->
+                        </div><!-- /single-product-img -->
+                        <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Organic Chair High back</a></h5>
+                        <div class="product-price pl-20">
+                            <span class="black-color"><ins>$1,139.40</ins></span>
+                            <span class="old-price"><del>$1,366.00</del></span>
+                        </div>
+                        <a href="#" class="sale-tag position-absolute text-white text-uppercase d-inline-block">sale</a>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /sale-product-active -->
+    </div><!-- /container -->
+</div>
+<!-- Sale-Products-area-end  -->

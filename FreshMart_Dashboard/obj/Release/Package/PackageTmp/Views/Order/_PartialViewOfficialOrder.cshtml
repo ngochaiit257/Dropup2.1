@@ -1,0 +1,292 @@
+﻿@model IPagedList<Data.order>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    DateTime current_datetime = DateTime.Now;
+}
+
+<div class="table-responsive data-grid">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th align="center" scope="col" style="width:20%;text-align:left" id="checkHeader" class="col_to_merge" colspan="2">
+                    <form id="form_action">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" value="-1" id="select_all">
+                            <label class="form-check-label checkbox-table check-table" id="label_for_select_all" for="select_all"></label>
+                            <div class="form-group" style="display: none; margin-bottom: -25px;" id="select_action">
+                                <select class="form-control form-control-sm select_action" id="checkToAction">
+                                    <option selected disabled id="number_of_checked" value="-1"></option>
+                                    <option value="1">Xác nhận thanh toán</option>
+                                    <option value="1">Thêm nhãn đơn hàng đã chọn</option>
+                                    <option value="1">Bỏ nhãn đơn hàng đã chọn</option>
+                                    <option value="1">In đơn hàng đã chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </th>
+                <th scope="col" style="width:10%">
+                    <p class="th_table">Ngày đặt hàng</p>
+                </th>
+                <th scope="col" style="width:20%">
+                    <p class="th_table">Khách hàng</p>
+                </th>
+                <th scope="col" style="width:10%">
+                    <p class="th_table">Giao hàng</p>
+                </th>
+                <th scope="col" style="width:10%;">
+                    <p class="th_table">Thanh toán</p>
+                </th>
+                <th scope="col" style="width:10%;">
+                    <p class="th_table">COD</p>
+                </th>
+                <th scope="col" style="width:10%; text-align:right">
+                    <p class="th_table">Tổng tiền</p>
+                </th>
+                <th scope="col" style="width:10%;">
+                    <p class="th_table">Kênh bán</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td align="center">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@order.order_id" id="Check_@order.order_id" style="border: 1px solid #dee2e6;">
+                            <label class="form-check-label checkbox-table check-table" for="Check_@order.order_id"></label>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <a href="/Order/OrderDetail?id=@order.order_id" class="text-primary">#@order.order_id</a>
+                    </td>
+                    <td>
+                        @if (order.create_datetime.Date == current_datetime.Date)
+                        {
+                            <a>Hôm nay @order.create_datetime.ToString("HH:mm")</a>
+                        }
+                        else if (order.create_datetime.Date == current_datetime.Date.AddDays(-1))
+                        {
+                            <a>Hôm qua @order.create_datetime.ToString("HH:mm")</a>
+                        }
+                        else
+                        {
+                            <a>@order.create_datetime.ToString("dd/M/yyyy") @order.create_datetime.ToString("HH:mm")</a>
+                        }
+                    </td>
+                    <td>
+                        @if (order.customer.customer_first_name == null && order.customer.customer_last_name == null)
+                        {
+                            <a target="_blank" class="text-primary" href="/Customer/CustomerDetail?id=@order.customer_id">@order.customer.customer_email</a>
+                        }
+                        else
+                        {
+                            <a target="_blank" class="text-primary" href="/Customer/CustomerDetail?id=@order.customer_id">@order.customer.customer_first_name @order.customer.customer_last_name</a>
+                        }
+                    </td>
+
+                    <td>
+                        @{
+                            int shipping_status_id = new OrderProvider().getShippingStatusIdTransportByOrderId(order.order_id);
+                            string shipping_status_description = new OrderProvider().getShippingStatusDescriptionTransportByOrderId(order.order_id);
+                            var list_order_to_check_transport = new OrderProvider().getAllOfficialOrder();
+                        }
+
+                        @if (!(new OrderProvider().getListOrderHaveNotTransport(list_order_to_check_transport)).Contains(order))
+                        {
+                            if (shipping_status_id == 1 || shipping_status_id == 2)
+                            {
+                                <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-info-inverse">@shipping_status_description</span>
+                            }
+                            else if (shipping_status_id == 3)
+                            {
+                                <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-success-inverse">@shipping_status_description</span>
+                            }
+                            else if (shipping_status_id == 4 || shipping_status_id == 5)
+                            {
+                                <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-warning-inverse">@shipping_status_description</span>
+                            }
+                            else
+                            {
+                                <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-danger-inverse">@shipping_status_description</span>
+                            }
+                        }
+                        @if ((new OrderProvider().getListOrderHaveNotTransport(list_order_to_check_transport)).Contains(order))
+                        {
+                            <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-secondary-inverse">Chưa giao</span>
+                        }
+
+
+                    </td>
+                    <td>
+                        @if (order.payment_status == true)
+                        {
+                            <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-success-inverse">Đã thanh toán</span>
+                        }
+                        else
+                        {
+                            <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-warning-inverse">Chờ xử lý</span>
+                        }
+                    </td>
+                    <td>
+                        @{ bool get_money_status = new OrderProvider().getGetMoneyStatusDescriptionTransportByOrderId(order.order_id);}
+
+                        @if (!(new OrderProvider().getListOrderHaveNotTransport(list_order_to_check_transport)).Contains(order))
+                        {
+                            if (order.payment_method_id == 4)
+                            {
+                                <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-secondary-inverse">Không thu</span>
+                            }
+                            else
+                            {
+
+                                if (get_money_status == true)
+                                {
+                                    <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-success-inverse">Đã nhận</span>
+                                }
+                                else
+                                {
+                                    <span class="mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-warning-inverse">Chưa nhận</span>
+                                }
+                            }
+                        }
+                    </td>
+                    <td align="right">
+                        @{ decimal sum_cost = new OrderProvider().getSumCostByOrderId(order.order_id);}
+                        <span class="showNumeric">@sum_cost</span>
+                    </td>
+                    <td>
+                        @order.source_order
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+    <div style="text-align:center">
+        <h3>Không có kết quả nào được tìm thấy.</h3>
+        <img src="~/Assets/images/image_system/not_found.png" style="width:50%" />
+    </div>
+    <script>
+        $('#label_for_select_all').css({ display: 'none' });
+    </script>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'block' });
+    </script>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetOfficialOrder", new { page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = 0, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa thông tin các khách hàng này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="cancelBtn()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa thông tin các khách hàng bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelBtn()">Hủy</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteCategory()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+            $(document).ready(function () {
+                $("input[name='checkbox']").each(function () {
+                    $(this).prop("checked", false);
+                });
+                $('#form_action').trigger("reset");
+                $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+            });
+
+            function cancelBtn() {
+                $('#checkToAction').val(-1);
+            }
+
+            var number_check = 0;
+            $("input[type='checkbox']").change(function () {
+                var checked = $(this).val();
+                if (checked != -1) {
+                    $('.th_table').css('display', 'none');
+                    $('#select_action').css('display', 'block');
+                    if ($(this).is(':checked')) {
+                        number_check++;
+                        $('#number_of_checked').text("Đã chọn: " + number_check + " đơn hàng");
+                        if (number_check == @check_box_count) {
+                            $("#select_all").prop("checked", true);
+                        }
+                    } else {
+                        $("#select_all").prop("checked", false);
+                        number_check--;
+                        $('#number_of_checked').text("Đã chọn: " + number_check + " đơn hàng");
+                        if (number_check == 0) {
+                            $('.th_table').css('display', 'block');
+                            $('#select_action').css('display', 'none');
+                        }
+                    }
+                }
+                else {
+                    number_check = -1;
+                    $('.th_table').css('display', 'none');
+                    $('#select_action').css('display', 'block');
+
+                    $(':checkbox').prop('checked', $(this).prop("checked"));
+                    $(':checkbox').each(function () {
+                        number_check++;
+                    });
+
+                    $('#number_of_checked').text("Đã chọn: " + number_check + " đơn hàng");
+                }
+            });
+
+            $('#select_all').change(function () {
+                var select_all_value = $(this).val();
+                if ($(this).prop("checked") == false) {
+                    number_check = 0;
+                    $(':checkbox').prop('checked', $(this).prop("checked"));
+                    $('.th_table').css('display', 'block');
+                    $('#select_action').css('display', 'none');
+                }
+                else {
+                    number_check = -1;
+                    $('.th_table').css('display', 'none');
+                    $('#select_action').css('display', 'block');
+
+                    $(':checkbox').prop('checked', $(this).prop("checked"));
+                    $(':checkbox').each(function () {
+                        number_check++;
+                    });
+
+                    $('#number_of_checked').text("Đã chọn: " + number_check + " đơn hàng");
+                }
+            });
+
+</script>

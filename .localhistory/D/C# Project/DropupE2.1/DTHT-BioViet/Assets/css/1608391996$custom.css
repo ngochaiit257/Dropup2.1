@@ -1,0 +1,43 @@
+﻿:root {
+    --mainColor: #b86429;
+    --childColor: #ffd67b;
+}
+
+
+.ttm-bgcolor-grey > .ttm-bg-layer, .ttm-bgcolor-grey, .ttm-btn-bgcolor-grey, .ttm-topbar-wrapper, .ttm-search-overlay .ttm-site-searchform input[type="search"], .ttm-icon_element-bgcolor-grey, .sidebar .ttm-bgcolor-grey > .ttm-bg-layer, .ttm-blog-single-content .social-icons li > a, .ttm_single_image-wrapper.after-border.style3:before, .ttm_single_image-wrapper.after-border.style3:after, .accordion.grey-background .toggle-title a, .widget.widget-nav-menu ul li a, .widget-download ul.download li, .ttm-tabs.ttm-tab-style-horizontal.grey-background ul.tabs li.active a, .ttm-pf-single-detail-box, .social-icons.grey-background ul li a, .comment-body, div.product ul.tabs li a {
+    background-color: #b86429;
+}
+
+.top-contact {
+    font-size: 16px;
+    color: #fff;
+}
+
+
+.ttm-topbar-wrapper .social-icons li > a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.ttm-header-style-01 .top-contact li {
+    border-left: none;
+    border-right: none;
+}
+
+.top-contact li {
+    padding-left: 0;
+}
+
+.ttm-header-style-01 .ttm-topbar-wrapper .ttm-social-links-wrapper {
+    border-right: none;
+    padding-right: 0;
+}
+
+.ttm-bgcolor-darkgrey, .ttm-bgcolor-darkgrey > .ttm-bg-layer, .ttm-bgcolor-darkgrey > .ttm-bg-layer > .ttm-bg-layer-inner, .ttm-btn-bgcolor-darkgrey, .ttm-icon_element-bgcolor-darkgrey, .ttm-btn-bgcolor-white:hover, .ttm-btn-bgcolor-skincolor:hover, .ttm-btn.ttm-btn-bgcolor-darkgrey, .ttm-btn.ttm-btn-color-darkgrey.ttm-btn-style-border:hover, .ttm-btn-bgcolor-grey:hover, .ttm-header-style-01 .ttm-header-icons .ttm-header-cart-link a, .ttm-header-style-01 .ttm-header-icons .ttm-header-search-link a, .progress-bar-color-bar_darkgrey, .progress-bar-color-bar_darkgrey.progress-bar:before, .ttm-bgcolor-skincolor .tooltip:after, .ttm-bgcolor-skincolor [data-tooltip]:after, .ttm-shop-icon .product-btn, .ttm-tabs.ttm-tab-style-horizontal ul.tabs li a, .ttm-pricing-plan .ttm-featured-title, .featured-imagebox-services:hover .ttm-icon.ttm-icon_element-bgcolor-skincolor, .widget-download ul.download li:hover, .widget-download ul.download li i, .ttm-header-style-02 .ttm-topbar-wrapper, .ttm-header-style-02 .ttm-header-icons .ttm-header-cart-link a:hover span.number-cart, .ttm-header-style-04 .ttm-custombutton .ttm-btn:hover {
+    background-color: var(--childColor);
+}
+
+#site-header-menu #site-navigation .menu ul li > a {
+    font-weight: 700;
+    font-size: 16px;
+}

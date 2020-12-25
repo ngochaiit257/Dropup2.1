@@ -27,10 +27,11 @@ namespace ElysienVietNam
             bundles.Add(new StyleBundle("~/bundles/styleCore").Include(
            "~/Assets/css/vendor/plugins.min.css",
            "~/Assets/css/style.min.css",
-           "~/Assets/css/responsive.min.css",
            "~/Assets/css/PagedList.css",
            "~/Assets/css/toaster-box.css",
-           "~/Assets/css/custom.css"
+           "~/Assets/css/custom.css",
+           "~/Assets/css/responsive.min.css"
+
            ));
 
             BundleTable.EnableOptimizations = true;

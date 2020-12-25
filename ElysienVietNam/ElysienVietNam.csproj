@@ -206,6 +206,7 @@
     <Content Include="Assets\images\banner-image\banner-menu-6.jpg" />
     <Content Include="Assets\images\banner-image\banner-menu-7.jpg" />
     <Content Include="Assets\images\banner-image\banner-menu.jpg" />
+    <Content Include="Assets\images\banner-image\img-popup.jpg" />
     <Content Include="Assets\images\blog-image\blog-1.jpg" />
     <Content Include="Assets\images\blog-image\blog-13.jpg" />
     <Content Include="Assets\images\blog-image\blog-14.jpg" />
@@ -517,12 +518,18 @@
     <Content Include="Assets\fonts\ionicons28b5.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile10.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile11.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile12.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile13.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile5.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile7.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile8.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile9.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

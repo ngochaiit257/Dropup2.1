@@ -1,0 +1,45 @@
+﻿.main-menu ul li > a {
+    font-size: 18px;
+}
+
+.main-menu ul li .mega-menu a {
+    font-size: 18px;
+}
+
+    .main-menu ul li .mega-menu .mega-title a, .main-menu ul li .mega-menu a.mega-title {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+.main-menu ul li .mega-menu a {
+    font-size: 16px;
+}
+
+.main-menu ul li {
+    margin: 0 10px;
+}
+
+a, p{
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+.product-price span {
+    font-weight: 500;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.product-price del span {
+    font-weight: 300;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.main-menu ul li .mega-menu.mega-dropdown-menu, .main-menu ul li .mega-menu .mega-sub-menu {
+    min-width: 390px;
+}

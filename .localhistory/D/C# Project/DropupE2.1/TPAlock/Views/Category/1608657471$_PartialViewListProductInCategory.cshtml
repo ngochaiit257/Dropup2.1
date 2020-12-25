@@ -1,0 +1,55 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-xl-3  col-lg-3  col-md-4  col-sm-6 col-12 mb-40">
+            <div class="single-product bg-white position-relative pb-30">
+                <div class="single-product-img position-relative">
+                    <a href="single-product.html"><img class="height100" src="images/product/home-product1.jpg" alt=""></a>
+                    <div class="single-product-hover-img position-absolute">
+                        <a href="single-product.html"><img class="height100" src="images/product/home-product-hover-1.jpg" alt=""></a>
+                    </div><!-- /single-product-hover-img -->
+                    <ul class="single-product-button d-flex position-absolute">
+                        <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to cart"><a href="shop.html"><span class="icon-shopping-bag"></span></a></li>
+                        <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Form Armchair Walnut Base">
+                            <a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a>
+                        </li>
+                        <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Browse wishlist">
+                            <a href="shop.html"><span class="icon-heart"></span></a>
+                        </li>
+                    </ul>
+                    <div class="countdown-time d-flex border-gray position-absolute">
+                        <div class="timer">
+                            <div class="d-flex" data-countdown="2021/12/01"></div>
+                        </div>
+                    </div><!-- /countdown-time -->
+                </div><!-- /single-product-img -->
+                <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Form Armchair Walnut Base</a></h5>
+                <div class="product-price pl-20">
+                    <span class="black-color"><ins>$799.00</ins></span>
+                    <span class="old-price"><del>$829.00</del></span>
+                </div>
+                <a href="#" class="sale-tag position-absolute text-white text-uppercase d-inline-block">sale</a>
+            </div><!-- /single-product -->
+        </div><!-- /col -->
+
+    </div><!-- /row -->
+}

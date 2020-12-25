@@ -1,0 +1,333 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_product = new ProductProvider().getNewestShowing();
+
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+    var list_page_2 = list_page_link.Where(p => p.mount_on_header_menu_status == false && p.mount_on_footer_menu_status == false).ToList();
+    var list_da = new BlogProvider().getByCategoryName("Dự Án").Take(3).ToList();
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Agrotek – Agriculture HTML Template" />
+    <meta name="author" content="https://www.themetechmount.com/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@ViewBag.Title</title>
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="@urlCMS/@favicon.image" />
+    @Styles.Render("~/bundles/styleCore")
+    @Scripts.Render("~/bundles/jsCoreFirst")
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=vietnamese" rel="stylesheet">
+</head>
+
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=701242130762936&autoLogAppEvents=1" nonce="kfWci9qi"></script>
+    <!--page start-->
+    <div class="page">
+        <!--header start-->
+        <header id="masthead" class="header ttm-header-style-01">
+            <!-- ttm-header-wrap -->
+            <div class="ttm-header-wrap">
+                <!-- ttm-stickable-header-w -->
+                <div id="ttm-stickable-header-w" class="ttm-stickable-header-w clearfix">
+                    <!-- ttm-topbar-wrapper -->
+                    <div class="ttm-topbar-wrapper clearfix">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ttm-topbar-content">
+                                        <ul class="top-contact text-left">
+                                            <li>
+                                                <marquee>Bio Việt xin chào! Cảm ơn bạn vì hôm nay đã chọn chúng tôi!</marquee>
+                                            </li>
+                                        </ul>
+                                        <div class="topbar-right text-right">
+                                            <ul class="top-contact">
+                                                <li>Giờ làm việc : @contact.working_hour</li>
+                                            </ul>
+                                            <div class="ttm-social-links-wrapper list-inline">
+                                                <ul class="social-icons">
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-flickr"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- ttm-topbar-wrapper end -->
+                    <div class="ttm-widget_header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <!-- site-branding -->
+                                        <div class="site-branding mr-auto">
+                                            <a class="home-link" href="/" title="Agrotek" rel="home">
+                                                <img src="@urlCMS/@logo_header.image" id="@logo_header.alt" class="img-center" alt="@logo_header.alt">
+                                            </a>
+                                        </div><!-- site-branding end -->
+                                        <!-- widget-info -->
+                                        <div class="widget_info d-flex flex-row align-items-center justify-content-end">
+                                            <div class="widget_icon"><i class="flaticon-call"></i></div>
+                                            <div class="widget_content">
+                                                <h5 class="widget_title">Tư vấn viên</h5>
+                                                <p class="widget_desc">@contact.phone_number</p>
+                                            </div>
+                                        </div><!-- widget-info end -->
+                                        <!-- widget-info -->
+                                        <div class="widget_info d-flex flex-row align-items-center justify-content-end">
+                                            <div class="widget_icon"><i class="flaticon-email"></i></div>
+                                            <div class="widget_content">
+                                                <h5 class="widget_title">Email liên hệ</h5>
+                                                <p class="widget_desc">@contact.email</p>
+                                            </div>
+                                        </div><!-- widget-info end -->
+                                        <!-- widget-info -->
+                                        <div class="widget_info d-flex flex-row align-items-center justify-content-end">
+                                            <div class="widget_icon"><i class="flaticon-worldwide"></i></div>
+                                            <div class="widget_content">
+                                                <h5 class="widget_title">Địa chỉ văn phòng</h5>
+                                                <p class="widget_desc">@contact.address</p>
+                                            </div>
+                                        </div><!-- widget-info end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="site-header-menu" class="site-header-menu">
+                        <div class="site-header-menu-inner ttm-stickable-header">
+                            <div class="container">
+                                <!--site-navigation -->
+                                <div id="site-navigation" class="site-navigation">
+                                    <!-- header-icons -->
+                                    <div class="ttm-header-icons ">
+                                        <div class="ttm-header-icon ttm-header-search-link">
+                                            <a href="#" class="sclose"><i class="ti ti-search"></i></a>
+                                            <div class="ttm-search-overlay">
+                                                <div class="ttm-bg-layer"></div>
+                                                <div class="ttm-icon-close"></div>
+                                                <div class="ttm-search-outer">
+                                                    <form method="get" class="ttm-site-searchform" action="#">
+                                                        <input type="search" class="field searchform-s" name="s" placeholder="Nhập tên sản phẩm cần tìm kiếm...">
+                                                        <button type="submit">
+                                                            <i class="ti ti-search"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- header-icons end -->
+                                    <div class="ttm-menu-toggle">
+                                        <input type="checkbox" id="menu-toggle-form" />
+                                        <label for="menu-toggle-form" class="ttm-menu-toggle-block">
+                                            <span class="toggle-block toggle-blocks-1"></span>
+                                            <span class="toggle-block toggle-blocks-2"></span>
+                                            <span class="toggle-block toggle-blocks-3"></span>
+                                        </label>
+                                    </div>
+                                    <nav id="menu" class="menu">
+                                        <ul>
+                                            <li>
+                                                <a href="/">Trang chủ</a>
+                                            </li>
+
+                                            @if (list_page_parent.Count > 0)
+                                            {
+                                                foreach (var pp in list_page_parent)
+                                                {
+                                                    if (pp.mount_on_header_menu_status == true)
+                                                    {
+                                                        var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                        if (list_page_child.Count > 0)
+                                                        {
+                                                            <li>
+                                                                <a href="/pages/@pp.page_seo_alias">
+                                                                    @pp.page_title
+                                                                </a>
+
+                                                                <ul>
+                                                                    @foreach (var pc in list_page_child)
+                                                                    {
+                                                                        <li>
+                                                                            <a href="/pages/@pc.page_seo_alias" class="nav-link">
+                                                                                @pc.page_title
+                                                                            </a>
+                                                                        </li>
+                                                                    }
+
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <a href="/pages/@pp.page_seo_alias" class="nav-link">
+                                                                    @pp.page_title
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            <li>
+                                                <a href="javascript:void(0)">Đông trùng hạ thảo</a>
+                                                <ul>
+                                                    @foreach (var product in list_product)
+                                                    {
+                                                        <li><a href="/@product.seo_alias">@product.product_name</a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="/blogs">Tin tức và sự kiện</a>
+                                            </li>
+                                            <li>
+                                                <a href="/pages/lien-he">Liên hệ</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div><!-- site-navigation end-->
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- ttm-stickable-header-w end-->
+            </div><!--ttm-header-wrap end -->
+        </header><!--header end-->
+        @RenderBody()
+        <!--footer start-->
+        <footer class="footer widget-footer clearfix">
+            <div class="second-footer ttm-textcolor-white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 widget-area">
+                            <div class="widget widget_text  clearfix">
+                                <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" style="width: 50%;margin-bottom: 15px;" />
+                                <div class="">
+                                    <p style="text-align:justify">
+                                        Với phương châm "Hợp tác để cùng thành công", và định hướng "Liên tục cải tiến" Bioviet đã luôn nỗ lực cả về nhân lực, xây dựng uy tín thương hiệu, niềm tin với khách hàng với những sản phẩm chúng tôi cung cấp.
+                                    </p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 widget-area">
+                            <div class="widget link-widget clearfix">
+                                <h3 class="widget-title">Liên kết nhanh</h3>
+                                <ul id="menu-footer-services">
+                                    @foreach (var page in list_page_link)
+                                    {
+                                        <li><a href="/pages/@page.page_seo_alias">@page.page_title</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 widget-area">
+                            <div class="widget widget_text clearfix">
+                                <h3 class="widget-title">Dự án mới nhất</h3>
+                                <ul class="widget-post ttm-recent-post-list">
+                                    @foreach (var da in list_da)
+                                    {
+                                        <li>
+                                            <a href="/blogs/@da.blog_seo_alias"><img src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image"></a>
+                                            <span class="post-date"><i class="fa fa-calendar"></i>@da.create_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                            <a href="/blogs/@da.blog_seo_alias" style="font-size: 14px; font-weight: 500">@da.blog_title</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 widget-area">
+                            <div class="widget contact-widget">
+                                <h3 class="widget-title">Liên hệ</h3>
+                                <ul class="contact-widget-wrapper">
+                                    <li><i class="fa fa-map-marker"></i>@contact.address</li>
+                                    <li><i class="fa fa-phone"></i>@contact.phone_number </li>
+                                    <li><i class="fa fa-envelope-o"></i><a href="mailto:@contact.email" target="_blank">@contact.email</a></li>
+                                </ul>
+                                <div class="social-icons circle social-hover">
+                                    <ul class="list-inline">
+                                        <li class="social-facebook"><a class="tooltip-top" target="_blank" href="#" data-tooltip="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li class="social-twitter"><a class="tooltip-top" target="_blank" href="#" data-tooltip="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li class="social-flickr"><a class=" tooltip-top" target="_blank" href="#" data-tooltip="flickr"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
+                                        <li class="social-linkedin"><a class=" tooltip-top" target="_blank" href="#" data-tooltip="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-footer-text ttm-textcolor-white">
+                <div class="container">
+                    <div class="row copyright">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <span>Bản quyền thuộc về <strong>Bio Việt</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--footer end-->
+        <!--back-to-top start-->
+        <a id="totop" href="#top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <!--back-to-top end-->
+
+    </div><!-- page end -->
+    <!-- Javascript -->
+    @Scripts.Render("~/bundles/jsCoreSecond")
+
+    <script>
+        $(document).ready(function () {
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            var width_device = $(window).width();
+            if (width_device >= 1024) {
+                var q2w3_sidebar_1_options = {
+                    "sidebar": "widget-area",
+                    "margin_top": 50,
+                    "margin_bottom": 1000,
+                    "screen_max_width": 0,
+                    "width_inherit": false,
+                    "widgets": ['widget_media_image', 'widget_media_gallery']
+                };
+                q2w3_sidebar(q2w3_sidebar_1_options);
+                setInterval(function () { q2w3_sidebar(q2w3_sidebar_1_options); }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

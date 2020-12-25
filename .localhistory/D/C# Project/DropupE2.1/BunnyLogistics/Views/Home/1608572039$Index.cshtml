@@ -1,0 +1,559 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Bunny Việt Nam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_service = new ProductProvider().getAll();
+    var list_blog = new BlogProvider().getIsShowing().Take(5);
+    var newest_blog = list_blog.FirstOrDefault();
+
+    var list_feedback = new StoreCustomerSayProvider().getAll();
+    var list_partner = new StorePartnerProvider().getAll();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+
+    var banner = new StoreBannerProvider().getbyId(1);
+    var banner_2 = new PageProvider().getById(1);
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Bunny, logistic, vận tải, hàng không, đường biển, hải quan";
+    ViewBag.Description = "Bunny Logisitcs được thành lập bởi những chuyên gia giàu kinh nghiệm và chuyên nghiệp hàng đầu trong ngành vận tải, logistics.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner Section Start -->
+<div class="banner-slider owl-carousel owl-theme">
+
+    @foreach (var slide in list_slide)
+    {
+        <div class="banner-item" style="background-image: url('@urlCMS/@slide.image');">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="banner-text">
+                            <h1>@slide.main_text</h1>
+                            <p>@slide.child_text_1</p>
+
+                            <div class="banner-btn">
+                                <a href="@slide.link_url" class="default-btn">@slide.child_text_2</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- Banner Section End -->
+<!-- Features Section Start -->
+<div class="features-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="feature-card">
+                    <i class="icofont-fast-delivery"></i>
+                    <span><a id="num_km">87357</a> KM</span>
+                    <h3>Tổng quãng đường</h3>
+                    <p>Chúng tôi đã đi và mang hàng hóa đến nhiều nơi trên toàn thế giới .</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="feature-card">
+                    <i class="icofont-location-pin"></i>
+                    <span id="num_country">200</span>
+                    <h3>Quốc gia</h3>
+                    <p>Mạng lưới hàng trăm quốc gia chúng tôi liên kết là những gì mà chúng tôi có.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="feature-card">
+                    <i class="icofont-users-alt-3"></i>
+                    <span id="num_customer">300</span>
+                    <h3>Khách hàng</h3>
+                    <p>Phục vụ hơn 300 khách hàng trong suốt thời gian vừa qua.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="feature-card">
+                    <i class="icofont-thumbs-up"></i>
+                    <span>> <a id="num_year">10</a></span>
+                    <h3>Năm kinh nghiệm</h3>
+                    <p>Đội ngũ sáng lập và nhân viên trên 10 năm kinh nghiệm trong ngành vận tải.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function animateValue(id, start, end, duration) {
+        if (start === end) return;
+        var range = end - start;
+        var current = start;
+        var increment = end > start ? 1 : -1;
+        var stepTime = Math.abs(Math.floor(duration / range));
+        var obj = document.getElementById(id);
+        var timer = setInterval(function () {
+            current += increment;
+            obj.innerHTML = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+
+    animateValue("num_km", 87157, 87357, 5000);
+    animateValue("num_country", 100, 200, 5000);
+    animateValue("num_customer", 100, 300, 5000);
+    animateValue("num_year", 0, 10, 5000);
+</script>
+
+<!-- Features Section End -->
+<!-- About Section Start -->
+<section class="about-section pt-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 wow fadeInUp" data-wow-duration="1s">
+                <div class="about-img">
+                    <img src="@urlCMS/@banner.image" alt="@banner.alt">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-text">
+                    <div class="section-title">
+                        <span>Về chúng tôi</span>
+                        <h2>Công ty TNHH Đầu tư BUNNY Việt Nam</h2>
+                    </div>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">Giới thiệu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="mission-tab" data-toggle="tab" href="#mission" role="tab" aria-controls="mission" aria-selected="false">Tầm nhìn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="goal-tab" data-toggle="tab" href="#goal" role="tab" aria-controls="goal" aria-selected="false">Sứ mệnh</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                            <p>Bunny Logisitcs được thành lập bởi những chuyên gia giàu kinh nghiệm và chuyên nghiệp hàng đầu trong ngành vận tải, logistics.</p>
+
+                            <p>
+                                Với đội ngũ nhân viên trẻ, nhiệt huyệt, được đào tạo bài bản, Bunny Logistics không ngừng cải tiến để phù hợp và đáp ứng mọi nhu cầu của khách hàng.
+                            </p>
+                            <p>
+                                Chúng tôi luôn mong muốn mang những dịch vụ nhanh và chính xác nhất tới từng chuyến tàu và từng kiện hàng của quý khách.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="mission" role="tabpanel" aria-labelledby="mission-tab">
+                            <p>Công ty TNHH Đầu tư Bunny Việt Nam trở thành doanh nghiệp đứng đầu trong lĩnh vực logistic, Freight Forwarding tại Việt Nam.</p>
+
+                            <p>
+                                Chúng tôi luôn định hướng là sẽ trở thành đơn vị có chỗ đứng vững chắc trên thị trường quốc tế và trong nước.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="goal" role="tabpanel" aria-labelledby="goal-tab">
+                            <p>Đối với khách hàng: Tận tâm, chu đáo, luôn phục vụ tốt nhất đối với từng khách hàng như là khách hàng duy nhất của công ty.</p>
+                            <p>Đối với đối tác: Cùng nhau phát triển, uy tín luôn là phương châm hàng đầu.</p>
+                            <p>Đối với nhân viên: Bình đẳng, tạo môi trường làm việc chuyên nghiệp phù hợp với sự năng động, hướng tới sự phát triển chung cho toàn bộ nhân viên, để mỗi cá nhân có thể phát huy hết năng lực vốn có.</p>
+                            <p>Đối với xã hội: Luôn ý thức được trách nhiệm xã hội chung để Bunny Việt Nam luôn là doanh nghiệp góp được nhiều lợi ích cho cộng đồng.</p>
+                        </div>
+                    </div>
+
+                    <div class="theme-btn">
+                        <a href="@banner.video_url" class="default-btn">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Section End -->
+<!-- Transport System Section Start -->
+<section class="transport-section pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <span>Dịch vụ</span>
+            <h2>
+                Giải pháp Logistics
+            </h2>
+        </div>
+
+        <div class="row">
+            @foreach (var service in list_service)
+            {
+                if (service.show_datetime <= DateTime.Now && service.status == true)
+                {
+                    <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                        <div class="transport-card">
+                            <div class="transport-img">
+                                <img src="@urlCMS/@service.product_image" alt="@service.alt_image">
+                            </div>
+                            <div class="transport-text">
+                                <h3>@service.product_name</h3>
+                                @Html.Raw(service.description)
+
+                                <div class="theme-btn">
+                                    <a href="/@service.seo_alias" class="default-btn">Chi Tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+<!-- Transport System Section End -->
+<!-- Why Choose Section Start -->
+<section class="why-choose-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="why-choose-img">
+                </div>
+            </div>
+
+            <div class="col-lg-6 p-0">
+                <div class="why-choose-text">
+                    <div class="section-title">
+                        <h2>Tại sao lựa chọn Bunny?</h2>
+                        <p>Là một nhóm các chuyên gia trong lĩnh vực vận chuyển, logistics, chúng tôi tự tin là nhà cung cấp giải pháp tổng thể về logistics hiệu quả, là đối tác đáng tin cậy và luôn sẵn sàng đồng hành. Với trên 10 năm kinh nghiệm hoạt động trong ngành Logisistics, chúng tôi cung cấp cho khách hàng các giải pháp vận chuyển an toàn, nhanh chóng, và hiệu quả về mặt chi phí.</p>
+                    </div>
+
+                    <div class="accordions">
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item6">
+                                <i class="icofont-like"></i>
+                                <h2>Đội ngũ giàu kinh nghiệm <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item6">
+                                <p>
+                                    Đội ngũ chuyên gia của Bunny Logistics hiểu được tầm quan trọng những thay đổi và thách thức từ thị trường, các yêu tố về chính trị, văn hóa, pháp luật… để đánh giá tác động tới khách hàng. Dựa trên những đánh giá đó, chúng tôi sẽ xác định và tư vấn các bước đi tiếp để đảm bảo khách hàng được chăm sóc cẩn thận và chu đáo nhất.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item1">
+                                <i class="icofont-fast-delivery"></i>
+                                <h2>Vận chuyển nhanh chóng & an toàn <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item1">
+                                <p>Dịch vụ vận chuyển đảm bảo an toàn, nhanh chóng, hiệu quả, chi phí cạnh tranh. Áp dụng, duy trì và phát triển công nghệ thông tin vào quản lý nhằm đảm bảo tối đa dịch vụ nhanh chóng, chuyên nghiệp và an toàn đến mọi lô hàng của quý khách.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item2">
+                                <i class="icofont-ssl-security"></i>
+                                <h2>Am hiểu địa phương <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item2">
+                                <p>Quy mô hoạt động toàn cầu nhưng rất am hiểu địa phương: chúng tôi có mối quan hệ bền chặt với các hãng vận tải từ hàng không, đường biển, đường tàu hỏa, đường bộ nội địa cũng như hầu hết với các đơn vị vận tải uy tín trong và ngoài nước.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item3">
+                                <i class="icofont-diamond"></i>
+                                <h2>Chi phí hợp lý <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item3">
+                                <p>Hiểu được chi phí logistics chiếm trên 40% chi phí của khách hàng, chúng tôi luôn tìm các giải pháp tối ưu hóa chi phí để việc kinh doanh của khách hàng được hiệu quả. Từng đồng vốn sẽ được sử dụng một cách thông minh và tiết kiệm nhất.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item4">
+                                <i class="icofont-ui-browser"></i>
+                                <h2>Bảo mật thông tin <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item4">
+                                <p>Thông tin là tài sản của từng doanh nghiệp, toàn bộ dữ liệu của khách hàng được Bunny Logistics lưu trữ tuyệt mật, đảm bảo giữ bí mật kinh doanh cho mọi đối tác.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-title" data-tab="item5">
+                                <i class="icofont-live-support"></i>
+                                <h2>Tư vấn tận tâm <i class="icofont-stylish-right down-arrow"></i></h2>
+                            </div>
+                            <div class="accordion-content" id="item5">
+                                <p>
+                                    Chúng tôi sẵn sàng dùng hàng chục năm kinh nghiệm của mình để tư vấn cho khách hàng các giải pháp tối ưu, tiết kiệm thời gian và chi phí. Mọi thủ tục sẽ được tiến hành nhanh nhất để cắt giảm mọi thời gian chết.
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Why Choose Section End -->
+<section class="facilities-section pb-100 pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="facilities-text">
+                    <h2>Hơn thế nữa là những ưu đãi dành cho quý khách hàng</h2>
+                    <p>
+                        Chúng tôi mong muốn mang lại những gì tốt đẹp nhất đến với khách hàng và những ưu đãi là giá trị mà chúng tôi dành cho các bạn.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <i class="icofont-check"></i>
+                            Được giảm giá ngay từ đơn hàng đầu tiên.
+                        </li>
+                        <li>
+                            <i class="icofont-check"></i>
+                            Trở thành thành viên VIP sau 1 đơn hàng.
+                        </li>
+                        <li>
+                            <i class="icofont-check"></i>
+                            Cơ hội trở thành khách hàng thân thiết của năm.
+                        </li>
+                        <li>
+                            <i class="icofont-check"></i>
+                            Được tư vấn miễn phí các dịch vụ khác.
+                        </li>
+                    </ul>
+
+                    <div class="theme-btn">
+                        <a href="/pages/lien-he" class="default-btn">Liên Hệ Ngay</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="facilities-img" style="background-image: url('@urlCMS/@banner_2.page_image')">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Feedback Section Strat -->
+<section class="feedback-section feedback-bg pt-100">
+    <div class="container">
+        <div class="section-title text-center">
+            <span>Feedbacks</span>
+            <h2>Phản hồi từ phía khách hàng</h2>
+            <p>Chúng tôi luôn lắng nghe mọi ý kiến đóng góp của quý khách hàng thân yêu để cải thiện chất lượng dịch vụ.</p>
+        </div>
+
+        <div class="feedback-slider owl-carousel owl-theme">
+            @foreach (var feedback in list_feedback)
+            {
+                <div class="feedback-items">
+                    <i class="icofont-quote-right"></i>
+                    <p>
+                        @feedback.ccomment
+                    </p>
+
+                    <img src="@urlCMS/@feedback.cimage" alt="@feedback.cimage_alt">
+                    <h3>@feedback.cname</h3>
+                    <span>@feedback.cposition</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Feedback Section End -->
+<!-- Company Section Start -->
+<div class="company-section">
+    <div class="container">
+        <div class="company-slider owl-carousel owl-theme">
+            @foreach (var partner in list_partner)
+            {
+                <div class="company-logo">
+                    <a href="@partner.link_url"><img src="@urlCMS/@partner.image" alt="@partner.alt"></a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Company Section End -->
+<!-- Blog Section Start -->
+<section class="blog-section pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <span>Tin tức</span>
+            <h2>Bài viết mới nhất</h2>
+            <p>Chúng tôi chia sẻ tới bạn đọc những thông tin hữu ích, chuyên môn và kiến thức của các dịch vụ mà chúng tôi cung cấp.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <a href="/blogs/@newest_blog.blog_seo_alias">
+                            <img class="img-news-lastest" src="@urlCMS/@newest_blog.blog_image" alt="@newest_blog.blog_alt_image">
+                        </a>
+                    </div>
+                    <div class="blog-text">
+                        <h3>
+                            <a href="/blogs/@newest_blog.blog_seo_alias">@newest_blog.blog_title</a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <i class="icofont-ui-calendar"></i>
+                                @newest_blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")
+                            </li>
+                        </ul>
+                        <p>@newest_blog.blog_summary</p>
+
+                        <div class="blog-btn text-left">
+                            <a href="/blogs/@newest_blog.blog_seo_alias">
+                                <i class="icofont-rounded-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="blog-details-area blog-sidebar blog-widget">
+                    @foreach (var blog in list_blog)
+                    {
+                        if (blog.blog_id != newest_blog.blog_id)
+                        {
+                            <article class="post-item">
+                                <a href="/blogs/@blog.blog_seo_alias">
+                                    <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                </a>
+                                <div class="post-info">
+                                    <time datetime=" 2020-04-01"> @blog.show_datetime.Value.ToString("dd/MM/yyyy")</time>
+                                    <h4>
+                                        <a href="/blogs/@blog.blog_seo_alias">
+                                            @blog.blog_title
+                                        </a>
+                                    </h4>
+                                </div>
+                            </article>
+                        }
+                    }
+
+                </div>
+            </div>
+            @*@foreach (var blog in list_blog)
+            {
+                if (blog.blog_id != newest_blog.blog_id)
+                {
+                    <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1s">
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <a href="/blogs/@blog.blog_seo_alias">
+                                    <img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                </a>
+                            </div>
+                            <div class="blog-text">
+                                <h3>
+                                    <a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a>
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <i class="icofont-ui-calendar"></i>
+                                        @blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")
+                                    </li>
+                                </ul>
+                                <p>@blog.blog_summary</p>
+
+                                <div class="blog-btn text-left">
+                                    <a href="/blogs/@blog.blog_seo_alias">
+                                        <i class="icofont-rounded-double-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }*@
+        </div>
+        <div class="theme-btn" style="text-align: center">
+            <a href="/blogs" class="default-btn">Xem Thêm Bài Viết</a>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->
+
+<script>
+    function sendMessage() {
+        var cphone = $("#cemail").val();
+        var cemail = $("#cemail").val();
+        var cname = $("#cemail").val();
+        var cmessage = "Nhận thông tin qua email";
+        var csubject = "Đăng ký email";
+        if (cemail == "" || cemail == null) {
+            alert("Yêu cầu nhập email trước khi gửi");
+        }
+        else if (!isEmail(cemail)) {
+            alert("Email không đúng định dạng");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Page/SendMessage",
+                data: {
+                    sender_name: cname,
+                    sender_phone_number: cphone,
+                    sender_email: cemail,
+                    sender_subject: csubject,
+                    sender_message: cmessage,
+                },
+                context: document.body,
+                dataType: "html",
+                beforeSend: function () {
+                    $('#btn-submit').prop('disabled', true);
+                    $('#btn-submit').text("Loading...");
+                },
+                success: function (data) {
+                    $("#cname").val("");
+                    $("#ecmail").val("");
+                    $("#cphone").val("");
+                    $("#csubject").val("");
+                    $("#cmessage").val("");
+                    alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                complete: function (xhr, status) {
+                    $('#btn-submit').text("Gửi thông tin");
+                    $('#btn-submit').prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    function phonenumber(inputtxt) {
+        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        if (inputtxt.match(phoneno)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+</script>

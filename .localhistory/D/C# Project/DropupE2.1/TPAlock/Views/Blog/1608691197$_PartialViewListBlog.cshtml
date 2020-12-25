@@ -1,0 +1,47 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+            <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                <div class="single-blog-box mb-40 position-relative">
+                    <a href="/blogs/@blog.blog_seo_alias">
+                        <img class="width100" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                    </a>
+                    
+                    <div class="single-box-content position-absolute">
+                        <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                            <div class="single-blog-box-hover">
+                                <ul class="blog-tag d-flex pb-10">
+                                    <li><a class="text-white bg-transparent d-inline-block pl-0">@blog.blog_category.blog_category_name</a></li>
+                                </ul>
+                                <h4><a class="text-white d-block" href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                            </div>
+                            <ul class="blog-post-data d-flex">
+                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>45 Views</li>
+                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span><span class="px-1">0</span>Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        }
+    </div>
+}

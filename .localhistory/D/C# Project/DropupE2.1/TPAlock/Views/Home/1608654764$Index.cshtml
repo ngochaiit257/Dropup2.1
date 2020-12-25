@@ -1,0 +1,402 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "TPA Lock - Smart Security";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+    var list_product_newest = new ProductProvider().getNewestShowing().Take(12).ToList();
+    var category_dac_biet = new CategoryProvider().getByTypeNameOnSite("Danh mục đặc biệt").FirstOrDefault();
+}
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="slider-active">
+        <div class="single-slider slider-height d-flex align-items-center" data-background="../Assets/images/slider/slider1.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12  col-lg-6  col-md-12  col-sm-12 col-12  d-flex align-items-center position-static">
+                        <div class="slider-content">
+                            <span data-animation="fadeInLeft" data-delay=".7s" class="position-relative primary-color pl-60">Featured Products</span>
+                            <h1 data-animation="fadeInLeft" data-delay="1s" class="pt-70 pb-10">Outset</h1>
+                            <p data-animation="fadeInLeft" data-delay="1.3s" class="text-white">Form is designed by Agota Store and is part of the Form series. It is an <br />armless modern chair with great back support.</p>
+                            <a data-animation="fadeInLeft" data-delay="1.7s" href="#" class="btn mt-90">Explore</a>
+                        </div>
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div><!-- /single-slider -->
+        <div class="single-slider slider-height d-flex align-items-center" data-background="../Assets/images/slider/slider2.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12  d-flex align-items-center position-static">
+                        <div class="slider-content pl-35">
+                            <span data-animation="fadeInLeft" data-delay=".7s" class="position-relative primary-color pl-60">Top Sale Of The Month</span>
+                            <h1 data-animation="fadeInLeft" data-delay="1s" class="pt-70 pb-10">Styles</h1>
+                            <p data-animation="fadeInLeft" data-delay="1.3s" class="text-white">Form is designed by Agota Store and is part of the Form series. It is an <br />armless modern chair with great back support.</p>
+                            <a data-animation="fadeInLeft" data-delay="1.7s" href="#" class="btn mt-90">Explore</a>
+                        </div>
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div><!-- /single-slider -->
+        <div class="single-slider slider-height d-flex align-items-center" data-background="../Assets/images/slider/slider3.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6  col-lg-6  col-md-12  col-sm-12 col-12  d-flex align-items-center position-static">
+                        <div class="slider-content pl-35">
+                            <span data-animation="slideInDown" data-delay=".7s" class="position-relative primary-color pl-60">Hot Deal Off The Day</span>
+                            <h1 data-animation="slideInDown" data-delay="1s" data-animate-duration="5s" class="pt-70 pb-10">Office</h1>
+                            <p data-animation="slideInDown" data-delay="1.3s" class="text-white">Form is designed by Agota Store and is part of the Form series. It is an <br />armless modern chair with great back support.</p>
+                            <a data-animation="fadeInLeft" data-delay="1.7s" href="#" class="btn mt-90">Explore</a>
+                        </div>
+                    </div><!-- /col -->
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div><!-- /single-slider -->
+    </div><!-- /slider-active -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== feature-area-start=========================================== -->
+<div class="feature-area feature-position position-relative over-hidden">
+    <div class="container-wrapper">
+        <div class="feature-bg bg-white mlr-15 pl-30 pr-30 pt-30 mb-10">
+            <div class="row">
+                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                    <div class="single-feature position-relative over-hidden">
+                        <img class="img-zoom" src="../Assets/images/feature/feature1.jpg" alt="">
+                        <div class="section-content section-content-position position-absolute pl-40 pt-35">
+                            <span class="primary-color">Decoration</span>
+                            <h3 class="text-white pt-10 pb-30">Featured Lifestyle</h3>
+                            <p class="text-white">On Pre – Sep 6th Free shipping</p>
+                            <a href="single-product.html" class="btn2 text-white position-relative d-inline-block pt-45 pb-6">Explore Items</a>
+                        </div><!-- /section-content -->
+                    </div>
+                </div><!-- /col -->
+                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                    <div class="single-feature position-relative">
+                        <img src="../Assets/images/feature/feature2.jpg" alt="">
+                        <div class="section-content section-content-position position-absolute pt-65 text-center">
+                            <span class="orange-color">Furniture</span>
+                            <h3 class="black-color pt-10 pb-30">Sale Off Everything</h3>
+                            <p class="black-color">Limited Time: Online Only!</p>
+                            <div class="sale-off-img m-auto pt-30 pb-50">
+                                <img src="../Assets/images/feature/text-bg-home.png" alt="">
+                            </div>
+                            <a href="single-product.html" class="btn black-color border-black">Explore Items</a>
+                        </div><!-- /section-content -->
+                    </div>
+                </div><!-- /col -->
+                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                    <div class="single-feature position-relative over-hidden">
+                        <img class="img-zoom" src="../Assets/images/feature/feature3.jpg" alt="">
+                        <div class="section-content section-content-position position-absolute pl-40 pt-35">
+                            <span class="primary-color">Lighting</span>
+                            <h3 class="text-white pt-10 pb-30">Trending Lighting</h3>
+                            <p class="text-white">Free delivery + Assembly on most items</p>
+                            <a href="single-product.html" class="btn2 text-white position-relative d-inline-block pt-45 pb-6">Explore Items</a>
+                        </div><!-- /section-content -->
+                    </div>
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /bg-white -->
+    </div><!-- /container -->
+</div>
+<!-- feature-area-end -->
+<!-- ====== bestseller-product-area-start================================ -->
+<div class="Bestsellers Products-area over-hidden">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-90 pb-30">
+                    <h2>Cập Nhật Mới Nhất</h2>
+                    <p>Những sản phẩm mới được TPA Lock đưa đến tay người tiêu dùng. Được cập nhật thường xuyên.</p>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="row">
+            @foreach (var product in list_product_newest)
+            {
+                <div class="col-xl-3  col-lg-3  col-md-4  col-sm-6 col-12 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                            <div class="single-product-hover-img position-absolute">
+                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                @if (img_more != null)
+                                {
+                                    <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
+                                }
+                            </div><!-- /single-product-hover-img -->
+                        </div><!-- /single-product-img -->
+
+                        <h5 class="product-name pt-20 pl-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
+                        <div class="product-price pl-20">
+                            @if (product.price > 0)
+                            {
+                                <span class="old-price">
+                                    <del class="showNumeric">@product.price</del>
+                                </span>
+                            }
+                            <span class="black-color showNumeric">@product.promotion_price</span>
+                        </div>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            }
+
+
+        </div><!-- /row -->
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-button text-center pt-10">
+                    <a href="shop.html" class="btn black-color border-black">Xem Thêm</a>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- product-area-end  -->
+<!-- ====== product-offer-area-start ==================================== -->
+<div class="product-offer-area product-offer-height pl-15 pr-15 pt-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12 pb-20">
+                <div class="single-feature position-relative over-hidden">
+                    <img class="img-zoom" src="../Assets/images/feature/product-offer-left-img.jpg" alt="">
+                    <div class="section-content section-content-position position-absolute pl-90 pt-110">
+                        <span class="primary-color">Ends Today</span>
+                        <h3 class="text-white pt-10 pb-30">Elements Of Style</h3>
+                        <p class="text-white">USB Powered LED Lights – Use it Anywhere!</p>
+                        <a href="single-product.html" class="btn2 text-white position-relative d-inline-block pt-45 pb-6">Explore Items</a>
+                    </div><!-- /section-content -->
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-6  col-lg-6  col-md-6  col-sm-12 col-12 pb-20">
+                <div class="single-feature position-relative over-hidden">
+                    <img class="img-zoom" src="../Assets/images/feature/product-offer-right-img.jpg" alt="">
+                    <div class="section-content section-content-position position-absolute pl-90 pt-110">
+                        <span class="primary-color">Your Space</span>
+                        <h3 class="text-white pt-10 pb-30">Unique Life</h3>
+                        <p class="text-white">Big Sale September 8th To October 6th</p>
+                        <a href="single-product.html" class="btn2 text-white position-relative d-inline-block pt-45 pb-6">Explore Items</a>
+                    </div><!-- /section-content -->
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- product-offer-area-end  -->
+<!-- ====== Sale-Products-area-start ==================================== -->
+@if (category_dac_biet != null)
+{
+    <div class="Sale-product-area over-hidden">
+        <div class="container-wrapper">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="section-title text-center pt-80 pb-10">
+                        <h2>Sale Products</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+                    </div><!-- /section-title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="Sale-Products-active">
+                @{ var list_product_dac_biet = new ProductProvider().getByCategoryIdOnSite(category_dac_biet.category_id);}
+                @foreach (var product in list_product_dac_biet)
+                {
+                    <div class="row pl-10 pr-10 pt-25">
+                        <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 mb-40">
+                            <div class="single-product bg-white position-relative pb-30">
+                                <div class="single-product-img position-relative">
+                                    <a href="single-product.html"><img class="height100" src="../Assets/images/product/home-product5.jpg" alt=""></a>
+                                    <div class="single-product-hover-img position-absolute">
+                                        <a href="single-product.html"><img class="height100" src="../Assets/images/product/home-product-hover-5.jpg" alt=""></a>
+                                        <ul class="single-product-button d-flex position-absolute">
+                                            <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to option"><a href="shop.html"><span class="icon-shopping-bag"></span></a></li>
+                                            <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Bottle Grinder with Steel Lid"><a href="#" data-toggle="modal" data-target="#product-modal"><span class="icon-eye"></span></a></li>
+                                            <li data-toggle="tooltip" data-selector="true" data-placement="bottom" title="Add to wishlist"><a href="#"><span class="icon-heart"></span></a></li>
+                                        </ul>
+
+                                    </div><!-- /single-product-hover-img -->
+                                </div><!-- /single-product-img -->
+                                <h5 class="product-name pt-20 pl-20"><a href="single-product.html">Bottle Grinder with Steel Lid</a></h5>
+                                <div class="product-price pl-20 d-inline-block">
+                                    <span class="black-color">$396.00</span>
+                                </div>
+                                <div class="product-dot d-inline-block float-right pr-20">
+                                    <span class="green-bg"></span>
+                                    <span class="black-bg"></span>
+                                    <span class="yellow-bg"></span>
+                                </div><!-- /product-dot -->
+                            </div><!-- /single-product -->
+                        </div><!-- /col -->
+                    </div><!-- /row -->
+                }
+            </div><!-- /sale-product-active -->
+        </div><!-- /container -->
+    </div>
+}
+
+<!-- Sale-Products-area-end  -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="blog-area pb-60 over-hidden">
+    <div class="container-wrapper">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-40 pb-30">
+                    <h2>Our Blog Posts</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="blog-active">
+            <div class="row pl-15 pr-15">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="../Assets/images/blog/blog-img1.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-right-sidebar.html">Supt In Qui Officia Deserunt</a></h4>
+                            <p class="pt-10">It is accompanied by a case that can contain up to three different diffusers and can be used for dry …</p>
+                            <a href="blog-right-sidebar.html" class="btn black-color border-black mt-15">Continue Reading</a>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-15 pr-15">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class="blog-img over-hidden">
+                            <img class="height100 width100" src="../Assets/images/blog/blog-img2.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-right-sidebar.html">How Wear The Summer Style</a></h4>
+                            <p class="pt-10">It is accompanied by a case that can contain up to three different diffusers and can be used for dry …</p>
+                            <a href="blog-right-sidebar.html" class="btn black-color border-black mt-15">Continue Reading</a>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-15 pr-15">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class=" blog-img over-hidden">
+                            <img class="height100 width100" src="../Assets/images/blog/blog-img3.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-right-sidebar.html">Men Wearing Canvas Boots</a></h4>
+                            <p class="pt-10">It is accompanied by a case that can contain up to three different diffusers and can be used for dry …</p>
+                            <a href="blog-right-sidebar.html" class="btn black-color border-black mt-15">Continue Reading</a>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+            <div class="row pl-15 pr-15">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                    <div class="single-blog pb-40">
+                        <div class="blog-img over-hidden">
+                            <img class="height100 width100" src="../Assets/images/blog/blog-img4.jpg" alt="">
+                        </div>
+                        <div class="single-blog-content pt-25">
+                            <ul class="d-flex pb-6">
+                                <li><span>Post date:</span></li>
+                                <li><a class="date pl-1" href="#">01 nov, 2020</a></li>
+                            </ul>
+                            <h4><a href="blog-right-sidebar.html">Miranda Skoaled Homestead</a></h4>
+                            <p class="pt-10">It is accompanied by a case that can contain up to three different diffusers and can be used for dry …</p>
+                            <a href="blog-right-sidebar.html" class="btn black-color border-black mt-15">Continue Reading</a>
+                        </div>
+                    </div><!-- /single-blog -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /blog-active -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="brand-logo-area">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="brand-active border-gray-top">
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo1.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo2.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo3.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo5.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo4.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo1.png" alt="">
+            </div>
+            <div class="single-brand pt-85 pb-85 pl-15 pr-15 d-flex justify-content-center">
+                <img src="../Assets/images/brand/brand-logo2.png" alt="">
+            </div>
+        </div><!-- /brand-active -->
+    </div><!-- /container -->
+</div>
+<!-- brand-logo-area-end  -->
+<!-- ====== instagram-area-start ========================================= -->
+<div class="instagram-img-area over-hidden">
+    <div class="row">
+        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img1.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img2.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+        <div class="col-xl-2  col-lg-2  col-md-2 col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img3.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img4.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img5.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+        <div class="col-xl-2  col-lg-2  col-md-2  col-sm-2 col-6 p-0">
+            <div class="instagram-img">
+                <img src="../Assets/images/instragram/instragram-img1.jpg" alt="">
+            </div>
+        </div><!-- /col -->
+    </div><!-- /row -->
+</div>
+<!-- instagram-area-end  -->
+
+<script>
+    $(document).ready(function () {
+        $('.header-area').removeClass('white-bg border-bottom');
+        $('.header').removeClass('header-2 position-relative');
+        $('.header').addClass('position-absolute');
+    });
+</script>

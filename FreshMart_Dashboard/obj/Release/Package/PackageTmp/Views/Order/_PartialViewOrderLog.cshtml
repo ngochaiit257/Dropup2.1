@@ -1,0 +1,86 @@
+﻿@model List<DateTime>
+@using Data;
+@using Data.Providers;
+@{
+    var current_datetime = System.DateTime.Now;
+}
+
+<div class="fc-view-container" style="" id="show_log_of_order">
+    <div class="fc-view fc-listWeek-view fc-list-view fc-widget-content" style="">
+        <div class="fc-scroller">
+            <table class="fc-list-table ">
+                <tbody id="show_log_of_order">
+                    @if (Model != null)
+                    {
+                        foreach (var datetime in Model)
+                        {
+                            <tr class="fc-list-heading" data-date="@datetime.Date">
+                                <td class="fc-widget-header" colspan="4">
+                                    @if (datetime.DayOfWeek.ToString() == "Monday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Hai - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Tuesday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Ba - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Wednesday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Tư - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Thursday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Năm - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Friday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Sáu - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Saturday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Thứ Bảy - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+                                    else if (datetime.DayOfWeek.ToString() == "Sunday")
+                                    {
+                                        <a class="fc-list-heading-main" data-goto="@datetime.Date">Chủ nhật - @datetime.Date.ToString("dd/M/yyyy")</a>
+                                    }
+
+                                    @if (datetime.Date == current_datetime.Date)
+                                    {
+                                        <a class="fc-list-heading-alt" data-goto="@datetime.Date" id="today_to_prepend">Hôm nay</a>
+                                    }
+                                    else if (datetime.Date == current_datetime.Date.AddDays(-1))
+                                    {
+                                        <a class="fc-list-heading-alt" data-goto="@datetime.Date">Hôm qua</a>
+                                    }
+                                </td>
+                            </tr>
+                            foreach (var order_log in new OrderLogProvider().getByDate(datetime, ViewBag.OrderId))
+                            {
+                                <tr class="fc-list-item fc-allow-mouse-resize">
+                                    <td class="fc-list-item-time fc-widget-content">@order_log.order_log_create_datetime.ToString("HH:mm")</td>
+                                    <td class="fc-list-item-marker fc-widget-content"><span class="text-secondary fc-event-dot"></span></td>
+                                    <td class="fc-list-item-title fc-widget-content">
+                                        <a>@Html.Raw(order_log.order_log_description)</a>
+                                    </td>
+                                    <td class="fc-list-item-title fc-widget-content pull-right">
+                                        @if (order_log.order_log_type == "payment")
+                                        {
+                                            <a class="text-primary" href="javascript:void(0)" onclick="showPaymentInformation('@order_log.order_log_id')">Xem thêm</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+</script>

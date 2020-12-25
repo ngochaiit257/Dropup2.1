@@ -1,0 +1,414 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+}
+
+<!-- page-title -->
+<div class="ttm-page-title-row">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-box text-left">
+                    <div class="page-title-heading">
+                        <h1 class="title">@Model.product_name</h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumb-wrapper">
+                        <span>
+                            <a title="Trang chủ" href="/"><i class="ti ti-home"></i>&nbsp;&nbsp;Trang chủ</a>
+                        </span>
+                        <span class="ttm-bread-sep ttm-textcolor-white">&nbsp;   →  &nbsp;</span>
+                        <span class="ttm-textcolor-skincolor">@Model.product_name</span>
+                    </div>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</div><!-- page-title end-->
+<!--site-main start-->
+<div class="site-main">
+    <!-- sidebar -->
+    <div class="sidebar ttm-bgcolor-white clearfix">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-lg-9 content-area">
+                    <div class="ttm-single-product-details product">
+                        <div class="ttm-single-product-info clearfix">
+                            <div class="product-gallery images">
+                                <figure class="ttm-product-gallery__wrapper">
+                                    <div class="product-gallery__image">
+                                        <img class="img-fluid" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="summary entry-summary">
+                                <h3 class="singel_product_title">@Model.product_name</h3>
+                                <div class="product-rating clearfix">
+                                    <div class="ttm-ratting-star">
+                                        <!-- ratting-star -->
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <a href="#reviews" class="review-link" rel="nofollow">(<span class="count">1</span> customer review)</a>
+                                </div>
+                                <p class="price">
+                                    <span class="Price-amount amount">
+                                        <span class="Price-currencySymbol">$</span>20.00
+                                    </span>
+                                </p>
+                                <div class="product-details__short-description">
+                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                                </div>
+                                <form class="cart" action="#" method="post" enctype="multipart/form-data">
+                                    <div class="quantity">
+                                        <label class="screen-reader-text">Quantity</label>
+                                        <input type="number" id="quantity" class="form-control qty text border" step="1" min="1" max="50" name="quantity" value="1" title="Qty">
+                                    </div>
+                                    <button id="go" name="add-to-cart" type="submit" class="cart_button ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-bgcolor-darkgrey" title="Submit now">Add to cart</button>
+                                </form>
+                                <div class="product_meta">
+                                    <div class="sku_wrapper">
+                                        <span>SKU: </span>
+                                        <a href="#" rel="tag">Woo-beanie</a>
+                                    </div>
+                                    <div class="posted_in">
+                                        <span>Category: </span>
+                                        <a href="#" rel="tag">Accessories</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ttm-tabs tabs-for-single-products" data-effect="fadeIn">
+                            <ul class="tabs clearfix">
+                                <li class="tab active"><a href="#">Description</a></li>
+                                <li class="tab"><a href="#">Additional information</a></li>
+                                <li class="tab"><a href="#">Reviews (1)</a></li>
+                            </ul>
+                            <div class="content-tab ttm-bgcolor-white">
+                                <!-- content-inner -->
+                                <div class="content-inner active">
+                                    <h2>Description</h2>
+                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                                </div><!-- content-inner end-->
+                                <!-- content-inner -->
+                                <div class="content-inner">
+                                    <h2>Additional information</h2>
+                                    <table class="shop_attributes">
+                                        <tbody><tr><th>color</th><td><p>Blue</p></td></tr></tbody>
+                                    </table>
+                                </div><!-- content-inner end-->
+                                <!-- content-inner -->
+                                <div class="content-inner">
+                                    <div id="reviews" class="woocommerce-Reviews">
+                                        <div id="comments">
+                                            <h2 class="woocommerce-Reviews-title">1 review for <span>Beanie with Logo</span></h2>
+                                            <ol class="commentlist">
+                                                <li class="review">
+                                                    <div class="comment_container">
+                                                        <img class="avatar" src="../Assets/images/blog/blog-comment-01.jpg" alt="comment-img">
+                                                        <div class="comment-text">
+                                                            <div class="ttm-ratting-star float-right">
+                                                                <!-- ratting-star -->
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                            </div>
+                                                            <p class="meta">
+                                                                <strong class="eview__author">Cherie </strong><span class="review__dash">–</span>
+                                                                <time class="woocommerce-review__published-date" datetime="2018-11-01T04:58:58+00:00">November 1, 2018</time>
+                                                            </p>
+                                                            <div class="description">
+                                                                <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante<br>Very good product and amazing quality.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                        <div id="review_form_wrapper">
+                                            <div class="comment-respond">
+                                                <span class="comment-reply-title">
+                                                    Add a review
+                                                    <small><a rel="nofollow" id="cancel-comment-reply-link" href="#">Cancel reply</a></small>
+                                                </span>
+                                                <form action="#" method="post" id="commentform" class="comment-form">
+                                                    <p class="comment-notes">
+                                                        <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
+                                                    </p>
+                                                    <div class="comment-form-rating">
+                                                        <label>Your rating</label>
+                                                        <ul class="stars">
+                                                            <li class="fa fa-star-o"></li>
+                                                            <li class="fa fa-star-o"></li>
+                                                            <li class="fa fa-star-o"></li>
+                                                            <li class="fa fa-star-o"></li>
+                                                            <li class="fa fa-star-o"></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Your review*</label>
+                                                                <textarea name="Massage" rows="3" placeholder="" required="required" class="form-control with-border"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Name*</label>
+                                                                <input name="name" type="text" class="form-control with-border" placeholder="" required="required">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label>Email*</label>
+                                                                <input name="email" type="text" placeholder="" required="required" class="form-control with-border">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <input id="comment-cookies-consent" name="comment-cookies-consent" type="checkbox" value="yes">
+                                                            <label for="comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group text-left mt-30">
+                                                                <button type="submit" id="submit" class="ttm-btn ttm-btn-size-md ttm-btn-bgcolor-darkgrey" value="">
+                                                                    Submit
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="related products">
+                        <h3>Related products</h3>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product">
+                                    <!-- product -->
+                                    <div class="product-thumbnail">
+                                        <!-- product-thumbnail -->
+                                        <img class="img-fluid w-100" src="../Assets/images/product/product-one.jpg" alt="">
+                                        <div class="ttm-shop-icon">
+                                            <!-- ttm-shop-icon -->
+                                            <div class="product-btn add-to-cart-btn"><a href="#">ADD TO CART</a></div>
+                                        </div>
+                                    </div><!-- product-thumbnail end -->
+                                    <div class="product-content text-left">
+                                        <!-- product-content -->
+                                        <div class="product-title">
+                                            <!-- product-title -->
+                                            <h2><a href="product-details.html">Album</a></h2>
+                                        </div>
+                                        <div class="ttm-ratting-star">
+                                            <!-- ratting-star -->
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <span class="product-price">
+                                            <!-- product-Price -->
+                                            <span class="product-Price-currencySymbol">$</span>16.00
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product">
+                                    <!-- product -->
+                                    <div class="product-thumbnail">
+                                        <!-- product-thumbnail -->
+                                        <span class="onsale">Sale!</span>
+                                        <img class="img-fluid w-100" src="../Assets/images/product/product-two.jpg" alt="">
+                                        <div class="ttm-shop-icon">
+                                            <!-- ttm-shop-icon -->
+                                            <div class="product-btn add-to-cart-btn"><a href="#">ADD TO CART</a></div>
+                                        </div>
+                                    </div><!-- product-thumbnail end -->
+                                    <div class="product-content text-left">
+                                        <!-- product-content -->
+                                        <div class="product-title">
+                                            <!-- product-title -->
+                                            <h2><a href="product-details.html">Beanie with Logo</a></h2>
+                                        </div>
+                                        <div class="ttm-ratting-star">
+                                            <!-- ratting-star -->
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <span class="product-price">
+                                            <!-- product-Price -->
+                                            <span class="product-Price-currencySymbol">
+                                                <del>
+                                                    <span class="product-Price-amount">
+                                                        <span class="product-Price-currencySymbol">$</span>20.00
+                                                    </span>
+                                                </del>
+                                                <ins>
+                                                    <span class="product-Price-amount">
+                                                        <span class="product-Price-currencySymbol">$</span>18.00
+                                                    </span>
+                                                </ins>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product">
+                                    <!-- product -->
+                                    <div class="product-thumbnail">
+                                        <!-- product-thumbnail -->
+                                        <img class="img-fluid w-100" src="../Assets/images/product/product-three.jpg" alt="">
+                                        <div class="ttm-shop-icon">
+                                            <!-- ttm-shop-icon -->
+                                            <div class="product-btn add-to-cart-btn"><a href="#">ADD TO CART</a></div>
+                                        </div>
+                                    </div><!-- product-thumbnail end -->
+                                    <div class="product-content text-left">
+                                        <!-- product-content -->
+                                        <div class="product-title">
+                                            <!-- product-title -->
+                                            <h2><a href="product-details.html">Belt</a></h2>
+                                        </div>
+                                        <div class="ttm-ratting-star">
+                                            <!-- ratting-star -->
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <span class="product-price">
+                                            <!-- product-Price -->
+                                            <span class="product-Price-currencySymbol">$</span>16.00
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 widget-area">
+                    <aside class="widget widget-search">
+                        <form role="search" method="get" class="search-form" action="#">
+                            <div class="form-group">
+                                <input name="search" type="text" class="form-control with-border" placeholder="Search....">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </form>
+                    </aside>
+                    <aside class="widget widget-categories">
+                        <h3 class="widget-title">Product Categories</h3>
+                        <ul>
+                            <li><a href="#">Dairy Farm</a><span>4</span></li>
+                            <li><a href="#">Flower</a><span>2</span></li>
+                            <li><a href="#">Gardening</a><span>1</span></li>
+                            <li><a href="#">Tips &amp; Tricks</a><span>4</span></li>
+                            <li><a href="#">Watering Plants</a><span>2</span></li>
+                        </ul>
+                    </aside>
+                    <aside class="widget widget-top-rated-products">
+                        <h3 class="widget-title">Popular Product</h3>
+                        <ul class="">
+                            <li class="clearfix">
+                                <a href="#">
+                                    <img src="../Assets/images/product/product-one.jpg" alt="">
+                                    <span class="product-title">Corn Tree</span>
+                                </a>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-Price-amount amount"><span class="product-Price-currencySymbol">$</span>33.00</span>
+                            </li>
+                            <li class="clearfix">
+                                <a href="#">
+                                    <img src="../Assets/images/product/product-two.jpg" alt="">
+                                    <span class="product-title">Fresh Okra</span>
+                                </a>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-Price-amount amount">
+                                    <span class="product-Price-currencySymbol">
+                                        <del>
+                                            <span class="product-Price-amount">
+                                                <span class="product-Price-currencySymbol">$</span>50.00
+                                            </span>
+                                        </del>
+                                        <ins>
+                                            <span class="product-Price-amount">
+                                                <span class="product-Price-currencySymbol">$</span>40.00
+                                            </span>
+                                        </ins>
+                                    </span>
+                                </span>
+                            </li>
+                            <li class="clearfix">
+                                <a href="#">
+                                    <img src="../Assets/images/product/product-eight.jpg" alt="">
+                                    <span class="product-title">Green Broccoli</span>
+                                </a>
+                                <div class="ttm-ratting-star">
+                                    <!-- ratting-star -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="product-Price-amount amount"><span class="product-Price-currencySymbol">$</span>33.00</span>
+                            </li>
+                        </ul>
+                    </aside>
+                    <aside class="widget tagcloud-widget">
+                        <h3 class="widget-title">Tags</h3>
+                        <div class="tagcloud">
+                            <a href="#" class="tag-cloud-link">Bulbsplant</a>
+                            <a href="#" class="tag-cloud-link">Care</a>
+                            <a href="#" class="tag-cloud-link">Farm</a>
+                            <a href="#" class="tag-cloud-link">Gardening</a>
+                            <a href="#" class="tag-cloud-link">Gardens</a>
+                            <a href="#" class="tag-cloud-link">Landscaping</a>
+                            <a href="#" class="tag-cloud-link">Planting</a>
+                            <a href="#" class="tag-cloud-link">Seed Saving</a>
+                        </div>
+                    </aside>
+                </div>
+            </div><!-- row end -->
+        </div>
+    </div>
+    <!-- sidebar end -->
+</div><!--site-main end-->

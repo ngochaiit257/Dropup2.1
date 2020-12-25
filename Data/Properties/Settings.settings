@@ -434,5 +434,37 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=112.78.2.73,1433;Initial Catalog=dak00318_dakhoabachgiaidb;Persist Security Info=True;User ID=dak00318_haiit;Password=Ngochaiit257!</Value>
     </Setting>
+    <Setting Name="BioVietConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BioViet;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=BioViet;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="bio03550_biovietdbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.112,1433;Initial Catalog=bio03550_biovietdb;Persist Security Info=True;User ID=bio03550_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.112,1433;Initial Catalog=bio03550_biovietdb;Persist Security Info=True;User ID=bio03550_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="TPAlockConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=DESKTOP-A9CMMFQ;Initial Catalog=TPAlock;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=TPAlock;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="tpa19428_tpalockdbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.112,1433;Initial Catalog=tpa19428_tpalockdb;Persist Security Info=True;User ID=tpa19428_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.112,1433;Initial Catalog=tpa19428_tpalockdb;Persist Security Info=True;User ID=tpa19428_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

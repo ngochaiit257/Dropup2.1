@@ -1,0 +1,152 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">@Model.blog_title</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                @if (Model.blog_category != null)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/">@Model.blog_category.blog_category_name</a></li>
+                                }
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">@Model.blog_title</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== blog-content1-area-start=============================================== -->
+<div class="blog-content-area pt-100 pb-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">
+                        @Html.Raw(Model.blog_content)
+                    </p>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content1-area-end  -->
+
+<!-- ====== blog-content-area-start=============================================== -->
+<div class="blog-content-area pb-90 border-bottom over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="blog-content pl-55 pr-55">
+                    <p class="pb-15">The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded.</p>
+                    <p>For me, the most important part of improving at photography has been sharing it. Sign up for an Exposure account, or post regularly to Tumblr, or both. Tell people you’re trying to get better at photography. Talk about it. When you talk about it, other people get excited about it.</p>
+                    <div class="blog-footer d-sm-flex justify-content-between pt-50">
+                        <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- blog-content-area-end  -->
+<!-- ====== author-area-start ========================================= -->
+<div class="author-post-area pt-100 pb-110 over-hidden">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="single-author-post pl-55 pr-55">
+                    <div class="author-post-details gray-bg2 pl-30 pr-30 pt-30 pb-20">
+                        <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="100%" data-numposts="10"></div>
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- author-area-end  -->
+<!-- ====== blog-area-start=============================================== -->
+<div class="blog-post-area pb-55 pt-55 over-hidden gray-bg2 border-bottom border-top">
+    <div class="container-wrapper px-1">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-40 pb-30">
+                    <h3>Bài viết liên quan</h3>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="blog-post-active">
+            @foreach (var blog in list_blog_related)
+            {
+                <div class="col-xl-3  col-lg-3  col-md-6  col-sm-6 col-12 pl-20 pr-20">
+                    <div class="single-blog-box mb-40 position-relative">
+                        <a href="/blogs/@blog.blog_seo_alias">
+                            <img class="width100" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                        </a>
+
+                        <div class="single-box-content position-absolute">
+                            <div class="single-box-text position-absolute pr-40 pt-40 pb-40 pl-40">
+                                <div class="single-blog-box-hover">
+                                    <ul class="blog-tag d-flex pb-10">
+                                        <li><a class="text-white bg-transparent d-inline-block pl-0">@blog.blog_category.blog_category_name</a></li>
+                                    </ul>
+                                    <h5><a class="text-white d-block" href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
+                                </div>
+                                <ul class="blog-post-data d-flex">
+                                    <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>Views</li>
+                                    <li class="post-comments text-white"><span><i class="far fa-comment"></i></span>Comments</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /col -->
+            }
+        </div><!-- /blog-active -->
+    </div><!-- /container -->
+</div>
+<!-- blog-area-end -->
+
+<script>
+    $(document).ready(function () {
+        $('.header-area').removeClass('white-bg border-bottom');
+        $('.header').removeClass('header-2 position-relative');
+        $('.header').addClass('position-absolute');
+    });
+</script>

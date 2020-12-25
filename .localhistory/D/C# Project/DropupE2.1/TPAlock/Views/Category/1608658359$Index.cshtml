@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height3 d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title" style="text-align:center">
+                        <h2 class="text-capitalize text-white mb-15">@ViewBag.Category.category_name</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                @if (category_parent != null && category_parent.category_id > 0)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_parent.seo_alias">@category_parent.category_name </a></li>
+                                }
+
+                                @if (category_child_1 != null && category_child_1.category_id > 0)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_1.seo_alias">@category_child_1.category_name </a></li>
+
+                                }
+
+                                @if (category_child_2 != null)
+                                {
+                                    <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_2.seo_alias">@category_child_2.category_name </a></li>
+
+                                }
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== shop-header-area-start=============================================== -->
+<div class="shop-header-area pt-110">
+    <div class="container-wrapper pl-15 pr-15 position-relative">
+        <div class="row position-static">
+            <div class="col-xl-4  col-lg-4  col-md-3   d-none d-md-block">
+                <div class="shop-title pb-50">
+                    <h5 class="mb-0 mt-10"><a>Có @ViewBag.NumberOfList sản phẩm thuộc danh mục <strong>@ViewBag.Category.category_name</strong></a></h5>
+                </div>
+            </div><!-- /col -->
+            <div class="col-xl-3  col-lg-3  col-md-4  col-sm-5 col-12">
+
+            </div><!-- /col -->
+            <div class="col-xl-5  col-lg-5  col-md-5  col-sm-7 col-12 d-sm-flex justify-content-sm-end position-static">
+                <div class="product-selection pb-50 mt-2 mr-2">
+                    <select class="border-0 py-0 pl-0" name="select" id="select" style="display: none;">
+                        <option value="moi-nhat" selected="selected">Mới nhất</option>
+                        <option value="pho-bien-nhat">Phổ biến nhất</option>
+                        <option value="ten-az">Tên A đến Z</option>
+                        <option value="ten-za">Tên Z đến A</option>
+                        <option value="gia-cao-thap">Giá cao đến thấp</option>
+                        <option value="gia-thap-cao">Giá thấp đến cao</option>
+                    </select>
+                </div><!-- /product-selection -->
+
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- shop-header-area-end -->
+<!-- ====== all-product-area-start ============================================ -->
+<div class="all-product-area pb-45">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-  col-md-  col-sm- col-">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="col4" role="tabpanel" aria-labelledby="col4">
+                        <!-- ====== column-4-area-start================================ -->
+                        <div id="col-4" class="Bestsellers Products-area">
+                            <div hidden class="center-div" id="loader_list_product">
+                                <img src="~/Assets/image/loader/list-loader.gif" width="15%" />
+                            </div>
+                            <div class="container-wrapper pl-15 pr-15" id="data_table">
+                                @{Html.RenderAction("GetProductByCategory", "Category", new { num_product = ViewBag.NumProduct, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder });}
+                                
+                            </div><!-- /container -->
+                        </div>
+                        <!-- column-4-area-end  -->
+                    </div>
+                </div>
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div><!-- /all-product-area -->
+
+
+<script>
+    $(document).ready(function () {
+        $('.header-area').removeClass('white-bg border-bottom');
+        $('.header').removeClass('header-2 position-relative');
+        $('.header').addClass('position-absolute');
+    });
+</script>
