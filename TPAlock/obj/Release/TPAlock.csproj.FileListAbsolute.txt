@@ -49,6 +49,9 @@ D:\C# Project\DropupE2.1\TPAlock\bin\roslyn\vbc.rsp
 D:\C# Project\DropupE2.1\TPAlock\bin\roslyn\VBCSCompiler.exe
 D:\C# Project\DropupE2.1\TPAlock\bin\roslyn\VBCSCompiler.exe.config
 D:\C# Project\DropupE2.1\TPAlock\bin\Antlr3.Runtime.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\Common.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\Data.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\ExtendMethod.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.AI.Agent.Intercept.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.AI.DependencyCollector.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -60,6 +63,8 @@ D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.AspNet.TelemetryCorrelation.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Microsoft.Web.Infrastructure.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\Newtonsoft.Json.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.Mvc.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Diagnostics.DiagnosticSource.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.Helpers.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.Mvc.dll
@@ -69,6 +74,12 @@ D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.WebPages.Deployment.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.WebPages.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.WebPages.Razor.dll
 D:\C# Project\DropupE2.1\TPAlock\bin\WebGrease.dll
+D:\C# Project\DropupE2.1\TPAlock\bin\Common.pdb
+D:\C# Project\DropupE2.1\TPAlock\bin\Data.pdb
+D:\C# Project\DropupE2.1\TPAlock\bin\Data.dll.config
+D:\C# Project\DropupE2.1\TPAlock\bin\ExtendMethod.pdb
+D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.xml
+D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.Mvc.xml
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.Helpers.xml
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.Mvc.xml
 D:\C# Project\DropupE2.1\TPAlock\bin\System.Web.Optimization.xml
@@ -89,14 +100,3 @@ D:\C# Project\DropupE2.1\TPAlock\obj\Release\TPAlock.csproj.CoreCompileInputs.ca
 D:\C# Project\DropupE2.1\TPAlock\obj\Release\TPAlock.csproj.CopyComplete
 D:\C# Project\DropupE2.1\TPAlock\obj\Release\TPAlock.dll
 D:\C# Project\DropupE2.1\TPAlock\obj\Release\TPAlock.pdb
-D:\C# Project\DropupE2.1\TPAlock\bin\Common.dll
-D:\C# Project\DropupE2.1\TPAlock\bin\Data.dll
-D:\C# Project\DropupE2.1\TPAlock\bin\ExtendMethod.dll
-D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.dll
-D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.Mvc.dll
-D:\C# Project\DropupE2.1\TPAlock\bin\Common.pdb
-D:\C# Project\DropupE2.1\TPAlock\bin\Data.pdb
-D:\C# Project\DropupE2.1\TPAlock\bin\Data.dll.config
-D:\C# Project\DropupE2.1\TPAlock\bin\ExtendMethod.pdb
-D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.xml
-D:\C# Project\DropupE2.1\TPAlock\bin\PagedList.Mvc.xml

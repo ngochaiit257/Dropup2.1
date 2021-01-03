@@ -593,7 +593,9 @@
     }
     .login-area, .register-area {width: 100%;}
     .login-form,.register-form { padding: 40px 25px;}
-    
+    .shipping-content, .testimonial-bg {
+        padding-top: 5px;
+    }
 }
 
 /* SM Small Device :550px. */

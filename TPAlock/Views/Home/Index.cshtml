@@ -12,9 +12,17 @@
     var list_newest_blog = new BlogProvider().getNewest().Take(6).ToList();
     var list_partner = new StorePartnerProvider().getAll();
     var list_slide = new StoreSlideProvider().getIsShowing();
-    var banner = new StoreBannerProvider().getbyId(1);
     var list_feeback = new StoreCustomerSayProvider().getAll();
     var logo_header = new StoreLogoProvider().getLogoHeader();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+    var list_page_child = list_page_link.Where(p => p.page_parent_id != null).ToList();
+
+    var category_kpt = new CategoryProvider().getBySeoAlias("khoa-pho-thong");
+    var category_kcc = new CategoryProvider().getBySeoAlias("khoa-cao-cap");
+    var category_lvsx = new CategoryProvider().getBySeoAlias("linh-vuc-san-xuat");
 
     ViewBag.Keywords = "khóa điện tử, khóa mã số, khóa vân tay, chuông cửa màn hình, khóa khách sạn";
     ViewBag.Description = "TPA Lock chuyên cung cấp các loại khóa điện tử, khóa mã số, khóa vân tay, chuông cửa màn hình, khóa khách sạn với thiết kế và công nghệ đến từ Úc, Nhật, Hàn, Trung Quốc.";
@@ -52,109 +60,57 @@
     <div class="container-wrapper">
         <div class="feature-bg bg-white mlr-15 pl-30 pr-30 pt-30 mb-10">
             <div class="row">
-                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
-                    <div class="single-feature position-relative over-hidden">
-                        <img class="img-zoom" src="~/Assets/images/common/khoa-pho-thong.jpg" alt="khoa-pho-thong" />
-                        <div class="section-content section-content-position position-absolute pl-40 pt-35">
-                            <span class="primary-color">Đa dạng chủng loại</span>
-                            <h3 class="text-white pt-10 pb-20">Khóa Phổ Thông</h3>
-                            <p class="text-white">Ưu đãi dành cho khách hàng mua lần đầu</p>
-                            <a href="/collections/khoa-pho-thong" class="btn2 text-white position-relative d-inline-block pb-6">Khám Phá Ngay</a>
-                        </div><!-- /section-content -->
-                    </div>
-                </div><!-- /col -->
-                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
-                    <div class="single-feature position-relative">
-                        <img src="~/Assets/images/common/tpa-lock-banner.jpg" alt="tpa-lock-banner" />
-                        <div class="section-content section-content-position position-absolute pt-65 text-center">
-                            <span class="orange-color">Thẩm Mỹ & Tinh Tế</span>
-                            <h3 class="black-color pt-10 pb-30">Happy life with TPA Lock</h3>
-                            <p class="black-color">Dòng sản phẩm theo xu hướng</p>
-                            <div class="sale-off-img m-auto pt-30 pb-50">
-                                <img src="~/Assets/images/common/tpa-text.png" alt="text" />
-                            </div>
-                            <a href="/collections/xu-huong" class="btn black-color border-black">Khám phá ngay</a>
-                        </div><!-- /section-content -->
-                    </div>
-                </div><!-- /col -->
-                <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
-                    <div class="single-feature position-relative over-hidden">
-                        <img class="img-zoom" src="~/Assets/images/common/khoa-cao-cap.jpg" alt="khoa-cao-cap" />
-                        <div class="section-content section-content-position position-absolute pl-40 pt-35">
-                            <span class="primary-color">Kiến Trúc Sang Trọng</span>
-                            <h3 class="text-white pt-10 pb-20">Khóa Cao Cấp</h3>
-                            <p class="text-white">Dòng sản phẩm cao cấp nhập khẩu</p>
-                            <a href="/collections/khoa-cao-cap" class="btn2 text-white position-relative d-inline-block pb-6">Khám Phá Ngay</a>
-                        </div><!-- /section-content -->
-                    </div>
-                </div><!-- /col -->
+                @if (category_kpt != null)
+                {
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-feature position-relative over-hidden">
+                            <img class="img-zoom" src="@urlCMS/@category_kpt.image" alt="@category_kpt.alt_image" />
+                            <div class="section-content section-content-position position-absolute pl-40 pt-35">
+                                <span class="primary-color">Đa dạng chủng loại</span>
+                                <h3 class="text-white pt-10 pb-20">Khóa Phổ Thông</h3>
+                                <p class="text-white">Ưu đãi dành cho khách hàng mua lần đầu</p>
+                                <a href="/collections/khoa-pho-thong" class="btn2 text-white position-relative d-inline-block pb-6">Khám Phá Ngay</a>
+                            </div><!-- /section-content -->
+                        </div>
+                    </div><!-- /col -->
+                }
+                @if (category_lvsx != null)
+                {
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-feature position-relative">
+                            <img src="@urlCMS/@category_lvsx.image" alt="@category_lvsx.alt_image" />
+                            <div class="section-content section-content-position position-absolute pt-65 text-center">
+                                <span class="orange-color">Thẩm Mỹ & Tinh Tế</span>
+                                <h3 class="black-color pt-10 pb-30">Happy life with TPA Lock</h3>
+                                <p class="black-color">Dòng sản phẩm theo xu hướng</p>
+                                <div class="sale-off-img m-auto pt-30 pb-50">
+                                    <img src="~/Assets/images/common/tpa-text.png" alt="text" />
+                                </div>
+                                <a href="/collections/xu-huong" class="btn black-color border-black">Khám phá ngay</a>
+                            </div><!-- /section-content -->
+                        </div>
+                    </div><!-- /col -->
+                }
+                @if (category_kcc != null)
+                {
+                    <div class="col-xl-4  col-lg-4  col-md-4  col-sm-12 col-12">
+                        <div class="single-feature position-relative over-hidden">
+                            <img class="img-zoom" src="@urlCMS/@category_kcc.image" alt="@category_kcc.alt_image" />
+                            <div class="section-content section-content-position position-absolute pl-40 pt-35">
+                                <span class="primary-color">Kiến Trúc Sang Trọng</span>
+                                <h3 class="text-white pt-10 pb-20">Khóa Cao Cấp</h3>
+                                <p class="text-white">Dòng sản phẩm cao cấp nhập khẩu</p>
+                                <a href="/collections/khoa-cao-cap" class="btn2 text-white position-relative d-inline-block pb-6">Khám Phá Ngay</a>
+                            </div><!-- /section-content -->
+                        </div>
+                    </div><!-- /col -->
+                }
+
             </div><!-- /row -->
         </div><!-- /bg-white -->
     </div><!-- /container -->
 </div>
 <!-- feature-area-end -->
-<!-- ====== bestseller-product-area-start================================ -->
-<div class="Bestsellers Products-area over-hidden">
-    <div class="container-wrapper pl-15 pr-15">
-        <div class="row">
-            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
-                <div class="section-title text-center pt-90 pb-30">
-                    <h2>Cập Nhật Mới Nhất</h2>
-                    <p>Những sản phẩm mới được TPA Lock đưa đến tay người tiêu dùng. Được cập nhật thường xuyên.</p>
-                </div><!-- /section-title -->
-            </div><!-- /col -->
-        </div><!-- /row -->
-        <div class="row">
-            @foreach (var product in list_product_newest)
-            {
-                <div class="col-xl-2  col-lg-2  col-md-3  col-sm-6 col-6 mb-40">
-                    <div class="single-product bg-white position-relative pb-30">
-                        <div class="single-product-img position-relative">
-                            <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                            <div class="single-product-hover-img position-absolute">
-                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
-                                @if (img_more != null)
-                                {
-                                    <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
-                                }
-                            </div><!-- /single-product-hover-img -->
-                        </div><!-- /single-product-img -->
-
-                        <h5 class="product-name pt-20 pl-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
-                        <div class="product-price pl-20">
-                            @if (product.price > 0)
-                            {
-                                <span class="old-price">
-                                    <del class="showNumeric">@product.price</del>
-                                </span>
-                            }
-                            <span class="black-color showNumeric">@product.promotion_price</span>
-                        </div>
-                    </div><!-- /single-product -->
-                </div><!-- /col -->
-            }
-
-
-        </div><!-- /row -->
-
-    </div><!-- /container -->
-</div>
-<!-- product-area-end  -->
-<!-- ====== product-offer-area-start ==================================== -->
-<div class="product-offer-area product-offer-height pl-15 pr-15 pt-20">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12 pb-20">
-                <div class="single-feature position-relative over-hidden">
-                    <a href="@banner.video_url">
-                        <img class="img-zoom" src="@urlCMS/@banner.image" alt="@banner.alt" />
-                    </a>
-                </div>
-            </div><!-- /col -->
-        </div><!-- /row -->
-    </div><!-- /container -->
-</div>
-<!-- product-offer-area-end  -->
 <!-- ====== Sale-Products-area-start ==================================== -->
 @if (category_dac_biet != null)
 {
@@ -176,25 +132,21 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-40">
                             <div class="single-product bg-white position-relative pb-30">
                                 <div class="single-product-img position-relative">
-                                    <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                    <div class="single-product-hover-img position-absolute">
-                                        @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
-                                        @if (img_more != null)
-                                        {
-                                            <a href="/@product.seo_alias"><img class="height100" src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
-                                        }
-                                    </div><!-- /single-product-hover-img -->
+                                    <a href="/@product.seo_alias"><img class="height100 lazyload" src="~/Assets/images/loader/product-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                                    @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                    @if (img_more != null)
+                                    {
+                                        <div class="single-product-hover-img position-absolute">
+                                            <a href="/@product.seo_alias"><img class="height100 lazyload" src="~/Assets/images/loader/product-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
+                                        </div><!-- /single-product-hover-img -->
+                                    }
                                 </div><!-- /single-product-img -->
 
-                                <h5 class="product-name pt-20 pl-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
-                                <div class="product-price pl-20">
-                                    @if (product.price > 0)
-                                    {
-                                        <span class="old-price">
-                                            <del class="showNumeric">@product.price</del>
-                                        </span>
-                                    }
-                                    <span class="black-color showNumeric">@product.promotion_price</span>
+                                <h5 class="product-name pt-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
+                                <div class="product-price">
+                                    <a href="/@product.seo_alias">
+                                        <span class="black-color showNumeric">Giá: Liên hệ</span>
+                                    </a>
                                 </div>
                             </div><!-- /single-product -->
                         </div><!-- /col -->
@@ -211,8 +163,69 @@
         </div><!-- /container -->
     </div>
 }
-
 <!-- Sale-Products-area-end  -->
+<!-- ====== product-offer-area-start ==================================== -->
+<div class="product-offer-area product-offer-height pl-15 pr-15 pt-20">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var page in list_page_child)
+            {
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pb-20">
+                    <div class="single-feature position-relative over-hidden">
+                        <a href="/pages/@page.page_seo_alias">
+                            <img class="img-zoom" src="@urlCMS/@page.page_image" alt="@page.page_image_alt" />
+                        </a>
+                    </div>
+                </div><!-- /col -->
+            }
+
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div>
+<!-- product-offer-area-end  -->
+<!-- ====== bestseller-product-area-start================================ -->
+<div class="Bestsellers Products-area over-hidden">
+    <div class="container-wrapper pl-15 pr-15">
+        <div class="row">
+            <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
+                <div class="section-title text-center pt-90 pb-30">
+                    <h2>Cập Nhật Mới Nhất</h2>
+                    <p>Những sản phẩm mới được TPA Lock đưa đến tay người tiêu dùng. Được cập nhật thường xuyên.</p>
+                </div><!-- /section-title -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+        <div class="row">
+            @foreach (var product in list_product_newest)
+            {
+                <div class="col-xl-2  col-lg-2  col-md-3  col-sm-6 col-6 mb-40">
+                    <div class="single-product bg-white position-relative pb-30">
+                        <div class="single-product-img position-relative">
+                            <a href="/@product.seo_alias"><img class="height100 lazyload" src="~/Assets/images/loader/product-loader.jpg" data-src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                            @if (img_more != null)
+                            {
+                                <div class="single-product-hover-img position-absolute">
+                                    <a href="/@product.seo_alias"><img class="height100 lazyload" src="~/Assets/images/loader/product-loader.jpg" data-src="@urlCMS/@img_more.image_more_url" alt="@img_more.image_more_alt"></a>
+                                </div><!-- /single-product-hover-img -->
+                            }
+                        </div><!-- /single-product-img -->
+
+                        <h5 class="product-name pt-20"><a href="/@product.seo_alias">@product.product_name</a></h5>
+                        <div class="product-price">
+                            <a href="/@product.seo_alias">
+                                <span class="black-color showNumeric">Giá: Liên hệ</span>
+                            </a>
+                        </div>
+                    </div><!-- /single-product -->
+                </div><!-- /col -->
+            }
+
+
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+</div>
+<!-- product-area-end  -->
 <!-- ====== blog-area-start=============================================== -->
 <div class="blog-area pb-60 over-hidden">
     <div class="container-wrapper">
@@ -231,7 +244,7 @@
                     <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
                         <div class="single-blog-box mb-40 position-relative">
                             <a href="/blogs/@blog.blog_seo_alias">
-                                <img class="width100" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                <img class="width100" style="height: 445px;" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
                             </a>
 
                             <div class="single-box-content position-absolute">
@@ -242,10 +255,6 @@
                                         </ul>
                                         <h5><a class="text-white d-block" href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
                                     </div>
-                                    <ul class="blog-post-data d-flex">
-                                        <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>Views</li>
-                                        <li class="post-comments text-white"><span><i class="far fa-comment"></i></span> Comments</li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -265,7 +274,7 @@
 </div>
 <!-- blog-area-end -->
 <!-- ====== testimonial-area-start ========================================= -->
-<div class="testimonial-area testimonial-bg pt-20 ">
+<div class="testimonial-area testimonial-bg pt-20 " style="background: url('@urlCMS/@banner.image') no-repeat;height: 400px;background-size: cover;">
     <div class="container">
         <div class="testimonial-active">
             @foreach (var feed in list_feeback)
@@ -279,7 +288,7 @@
                             <blockquote class="testimonials-text text-white">
                                 @feed.ccomment
                             </blockquote>
-                            <div class="client text-center pt-40">
+                            <div class="client text-center pt-15">
                                 <img src="@urlCMS/@feed.cimage" alt="@feed.cimage_alt">
                                 <h5><a class="text-white" href="#">@feed.cname</a></h5>
                                 <span>@feed.cposition</span>

@@ -1,0 +1,59 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tin tức và sự kiện TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, TPA lock";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ TPA Lock";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+<!-- ======slider-area-start=========================================== -->
+<div class="slider-area over-hidden">
+    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
+                    <div class="page-title text-center">
+                        <h2 class="text-capitalize text-white mb-25 pt-35">Tin tức và sự kiện</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a class="secondary-color" href="/">Trang chủ</a></li>
+                                <li class="breadcrumb-item active text-capitalize text-white" aria-current="page">Tin tức và sự kiện</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /page title -->
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /container -->
+        <!-- </div> -->
+    </div><!-- /single-slider -->
+</div>
+<!-- slider-area-end=  -->
+<!-- ====== blog-sidebar-area-start=============================================== -->
+<div class="blog-box-landing-area pt-110 pb-10 over-hidden">
+    <div class="container-fluid pl-35 pr-35" id="data_table">
+        @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+    </div><!-- /container -->
+</div>
+<!-- blog-sidebar-area-end -->
+
+<script>
+    $(document).ready(function () {
+        $('.header-area').removeClass('white-bg border-bottom');
+        $('.header').removeClass('header-2 position-relative');
+        $('.header').addClass('position-absolute');
+    });
+</script>

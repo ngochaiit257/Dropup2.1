@@ -66,7 +66,7 @@
             <div class="header header-2 position-relative pl-35 pr-35">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-xl-2  col-lg-7 col-md-7 col-sm-7 col-8">
+                        <div class="col-xl-1 col-lg-7 col-md-7 col-sm-7 col-8">
                             <div class="logo float-right float-xl-left">
                                 <a href="/"><img src="@urlCMS/@logo_header.image" alt="@logo_header.alt"></a>
                             </div>
@@ -74,7 +74,7 @@
                                 <a class="mobile-menubar" href="javascript:void(0);"><i class="fas fa-bars"></i></a>
                             </div>
                         </div><!-- /col -->
-                        <div class="col-xl-9 col-lg-1 col-md-1 col-sm-1 col-1 d-none d-lg-flex align-items-lg-center justify-content-lg-center position-static">
+                        <div class="col-xl-10 col-lg-1 col-md-1 col-sm-1 col-1 d-none d-lg-flex align-items-lg-center justify-content-lg-center position-static">
                             <div class="main-menu">
                                 <nav id="mobile-menu">
                                     <ul>
@@ -82,7 +82,7 @@
                                             <a href="/">Trang chủ</a>
                                         </li>
 
-                                        @foreach (var c_parent in new CategoryProvider().getListParentCategory())
+                                        @foreach (var c_parent in new CategoryProvider().getListParentCategory().Where(c => c.type_of_category.type_of_category_name == "Danh mục mặc định"))
                                         {
                                             if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
                                             {
@@ -281,8 +281,8 @@
 
     <!-- ====== footer-area-start ============================================ -->
     <footer>
-        <div class="footer-area widget-area pt-100 dark-black-bg">
-            <div class="border-footer pb-35">
+        <div class="footer-area widget-area pt-50">
+            <div class="border-footer">
                 <div class="container-wrapper pl-15 pr-15">
                     <div class="row">
                         <div class="col-xl-2  col-lg-2  col-md-4  col-sm-4 col-6">
@@ -327,7 +327,9 @@
                         </div><!-- /col -->
                         <div class="col-xl-4  col-lg-4  col-md-12  col-sm-12 col-12">
                             <div class="footer-widget subscriber-area pb-30 pl-100">
-                                <h4 class="text-uppercase text-white">TPA Lock</h4>
+                                <h4 class="text-uppercase text-white">
+                                    <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" style="width: 30%"/>
+                                </h4>
                                 <div class="footer-info pt-30">
                                     <p>HAPPY LIFE WITH TPA LOCK</p>
                                     <ul class="footer-address">
@@ -341,7 +343,7 @@
                     </div><!-- /row -->
                 </div><!-- /container -->
             </div><!-- /widget-area -->
-            <div class="copyright-area pt-50 pb-50">
+            <div class="copyright-area pt-20 pb-10">
                 <div class="container-wrapper pl-15 pr-15">
                     <p class="center-div">
                         Bản quyền thuộc về TPA Lock. Thiết kế bởi <a href="https://diwe.vn" target="_blank">Diwe.vn</a>
@@ -361,11 +363,8 @@
 
     <script>
         $(document).ready(function () {
-
-            //$("img.lazyload").lazyload();
+            $("img.lazyload").lazyload();
             $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
-
-
         });
     </script>
 </body>

@@ -34,10 +34,6 @@ else
                                 </ul>
                                 <h5><a class="text-white d-block" href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
                             </div>
-                            <ul class="blog-post-data d-flex">
-                                <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>Views</li>
-                                <li class="post-comments text-white"><span><i class="far fa-comment"></i></span> Comments</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -49,4 +45,11 @@ else
         @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
     </div>
+
+    <script>
+          $(document).ready(function () {
+            $("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
 }

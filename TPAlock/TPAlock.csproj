@@ -228,6 +228,7 @@
     <Content Include="Assets\images\brand\brand-logo4.png" />
     <Content Include="Assets\images\brand\brand-logo5.png" />
     <Content Include="Assets\images\common\banner-home.jpg" />
+    <Content Include="Assets\images\common\bg-footer.jpg" />
     <Content Include="Assets\images\common\khoa-cao-cap.jpg" />
     <Content Include="Assets\images\common\khoa-pho-thong.jpg" />
     <Content Include="Assets\images\common\tpa-lock-banner.jpg" />
@@ -255,6 +256,7 @@
     <Content Include="Assets\images\loader\img-loader.gif" />
     <Content Include="Assets\images\loader\list-loader.gif" />
     <Content Include="Assets\images\loader\loader-order.gif" />
+    <Content Include="Assets\images\loader\product-loader.jpg" />
     <Content Include="Assets\images\logo\logo.svg" />
     <Content Include="Assets\images\product\13-1.jpg" />
     <Content Include="Assets\images\product\13.jpg" />
@@ -300,6 +302,7 @@
     <Content Include="Assets\js\jquery-ui.js" />
     <Content Include="Assets\js\jquery.fancybox.min.js" />
     <Content Include="Assets\js\jquery.inputarrow.js" />
+    <Content Include="Assets\js\jquery.lazyload.js" />
     <Content Include="Assets\js\jquery.meanmenu.min.js" />
     <Content Include="Assets\js\jquery.nice-select.min.js" />
     <Content Include="Assets\js\main.js" />
@@ -359,6 +362,15 @@
     <Content Include="Assets\fonts\FuturaRegular\VNF-Futura Regular.woff" />
     <Content Include="Assets\fonts\FuturaRegular\VNF-Futura Regular.woff2" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile5.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile7.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile8.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile9.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -8,6 +8,7 @@
     var category_parent = new category();
     var category_child_1 = new category();
     var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+    var banner = new StoreBannerProvider().getbyId(1);
 
     if (category_child_2.category_parent_id != null)
     {
@@ -40,7 +41,7 @@
 
 <!-- ======slider-area-start=========================================== -->
 <div class="slider-area over-hidden">
-    <div class="single-page page-height3 d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+    <div class="single-page page-height3 d-flex align-items-center" data-background="@urlCMS/@banner.image">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
@@ -91,8 +92,8 @@
                         <option value="pho-bien-nhat">Phổ biến nhất</option>
                         <option value="ten-az">Tên A đến Z</option>
                         <option value="ten-za">Tên Z đến A</option>
-                        <option value="gia-cao-thap">Giá cao đến thấp</option>
-                        <option value="gia-thap-cao">Giá thấp đến cao</option>
+                        <option value="gia-cao-thap">Giá Cao đến Thấp</option>
+                        <option value="gia-thap-cao">Giá Thấp đến Cao</option>
                     </select>
                 </div><!-- /product-selection -->
 

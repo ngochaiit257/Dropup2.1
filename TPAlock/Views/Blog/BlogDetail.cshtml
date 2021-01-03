@@ -10,6 +10,7 @@
 
     var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
     var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
 
     var list_tag = new TagProvider().getByBlogId(Model.blog_id);
     var meta_keyword = "";
@@ -30,7 +31,7 @@
 }
 <!-- ======slider-area-start=========================================== -->
 <div class="slider-area over-hidden">
-    <div class="single-page page-height d-flex align-items-center" data-background="../Assets/images/shop/banner-shop-1.jpg">
+    <div class="single-page page-height d-flex align-items-center" data-background="@urlCMS/@banner.image">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12  d-flex align-items-center justify-content-center">
@@ -76,8 +77,6 @@
         <div class="row">
             <div class="col-xl-12  col-lg-12  col-md-12  col-sm-12 col-12">
                 <div class="blog-content pl-55 pr-55">
-                    <p class="pb-15">The tiles are highly resistant to water and dirt and can be cleaned, so they are compatible with the cultivation of plants and cooking, and the functions at the window are expanded.</p>
-                    <p>For me, the most important part of improving at photography has been sharing it. Sign up for an Exposure account, or post regularly to Tumblr, or both. Tell people you’re trying to get better at photography. Talk about it. When you talk about it, other people get excited about it.</p>
                     <div class="blog-footer d-sm-flex justify-content-between pt-50">
                         <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
                     </div>
@@ -129,10 +128,6 @@
                                     </ul>
                                     <h5><a class="text-white d-block" href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h5>
                                 </div>
-                                <ul class="blog-post-data d-flex">
-                                    <li class="post-view pr-25 text-white"><span class="icon-eye pr-1"></span>Views</li>
-                                    <li class="post-comments text-white"><span><i class="far fa-comment"></i></span> Comments</li>
-                                </ul>
                             </div>
                         </div>
                     </div>

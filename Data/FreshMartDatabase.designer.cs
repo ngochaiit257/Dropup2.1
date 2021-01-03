@@ -22,7 +22,7 @@ namespace Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="ely60663_elysiendb")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="tpa19428_tpalockdb")]
 	public partial class FreshMartDatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -261,7 +261,7 @@ namespace Data
     #endregion
 		
 		public FreshMartDatabaseDataContext() : 
-				base(global::Data.Properties.Settings.Default.ely60663_elysiendbConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.tpa19428_tpalockdbConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

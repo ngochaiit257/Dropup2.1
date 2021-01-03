@@ -25,6 +25,7 @@ namespace TPAlock
                 "~/Assets/js/countdown.min.js",
                 "~/Assets/js/jquery.meanmenu.min.js",
                 "~/Assets/js/autoNumeric.js",
+                "~/Assets/js/jquery.lazyload.js",
                 "~/Assets/js/main.js",
                 "~/Scripts/jquery.unobtrusive-ajax.min.js"
                 ));
