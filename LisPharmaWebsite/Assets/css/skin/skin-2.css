@@ -1,5 +1,5 @@
 :root{
-	--gradient: linear-gradient(to right,#82bc41 0,#f8ae56 51%,#82bc41 100%);
+	--gradient: linear-gradient(to right,#82bc41 0,#186936 51%,#82bc41 100%);
 	--gradient-sec: linear-gradient(to right,#0e1b1f 0,#092933 51%,#0e1b1f 100%);
 }
 .progress-bar,
@@ -14,9 +14,9 @@ button.scroltop,
 .owl-btn-white .owl-prev:hover, 
 .owl-btn-white .owl-next:hover,
 .overlay-primary:before{
-	background: -moz-linear-gradient(left, #82bc41 0%, #f8ae56 100%);
-	background: -webkit-linear-gradient(left, #82bc41 0%,#f8ae56 100%);
-	background: linear-gradient(to right, #82bc41 0%,#f8ae56 100%);
+	background: -moz-linear-gradient(left, #82bc41 0%, #186936 100%);
+	background: -webkit-linear-gradient(left, #82bc41 0%,#186936 100%);
+	background: linear-gradient(to right, #82bc41 0%,#186936 100%);
 }
 .dlab-accordion .card-header .dlab-title a.collapsed{
 	background:#fff;

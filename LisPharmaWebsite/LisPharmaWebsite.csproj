@@ -180,6 +180,7 @@
     <Content Include="Assets\images\about\img8.png" />
     <Content Include="Assets\images\about\img9.png" />
     <Content Include="Assets\images\about\pic1.jpg" />
+    <Content Include="Assets\images\background\line.png" />
     <Content Include="Assets\images\background\bg1.png" />
     <Content Include="Assets\images\background\bg10.png" />
     <Content Include="Assets\images\background\bg11.png" />
@@ -261,6 +262,15 @@
     <Content Include="Assets\images\pricingtable\icon1.png" />
     <Content Include="Assets\images\pricingtable\icon2.png" />
     <Content Include="Assets\images\pricingtable\icon3.png" />
+    <Content Include="Assets\images\product\a1.png" />
+    <Content Include="Assets\images\product\da-day-png.png" />
+    <Content Include="Assets\images\product\lieu-hoan-dan.png" />
+    <Content Include="Assets\images\product\linh-cot-vuong.png" />
+    <Content Include="Assets\images\product\lo-copy-2.png" />
+    <Content Include="Assets\images\product\spdd.png" />
+    <Content Include="Assets\images\product\spld.png" />
+    <Content Include="Assets\images\product\thien-cot-son.png" />
+    <Content Include="Assets\images\product\vitamin.png" />
     <Content Include="Assets\images\projects\grid\pic1.jpg" />
     <Content Include="Assets\images\projects\grid\pic2.jpg" />
     <Content Include="Assets\images\projects\grid\pic3.jpg" />
@@ -410,6 +420,7 @@
     <Content Include="Assets\vendor\switcher\switcher.css" />
     <Content Include="Assets\vendor\switcher\switcher.js" />
     <Content Include="Assets\vendor\wow\wow.js" />
+    <Content Include="Assets\videos\video-ko-tieng.mp4" />
     <Content Include="Assets\videos\video01.mp4" />
     <Content Include="Assets\videos\video02.mp4" />
     <Content Include="Content\bootstrap-theme.css" />

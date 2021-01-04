@@ -2,7 +2,127 @@
 jQuery(document).ready(function() {
     'use strict';
 
+    /*  Team Carousel = owl.carousel.js */
+    jQuery('.list-category').owlCarousel({
+        loop: true,
+        margin: 15,
+        nav: true,
+        autoplaySpeed: 3000,
+        navSpeed: 3000,
+        paginationSpeed: 3000,
+        slideSpeed: 3000,
+        smartSpeed: 3000,
+        autoplay: true,
+        dots: true,
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 2
+            },
+
+            767: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    })
+
 	/*  Team Carousel = owl.carousel.js */
+    jQuery('.service-in').owlCarousel({
+		loop:true,
+		margin:30,
+		nav:true,
+		autoplaySpeed: 3000,
+		navSpeed: 3000,
+		paginationSpeed: 3000,
+		slideSpeed: 3000,
+		smartSpeed: 3000,
+        autoplay: true,
+        dots: false,
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+		responsive:{
+			0:{
+				items:2
+			},
+			600:{
+				items:2
+			},			
+			
+			767:{
+				items:2
+			},
+			1200:{
+				items:2
+			}
+		}
+    })
+
+    /*  Team Carousel = owl.carousel.js */
+    jQuery('.service-out').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        autoplaySpeed: 3000,
+        navSpeed: 3000,
+        paginationSpeed: 3000,
+        slideSpeed: 3000,
+        smartSpeed: 3000,
+        autoplay: true,
+        dots: false,
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 2
+            },
+
+            767: {
+                items: 2
+            },
+            1200: {
+                items: 2
+            }
+        }
+    })
+
+    /*  Team Carousel = owl.carousel.js */
+    jQuery('.team-carousel').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        autoplaySpeed: 3000,
+        navSpeed: 3000,
+        paginationSpeed: 3000,
+        slideSpeed: 3000,
+        smartSpeed: 3000,
+        autoplay: true,
+        dots: false,
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 2
+            },
+
+            767: {
+                items: 3
+            },
+            1200: {
+                items: 3
+            }
+        }
+    })
+
+    /*  Team Carousel = owl.carousel.js */
 	jQuery('.team-carousel1').owlCarousel({
 		loop:true,
 		margin:30,
@@ -14,7 +134,7 @@ jQuery(document).ready(function() {
 		smartSpeed: 3000,
         autoplay: true,
 		dots: true,
-		navText: ['<i class="ti-arrow-left"></i>', '<i class="ti-arrow-right"></i>'],
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
 		responsive:{
 			0:{
 				items:2
@@ -44,7 +164,7 @@ jQuery(document).ready(function() {
 		smartSpeed: 3000,
         autoplay: true,
 		dots: true,
-		navText: ['<i class="ti-arrow-left"></i>', '<i class="ti-arrow-right"></i>'],
+        navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
 		responsive:{
 			0:{
 				items:1

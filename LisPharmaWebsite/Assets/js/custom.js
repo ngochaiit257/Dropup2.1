@@ -666,8 +666,8 @@ jQuery(window).on('resize',function () {
 var mainslider = new Swiper('.gallery-top', {
     spaceBetween: 0,
     autoplay: {
-        delay: 9500,
-        disableOnInteraction: false,
+        delay: 50000,
+        disableOnInteraction: true,
     },
     navigation: {
         nextEl: '.swiper-button-next',
@@ -678,7 +678,7 @@ var mainslider = new Swiper('.gallery-top', {
         type: 'progressbar',
     },
     loop: true,
-    loopedSlides: 3,
+    loopedSlides: 5,
     thumbs: {
         swiper: sliderthumbs
     }
