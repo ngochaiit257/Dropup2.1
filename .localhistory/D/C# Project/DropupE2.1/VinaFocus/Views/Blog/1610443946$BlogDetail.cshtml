@@ -1,0 +1,47 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> Giỏ hàng</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->

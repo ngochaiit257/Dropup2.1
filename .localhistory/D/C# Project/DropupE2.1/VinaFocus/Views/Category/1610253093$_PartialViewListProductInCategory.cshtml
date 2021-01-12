@@ -1,0 +1,69 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    <ul class="row list-unstyled products-group no-gutters">
+        @foreach (var product in Model)
+        {
+            <li class="col-6 col-md-3 col-wd-2gdot4 product-item">
+                <div class="product-item__outer h-100">
+                    <div class="product-item__inner px-xl-4 p-3">
+                        <div class="product-item__body pb-xl-2">
+                            <div class="mb-2"><a href="../shop/product-categories-7-column-full-width.html" class="font-size-12 text-gray-5">Speakers</a></div>
+                            <h5 class="mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="text-blue font-weight-bold">Wireless Audio System Multiroom 360 degree Full base audio</a></h5>
+                            <div class="mb-2">
+                                <a href="../shop/single-product-fullwidth.html" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img1.jpg" alt="Image Description"></a>
+                            </div>
+                            <div class="flex-center-between mb-1">
+                                <div class="prodcut-price">
+                                    <div class="text-gray-100">$685,00</div>
+                                </div>
+                                <div class="d-none d-xl-block prodcut-add-cart">
+                                    <a href="../shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item__footer">
+                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                <a href="../shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                <a href="../shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <div class="sortpagibar pagi clearfix text-center">
+        <div id="pagination" class="clearfix">
+            <div class="center-div">
+                <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+                @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder}),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            //$("img.lazyload").lazyload();
+        });
+    </script>
+}

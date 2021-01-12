@@ -1,0 +1,436 @@
+﻿@model DeliveryAddressModel
+@using VinaFocus.Models;
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    long user_id_loged = 0;
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var list_cost_shipping = new ShippingServiceProvider().getCostForDistrictShippingForOrder((int)Model.district_id, Model.total_cost_product).OrderBy(cs => cs.price_for_district_shipping_final).ToList();
+    var cost_shipping_min = new cost_for_district_shipping();
+    if (list_cost_shipping.Count() > 0)
+    {
+        cost_shipping_min = list_cost_shipping.First();
+    }
+
+    var costShippingAllOfCountry = new ShippingServiceProvider().getCostShippingAllOfCountry();
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+}
+
+<style>
+    .modal-window {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.25);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        visibility: inherit;
+        opacity: 0;
+        pointer-events: none;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+        .modal-window:target {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window > div {
+            width: 15vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background: #000;
+        }
+
+        .modal-window header {
+            font-weight: bold;
+        }
+
+        .modal-window h1 {
+            color: #fff;
+            font-size: 16px;
+            margin: 0 0 15px;
+            position: relative;
+            bottom: 55px;
+        }
+</style>
+
+<div class="main-header">
+    <a href="/" class="logo">
+        <img src="@urlCMS/@logo_header.image" alt="@logo_header.alt" width="35%" />
+    </a>
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/cart">Giỏ hàng</a>
+        </li>
+        <li class="breadcrumb-item">
+            Thông tin vận chuyển
+        </li>
+        <li class="breadcrumb-item breadcrumb-item-current">
+            Phương thức thanh toán
+        </li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="step">
+        <div class="step-sections " step="2">
+            <div id="section-shipping-rate" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Phương thức vận chuyển</h2>
+                </div>
+                <div class="section-content">
+                    <div class="content-box">
+                        <div class="content-box-row">
+                            @if (list_cost_shipping.Count() > 0)
+                            {
+                                foreach (var cost_ship in list_cost_shipping)
+                                {
+                                    if (cost_ship.cost_for_district_shipping_id == cost_shipping_min.cost_for_district_shipping_id)
+                                    {
+                                        <div class="radio-wrapper">
+                                            <label class="radio-label" for="shipping_cost_@cost_ship.cost_for_district_shipping_id">
+                                                <div class="radio-input">
+                                                    <input data-trigger="@cost_ship.cost_of_local_shipping.name_of_cost" data-target="@cost_ship.price_for_district_shipping_final" id="shipping_cost_@cost_ship.cost_for_district_shipping_id" class="input-radio" type="radio" name="select_cost_shipping" value="@cost_ship.price_for_district_shipping_final" checked />
+                                                </div>
+                                                <span class="radio-label-primary">@cost_ship.cost_of_local_shipping.name_of_cost</span>
+                                                <span class="radio-accessory content-box-emphasis showNumeric">@cost_ship.price_for_district_shipping_final</span>
+                                            </label>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="radio-wrapper">
+                                            <label class="radio-label" for="shipping_cost_@cost_ship.cost_for_district_shipping_id">
+                                                <div class="radio-input">
+                                                    <input data-trigger="@cost_ship.cost_of_local_shipping.name_of_cost" data-target="@cost_ship.price_for_district_shipping_final" id="shipping_cost_@cost_ship.cost_for_district_shipping_id" class="input-radio" type="radio" name="select_cost_shipping" value="@cost_ship.price_for_district_shipping_final" />
+                                                </div>
+                                                <span class="radio-label-primary">@cost_ship.cost_of_local_shipping.name_of_cost</span>
+                                                <span class="radio-accessory content-box-emphasis showNumeric">@cost_ship.price_for_district_shipping_final</span>
+                                            </label>
+                                        </div>
+                                    }
+                                }
+
+                                if (costShippingAllOfCountry != null && costShippingAllOfCountry.status == true)
+                                {
+                                    <div class="radio-wrapper">
+                                        <label class="radio-label" for="shipping_cost_all_of_country">
+                                            <div class="radio-input">
+                                                <input data-trigger="@costShippingAllOfCountry.name_of_cost" data-target="@costShippingAllOfCountry.price_of_cost" id="shipping_cost_all_of_country" class="input-radio" type="radio" name="select_cost_shipping" value="@costShippingAllOfCountry.price_of_cost" />
+                                            </div>
+                                            <span class="radio-label-primary">@costShippingAllOfCountry.name_of_cost</span>
+                                            <span class="radio-accessory content-box-emphasis showNumeric">@costShippingAllOfCountry.price_of_cost</span>
+                                        </label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (costShippingAllOfCountry != null && costShippingAllOfCountry.status == true)
+                                {
+                                    <div class="radio-wrapper">
+                                        <label class="radio-label" for="shipping_cost_all_of_country">
+                                            <div class="radio-input">
+                                                <input data-trigger="@costShippingAllOfCountry.name_of_cost" data-target="@costShippingAllOfCountry.price_of_cost" id="shipping_cost_all_of_country" class="input-radio" type="radio" name="select_cost_shipping" value="@costShippingAllOfCountry.price_of_cost" checked />
+                                            </div>
+                                            <span class="radio-label-primary">@costShippingAllOfCountry.name_of_cost</span>
+                                            <span class="radio-accessory content-box-emphasis showNumeric">@costShippingAllOfCountry.price_of_cost</span>
+                                        </label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="section-payment-method" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Phương thức thanh toán</h2>
+                </div>
+                <div class="section-content">
+                    <div class="content-box">
+                        <div class="radio-wrapper content-box-row">
+                            <label class="radio-label" for="select_payment_method_3">
+                                <div class="radio-input">
+                                    <input id="select_payment_method_3" class="input-radio" name="select_payment_method" type="radio" value="3" checked />
+                                </div>
+                                <span class="radio-label-primary">Thanh toán khi giao hàng (COD)</span>
+                            </label>
+                        </div>
+
+
+                        <div class="radio-wrapper content-box-row">
+                            <label class="radio-label" for="select_payment_method_4">
+                                <div class="radio-input">
+                                    <input id="select_payment_method_4" class="input-radio" name="select_payment_method" type="radio" value="4" />
+                                </div>
+                                <span class="radio-label-primary">Chuyển khoản qua ngân hàng</span>
+                            </label>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="step-footer">
+            <button class="step-footer-continue-btn btn" onclick="makeOrderPending()">
+                <span class="btn-content">Đặt hàng</span>
+                <i class="btn-spinner icon icon-button-spinner"></i>
+            </button>
+            
+            <a href="/checkout" class="step-footer-previous-link">
+                <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3"><path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path></svg>
+                Trở lại thông tin vận chuyển
+            </a>
+        </div>
+        <input hidden type="text" value="@Model.last_name" id="last_name" />
+        <input hidden type="text" value="@Model.address_detail" id="address_detail" />
+        <input hidden type="text" value="@Model.customer_note" id="customer_note" />
+
+        <div id="open-modal" class="modal-window">
+            <div style="text-align: center; width:225px;">
+                <img src="~/Assets/images/loader/loader-order.gif" />
+                <h1>Vui lòng chờ trong giây lát...</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".showNumeric").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        cost_shipping_value_selected = $('input[name=select_cost_shipping]:checked').attr('data-target');
+        name_of_shipping = $('input[name=select_cost_shipping]:checked').attr('data-trigger');
+        console.log(cost_shipping_value_selected);
+        console.log(name_of_shipping);
+        $('#show_cost_shipping_selected').autoNumeric('set', cost_shipping_value_selected);
+        total_cost_product = (parseInt)(@Model.total_cost_product);
+        discount_value = 0;
+        total_bill = ((parseInt)(total_cost_product) + (parseInt)((cost_shipping_value_selected)) - (parseInt)(discount_value));
+
+        $('#total_bill').autoNumeric('set', total_bill);
+        $(".showNumeric").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        if ($('#input_coupon_code').val() != null || $('#input_coupon_code').val() != "") {
+            $('#btn_apply_discount').removeClass('btn-disabled');
+        }
+    });
+    var total_cost_product = 0
+    var cost_shipping_value_selected = 0;
+    var discount_value = 0;
+    var total_bill = 0;
+
+    var name_of_shipping = "";
+    $('input[name=select_cost_shipping]').change(function () {
+        cost_shipping_value_selected = $('input[name=select_cost_shipping]:checked').attr('data-target');
+        name_of_shipping = $('input[name=select_cost_shipping]:checked').attr('data-trigger');
+        $('#show_cost_shipping_selected').autoNumeric('set', cost_shipping_value_selected);
+        total_bill = (parseInt)((parseInt)('@Model.total_cost_product') + (parseInt)(cost_shipping_value_selected) - (parseInt)(discount_value));
+        $('#total_bill').autoNumeric('set', total_bill);
+        $(".showNumeric").autoNumeric('init', { aSign: '₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+    });
+
+    $('#input_coupon_code').keyup(function () {
+        $('#feeback_input_coupon_code').addClass('hidden');
+        $('#input_coupon_code').removeClass('invalid');
+
+        var coupon_code = $('#input_coupon_code').val();
+        if (coupon_code == "" || coupon_code == null) {
+            $('#btn_apply_discount').addClass('btn-disabled');
+        }
+        else {
+            $('#btn_apply_discount').removeClass('btn-disabled');
+        }
+    });
+
+    $('#btn_apply_discount').click(function () {
+        checkCoupon();
+    });
+
+    var coupon_id = 0;
+    function checkCoupon() {
+        var coupon_code = $('#input_coupon_code').val();
+        if (coupon_code == "" || coupon_code == null) {
+            $('#input_coupon_code').addClass('invalid');
+            $('#feeback_input_coupon_code').removeClass('hidden');
+        } else {
+            var total_cost_of_product_in_order = '@Model.total_cost_product';
+            var cost_of_shipping_for_this_order = cost_shipping_value_selected;
+            var province_id = '@Model.province_id';
+
+            var list_product_variation_id = [];
+            var list_quantity_pv = [];
+            if (Cookies.get("DINO_CART") != null || Cookies.get("DINO_CART") != undefined || $.parseJSON(Cookies.get("DINO_CART")).length != 0) {
+                var number_in_order = 0;
+                $.each(JSON.parse(Cookies.get("DINO_CART")), function (index, value) {
+                    number_in_order += parseInt(value.quantity);
+                    list_product_variation_id.push(value.id);
+                    var quantity_pv = {};
+                    quantity_pv.product_variation_id = value.id;
+                    quantity_pv.product_variation_quantity = parseInt(value.quantity);
+                    list_quantity_pv.push(quantity_pv);
+                });
+            }
+            $.ajax({
+                url: "/Checkout/CheckCoupon",
+                data: {
+                    coupon_code: coupon_code,
+                    total_cost_of_product_in_order: total_cost_of_product_in_order,
+                    province_id: province_id,
+                    list_product_variation_id: list_product_variation_id,
+                    cost_of_shipping_for_this_order: cost_of_shipping_for_this_order,
+                    list_quantity_pv: list_quantity_pv
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    if (data_json.coupon_invalid_status == false) {
+                        $('#input_coupon_code').addClass('invalid');
+                        $('#feeback_input_coupon_code').removeClass('hidden');
+                    } else {
+                        $('#div_apply_coupon').addClass('hidden');
+                        $('#coupon_description_card').removeClass('hidden');
+                        $('#coupon_code_in_alert').text(coupon_code);
+                        $('#show_coupon_code').removeClass('hidden');
+                        $('#show_coupon_code').text(data_json.coupon_summary);
+                        coupon_id = data_json.coupon_id;
+                        $('#show_discount').autoNumeric('set', (parseInt)(data_json.discount_value_return));
+                        $('#total_bill').autoNumeric('set', ((parseInt)(total_cost_of_product_in_order) + (parseInt)(cost_of_shipping_for_this_order) - (parseInt)(data_json.discount_value_return)));
+                        discount_value = data_json.discount_value_return;
+                    }
+                },
+                error: function (xhr) {
+                    alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+                }
+            });
+        }
+    }
+
+    function makeOrderPending() {
+        cost_shipping_value_selected = $('input[name=select_cost_shipping]:checked').attr('data-target');
+        name_of_shipping = $('input[name=select_cost_shipping]:checked').attr('data-trigger');
+        
+        var last_name = $('#last_name').val();
+        var customer_email = '@Model.customer_email';
+        var phone_number = '@Model.phone_number';
+        var province_id = '@Model.province_id';
+        var district_id = '@Model.district_id';
+        var ward_id = '@Model.ward_id';
+        var address_detail = $('#address_detail').val();
+        var customer_note = $('#customer_note').val();
+
+        var amount_received = total_bill;
+        var payment_method_id = $('input[name=select_payment_method]:checked').val();
+        var cost_of_shipping = cost_shipping_value_selected;
+        var discount_amount = discount_value;
+        var coupon_code = $('#coupon_code_in_alert').text();
+        var reason_of_promotion = ""
+        if (coupon_code.length > 0) {
+            reason_of_promotion = "Mã giảm giá: " + coupon_code;
+        }
+
+        $.ajax({
+            url: '@Url.Action("MakeOrderPending", "Checkout")',
+            data: {
+                last_name: last_name,
+                customer_email: customer_email,
+                phone_number: phone_number,
+                province_id: province_id,
+                district_id: district_id,
+                ward_id: ward_id,
+                address_detail: address_detail,
+                customer_note: customer_note,
+
+                discount_amount: discount_amount,
+                reason_of_promotion: reason_of_promotion,
+                name_of_shipping: name_of_shipping,
+                cost_of_shipping: cost_of_shipping,
+                payment_method_id: payment_method_id,
+                amount_received: amount_received,
+                coupon_id: coupon_id,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            beforeSend: function () {
+                $('.modal-window').css({ opacity: "1" });
+                $('input, button').prop('disabled', true);
+            },
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                var order_id = data_json.order_id;
+                if (Cookies.get("DINO_CART") != null) {
+                    Cookies.remove("DINO_CART");
+                }
+                $.ajax({
+                    url: '@Url.Action("GetOrderSuccess", "Checkout")',
+                    type: "POST",
+                    data: {
+                        last_name: last_name,
+                        customer_email: customer_email,
+                        phone_number: phone_number,
+                        province_id: province_id,
+                        district_id: district_id,
+                        ward_id: ward_id,
+                        customer_note: customer_note,
+                        order_id: order_id,
+                    },
+                    success: function (data) {
+                        $('#step_content').html(data);
+                    },
+                    error: function (xhr) { alert("Có lỗi xảy ra. Vui lòng thử lại sau."); }
+                });
+            },
+            error: function (xhr, status) {
+                alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+            },
+            complete: function (xhr, status) {
+                $('.modal-window').css({ opacity: "0" });
+                $('input, button').prop('disabled', false);
+            }
+        });
+    }
+
+
+    function backToShipping() {
+        $.ajax({
+            url: '@Url.Action("GetShipping", "Checkout")',
+            type: "POST",
+            data: {},
+            success: function (data) {
+                $('#step_content').html(data);
+            },
+            error: function (xhr) { alert("Có lỗi xảy ra. Vui lòng thử lại sau."); }
+        });
+    }
+
+
+    
+</script>

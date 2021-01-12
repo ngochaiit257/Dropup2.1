@@ -1,0 +1,58 @@
+﻿
+@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <article class="card mb-13 border-0">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="/blogs/@blog.blog_seo_alias" class="d-block"><img class="img-fluid img-article object-fit-cover" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card-body p-0">
+                        <h4 class="mb-3"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                        <div class="mb-3 pb-3 border-bottom">
+                            <div class="list-group list-group-horizontal flex-wrap list-group-borderless align-items-center mx-n0dot5">
+                                <span class="mx-2 font-size-n5 mt-1 text-gray-5"><i class="fas fa-circle"></i></span>
+                                <a href="/blogs/@blog.blog_seo_alias" class="mx-0dot5 text-gray-5">@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</a>
+                            </div>
+                        </div>
+                        <p>@blog.blog_summary</p>
+                        <div class="flex-horizontal-center">
+                            <a href="/blogs/@blog.blog_seo_alias" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">Đọc Thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList bài viết</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            //$("img.lazyload").lazyload();
+        });
+    </script>
+}

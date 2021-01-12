@@ -1,0 +1,112 @@
+﻿:root {
+    --colorDark : #0062bd;
+    --colorLight: #2d1582;
+}
+
+
+    .u-header__navbar--wide .u-header__nav-item:first-child .u-header__nav-link {
+    padding-left: 0rem;
+}
+
+.btn-primary {
+    color: #fff;
+}
+
+.bg-primary {
+    background-image: linear-gradient(to right, #094eb6, #287ad1);
+}
+
+.text-primary {
+    color: var(--colorDark)  !important;
+}
+
+.btn-primary {
+    background-color: var(--colorDark);
+    border-color: var(--colorDark);
+}
+
+.nav-classic .nav-link {
+    text-transform: capitalize;
+}
+
+.u-header__navbar--wide.navbar-expand-md .u-header__navbar-nav .nav-item + .nav-item .u-header__nav-link {
+    border-left: 1px solid #5770ba;
+}
+
+.section-title {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.nav-tab-pill .nav-link {
+    font-weight: 700;
+}
+
+.row-newsletter{
+    color: #fff;
+}
+
+.cart-nav{
+    float: right;
+}
+
+.fixed{
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+#sidebarHeaderInvokerMenu {
+    display: block;
+}
+
+.btn-primary[href]:hover, .btn-primary[href]:focus, .btn-primary[href]:active, .btn-primary[type]:hover, .btn-primary[type]:focus, .btn-primary[type]:active {
+    box-shadow: 0 4px 11px #c8f1ff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--colorDark);
+    border-color: var(--colorDark);
+}
+
+.u-header__navbar-nav .u-header__sub-menu-nav-link:not(.u-header__sub-menu-nav-link-toggle):hover {
+    text-decoration: underline;
+    color: #e5c100;
+}
+
+.u-header__sub-menu-title:hover {
+    color: #e5c100;
+}
+
+.prodcut-price ins {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md .mega-pages {
+        padding: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+        .navbar-expand-md .mega-pages a i {
+            margin-top: 5px;
+            float: right;
+        }
+
+        .navbar-expand-md .mega-pages a span:hover {
+            color: #e5c100;
+        }
+}
+
+@media (min-width: 1200px) {
+    .u-header__navbar-brand, .u-header__navbar-brand > img {
+        width: 12.375rem;
+    }
+
+    #sidebarHeaderInvokerMenu{
+        display: none;
+    }
+}

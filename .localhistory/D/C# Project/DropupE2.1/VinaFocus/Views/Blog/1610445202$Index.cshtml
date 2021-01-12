@@ -1,0 +1,125 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Dự án tiêu biểu Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    ViewBag.Keywords = "Dự án Vina Focus, tin tức vina focus, chia sẻ mới nhất từ Vina Focus";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ Dino Store";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> Dự án tiêu biểu</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-9 col-wd">
+            <div class="min-width-1100-wd" id="data_table">
+                @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+            </div>
+        </div>
+        <div class="col-xl-3 col-wd">
+            <aside class="mb-7">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Danh mục sản phẩm</h3>
+                </div>
+                <div class="list-group">
+                    @foreach (var category in list_category_parent_default)
+                    {
+                        <a href="/collections/@category.seo_alias" class="font-bold-on-hover px-3 py-2 list-group-item list-group-item-action border-0"><i class="mr-2 fas fa-angle-right"></i> @category.category_name</a>
+                    }
+                    @foreach (var category in list_category_parent_special)
+                    {
+                        <a href="/collections/@category.seo_alias" class="font-bold-on-hover px-3 py-2 list-group-item list-group-item-action border-0"><i class="mr-2 fas fa-angle-right"></i> @category.category_name</a>
+                    }
+                </div>
+            </aside>
+            <aside class="mb-7">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Dự án mới nhất</h3>
+                </div>
+                <article class="mb-4">
+                    <div class="media">
+                        <div class="width-75 height-75 mr-3">
+                            <img class="img-fluid object-fit-cover" src="../../assets/img/1500X730/img1.jpg" alt="Image Description">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="font-size-14 mb-1"><a href="../blog/single-blog-post.html" class="text-gray-39">Robot Wars – Post with Gallery</a></h4>
+                            <span class="text-gray-5">March 3, 2020</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="mb-4">
+                    <div class="media">
+                        <div class="width-75 height-75 mr-3">
+                            <img class="img-fluid object-fit-cover" src="../../assets/img/1500X730/img4.jpg" alt="Image Description">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="font-size-14 mb-1"><a href="../blog/single-blog-post.html" class="text-gray-39">Robot Wars – Now Closed – Post with Audio</a></h4>
+                            <span class="text-gray-5">March 3, 2020</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="mb-4">
+                    <div class="media">
+                        <div class="width-75 height-75 mr-3">
+                            <img class="img-fluid object-fit-cover" src="../../assets/img/1500X730/img5.jpg" alt="Image Description">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="font-size-14 mb-1"><a href="../blog/single-blog-post.html" class="text-gray-39">Robot Wars – Now Closed – Post with Video</a></h4>
+                            <span class="text-gray-5">March 3, 2020</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="mb-4">
+                    <div class="media">
+                        <div class="width-75 height-75 mr-3 position-relative">
+                            <img class="img-fluid object-fit-cover" src="https://placehold.it/150x150/DDD/DDD/" alt="Image Description">
+                            <i class="fa fa-paragraph position-absolute-center text-white"></i>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="font-size-14 mb-1"><a href="../blog/single-blog-post.html" class="text-gray-39">Announcement – Post without Image</a></h4>
+                            <span class="text-gray-5">March 3, 2020</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="mb-4">
+                    <div class="media">
+                        <div class="width-75 height-75 mr-3">
+                            <img class="img-fluid object-fit-cover" src="../../assets/img/1500X730/img6.jpg" alt="Image Description">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="font-size-14 mb-1"><a href="../blog/single-blog-post.html" class="text-gray-39">Robot Wars – Now Closed</a></h4>
+                            <span class="text-gray-5">March 3, 2020</span>
+                        </div>
+                    </div>
+                </article>
+            </aside>
+        </div>
+    </div>
+</div>

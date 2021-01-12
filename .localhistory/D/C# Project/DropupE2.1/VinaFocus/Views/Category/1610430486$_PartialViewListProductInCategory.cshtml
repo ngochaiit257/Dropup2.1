@@ -1,0 +1,65 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    <ul class="row list-unstyled products-group no-gutters">
+        @foreach (var product in Model)
+        {
+            <li class="col-6 col-md-3 col-wd-2gdot4 product-item">
+                <div class="product-item__outer h-100 w-100">
+                    <div class="product-item__inner px-xl-4 p-3">
+                        <div class="product-item__body product-item__grid pb-xl-2">
+                            @{ var category_main = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                            <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5">@category_main.category_name</a></div>
+                            <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
+                            <div class="mb-2">
+                                <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                            </div>
+                            <div class="flex-center-between mb-1">
+                                <div class="prodcut-price d-flex align-items-center position-relative">
+                                    <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
+                                    @if (product.price > 0)
+                                    {
+                                        <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+    <div class="sortpagibar pagi clearfix text-center">
+        <div id="pagination" class="clearfix">
+            <div class="center-div">
+                <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+                @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder}),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            //$("img.lazyload").lazyload();
+        });
+    </script>
+}

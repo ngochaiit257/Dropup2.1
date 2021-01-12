@@ -1,0 +1,376 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_product_variation = new ProductVariationProvider().getByProductId(Model.product_id);
+    int sumNumberInstock = new ProductVariationProvider().getSumNumberByProductId(Model.product_id);
+    long product_variation_selected_start = 0;
+    if (list_product_variation.Count() == 1)
+    {
+        product_variation_selected_start = new ProductVariationProvider().get1ByProductId(Model.product_id).product_variation_id;
+    }
+
+    var list_product_related = new ProductProvider().getListRelatedByProductId(Model.product_id).Take(12).ToList();
+
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    int i = 0;
+    int dataTriger = 0;
+
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var list_combo = new ComboProductProvider().getByProductId(Model.product_id);
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                    }
+
+                    @if (category_child_2 != null && category_child_2.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                    }
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> @Model.product_name</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="container">
+    <!-- Single Product Body -->
+    <div class="mb-14">
+        <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-5 mb-4 mb-md-0">
+                <div id="sliderSyncingNav" class="js-slick-carousel u-slick mb-2"
+                     data-infinite="true"
+                     data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-classic u-slick__arrow-centered--y rounded-circle"
+                     data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-classic-inner u-slick__arrow-classic-inner--left ml-lg-2 ml-xl-4"
+                     data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
+                     data-nav-for="#sliderSyncingThumb">
+                    <div class="js-slide">
+                        <img style="height:100%" class="img-fluid" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                    </div>
+                    @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                    {
+                        <div class="js-slide">
+                            <img style="height: 100%" class="img-fluid" src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt">
+                        </div>
+                    }
+                </div>
+
+                <div id="sliderSyncingThumb" class="js-slick-carousel u-slick u-slick--slider-syncing u-slick--slider-syncing-size u-slick--gutters-1 u-slick--transform-off"
+                     data-infinite="true"
+                     data-slides-show="5"
+                     data-is-thumbs="true"
+                     data-nav-for="#sliderSyncingNav">
+                    <div class="js-slide" style="cursor: pointer;">
+                        <img class="img-fluid" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                    </div>
+                    @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                    {
+                        <div class="js-slide" style="cursor: pointer;">
+                            <img style="height: 100%" class="img-fluid" src="../../assets/img/720X660/img2.jpg" alt="Image Description">
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
+                <div class="mb-2">
+                    @{ var category_main = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();}
+                    <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">@category_main.category_name</a>
+                    <h2 class="font-size-25 text-lh-1dot2">@Model.product_name</h2>
+                    <div class="mb-2">
+                        <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="#">
+                            <div class="text-warning mr-2">
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                            </div>
+                            <span class="text-secondary font-size-13">(Xem đánh giá)</span>
+                        </a>
+                    </div>
+                    <div class="mb-2">
+                        @Html.Raw(Model.description)
+                    </div>
+                    @if (Model.product_code != null)
+                    {
+                        <p><strong>SKU</strong>: @Model.product_code</p>
+                    }
+                </div>
+            </div>
+            <div class="mx-md-auto mx-lg-0 col-md-6 col-lg-4 col-xl-3">
+                <div class="mb-2">
+                    <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
+                        <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">Tình trạng: <span class="text-green font-weight-bold">26 in stock</span></div>
+                        <div class="mb-3">
+                            <div class="font-size-36 showNumeric">@Model.promotion_price</div>
+                            @if (Model.price > 0)
+                            {
+                                <del class="font-size-20 ml-2 text-gray-6 showNumeric">@Model.price</del>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="font-size-14">Số lượng</h6>
+                            <!-- Quantity -->
+                            <div class="border rounded-pill py-1 w-md-60 height-35 px-3 border-color-1">
+                                <div class="js-quantity row align-items-center">
+                                    <div class="col">
+                                        <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1">
+                                    </div>
+                                    <div class="col-auto pr-1">
+                                        <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                            <small class="fas fa-minus btn-icon__inner"></small>
+                                        </a>
+                                        <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
+                                            <small class="fas fa-plus btn-icon__inner"></small>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Quantity -->
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="font-size-14">Color</h6>
+                            <!-- Select -->
+                            <select class="js-select selectpicker dropdown-select btn-block col-12 px-0"
+                                    data-style="btn-sm bg-white font-weight-normal py-2 border">
+                                <option value="one" selected>White with Gold</option>
+                                <option value="two">Red</option>
+                                <option value="three">Green</option>
+                                <option value="four">Blue</option>
+                            </select>
+                            <!-- End Select -->
+                        </div>
+                        <div class="mb-2 pb-0dot5">
+                            <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Thêm vào giỏ hàng</a>
+                        </div>
+                        <div class="mb-3">
+                            <a href="#" class="btn btn-block btn-dark">Mua ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Single Product Body -->
+</div>
+<div class="bg-gray-7 pt-6 pb-3 mb-6">
+    <div class="container">
+        <div class="js-scroll-nav">
+            <div class="bg-white pt-4 pb-6 px-xl-11 px-md-5 px-4 mb-6 overflow-hidden">
+                <div id="Description" class="mx-md-2">
+                    <div class="position-relative mb-6">
+                        <ul class="nav nav-classic nav-tab nav-tab-lg justify-content-xl-center mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble border-lg-down-bottom-0 pb-1 pb-xl-0 mb-n1 mb-xl-0">
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link active" href="#Description">
+                                    <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                        Chi tiết sản phẩm
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link" href="#Reviews">
+                                    <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                        Bình luận & Đánh giá
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mx-md-4 pt-1">
+                        @Html.Raw(Model.content)
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="bg-white py-4 px-xl-11 px-md-5 px-4 mb-6">
+                <div id="Reviews" class="mx-md-2">
+                    <div class="position-relative mb-6">
+                        <ul class="nav nav-classic nav-tab nav-tab-lg justify-content-xl-center mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble border-lg-down-bottom-0 pb-1 pb-xl-0 mb-n1 mb-xl-0">
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link" href="#Description">
+                                    <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                        Chi tiết sản phẩm
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link active" href="#Reviews">
+                                    <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                        Bình luận & Đánh giá
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mb-4 px-lg-4">
+                        Plugin FB
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!-- Related products -->
+    <div class="mb-6">
+        <div class="d-flex justify-content-between align-items-center border-bottom border-color-1 flex-lg-nowrap flex-wrap mb-4">
+            <h3 class="section-title mb-0 pb-2 font-size-22">Sản phẩm liên quan</h3>
+        </div>
+        <ul class="row list-unstyled products-group no-gutters">
+            @foreach (var product in list_product_related)
+            {
+                <li class="col-6 col-md-3 col-xl-2gdot4-only col-wd-2 product-item">
+                    <div class="product-item__outer h-100 w-100">
+                        <div class="product-item__inner px-xl-4 p-3">
+                            <div class="product-item__body pb-xl-2">
+                                @{ var category_main_related = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
+                                <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5">@category_main_related.category_name</a></div>
+                                <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
+                                <div class="mb-2">
+                                    <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
+                                </div>
+                                <div class="flex-center-between mb-1">
+                                    <div class="prodcut-price d-flex align-items-center position-relative">
+                                        <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
+                                        @if (product.price > 0)
+                                        {
+                                            <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <!-- End Related products -->
+    <!-- Brand Carousel -->
+    <div class="mb-8">
+        <div class="py-2 border-top border-bottom">
+            <div class="js-slick-carousel u-slick my-1"
+                 data-slides-show="5"
+                 data-slides-scroll="1"
+                 data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                 data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                 data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                 data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img1.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img2.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img3.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img4.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img5.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img6.png" alt="Image Description">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Brand Carousel -->
+</div>

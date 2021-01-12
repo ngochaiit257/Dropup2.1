@@ -2,1125 +2,1125 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 26.5, 59.125" name="FreshMartDatabase">
   <DataContextMoniker Name="/FreshMartDatabaseDataContext" />
   <nestedChildShapes>
-    <classShape Id="82496bae-d52c-452b-991e-8359fcd4d9a0" absoluteBounds="3.5, 5.375, 2, 1.5785953776041666">
+    <classShape Id="91b579e9-2149-4dcc-96a3-6faeaf9b7e6b" absoluteBounds="3.5, 5.375, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/address" />
       <nestedChildShapes>
-        <elementListCompartment Id="9ce92df3-7fda-478f-aa7e-b8f66ad1f821" absoluteBounds="3.515, 5.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="51d9d98b-517b-4770-8be0-6878d72ad556" absoluteBounds="3.515, 5.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5fe49717-0e5e-4d59-87b3-3f6c10d7634f" absoluteBounds="3.5, 29.875, 2, 2.3478011067708309">
+    <classShape Id="eae01239-ba75-4ec4-8a45-ca504e99886f" absoluteBounds="3.5, 29.875, 2, 2.3478011067708309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/ward" />
       <nestedChildShapes>
-        <elementListCompartment Id="e7fefa01-71fe-4e2e-b374-6f085961f42d" absoluteBounds="3.515, 30.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="73d6a6ee-f505-45b6-957b-c8fd855cc0d4" absoluteBounds="3.515, 30.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8be59fe8-a41d-4720-9e75-1612569442df" absoluteBounds="6.75, 3.75, 2, 1.3862939453125005">
+    <classShape Id="61311380-3706-4f1f-b15c-55f3b6127e8b" absoluteBounds="6.75, 3.75, 2, 1.3862939453125005">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/AspNet_SqlCacheTablesForChangeNotification" />
       <nestedChildShapes>
-        <elementListCompartment Id="b1ec8564-d8e8-4b8a-8505-9da73ce9a243" absoluteBounds="6.765, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3f847b12-6283-4df7-8246-de90d482136d" absoluteBounds="6.765, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4e8ecf0c-ab95-4158-a6b3-b2502544ad12" absoluteBounds="12.25, 29.25, 2, 3.5016097005208309">
+    <classShape Id="9330a97d-cf5b-439d-8c8f-2fa6206f8258" absoluteBounds="12.25, 29.25, 2, 3.5016097005208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/blog" />
       <nestedChildShapes>
-        <elementListCompartment Id="5d0647c0-7057-45d7-94b2-443633efdcc1" absoluteBounds="12.265, 29.71, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="72716283-1819-46e7-abb5-9d7244479dbb" absoluteBounds="12.265, 29.71, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0a499358-33b0-45c6-9ad6-6c17f38efda7" absoluteBounds="9.5, 12.125, 2, 1.7708968098958344">
+    <classShape Id="e56f432c-7c0e-4a6d-9838-48e9444ca0fb" absoluteBounds="9.5, 12.125, 2, 1.7708968098958344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/blog_category" />
       <nestedChildShapes>
-        <elementListCompartment Id="3d3da94e-13f2-43e2-b6e7-9d44789cecd4" absoluteBounds="9.515, 12.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7e011263-1f58-4fe0-b792-07e884613b5a" absoluteBounds="9.515, 12.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dce2310f-b2ea-4aa8-8340-b2fe86471d3f" absoluteBounds="6.25, 31.5, 2, 1.1939925130208309">
+    <classShape Id="7e0b0ade-b9ca-42e1-bf24-3210f109a415" absoluteBounds="6.25, 31.5, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/cart_of_user" />
       <nestedChildShapes>
-        <elementListCompartment Id="5918308b-a0d1-475d-abf4-e3abb937a78c" absoluteBounds="6.265, 31.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3260f1ee-7d4a-4b1d-9597-aa6f7de010a4" absoluteBounds="6.265, 31.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="69593b1d-9a8d-4521-a392-e17c3fb3c123" absoluteBounds="9, 28.375, 2, 1.5785953776041666">
+    <classShape Id="f2bf8096-a137-4188-8550-ebb175c2c955" absoluteBounds="9, 28.375, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/cart_product_variation" />
       <nestedChildShapes>
-        <elementListCompartment Id="9ddc11f0-9644-45e3-96a8-64f49fa83389" absoluteBounds="9.015, 28.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="66426ca6-a10a-45c7-9291-df0a15ad8ff3" absoluteBounds="9.015, 28.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9139712e-9965-4d0d-a525-8b22428a739e" absoluteBounds="12.25, 39, 2, 3.8862125651041737">
+    <classShape Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" absoluteBounds="12.25, 39, 2, 3.8862125651041737">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/category" />
       <nestedChildShapes>
-        <elementListCompartment Id="c58ba4e6-107c-4483-8b10-a2aad7d13a55" absoluteBounds="12.265, 39.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="800bf523-478e-401b-a2c2-5c98514864bc" absoluteBounds="12.265, 39.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ea0e7dac-c340-483e-98d3-d9e732e06a41" absoluteBounds="15, 40.25, 2, 1.3862939453125023">
+    <classShape Id="8a5ae996-3339-4cd2-a969-e4ce852940ea" absoluteBounds="15, 40.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/category_product" />
       <nestedChildShapes>
-        <elementListCompartment Id="3f15dde9-e535-4b2e-b866-6983a1cd0a93" absoluteBounds="15.015, 40.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="975b3e03-a585-4820-b5b9-96109cb20558" absoluteBounds="15.015, 40.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="23953053-7c87-4790-8d9d-d819f21dff6b" absoluteBounds="11.75, 45.375, 2, 1.3862939453125023">
+    <classShape Id="0e2ffbd3-6c3b-46d7-9cc2-86768137fa46" absoluteBounds="11.75, 45.375, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/combo_product" />
       <nestedChildShapes>
-        <elementListCompartment Id="18f1093c-65cf-42e1-9f55-7f91a89515f6" absoluteBounds="11.765, 45.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3442b18f-2287-4bc0-8179-15b67153aeba" absoluteBounds="11.765, 45.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="eddda81d-e5f8-4315-ae76-3d00afb8d1ea" absoluteBounds="9, 20.75, 2, 2.7324039713541666">
+    <classShape Id="f6368b7a-5e1b-4a27-9dd5-7b29ac019d69" absoluteBounds="9, 20.75, 2, 2.7324039713541666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/comment_product" />
       <nestedChildShapes>
-        <elementListCompartment Id="4e9ea52c-28bd-4c4f-a444-39a132c8f01b" absoluteBounds="9.015, 21.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dfd67d17-49db-4f98-906c-72d9dbe24f9f" absoluteBounds="9.015, 21.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9baa589f-689c-457f-8e42-2d12c0246140" absoluteBounds="9.25, 41.125, 2, 1.1939925130208309">
+    <classShape Id="d4da95a2-3c27-4e28-9419-3596518128ca" absoluteBounds="9.25, 41.125, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/condition_for_coupon" />
       <nestedChildShapes>
-        <elementListCompartment Id="8fd48112-1d6a-40be-ab00-f73e565aec72" absoluteBounds="9.265, 41.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0f585d4f-eb84-48c7-984d-8a0e8501dbf3" absoluteBounds="9.265, 41.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="59fd463d-18e1-4f96-b486-3c61adc23749" absoluteBounds="0.75, 3.375, 2, 1.3862939453125005">
+    <classShape Id="76c2ad9e-c9c7-425b-8d60-0a4304e3c879" absoluteBounds="0.75, 3.375, 2, 1.3862939453125005">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/contact" />
       <nestedChildShapes>
-        <elementListCompartment Id="0f72ed0f-5d1c-4de1-a936-e78b9b857532" absoluteBounds="0.765, 3.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e672ec4b-777a-4b55-ad31-994f4c6f676d" absoluteBounds="0.765, 3.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e53d172c-4908-41a1-94c7-c4cf8895ed62" absoluteBounds="12.75, 18.5, 2, 1.9631982421875023">
+    <classShape Id="03e92f75-14bc-44e9-a1c1-cc2654cfe475" absoluteBounds="12.75, 18.5, 2, 1.9631982421875023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/cost_for_district_shipping" />
       <nestedChildShapes>
-        <elementListCompartment Id="0fe6048f-597a-4d93-9530-6059facf715e" absoluteBounds="12.765, 18.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c7e029be-0318-4018-adf3-cee62aac0496" absoluteBounds="12.765, 18.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a44c92df-7735-41c1-9dc2-56bdd1a6068a" absoluteBounds="7, 8.875, 2, 2.3478011067708344">
+    <classShape Id="a0bea7f4-7e61-4034-bcdc-8b2cf9376b0a" absoluteBounds="7, 8.875, 2, 2.3478011067708344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/cost_of_local_shipping" />
       <nestedChildShapes>
-        <elementListCompartment Id="7f2eb58d-c95d-4bde-b4f7-786ac1fd5697" absoluteBounds="7.015, 9.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="865191a6-8ed7-498e-9fc2-d9fb98aa4c20" absoluteBounds="7.015, 9.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="26a94970-3e19-47ed-8d8c-29df6f0d972d" absoluteBounds="1.75, 18.875, 2, 4.2708154296875023">
+    <classShape Id="cb37cb75-2c5b-419d-8143-5512492bde4f" absoluteBounds="1.75, 18.875, 2, 4.2708154296875023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/country" />
       <nestedChildShapes>
-        <elementListCompartment Id="41a7b701-14d7-4fda-88cb-5f61e93d5bc9" absoluteBounds="1.7650000000000001, 19.335, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="95d44919-1d1b-4f71-b8c7-58251dcabf33" absoluteBounds="1.7650000000000001, 19.335, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="69846c4b-26a7-4527-8f73-43e3abb5875b" absoluteBounds="12, 33.75, 2, 4.4631168619791737">
+    <classShape Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" absoluteBounds="12, 33.75, 2, 4.4631168619791737">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/coupon" />
       <nestedChildShapes>
-        <elementListCompartment Id="0d770f50-5ba4-4fb2-a33e-24a459001492" absoluteBounds="12.015, 34.21, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5e473d50-4112-4c03-88f0-ec32ece0994b" absoluteBounds="12.015, 34.21, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4d99cab4-5d07-4ee0-aae5-09f30582d645" absoluteBounds="18.5, 36, 2, 2.3478011067708309">
+    <classShape Id="72bb93a5-8820-4225-89fb-4a346b84af74" absoluteBounds="18.5, 36, 2, 2.3478011067708309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/custom_product_in_order" />
       <nestedChildShapes>
-        <elementListCompartment Id="64919799-fbe8-4420-bc2d-9fa13fd58b8d" absoluteBounds="18.515, 36.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="35cceee8-4211-4bb6-a15b-84378e47a762" absoluteBounds="18.515, 36.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ae8dbed0-b752-4148-9626-37c88ccffabb" absoluteBounds="6.25, 34, 2, 4.0785139973958309">
+    <classShape Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" absoluteBounds="6.25, 34, 2, 4.0785139973958309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/customer" />
       <nestedChildShapes>
-        <elementListCompartment Id="eb1e10cc-072a-4a57-bc2b-02d407341cbf" absoluteBounds="6.265, 34.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bbf0d7c2-16b9-4107-8c2f-e2728cc4d5d8" absoluteBounds="6.265, 34.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="66361b16-7eee-4288-83b8-47b8e4f61035" absoluteBounds="9, 31.375, 2, 3.1170068359375023">
+    <classShape Id="0bfdd352-9100-4700-a770-feee2b218195" absoluteBounds="9, 31.375, 2, 3.1170068359375023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/delivery_address" />
       <nestedChildShapes>
-        <elementListCompartment Id="a8064803-50d5-4817-a76c-f90da6a03b49" absoluteBounds="9.015, 31.835, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6d311b9d-59d3-47a5-8313-bfa3806ea790" absoluteBounds="9.015, 31.835, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="593d7fca-b191-4bb7-8e98-de95437cb9e1" absoluteBounds="9.25, 51.125, 2, 1.3862939453125023">
+    <classShape Id="0f794bd2-80eb-4634-b118-293d77101d14" absoluteBounds="9.25, 51.125, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/discount_type" />
       <nestedChildShapes>
-        <elementListCompartment Id="7ed9f528-d172-4291-be18-ccfe519b0132" absoluteBounds="9.265, 51.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dd03d209-ca90-438c-93e8-e2dece58de69" absoluteBounds="9.265, 51.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" absoluteBounds="0.75, 29.875, 2, 2.3478011067708309">
+    <classShape Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" absoluteBounds="0.75, 29.875, 2, 2.3478011067708309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/district" />
       <nestedChildShapes>
-        <elementListCompartment Id="baaff2d9-c774-426b-8a89-5e4209007e55" absoluteBounds="0.765, 30.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c22b0bf3-2e6d-433c-8b04-36018f1cd6c3" absoluteBounds="0.765, 30.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a64fef3e-136d-433d-9569-667813ccb6f2" absoluteBounds="11.75, 48.25, 2, 1.5785953776041595">
+    <classShape Id="2e5ed16c-8b21-4656-9a91-c6d120cda592" absoluteBounds="11.75, 48.25, 2, 1.5785953776041595">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/element_variation" />
       <nestedChildShapes>
-        <elementListCompartment Id="49281d5b-8ef4-439a-aea7-8a979d200b8c" absoluteBounds="11.765, 48.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="34e7acc1-9276-4fab-bf64-0dc64520dd40" absoluteBounds="11.765, 48.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="325e8344-49df-4650-b6d4-fc79b51cbba4" absoluteBounds="3.5, 1.125, 2, 1.3862939453125">
+    <classShape Id="ca69e60f-6edd-4cdf-8bac-1a233893090d" absoluteBounds="3.5, 1.125, 2, 1.3862939453125">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/email" />
       <nestedChildShapes>
-        <elementListCompartment Id="fa27d005-d2d4-42ce-8b92-0cfee8257a05" absoluteBounds="3.515, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="75042479-71ac-4947-884f-f67ebbf3b119" absoluteBounds="3.515, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="aaad442d-e783-4c6f-abd9-207a8490620d" absoluteBounds="0.75, 35.375, 2, 1.1939925130208309">
+    <classShape Id="c107e252-c832-4ba2-967a-e1bc5dbfc726" absoluteBounds="0.75, 35.375, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/gender" />
       <nestedChildShapes>
-        <elementListCompartment Id="b67cd64c-bb5a-478d-a31e-af6eb8da01b1" absoluteBounds="0.765, 35.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="56644566-cb85-4714-9a12-7d8fbb985f56" absoluteBounds="0.765, 35.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2d6cddf1-dce8-471f-9c32-4a4b8f8d18d8" absoluteBounds="6.5, 53.375, 2, 1.1939925130208309">
+    <classShape Id="72e05ec0-dea0-4050-8291-ae60823eebca" absoluteBounds="6.5, 53.375, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/group_action" />
       <nestedChildShapes>
-        <elementListCompartment Id="df2ef140-ad6a-43e2-aefa-9ab181e6353e" absoluteBounds="6.515, 53.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0ca2d391-bb24-4b9c-a827-890704bab95a" absoluteBounds="6.515, 53.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a7da65e1-b43e-4a49-aef7-8b3740890609" absoluteBounds="0.75, 7.75, 2, 1.5785953776041666">
+    <classShape Id="045a591b-4c45-42e7-ad02-c9884ad8c7b8" absoluteBounds="0.75, 7.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/image_more" />
       <nestedChildShapes>
-        <elementListCompartment Id="ddf22a55-2aed-4563-86f5-094e1c6748d6" absoluteBounds="0.765, 8.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="50b8cc88-088d-4700-ba5d-2f7decdfbf55" absoluteBounds="0.765, 8.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="86e09a31-6192-43e8-a6f0-04694800f5b8" absoluteBounds="4.25, 13.375, 2, 1.1939925130208344">
+    <classShape Id="108ef776-5a4a-4243-88f8-d1a9756f6bec" absoluteBounds="4.25, 13.375, 2, 1.1939925130208344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/local_shipping_service" />
       <nestedChildShapes>
-        <elementListCompartment Id="edb87b21-1159-464a-9e20-2db1817e76b2" absoluteBounds="4.265, 13.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7dd2e236-614e-454f-a31b-054932002029" absoluteBounds="4.265, 13.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="5d17aa09-733e-4a4e-8b50-512d3203f92c" absoluteBounds="6.75, 6.75, 2, 1.1939925130208344">
+    <classShape Id="56a88810-1f42-4d95-b15b-5ed1ef4fa0c6" absoluteBounds="6.75, 6.75, 2, 1.1939925130208344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/newsletter" />
       <nestedChildShapes>
-        <elementListCompartment Id="1341e6e2-b4b6-4ec4-a29d-616ba8ddba53" absoluteBounds="6.765, 7.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="09e577d0-4294-490e-b486-5db5eb63d6ca" absoluteBounds="6.765, 7.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e5d986fe-0193-43ef-99ad-e36cd176220f" absoluteBounds="9.25, 18.125, 2, 1.1939925130208309">
+    <classShape Id="2800c76e-5771-4a78-b7bb-cc5cfaaec209" absoluteBounds="9.25, 18.125, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/object_of_coupon" />
       <nestedChildShapes>
-        <elementListCompartment Id="a668f3cb-7331-4724-9bf7-51dc421dc80a" absoluteBounds="9.265, 18.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8af4f03b-af7c-4aa2-aa4f-c858b3217d8c" absoluteBounds="9.265, 18.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="983761d2-1371-4ebd-a3a3-c0bc91099636" absoluteBounds="15.75, 32.375, 2, 4.8477197265625023">
+    <classShape Id="42242dda-369d-4d27-8a42-2648d0d780f3" absoluteBounds="15.75, 32.375, 2, 4.8477197265625023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/order" />
       <nestedChildShapes>
-        <elementListCompartment Id="6b40edcd-a18e-4d74-89d3-cc5bca17f1e2" absoluteBounds="15.765, 32.835, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="453afc64-b908-4d16-bf7c-2e7be95b3b12" absoluteBounds="15.765, 32.835, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="13a4126a-e4da-4e8f-a87b-07867ff55cce" absoluteBounds="18.5, 33.5, 2, 1.7708968098958309">
+    <classShape Id="2982cffa-3b43-4842-967a-562e8aa1c2d2" absoluteBounds="18.5, 33.5, 2, 1.7708968098958309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/order_log" />
       <nestedChildShapes>
-        <elementListCompartment Id="e8190f31-b163-40ee-aa98-2033f2ae16dd" absoluteBounds="18.515, 33.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="14301438-17b7-46a3-832b-a743776d1952" absoluteBounds="18.515, 33.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="faf4dc9f-726f-40c5-844a-789c0756a6c8" absoluteBounds="18.5, 31.375, 2, 1.3862939453125023">
+    <classShape Id="eca44b31-c9be-4079-8d95-6c589eecd42b" absoluteBounds="18.5, 31.375, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/order_tag" />
       <nestedChildShapes>
-        <elementListCompartment Id="5b82b646-5fab-45c9-9656-f64f9215d6d1" absoluteBounds="18.515, 31.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6bc96e12-7431-4e04-84d9-111842520e55" absoluteBounds="18.515, 31.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="896cb7cf-19a6-415c-8808-10d3a74c5871" absoluteBounds="6.25, 47.375, 2, 4.2708154296875023">
+    <classShape Id="41be3425-77ee-448b-9871-9c7e95dae741" absoluteBounds="6.25, 47.375, 2, 4.2708154296875023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/page" />
       <nestedChildShapes>
-        <elementListCompartment Id="bdbac439-c4a1-4746-9b59-8b0065df8346" absoluteBounds="6.265, 47.835, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="67336e77-304a-49f1-9b20-8ddcc0a01468" absoluteBounds="6.265, 47.835, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4d7167d7-47ee-4225-a711-0f6106cf6a5e" absoluteBounds="21.25, 34.375, 2, 2.5401025390625023">
+    <classShape Id="6960e0db-0e67-4d11-bf49-aee454c4e488" absoluteBounds="21.25, 34.375, 2, 2.5401025390625023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/payment_information" />
       <nestedChildShapes>
-        <elementListCompartment Id="472b5067-6cca-48f9-97f7-c0da42272814" absoluteBounds="21.265, 34.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bb13a5d9-ae27-4a05-af5e-eff05f6d38fc" absoluteBounds="21.265, 34.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="94b7ac1d-c3b1-413a-b31d-0151481e26dc" absoluteBounds="13, 21.25, 2, 1.1939925130208309">
+    <classShape Id="376e2de7-dba0-42da-9c9e-f55027ebf3ca" absoluteBounds="13, 21.25, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/payment_method" />
       <nestedChildShapes>
-        <elementListCompartment Id="e2a6e6f8-6ded-4f1f-8942-c88018a36adb" absoluteBounds="13.015, 21.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b279a82a-d142-4815-b4f0-207e2da21eed" absoluteBounds="13.015, 21.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6e840500-91e9-490a-98b5-3a02792989c8" absoluteBounds="3.5, 3.25, 2, 1.3862939453125005">
+    <classShape Id="3cc94b4f-76f6-48ba-8bd3-2f78406d2c73" absoluteBounds="3.5, 3.25, 2, 1.3862939453125005">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/phone_number" />
       <nestedChildShapes>
-        <elementListCompartment Id="e45dbd91-7755-4ddc-bb14-22d9b84e702e" absoluteBounds="3.515, 3.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eaa416a6-8d82-408d-b8b8-c5560cf4ee6e" absoluteBounds="3.515, 3.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6c98ace5-7301-4b11-b5cb-061f97698e82" absoluteBounds="6.25, 23.25, 2, 7.5399397786458309">
+    <classShape Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" absoluteBounds="6.25, 23.25, 2, 7.5399397786458309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product" />
       <nestedChildShapes>
-        <elementListCompartment Id="33b775ef-5bc1-4fd6-bbac-b92eb9ac3721" absoluteBounds="6.265, 23.71, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4a15eb74-200f-471c-9cbe-c9cdc1f65ce0" absoluteBounds="6.265, 23.71, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="07736bc0-9a0b-42f7-971f-db024352d021" absoluteBounds="15.75, 30, 2, 1.3862939453125023">
+    <classShape Id="464c9f02-92d1-4d07-bc3e-c24950c63e30" absoluteBounds="15.75, 30, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_coupon" />
       <nestedChildShapes>
-        <elementListCompartment Id="f5c8d12f-c74c-4922-b3a9-1dec19aad5d5" absoluteBounds="15.765, 30.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="92e246ae-850c-4f25-9728-9ef270523d42" absoluteBounds="15.765, 30.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6715c96d-fe79-44c4-9c9f-1ea563a224e8" absoluteBounds="11.75, 57.25, 2, 1.5785953776041595">
+    <classShape Id="72969bcd-bc6b-40ac-b01e-97c2941dbb67" absoluteBounds="11.75, 57.25, 2, 1.5785953776041595">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_element" />
       <nestedChildShapes>
-        <elementListCompartment Id="6ff4c90a-2758-4b17-9bd4-46e6fb5b2779" absoluteBounds="11.765, 57.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d5b34240-a68d-41f8-92d6-cce91616d74b" absoluteBounds="11.765, 57.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4463e509-611a-4780-abd8-04a9839df6d4" absoluteBounds="9, 44.25, 2, 3.6939111328125023">
+    <classShape Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" absoluteBounds="9, 44.25, 2, 3.6939111328125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_variation" />
       <nestedChildShapes>
-        <elementListCompartment Id="feb986da-d167-410f-b968-b8f34d87dd0a" absoluteBounds="9.015, 44.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="663321eb-6892-4fea-aaff-20163aeb7b04" absoluteBounds="9.015, 44.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d5f4a72b-7601-42d2-be39-e1cf66fe7ca3" absoluteBounds="15.75, 38.125, 2, 1.3862939453125023">
+    <classShape Id="2e8ecfb3-9fc6-4bc3-a202-ffe531accc2b" absoluteBounds="15.75, 38.125, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_variation_coupon" />
       <nestedChildShapes>
-        <elementListCompartment Id="c0791b6b-0c15-408e-9fcb-dc910c539ae5" absoluteBounds="15.765, 38.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d290a12d-52ec-446e-bbc7-6e78b4f998df" absoluteBounds="15.765, 38.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6ae8c01c-980d-4223-bec0-7a5210ed392c" absoluteBounds="18.5, 39.25, 2, 3.8862125651041595">
+    <classShape Id="d4674985-0d96-4e88-b5db-7252208c8fae" absoluteBounds="18.5, 39.25, 2, 3.8862125651041595">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_variation_in_order" />
       <nestedChildShapes>
-        <elementListCompartment Id="5443389d-1c57-4b4f-a363-b6f5c21c5ec6" absoluteBounds="18.515, 39.71, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="47862cef-4d17-4749-ac76-2db7c8e52f9d" absoluteBounds="18.515, 39.71, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b887c011-b8a3-41d0-8a09-fb238bbbe620" absoluteBounds="9, 57.5, 2, 1.1939925130208309">
+    <classShape Id="928b56a7-5912-4e65-bf93-593c9d59f3d6" absoluteBounds="9, 57.5, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/product_variation_property" />
       <nestedChildShapes>
-        <elementListCompartment Id="4d1e1f48-9a90-4c2c-8e55-9983ca503785" absoluteBounds="9.015, 57.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="977303ad-97f0-4362-a416-e04886c99241" absoluteBounds="9.015, 57.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f683a371-e298-4502-831a-f1cf3350828c" absoluteBounds="9.25, 15, 2, 1.9631982421875005">
+    <classShape Id="ee564b70-3a1d-4386-9155-6faddb12d1be" absoluteBounds="9.25, 15, 2, 1.9631982421875005">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/promotion" />
       <nestedChildShapes>
-        <elementListCompartment Id="64f6d52c-42a2-4f50-8d08-f0fd25b19da4" absoluteBounds="9.265, 15.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9e82526f-570e-43df-990e-5249581e8fd7" absoluteBounds="9.265, 15.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="407c32ff-5ad2-4629-9b94-b326d5e0766f" absoluteBounds="12, 26.25, 2, 1.3862939453125023">
+    <classShape Id="0038e2e3-31a3-411e-aa4a-b76c9c344dfc" absoluteBounds="12, 26.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/promotion_product" />
       <nestedChildShapes>
-        <elementListCompartment Id="a62acd9d-569b-417a-8f78-7ef22f98145c" absoluteBounds="12.015, 26.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8b3108e3-ba91-446c-8648-f812ee5f66fa" absoluteBounds="12.015, 26.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="cef631f4-c127-4e88-b530-7e41d83d9d31" absoluteBounds="1.5, 24.625, 2, 2.7324039713541666">
+    <classShape Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" absoluteBounds="1.5, 24.625, 2, 2.7324039713541666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/province" />
       <nestedChildShapes>
-        <elementListCompartment Id="691c6d10-8538-44c0-b5a9-1edf4d98f4c6" absoluteBounds="1.5150000000000001, 25.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="329a0edb-43a8-4e05-9f3d-41aacc75ee56" absoluteBounds="1.5150000000000001, 25.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d739a997-3b1a-44c5-9336-4e1df9c9e31f" absoluteBounds="0.75, 33.375, 2, 1.1939925130208309">
+    <classShape Id="360f8a97-7ca6-4022-83d5-c336ff2c30c0" absoluteBounds="0.75, 33.375, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/role" />
       <nestedChildShapes>
-        <elementListCompartment Id="d9dffcb8-fe9e-4aa1-9543-ef15a7043948" absoluteBounds="0.765, 33.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="35328252-0db6-4282-a823-0e118ba648cd" absoluteBounds="0.765, 33.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9bb5b5bd-fd40-4053-8b91-3604ede9c2ed" absoluteBounds="18.75, 28.5, 2, 1.1939925130208309">
+    <classShape Id="80c092fd-dbd8-4f57-b074-4137e772be5b" absoluteBounds="18.75, 28.5, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/shipping_status" />
       <nestedChildShapes>
-        <elementListCompartment Id="3c400720-09e9-4bee-a82a-16e0028f9d15" absoluteBounds="18.765, 28.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5a83d6b8-7cc9-4fe4-a59e-025d50f1e579" absoluteBounds="18.765, 28.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="604a94e7-46cf-4ada-acda-98a71b16e5ce" absoluteBounds="4.25, 9.375, 2, 1.1939925130208344">
+    <classShape Id="d7f5d9bd-b8bd-422b-b70b-9e19ff23dc2a" absoluteBounds="4.25, 9.375, 2, 1.1939925130208344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/standard_for_shipping" />
       <nestedChildShapes>
-        <elementListCompartment Id="6336686e-b4da-44e8-af6d-87b1e0591303" absoluteBounds="4.265, 9.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="67fcb9f3-0af0-4e8b-a7e0-ae0db93c64a3" absoluteBounds="4.265, 9.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="07eec8a3-24c5-467d-a529-28aac543843c" absoluteBounds="9.75, 3.75, 2, 2.1554996744791666">
+    <classShape Id="106f6535-3292-4e1f-b2e4-26eea307d009" absoluteBounds="9.75, 3.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_banner" />
       <nestedChildShapes>
-        <elementListCompartment Id="7acea436-848d-4722-a4dc-ac4e0686d738" absoluteBounds="9.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b896a540-18fc-4283-b325-2b1019291bc1" absoluteBounds="9.765, 4.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7cf27a89-4c45-4ea9-a888-db702b339ec4" absoluteBounds="9.75, 6.75, 2, 3.5016097005208318">
+    <classShape Id="c8f88b55-42fd-4388-ba6e-aa5baeea7493" absoluteBounds="9.75, 6.75, 2, 3.5016097005208318">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_branch" />
       <nestedChildShapes>
-        <elementListCompartment Id="0f6a3bdc-7875-4229-930a-e56970e6d000" absoluteBounds="9.765, 7.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8b52e67f-c55b-4a60-8890-ad0278ceaa8a" absoluteBounds="9.765, 7.21, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d2790ff5-d8a9-4a77-8710-a252a3ddf28b" absoluteBounds="0.75, 10.75, 2, 2.1554996744791666">
+    <classShape Id="7d8f051a-1f24-4035-9ad7-3d213e615ff2" absoluteBounds="0.75, 10.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_contact" />
       <nestedChildShapes>
-        <elementListCompartment Id="36fc10ea-9585-478e-a3fe-424ec3be6897" absoluteBounds="0.765, 11.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a8a88c2b-5867-4242-9b5f-fc0a82ad1eb2" absoluteBounds="0.765, 11.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f008f639-9b76-4d9b-9a0f-0b57159fbbe6" absoluteBounds="12.75, 0.75, 2, 1.9631982421875003">
+    <classShape Id="2bffae40-9e5c-48bf-b0fe-ccd2817d19d0" absoluteBounds="12.75, 0.75, 2, 1.9631982421875003">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_customer_say" />
       <nestedChildShapes>
-        <elementListCompartment Id="7ec947f2-031f-4406-bb11-c08b8e023d3f" absoluteBounds="12.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cfc5105c-2368-45ee-98bd-a9e20b52d1ee" absoluteBounds="12.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ff69c038-359c-470c-93b4-4a966fe99539" absoluteBounds="9.5, 0.875, 2, 1.5785953776041666">
+    <classShape Id="ddcbdd60-8000-41ce-8e57-7b5c728b1c70" absoluteBounds="9.5, 0.875, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_logo" />
       <nestedChildShapes>
-        <elementListCompartment Id="f93d9da9-421b-4a9f-8c05-80184585fbe8" absoluteBounds="9.515, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bf374392-829d-4034-a192-6a1bac0443cd" absoluteBounds="9.515, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2119271a-6dfc-470d-80d8-af04a214d60b" absoluteBounds="12.75, 3.75, 2, 2.7324039713541666">
+    <classShape Id="fffd35c3-863c-4191-abf7-bfd4bfcd6203" absoluteBounds="12.75, 3.75, 2, 2.7324039713541666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_membership" />
       <nestedChildShapes>
-        <elementListCompartment Id="aaba6651-8230-495e-901b-8709d4227714" absoluteBounds="12.765, 4.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d8bc3fc4-096c-4baa-8dd2-deb4d0d5283a" absoluteBounds="12.765, 4.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="61d4dc0a-4426-4b31-9ebf-5df1f032cfbf" absoluteBounds="12.75, 7.75, 2, 2.3478011067708344">
+    <classShape Id="ae27d68e-4300-451c-897a-b537d259181c" absoluteBounds="12.75, 7.75, 2, 2.3478011067708344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_message" />
       <nestedChildShapes>
-        <elementListCompartment Id="7c015a27-2616-4f09-8da7-aa873e5c8210" absoluteBounds="12.765, 8.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="35cec47c-3a29-4642-a8f8-e7281d00508a" absoluteBounds="12.765, 8.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b358e7ca-0988-422d-8e54-c52a1cbe9b29" absoluteBounds="12.75, 11.75, 2, 1.7708968098958344">
+    <classShape Id="44c1e32f-b95c-429b-9625-63228a1c1198" absoluteBounds="12.75, 11.75, 2, 1.7708968098958344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_partner" />
       <nestedChildShapes>
-        <elementListCompartment Id="31f285da-ad8f-4395-92c1-f63e58d766ed" absoluteBounds="12.765, 12.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f3cc3d91-52bc-40a3-844d-164f15482813" absoluteBounds="12.765, 12.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d9b545cc-2d57-431f-aeb6-a2ea120db310" absoluteBounds="11.75, 14.75, 2, 2.3478011067708344">
+    <classShape Id="926c7cd5-92d9-42fa-a775-290e60c7d067" absoluteBounds="11.75, 14.75, 2, 2.3478011067708344">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_slide" />
       <nestedChildShapes>
-        <elementListCompartment Id="3bf977fb-517f-4fc9-8089-f883cd76fe93" absoluteBounds="11.765, 15.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f420f651-35dc-4b45-8f86-8d65f40f0bdb" absoluteBounds="11.765, 15.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="cab43a1b-3718-4f7d-abec-8252c159aece" absoluteBounds="6.75, 1.125, 2, 1.1939925130208335">
+    <classShape Id="d7d8e51c-d880-46f0-9bd3-41240f08e14d" absoluteBounds="6.75, 1.125, 2, 1.1939925130208335">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/store_type_logo" />
       <nestedChildShapes>
-        <elementListCompartment Id="43e4583a-f603-4848-b58a-63a2981b5ce9" absoluteBounds="6.765, 1.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bab84f98-a4c3-453f-a7d4-d4c63f8a76d9" absoluteBounds="6.765, 1.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d56eb565-8638-4b98-afc1-0c5c650058e6" absoluteBounds="9, 24.5, 2, 1.3862939453125023">
+    <classShape Id="039feecf-3042-40fe-aa99-4ca5c4539a58" absoluteBounds="9, 24.5, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/super_sale" />
       <nestedChildShapes>
-        <elementListCompartment Id="cbefc6ab-7610-4141-982a-9caa84a5e096" absoluteBounds="9.015, 24.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="aa999d93-4190-4637-8512-179482d9d9a8" absoluteBounds="9.015, 24.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="853e4cb7-8247-4b5a-9bd4-7c8b59d287a2" absoluteBounds="3.5, 38.875, 2, 2.1554996744791595">
+    <classShape Id="28811020-f7bd-4652-91ac-3c2466478a07" absoluteBounds="3.5, 38.875, 2, 2.1554996744791595">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/supplier" />
       <nestedChildShapes>
-        <elementListCompartment Id="83188c67-b430-4470-9466-8627a460362a" absoluteBounds="3.515, 39.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7f5ef6e4-d920-47cf-b9f0-2f2a38eb8849" absoluteBounds="3.515, 39.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="672cac38-92b0-47e7-8d55-9072db459b4b" absoluteBounds="14.75, 14.75, 2, 2.1554996744791666">
+    <classShape Id="08fe2744-2fd4-4300-a0d7-3176eaf5acc4" absoluteBounds="14.75, 14.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/support_online" />
       <nestedChildShapes>
-        <elementListCompartment Id="351e9763-662e-4748-b7c6-ffa436a14325" absoluteBounds="14.765, 15.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="163e6104-f4ec-4859-bab5-f6adf81dd000" absoluteBounds="14.765, 15.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e8b52540-7e3d-4b87-b1da-7593ee4a4ebb" absoluteBounds="6.25, 38.75, 2, 1.9631982421875023">
+    <classShape Id="f619aa08-cfdf-4c24-bba8-657cf4e22a5e" absoluteBounds="6.25, 38.75, 2, 1.9631982421875023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/system_log" />
       <nestedChildShapes>
-        <elementListCompartment Id="9e0d187d-110d-45be-b854-4eec708504c3" absoluteBounds="6.265, 39.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="06032792-ee78-4b3a-9030-02fcaa2328ca" absoluteBounds="6.265, 39.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="03ad83f6-6174-4b22-956e-f6b43510b1c8" absoluteBounds="15.75, 0.75, 2, 1.5785953776041666">
+    <classShape Id="a7238ba7-2ee4-42e0-bc0c-c2d2af1a635f" absoluteBounds="15.75, 0.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/system_notification" />
       <nestedChildShapes>
-        <elementListCompartment Id="8c8abb0c-b85c-4883-8b5a-9ac7fe9a095a" absoluteBounds="15.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eee78775-74da-4ae5-b22a-cc03659289b1" absoluteBounds="15.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="272de005-d72e-42c9-8848-ab77b428763e" absoluteBounds="6.25, 42.375, 2, 1.1939925130208309">
+    <classShape Id="fd71fb97-a57a-46e2-b925-d09a379ad614" absoluteBounds="6.25, 42.375, 2, 1.1939925130208309">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/tag" />
       <nestedChildShapes>
-        <elementListCompartment Id="d16ce0c8-8717-45f0-aa8e-e5aa5b5b0d23" absoluteBounds="6.265, 42.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7559c7b7-f292-4e52-9919-9f19ca01f1e2" absoluteBounds="6.265, 42.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8b396a9a-5cc4-4bb7-be8d-73c4f96d01f1" absoluteBounds="15, 27.25, 2, 1.3862939453125023">
+    <classShape Id="ab299792-3f73-4fc8-ba91-972bdd8a8ce1" absoluteBounds="15, 27.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/tag_blog" />
       <nestedChildShapes>
-        <elementListCompartment Id="5280a6b9-2ae0-4ab7-add8-9cdef47d807b" absoluteBounds="15.015, 27.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="92f6115a-54f3-432f-8d86-610964f52301" absoluteBounds="15.015, 27.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c473f2c3-7f01-4d21-bee9-098ea373fd8e" absoluteBounds="15, 43.25, 2, 1.3862939453125023">
+    <classShape Id="d0330178-6437-4ca6-af07-ce9de707872a" absoluteBounds="15, 43.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/tag_category" />
       <nestedChildShapes>
-        <elementListCompartment Id="5dcc15ad-e18a-4c89-a437-be3166f0ca41" absoluteBounds="15.015, 43.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b300e0ba-e1f0-48ac-b3d9-89499e192062" absoluteBounds="15.015, 43.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9e8e3aa5-5aa6-4812-b02f-42d74d8c3257" absoluteBounds="9, 35.25, 2, 1.3862939453125023">
+    <classShape Id="a63c78a0-f598-4836-bd95-6f3a77cc7dc4" absoluteBounds="9, 35.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/tag_customer" />
       <nestedChildShapes>
-        <elementListCompartment Id="78e723bb-57b9-470e-9d3c-ef47e7b2f8af" absoluteBounds="9.015, 35.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6c2efbd6-701f-407f-bdc2-876a6b635c3d" absoluteBounds="9.015, 35.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="fb72299d-aeb4-4c1e-a289-d5305a266440" absoluteBounds="12, 23.25, 2, 1.3862939453125023">
+    <classShape Id="d3757c0f-b4d1-45b4-b479-623aac8e061d" absoluteBounds="12, 23.25, 2, 1.3862939453125023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/tag_product" />
       <nestedChildShapes>
-        <elementListCompartment Id="e9b8a108-5acf-4357-8710-cf23d1e1f6b1" absoluteBounds="12.015, 23.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0475d094-72ce-45b7-9a68-dcecc21a8476" absoluteBounds="12.015, 23.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" absoluteBounds="21.5, 28.75, 2, 4.8477197265625023">
+    <classShape Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" absoluteBounds="21.5, 28.75, 2, 4.8477197265625023">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/transport" />
       <nestedChildShapes>
-        <elementListCompartment Id="e8df31c1-2647-42a8-91dd-6bfbf2f2f629" absoluteBounds="21.515, 29.21, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="576aae87-51dc-4bb7-8e6d-1a9155d11dde" absoluteBounds="21.515, 29.21, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="24688ccf-ba7a-4dc0-8733-efdbba8df3a8" absoluteBounds="24.25, 30.375, 2, 1.5785953776041666">
+    <classShape Id="cd21dd44-06eb-495f-bfb4-bbc04b7c1146" absoluteBounds="24.25, 30.375, 2, 1.5785953776041666">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/transport_log" />
       <nestedChildShapes>
-        <elementListCompartment Id="7488e4b7-9870-4369-b5a5-2ba9d5a99ad8" absoluteBounds="24.265, 30.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f3e3997b-24c9-41be-b608-22f7908a1dbd" absoluteBounds="24.265, 30.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ef8cab7b-e449-4ceb-a1f7-28d6fc017b9e" absoluteBounds="9.5, 54.25, 2, 1.5785953776041595">
+    <classShape Id="10e0154f-ad53-4af4-adc4-a1da2d8ea4b4" absoluteBounds="9.5, 54.25, 2, 1.5785953776041595">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/type_of_category" />
       <nestedChildShapes>
-        <elementListCompartment Id="aafacbe3-a5e4-4fb9-bb99-403f652fa992" absoluteBounds="9.515, 54.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d79d5613-1d8c-483e-9a57-6f8d2b60a10d" absoluteBounds="9.515, 54.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ec932002-dcae-4c07-9692-83ba12519015" absoluteBounds="3.5, 15.875, 2, 1.1939925130208327">
+    <classShape Id="cc5567b5-b11a-4f5a-ada3-ca08a364a951" absoluteBounds="3.5, 15.875, 2, 1.1939925130208327">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/unit" />
       <nestedChildShapes>
-        <elementListCompartment Id="553d95a9-c6f9-4480-ae84-4f7669f66ebc" absoluteBounds="3.515, 16.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c54e2842-67c9-4f36-adeb-8115179a60e4" absoluteBounds="3.515, 16.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" absoluteBounds="3.5, 34, 2, 3.8862125651041737">
+    <classShape Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" absoluteBounds="3.5, 34, 2, 3.8862125651041737">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/user" />
       <nestedChildShapes>
-        <elementListCompartment Id="20819644-3d7e-4a95-a3cc-705845abcd3b" absoluteBounds="3.515, 34.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="874f15b3-db5e-4519-86b9-e0ff42b7cd56" absoluteBounds="3.515, 34.46, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1bcb402c-1313-4193-b05b-73f789d33f60" absoluteBounds="9.25, 38.25, 2, 1.5785953776041737">
+    <classShape Id="2337e8f9-6ed8-45d9-bfff-306e95812ec7" absoluteBounds="9.25, 38.25, 2, 1.5785953776041737">
       <DataClassMoniker Name="/FreshMartDatabaseDataContext/user_group_action" />
       <nestedChildShapes>
-        <elementListCompartment Id="1c2a4b2b-43a7-4628-a85d-742eb370de30" absoluteBounds="9.265, 38.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0204cce5-acc2-44ac-ba5b-816487ee2a99" absoluteBounds="9.265, 38.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(11.40625 : 13.8958968098958); (11.40625 : 30.6642976888021); (11.4791666666667 : 30.6642976888021 : JumpStart); (11.6458333333333 : 30.6642976888021 : JumpEnd); (12.25 : 30.6642976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/blog_category/blog_category_blog" />
       <nodes>
-        <classShapeMoniker Id="0a499358-33b0-45c6-9ad6-6c17f38efda7" />
-        <classShapeMoniker Id="4e8ecf0c-ab95-4158-a6b3-b2502544ad12" />
+        <classShapeMoniker Id="e56f432c-7c0e-4a6d-9838-48e9444ca0fb" />
+        <classShapeMoniker Id="9330a97d-cf5b-439d-8c8f-2fa6206f8258" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 31.5); (8.625 : 31.125); (8.625 : 29.1642976888021); (8.82291666666667 : 29.1642976888021 : JumpStart); (8.98958333333333 : 29.1642976888021 : JumpEnd); (9 : 29.1642976888021)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/cart_of_user/cart_of_user_cart_product_variation" />
       <nodes>
-        <classShapeMoniker Id="dce2310f-b2ea-4aa8-8340-b2fe86471d3f" />
-        <classShapeMoniker Id="69593b1d-9a8d-4521-a392-e17c3fb3c123" />
+        <classShapeMoniker Id="7e0b0ade-b9ca-42e1-bf24-3210f109a415" />
+        <classShapeMoniker Id="f2bf8096-a137-4188-8550-ebb175c2c955" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(12.9592307692308 : 42.8862125651042); (12.9592307692308 : 43.1362125651042); (13.5546153846154 : 43.1362125651042); (13.5546153846154 : 42.8862125651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/category/category_category" />
       <nodes>
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14.25 : 40.9431469726563); (15 : 40.9431469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/category/category_category_product" />
       <nodes>
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
-        <classShapeMoniker Id="ea0e7dac-c340-483e-98d3-d9e732e06a41" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
+        <classShapeMoniker Id="8a5ae996-3339-4cd2-a969-e4ce852940ea" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(9.70923076923077 : 23.4824039713542); (9.70923076923077 : 23.7324039713542); (10.3046153846154 : 23.7324039713542); (10.3046153846154 : 23.4824039713542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/comment_product/comment_product_comment_product" />
       <nodes>
-        <classShapeMoniker Id="eddda81d-e5f8-4315-ae76-3d00afb8d1ea" />
-        <classShapeMoniker Id="eddda81d-e5f8-4315-ae76-3d00afb8d1ea" />
+        <classShapeMoniker Id="f6368b7a-5e1b-4a27-9dd5-7b29ac019d69" />
+        <classShapeMoniker Id="f6368b7a-5e1b-4a27-9dd5-7b29ac019d69" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 4.7612939453125); (1.75 : 6.16429768880208); (3.5 : 6.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/contact/contact_address" />
       <nodes>
-        <classShapeMoniker Id="59fd463d-18e1-4f96-b486-3c61adc23749" />
-        <classShapeMoniker Id="82496bae-d52c-452b-991e-8359fcd4d9a0" />
+        <classShapeMoniker Id="76c2ad9e-c9c7-425b-8d60-0a4304e3c879" />
+        <classShapeMoniker Id="91b579e9-2149-4dcc-96a3-6faeaf9b7e6b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8 : 11.2228011067708); (8 : 19.9223453776042); (11.0729166666667 : 19.9223453776042 : JumpStart); (11.2395833333333 : 19.9223453776042 : JumpEnd); (11.3229166666667 : 19.9223453776042 : JumpStart); (11.6458333333333 : 19.9223453776042 : JumpEnd); (11.6666666666667 : 19.9223453776042 : JumpStart); (11.8333333333333 : 19.9223453776042 : JumpEnd); (12.75 : 19.9223453776042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/cost_of_local_shipping/cost_of_local_shipping_cost_for_district_shipping" />
       <nodes>
-        <classShapeMoniker Id="a44c92df-7735-41c1-9dc2-56bdd1a6068a" />
-        <classShapeMoniker Id="e53d172c-4908-41a1-94c7-c4cf8895ed62" />
+        <classShapeMoniker Id="a0bea7f4-7e61-4034-bcdc-8b2cf9376b0a" />
+        <classShapeMoniker Id="03e92f75-14bc-44e9-a1c1-cc2654cfe475" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(13.125 : 39); (13.125 : 38.2131168619792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/category/category_coupon" />
       <nodes>
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11.25 : 41.125); (11.3473244349011 : 41.0276755650989 : JumpStart); (11.6214255650989 : 40.7535744349011 : JumpEnd); (11.625 : 40.75); (11.625 : 35.9815584309896); (12 : 35.9815584309896)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/condition_for_coupon/condition_for_coupon_coupon" />
       <nodes>
-        <classShapeMoniker Id="9baa589f-689c-457f-8e42-2d12c0246140" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="d4da95a2-3c27-4e28-9419-3596518128ca" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 37.3886539713542); (8.29166666666667 : 37.3886539713542 : JumpStart); (8.58333333333333 : 37.3886539713542 : JumpEnd); (8.60416666666667 : 37.3886539713542 : JumpStart); (9.02083333333333 : 37.3886539713542 : JumpEnd); (9.04142728205128 : 37.3886539713542 : JumpStart); (9.20809394871795 : 37.3886539713542 : JumpEnd); (11.0729166666667 : 37.3886539713542 : JumpStart); (11.2395833333333 : 37.3886539713542 : JumpEnd); (11.2916666666667 : 37.3886539713542 : JumpStart); (11.9583333333333 : 37.3886539713542 : JumpEnd); (12 : 37.3886539713542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/customer/customer_coupon" />
       <nodes>
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 32.2212616452324); (5.56607443490112 : 32.2873360801335 : JumpStart); (5.68392556509888 : 32.4051872103313 : JumpEnd); (5.875 : 32.5962616452324); (5.875 : 36.0392569986979); (5.97916666666667 : 36.0392569986979 : JumpStart); (6.14583333333333 : 36.0392569986979 : JumpEnd); (6.25 : 36.0392569986979)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/ward/ward_customer" />
       <nodes>
-        <classShapeMoniker Id="5fe49717-0e5e-4d59-87b3-3f6c10d7634f" />
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
+        <classShapeMoniker Id="eae01239-ba75-4ec4-8a45-ca504e99886f" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 34.2460034179688); (8.29166666666667 : 34.2460034179688 : JumpStart); (8.98958333333333 : 34.2460034179688 : JumpEnd); (9 : 34.2460034179688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/customer/customer_delivery_address" />
       <nodes>
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
-        <classShapeMoniker Id="66361b16-7eee-4288-83b8-47b8e4f61035" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
+        <classShapeMoniker Id="0bfdd352-9100-4700-a770-feee2b218195" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 31.40625); (5.54166666666667 : 31.40625 : JumpStart); (5.83333333333333 : 31.40625 : JumpEnd); (5.88541666666667 : 31.40625 : JumpStart); (6.14583333333333 : 31.40625 : JumpEnd); (8.26041666666667 : 31.40625 : JumpStart); (8.42708333333333 : 31.40625 : JumpEnd); (8.60416666666667 : 31.40625 : JumpStart); (8.77083333333333 : 31.40625 : JumpEnd); (8.82291666666667 : 31.40625 : JumpStart); (8.98958333333333 : 31.40625 : JumpEnd); (9 : 31.40625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/ward/ward_delivery_address" />
       <nodes>
-        <classShapeMoniker Id="5fe49717-0e5e-4d59-87b3-3f6c10d7634f" />
-        <classShapeMoniker Id="66361b16-7eee-4288-83b8-47b8e4f61035" />
+        <classShapeMoniker Id="eae01239-ba75-4ec4-8a45-ca504e99886f" />
+        <classShapeMoniker Id="0bfdd352-9100-4700-a770-feee2b218195" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(10.25 : 51.125); (10.25 : 48.1939111328125); (11.3229166666667 : 48.1939111328125 : JumpStart); (11.4895833333333 : 48.1939111328125 : JumpEnd); (11.5 : 48.1939111328125); (11.5 : 34.8345272154948); (11.7291666666667 : 34.8345272154948 : JumpStart); (11.9583333333333 : 34.8345272154948 : JumpEnd); (12 : 34.8345272154948)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/discount_type/discount_type_coupon" />
       <nodes>
-        <classShapeMoniker Id="593d7fca-b191-4bb7-8e98-de95437cb9e1" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="0f794bd2-80eb-4634-b118-293d77101d14" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 31.0489005533854); (2.88541666666667 : 31.0489005533854 : JumpStart); (3.05208333333333 : 31.0489005533854 : JumpEnd); (3.08853916666667 : 31.0489005533854 : JumpStart); (3.47396083333333 : 31.0489005533854 : JumpEnd); (3.5 : 31.0489005533854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/district/district_ward" />
       <nodes>
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
-        <classShapeMoniker Id="5fe49717-0e5e-4d59-87b3-3f6c10d7634f" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
+        <classShapeMoniker Id="eae01239-ba75-4ec4-8a45-ca504e99886f" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 29.875); (1.75 : 27.6074039713542); (2.22916666666667 : 27.6074039713542 : JumpStart); (2.39583333333333 : 27.6074039713542 : JumpEnd); (2.88541666666667 : 27.6074039713542 : JumpStart); (3.05208333333333 : 27.6074039713542 : JumpEnd); (3.08853916666667 : 27.6074039713542 : JumpStart); (3.47396083333333 : 27.6074039713542 : JumpEnd); (4 : 27.6074039713542); (4 : 19.6206664453125); (6.63541416666667 : 19.6206664453125 : JumpStart); (6.80208083333333 : 19.6206664453125 : JumpEnd); (7.91666666666667 : 19.6206664453125 : JumpStart); (8.08333333333333 : 19.6206664453125 : JumpEnd); (11.0729166666667 : 19.6206664453125 : JumpStart); (11.2395833333333 : 19.6206664453125 : JumpEnd); (11.3229166666667 : 19.6206664453125 : JumpStart); (11.6458333333333 : 19.6206664453125 : JumpEnd); (11.6666666666667 : 19.6206664453125 : JumpStart); (11.8333333333333 : 19.6206664453125 : JumpEnd); (12.75 : 19.6206664453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/district/district_cost_for_district_shipping" />
       <nodes>
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
-        <classShapeMoniker Id="e53d172c-4908-41a1-94c7-c4cf8895ed62" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
+        <classShapeMoniker Id="03e92f75-14bc-44e9-a1c1-cc2654cfe475" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 32.1258770298478); (2.90982443490112 : 32.2857014647489 : JumpStart); (3.02767556509888 : 32.4035525949466 : JumpEnd); (3.11294693490112 : 32.4888239647489 : JumpStart); (3.44955306509888 : 32.8254300949466 : JumpEnd); (3.5625 : 32.9383770298478); (3.5625 : 33.625); (4.15104066666667 : 33.625 : JumpStart); (4.31770733333333 : 33.625 : JumpEnd); (4.41666666666667 : 33.625 : JumpStart); (4.58333333333333 : 33.625 : JumpEnd); (4.68229266666667 : 33.625 : JumpStart); (4.84895933333333 : 33.625 : JumpEnd); (4.94791866666667 : 33.625 : JumpStart); (5.11458533333333 : 33.625 : JumpEnd); (5.2043093974359 : 33.625 : JumpStart); (5.37097606410256 : 33.625 : JumpEnd); (5.875 : 33.625); (6.00357443490112 : 33.7535744349011 : JumpStart); (6.12142556509888 : 33.8714255650989 : JumpEnd); (6.25 : 34)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/district/district_customer" />
       <nodes>
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 32.2228011067708); (1.75 : 32.9335034179688); (2.88541666666667 : 32.9335034179688 : JumpStart); (3.47396083333333 : 32.9335034179688 : JumpEnd); (4.15104066666667 : 32.9335034179688 : JumpStart); (4.31770733333333 : 32.9335034179688 : JumpEnd); (4.68229266666667 : 32.9335034179688 : JumpStart); (4.84895933333333 : 32.9335034179688 : JumpEnd); (5.2043093974359 : 32.9335034179688 : JumpStart); (5.37097606410256 : 32.9335034179688 : JumpEnd); (5.79166666666667 : 32.9335034179688 : JumpStart); (6.27083333333333 : 32.9335034179688 : JumpEnd); (8.60416666666667 : 32.9335034179688 : JumpStart); (8.98958333333333 : 32.9335034179688 : JumpEnd); (9 : 32.9335034179688)]" fixedFrom="Algorithm" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/district/district_delivery_address" />
       <nodes>
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
-        <classShapeMoniker Id="66361b16-7eee-4288-83b8-47b8e4f61035" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
+        <classShapeMoniker Id="0bfdd352-9100-4700-a770-feee2b218195" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 3.375); (1.75 : 1.81814697265625); (3.5 : 1.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/contact/contact_email" />
       <nodes>
-        <classShapeMoniker Id="59fd463d-18e1-4f96-b486-3c61adc23749" />
-        <classShapeMoniker Id="325e8344-49df-4650-b6d4-fc79b51cbba4" />
+        <classShapeMoniker Id="76c2ad9e-c9c7-425b-8d60-0a4304e3c879" />
+        <classShapeMoniker Id="ca69e60f-6edd-4cdf-8bac-1a233893090d" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.75 : 36.5689925130208); (1.75 : 38.01361328125); (3.19791666666667 : 38.01361328125 : JumpStart); (3.36458333333333 : 38.01361328125 : JumpEnd); (4.36079928205128 : 38.01361328125 : JumpStart); (4.52746594871795 : 38.01361328125 : JumpEnd); (5.49483661358173 : 38.01361328125 : JumpStart); (5.83333333333333 : 38.01361328125 : JumpEnd); (5.97916666666667 : 38.01361328125 : JumpStart); (6.14583333333333 : 38.01361328125 : JumpEnd); (6.25 : 38.01361328125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/gender/gender_customer" />
       <nodes>
-        <classShapeMoniker Id="aaad442d-e783-4c6f-abd9-207a8490620d" />
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
+        <classShapeMoniker Id="c107e252-c832-4ba2-967a-e1bc5dbfc726" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(6.25 : 13.9719962565104); (7.4687475 : 13.9719962565104); (7.4687475 : 11.2228011067708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/local_shipping_service/local_shipping_service_cost_of_local_shipping" />
       <nodes>
-        <classShapeMoniker Id="86e09a31-6192-43e8-a6f0-04694800f5b8" />
-        <classShapeMoniker Id="a44c92df-7735-41c1-9dc2-56bdd1a6068a" />
+        <classShapeMoniker Id="108ef776-5a4a-4243-88f8-d1a9756f6bec" />
+        <classShapeMoniker Id="a0bea7f4-7e61-4034-bcdc-8b2cf9376b0a" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11.15625 : 19.3189925130208); (11.15625 : 37.8321379166667); (11.2916666666667 : 37.8321379166667 : JumpStart); (11.9583333333333 : 37.8321379166667 : JumpEnd); (12 : 37.8321379166667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/object_of_coupon/object_of_coupon_coupon" />
       <nodes>
-        <classShapeMoniker Id="e5d986fe-0193-43ef-99ad-e36cd176220f" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="2800c76e-5771-4a78-b7bb-cc5cfaaec209" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(17.75 : 36.6113598632813); (18.5 : 36.6113598632813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order/order_custom_product_in_order" />
       <nodes>
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
-        <classShapeMoniker Id="4d99cab4-5d07-4ee0-aae5-09f30582d645" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
+        <classShapeMoniker Id="72bb93a5-8820-4225-89fb-4a346b84af74" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14 : 35.4863598632813); (15.0416666666667 : 35.4863598632813 : JumpStart); (15.2083333333333 : 35.4863598632813 : JumpEnd); (15.5416666666667 : 35.4863598632813 : JumpStart); (15.7083333333333 : 35.4863598632813 : JumpEnd); (15.75 : 35.4863598632813)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/coupon/coupon_order" />
       <nodes>
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(7.281252 : 34); (7.281252 : 33.75); (8.5 : 33.75); (8.5 : 34.6738598632813); (8.54166666666667 : 34.6738598632813 : JumpStart); (9.02083333333333 : 34.6738598632813 : JumpEnd); (11.0729166666667 : 34.6738598632813 : JumpStart); (11.2395833333333 : 34.6738598632813 : JumpEnd); (11.4791666666667 : 34.6738598632813 : JumpStart); (11.6458333333333 : 34.6738598632813 : JumpEnd); (11.75 : 34.6738598632813); (11.75 : 33.5); (13.1666666666667 : 33.5 : JumpStart); (13.3333333333333 : 33.5 : JumpEnd); (15.375 : 33.5); (15.375 : 33.8994279316406); (15.5416666666667 : 33.8994279316406 : JumpStart); (15.7083333333333 : 33.8994279316406 : JumpEnd); (15.75 : 33.8994279316406)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/customer/customer_order" />
       <nodes>
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 36.0000044173177); (8.75 : 36.0000044173177); (8.75 : 36.8862939453125); (8.76041666666667 : 36.8862939453125 : JumpStart); (9.02083333333333 : 36.8862939453125 : JumpEnd); (9.04142728205128 : 36.8862939453125 : JumpStart); (9.20809394871795 : 36.8862939453125 : JumpEnd); (11.0729166666667 : 36.8862939453125 : JumpStart); (11.2395833333333 : 36.8862939453125 : JumpEnd); (11.4166666666667 : 36.8862939453125 : JumpStart); (11.7083333333333 : 36.8862939453125 : JumpEnd); (11.75 : 36.8862939453125); (11.75 : 38.4631168619792); (12.0104166666667 : 38.4631168619792 : JumpStart); (12.1770833333333 : 38.4631168619792 : JumpEnd); (13.0416666666667 : 38.4631168619792 : JumpStart); (13.2083333333333 : 38.4631168619792 : JumpEnd); (13.6354186666667 : 38.4631168619792 : JumpStart); (13.8020853333333 : 38.4631168619792 : JumpEnd); (15.5 : 38.4631168619792); (15.5 : 37.875); (16.75 : 37.875); (16.75 : 37.2227197265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/customer/customer_order1" />
       <nodes>
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11 : 33.0945548502604); (11.0729166666667 : 33.0945548502604 : JumpStart); (11.2395833333333 : 33.0945548502604 : JumpEnd); (11.4791666666667 : 33.0945548502604 : JumpStart); (11.6458333333333 : 33.0945548502604 : JumpEnd); (13.1666666666667 : 33.0945548502604 : JumpStart); (13.3333333333333 : 33.0945548502604 : JumpEnd); (14.5416666666667 : 33.0945548502604 : JumpStart); (14.7083333333333 : 33.0945548502604 : JumpEnd); (15.4166666666667 : 33.0945548502604 : JumpStart); (15.5833333333333 : 33.0945548502604 : JumpEnd); (15.75 : 33.0945548502604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/delivery_address/delivery_address_order" />
       <nodes>
-        <classShapeMoniker Id="66361b16-7eee-4288-83b8-47b8e4f61035" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="0bfdd352-9100-4700-a770-feee2b218195" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(17.75 : 34.3854484049479); (18.5 : 34.3854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order/order_order_log" />
       <nodes>
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
-        <classShapeMoniker Id="13a4126a-e4da-4e8f-a87b-07867ff55cce" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
+        <classShapeMoniker Id="2982cffa-3b43-4842-967a-562e8aa1c2d2" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(17.75 : 32.5681469726563); (18.5 : 32.5681469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order/order_order_tag" />
       <nodes>
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
-        <classShapeMoniker Id="faf4dc9f-726f-40c5-844a-789c0756a6c8" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
+        <classShapeMoniker Id="eca44b31-c9be-4079-8d95-6c589eecd42b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(6.95923076923077 : 51.6458154296875); (6.95923076923077 : 51.8958154296875); (7.55461538461539 : 51.8958154296875); (7.55461538461539 : 51.6458154296875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/page/page_page" />
       <nodes>
-        <classShapeMoniker Id="896cb7cf-19a6-415c-8808-10d3a74c5871" />
-        <classShapeMoniker Id="896cb7cf-19a6-415c-8808-10d3a74c5871" />
+        <classShapeMoniker Id="41be3425-77ee-448b-9871-9c7e95dae741" />
+        <classShapeMoniker Id="41be3425-77ee-448b-9871-9c7e95dae741" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(20.5 : 34.8229484049479); (21.25 : 34.8229484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order_log/order_log_payment_information" />
       <nodes>
-        <classShapeMoniker Id="13a4126a-e4da-4e8f-a87b-07867ff55cce" />
-        <classShapeMoniker Id="4d7167d7-47ee-4225-a711-0f6106cf6a5e" />
+        <classShapeMoniker Id="2982cffa-3b43-4842-967a-562e8aa1c2d2" />
+        <classShapeMoniker Id="6960e0db-0e67-4d11-bf49-aee454c4e488" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14.625 : 22.4439925130208); (14.625 : 33.3285299251302); (15.4166666666667 : 33.3285299251302 : JumpStart); (15.5833333333333 : 33.3285299251302 : JumpEnd); (15.75 : 33.3285299251302)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/payment_method/payment_method_order" />
       <nodes>
-        <classShapeMoniker Id="94b7ac1d-c3b1-413a-b31d-0151481e26dc" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="376e2de7-dba0-42da-9c9e-f55027ebf3ca" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 4.00564697265625); (3.5 : 4.00564697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/contact/contact_phone_number" />
       <nodes>
-        <classShapeMoniker Id="59fd463d-18e1-4f96-b486-3c61adc23749" />
-        <classShapeMoniker Id="6e840500-91e9-490a-98b5-3a02792989c8" />
+        <classShapeMoniker Id="76c2ad9e-c9c7-425b-8d60-0a4304e3c879" />
+        <classShapeMoniker Id="3cc94b4f-76f6-48ba-8bd3-2f78406d2c73" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(7.25 : 23.25); (7.25 : 21.9999995); (9 : 21.9999995)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_comment_product" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="eddda81d-e5f8-4315-ae76-3d00afb8d1ea" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="f6368b7a-5e1b-4a27-9dd5-7b29ac019d69" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14 : 33.8115374615385); (14.1240374615385 : 33.6875); (15.0416666666667 : 33.6875 : JumpStart); (15.4583333333333 : 33.6875 : JumpEnd); (15.5 : 33.6875); (15.5 : 31.6362939453125); (15.75 : 31.3862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/coupon/coupon_product_coupon" />
       <nodes>
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
-        <classShapeMoniker Id="07736bc0-9a0b-42f7-971f-db024352d021" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
+        <classShapeMoniker Id="464c9f02-92d1-4d07-bc3e-c24950c63e30" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 26.0681469726563); (8.82291666666667 : 26.0681469726563 : JumpStart); (8.98958333333333 : 26.0681469726563 : JumpEnd); (11.0729166666667 : 26.0681469726563 : JumpStart); (11.2395833333333 : 26.0681469726563 : JumpEnd); (11.3229166666667 : 26.0681469726563 : JumpStart); (11.6458333333333 : 26.0681469726563 : JumpEnd); (11.6666666666667 : 26.0681469726563 : JumpStart); (11.8333333333333 : 26.0681469726563 : JumpEnd); (14.5416666666667 : 26.0681469726563 : JumpStart); (14.7083333333333 : 26.0681469726563 : JumpEnd); (17.40625 : 26.0681469726563); (17.40625 : 30)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_product_coupon" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="07736bc0-9a0b-42f7-971f-db024352d021" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="464c9f02-92d1-4d07-bc3e-c24950c63e30" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(9.06153746153846 : 44.25); (8.90267556509888 : 44.0911381035604 : JumpStart); (8.78482443490112 : 43.9732869733627 : JumpEnd); (8.6875 : 43.8759625384615); (8.6875 : 30.2660953776042); (8.84732443490112 : 30.106270942703 : JumpStart); (8.99642556509888 : 29.9571698125053 : JumpEnd); (9 : 29.9535953776042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_cart_product_variation" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="69593b1d-9a8d-4521-a392-e17c3fb3c123" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="f2bf8096-a137-4188-8550-ebb175c2c955" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11 : 46.0681469726563); (11.3229166666667 : 46.0681469726563 : JumpStart); (11.6458333333333 : 46.0681469726563 : JumpEnd); (11.75 : 46.0681469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_combo_product" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="23953053-7c87-4790-8d9d-d819f21dff6b" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="0e2ffbd3-6c3b-46d7-9cc2-86768137fa46" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(9.625 : 47.9439111328125); (9.625 : 49.0392976888021); (10.1666666666667 : 49.0392976888021 : JumpStart); (10.3333333333333 : 49.0392976888021 : JumpEnd); (10.6979186666667 : 49.0392976888021 : JumpStart); (10.8645853333333 : 49.0392976888021 : JumpEnd); (11.3229166666667 : 49.0392976888021 : JumpStart); (11.4895833333333 : 49.0392976888021 : JumpEnd); (11.75 : 49.0392976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_element_variation" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="a64fef3e-136d-433d-9569-667813ccb6f2" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="2e5ed16c-8b21-4656-9a91-c6d120cda592" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 30.7576310863381); (8.62857443490112 : 31.1362055212393 : JumpStart); (8.74642556509888 : 31.254056651437 : JumpEnd); (8.84375 : 31.3513810863381); (8.84375 : 46.0969555664063); (9 : 46.0969555664063)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_product_variation" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(12.09375 : 38.2131168619792); (12.09375 : 38.7003084309896); (13.0416666666667 : 38.7003084309896 : JumpStart); (13.2083333333333 : 38.7003084309896 : JumpEnd); (13.6354186666667 : 38.7003084309896 : JumpStart); (13.8020853333333 : 38.7003084309896 : JumpEnd); (15.75 : 38.7003084309896)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/coupon/coupon_product_variation_coupon" />
       <nodes>
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
-        <classShapeMoniker Id="d5f4a72b-7601-42d2-be39-e1cf66fe7ca3" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
+        <classShapeMoniker Id="2e8ecfb3-9fc6-4bc3-a202-ffe531accc2b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11 : 47.3838525390625); (11.3229166666667 : 47.3838525390625 : JumpStart); (11.6458333333333 : 47.3838525390625 : JumpEnd); (17.40625 : 47.3838525390625); (17.40625 : 39.5112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_product_variation_coupon" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="d5f4a72b-7601-42d2-be39-e1cf66fe7ca3" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="2e8ecfb3-9fc6-4bc3-a202-ffe531accc2b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11 : 45.0056469726563); (11.3229166666667 : 45.0056469726563 : JumpStart); (11.6458333333333 : 45.0056469726563 : JumpEnd); (17.2031225 : 45.0056469726563); (17.2031225 : 39.5112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_product_variation_coupon1" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="d5f4a72b-7601-42d2-be39-e1cf66fe7ca3" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="2e8ecfb3-9fc6-4bc3-a202-ffe531accc2b" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(17.75 : 37.2227197265625); (18.125 : 37.5977197265625); (18.125 : 41.1931062825521); (18.5 : 41.1931062825521)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order/order_product_variation_in_order" />
       <nodes>
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
-        <classShapeMoniker Id="6ae8c01c-980d-4223-bec0-7a5210ed392c" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
+        <classShapeMoniker Id="d4674985-0d96-4e88-b5db-7252208c8fae" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(9.06202123076923 : 44.25); (9.06202123076923 : 43.0424625651042); (11.3229166666667 : 43.0424625651042 : JumpStart); (11.6458333333333 : 43.0424625651042 : JumpEnd); (12.4900295512821 : 43.0424625651042 : JumpStart); (12.6566962179487 : 43.0424625651042 : JumpEnd); (12.8758974358974 : 43.0424625651042 : JumpStart); (13.0425641025641 : 43.0424625651042 : JumpEnd); (13.4712820512821 : 43.0424625651042 : JumpStart); (13.6379487179487 : 43.0424625651042 : JumpEnd); (17.1197891666667 : 43.0424625651042 : JumpStart); (17.2864558333333 : 43.0424625651042 : JumpEnd); (17.3229166666667 : 43.0424625651042 : JumpStart); (17.4895833333333 : 43.0424625651042 : JumpEnd); (18.5 : 43.0424625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation/product_variation_product_variation_in_order" />
       <nodes>
-        <classShapeMoniker Id="4463e509-611a-4780-abd8-04a9839df6d4" />
-        <classShapeMoniker Id="6ae8c01c-980d-4223-bec0-7a5210ed392c" />
+        <classShapeMoniker Id="eb9d50aa-48b9-4056-840b-c80dc188ceb2" />
+        <classShapeMoniker Id="d4674985-0d96-4e88-b5db-7252208c8fae" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(9.09375 : 57.5); (9.09375 : 49.4651990332031); (10.1666666666667 : 49.4651990332031 : JumpStart); (10.3333333333333 : 49.4651990332031 : JumpEnd); (10.6979186666667 : 49.4651990332031 : JumpStart); (10.8645853333333 : 49.4651990332031 : JumpEnd); (11.3229166666667 : 49.4651990332031 : JumpStart); (11.4895833333333 : 49.4651990332031 : JumpEnd); (11.75 : 49.4651990332031)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation_property/product_variation_property_element_variation" />
       <nodes>
-        <classShapeMoniker Id="b887c011-b8a3-41d0-8a09-fb238bbbe620" />
-        <classShapeMoniker Id="a64fef3e-136d-433d-9569-667813ccb6f2" />
+        <classShapeMoniker Id="928b56a7-5912-4e65-bf93-593c9d59f3d6" />
+        <classShapeMoniker Id="2e5ed16c-8b21-4656-9a91-c6d120cda592" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11 : 58.0969962565104); (11.75 : 58.0969962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product_variation_property/product_variation_property_product_element" />
       <nodes>
-        <classShapeMoniker Id="b887c011-b8a3-41d0-8a09-fb238bbbe620" />
-        <classShapeMoniker Id="6715c96d-fe79-44c4-9c9f-1ea563a224e8" />
+        <classShapeMoniker Id="928b56a7-5912-4e65-bf93-593c9d59f3d6" />
+        <classShapeMoniker Id="72969bcd-bc6b-40ac-b01e-97c2941dbb67" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(10.781252 : 51.125); (10.781252 : 48.4439111328125); (11.3229166666667 : 48.4439111328125 : JumpStart); (11.4895833333333 : 48.4439111328125 : JumpEnd); (11.5625 : 48.4439111328125); (11.5625 : 15.9815991210938); (11.4895833333333 : 15.9815991210938 : JumpStart); (11.3229166666667 : 15.9815991210938 : JumpEnd); (11.25 : 15.9815991210938)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/discount_type/discount_type_promotion" />
       <nodes>
-        <classShapeMoniker Id="593d7fca-b191-4bb7-8e98-de95437cb9e1" />
-        <classShapeMoniker Id="f683a371-e298-4502-831a-f1cf3350828c" />
+        <classShapeMoniker Id="0f794bd2-80eb-4634-b118-293d77101d14" />
+        <classShapeMoniker Id="ee564b70-3a1d-4386-9155-6faddb12d1be" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 26.9431469726563); (8.82291666666667 : 26.9431469726563 : JumpStart); (8.98958333333333 : 26.9431469726563 : JumpEnd); (11.0729166666667 : 26.9431469726563 : JumpStart); (11.2395833333333 : 26.9431469726563 : JumpEnd); (11.3229166666667 : 26.9431469726563 : JumpStart); (11.6458333333333 : 26.9431469726563 : JumpEnd); (12 : 26.9431469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_promotion_product" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="407c32ff-5ad2-4629-9b94-b326d5e0766f" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="0038e2e3-31a3-411e-aa4a-b76c9c344dfc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(10.25 : 16.9631982421875); (10.25 : 17.875); (11.3229166666667 : 17.875 : JumpStart); (11.6458333333333 : 17.875 : JumpEnd); (11.75 : 17.875); (11.75 : 26.5653214863281); (12 : 26.5653214863281)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/promotion/promotion_promotion_product" />
       <nodes>
-        <classShapeMoniker Id="f683a371-e298-4502-831a-f1cf3350828c" />
-        <classShapeMoniker Id="407c32ff-5ad2-4629-9b94-b326d5e0766f" />
+        <classShapeMoniker Id="ee564b70-3a1d-4386-9155-6faddb12d1be" />
+        <classShapeMoniker Id="0038e2e3-31a3-411e-aa4a-b76c9c344dfc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(3.28125 : 27.3574039713542); (3.28125 : 38.1770654296875); (4.36079928205128 : 38.1770654296875 : JumpStart); (4.52746594871795 : 38.1770654296875 : JumpEnd); (5.54166666666667 : 38.1770654296875 : JumpStart); (5.95572565945512 : 38.1770654296875 : JumpEnd); (5.97916666666667 : 38.1770654296875 : JumpStart); (6.14583333333333 : 38.1770654296875 : JumpEnd); (8.29166666666667 : 38.1770654296875 : JumpStart); (8.58333333333333 : 38.1770654296875 : JumpEnd); (8.60416666666667 : 38.1770654296875 : JumpStart); (9.02083333333333 : 38.1770654296875 : JumpEnd); (9.04142728205128 : 38.1770654296875 : JumpStart); (9.20809394871795 : 38.1770654296875 : JumpEnd); (11.2916666666667 : 38.1770654296875 : JumpStart); (11.9583333333333 : 38.1770654296875 : JumpEnd); (12 : 38.1770654296875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_coupon" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="69846c4b-26a7-4527-8f73-43e3abb5875b" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="2660d02c-0c8a-4fa2-88e3-612f27cf7398" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.96875 : 27.3574039713542); (2.96875 : 37.98236078125); (3.19791666666667 : 37.98236078125 : JumpStart); (3.36458333333333 : 37.98236078125 : JumpEnd); (4.36079928205128 : 37.98236078125 : JumpStart); (4.52746594871795 : 37.98236078125 : JumpEnd); (5.46358411358172 : 37.98236078125 : JumpStart); (5.83333333333333 : 37.98236078125 : JumpEnd); (5.97916666666667 : 37.98236078125 : JumpStart); (6.14583333333333 : 37.98236078125 : JumpEnd); (6.25 : 37.98236078125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_customer" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(3.3906275 : 27.3574039713542); (3.3906275 : 33.1542542089844); (3.47916666666667 : 33.1542542089844 : JumpStart); (3.64583333333333 : 33.1542542089844 : JumpEnd); (4.15104066666667 : 33.1542542089844 : JumpStart); (4.31770733333333 : 33.1542542089844 : JumpEnd); (4.68229266666667 : 33.1542542089844 : JumpStart); (4.84895933333333 : 33.1542542089844 : JumpEnd); (5.2043093974359 : 33.1542542089844 : JumpStart); (5.37097606410256 : 33.1542542089844 : JumpEnd); (5.79166666666667 : 33.1542542089844 : JumpStart); (6.27083333333333 : 33.1542542089844 : JumpEnd); (8.60416666666667 : 33.1542542089844 : JumpStart); (8.98958333333333 : 33.1542542089844 : JumpEnd); (9 : 33.1542542089844)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_delivery_address" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="66361b16-7eee-4288-83b8-47b8e4f61035" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="0bfdd352-9100-4700-a770-feee2b218195" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.3125 : 27.3574039713542); (2.3125 : 29.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_district" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(1.59375 : 24.625); (1.59375 : 13.9719962565104); (4.25 : 13.9719962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_local_shipping_service" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="86e09a31-6192-43e8-a6f0-04694800f5b8" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="108ef776-5a4a-4243-88f8-d1a9756f6bec" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.625 : 23.1458154296875); (2.625 : 24.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/country/country_province" />
       <nodes>
-        <classShapeMoniker Id="26a94970-3e19-47ed-8d8c-29df6f0d972d" />
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
+        <classShapeMoniker Id="cb37cb75-2c5b-419d-8143-5512492bde4f" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(6.25 : 9.97199625651042); (7 : 9.97199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/standard_for_shipping/standard_for_shipping_cost_of_local_shipping" />
       <nodes>
-        <classShapeMoniker Id="604a94e7-46cf-4ada-acda-98a71b16e5ce" />
-        <classShapeMoniker Id="a44c92df-7735-41c1-9dc2-56bdd1a6068a" />
+        <classShapeMoniker Id="d7f5d9bd-b8bd-422b-b70b-9e19ff23dc2a" />
+        <classShapeMoniker Id="a0bea7f4-7e61-4034-bcdc-8b2cf9376b0a" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.75 : 1.72199625651042); (9.5 : 1.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/store_type_logo/store_type_logo_store_logo" />
       <nodes>
-        <classShapeMoniker Id="cab43a1b-3718-4f7d-abec-8252c159aece" />
-        <classShapeMoniker Id="ff69c038-359c-470c-93b4-4a966fe99539" />
+        <classShapeMoniker Id="d7d8e51c-d880-46f0-9bd3-41240f08e14d" />
+        <classShapeMoniker Id="ddcbdd60-8000-41ce-8e57-7b5c728b1c70" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 25.1931469726563); (8.82291666666667 : 25.1931469726563 : JumpStart); (8.98958333333333 : 25.1931469726563 : JumpEnd); (9 : 25.1931469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_super_sale" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="d56eb565-8638-4b98-afc1-0c5c650058e6" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="039feecf-3042-40fe-aa99-4ca5c4539a58" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 38.9365374615385); (5.81607443490112 : 38.6204630266373 : JumpStart); (5.99642556509888 : 38.4401118964396 : JumpEnd); (6.0625 : 38.3740374615385); (6.0625 : 27.0199698893229); (6.25 : 27.0199698893229)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/supplier/supplier_product" />
       <nodes>
-        <classShapeMoniker Id="853e4cb7-8247-4b5a-9bd4-7c8b59d287a2" />
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
+        <classShapeMoniker Id="28811020-f7bd-4652-91ac-3c2466478a07" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14.25 : 31.8806469726563); (14.5416666666667 : 31.8806469726563 : JumpStart); (14.7083333333333 : 31.8806469726563 : JumpEnd); (15.25 : 31.8806469726563); (15.25 : 28.6362939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/blog/blog_tag_blog" />
       <nodes>
-        <classShapeMoniker Id="4e8ecf0c-ab95-4158-a6b3-b2502544ad12" />
-        <classShapeMoniker Id="8b396a9a-5cc4-4bb7-be8d-73c4f96d01f1" />
+        <classShapeMoniker Id="9330a97d-cf5b-439d-8c8f-2fa6206f8258" />
+        <classShapeMoniker Id="ab299792-3f73-4fc8-ba91-972bdd8a8ce1" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 42.3952050271434); (8.37857443490112 : 42.2666305922423 : JumpStart); (8.49642556509888 : 42.1487794620446 : JumpEnd); (8.62857443490112 : 42.0166305922423 : JumpStart); (8.74642556509888 : 41.8987794620446 : JumpEnd); (8.78482443490112 : 41.8603805922423 : JumpStart); (8.90267556509888 : 41.7425294620446 : JumpEnd); (8.9375 : 41.7077050271434); (8.9375 : 28.0056469726563); (11.0729166666667 : 28.0056469726563 : JumpStart); (11.2395833333333 : 28.0056469726563 : JumpEnd); (11.3229166666667 : 28.0056469726563 : JumpStart); (11.6458333333333 : 28.0056469726563 : JumpEnd); (14.5416666666667 : 28.0056469726563 : JumpStart); (14.7083333333333 : 28.0056469726563 : JumpEnd); (15 : 28.0056469726563)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/tag/tag_tag_blog" />
       <nodes>
-        <classShapeMoniker Id="272de005-d72e-42c9-8848-ab77b428763e" />
-        <classShapeMoniker Id="8b396a9a-5cc4-4bb7-be8d-73c4f96d01f1" />
+        <classShapeMoniker Id="fd71fb97-a57a-46e2-b925-d09a379ad614" />
+        <classShapeMoniker Id="ab299792-3f73-4fc8-ba91-972bdd8a8ce1" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(12.5733628846154 : 42.8862125651042); (12.5733628846154 : 43.9431469726563); (15 : 43.9431469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/category/category_tag_category" />
       <nodes>
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
-        <classShapeMoniker Id="c473f2c3-7f01-4d21-bee9-098ea373fd8e" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
+        <classShapeMoniker Id="d0330178-6437-4ca6-af07-ce9de707872a" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 43.4094962565104); (8.35416666666667 : 43.4094962565104 : JumpStart); (8.52083333333333 : 43.4094962565104 : JumpEnd); (8.60416666666667 : 43.4094962565104 : JumpStart); (8.92708333333333 : 43.4094962565104 : JumpEnd); (8.9786878974359 : 43.4094962565104 : JumpStart); (9.14535456410256 : 43.4094962565104 : JumpEnd); (11.3229166666667 : 43.4094962565104 : JumpStart); (11.6458333333333 : 43.4094962565104 : JumpEnd); (12.4900295512821 : 43.4094962565104 : JumpStart); (12.6566962179487 : 43.4094962565104 : JumpEnd); (15 : 43.4094962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/tag/tag_tag_category" />
       <nodes>
-        <classShapeMoniker Id="272de005-d72e-42c9-8848-ab77b428763e" />
-        <classShapeMoniker Id="c473f2c3-7f01-4d21-bee9-098ea373fd8e" />
+        <classShapeMoniker Id="fd71fb97-a57a-46e2-b925-d09a379ad614" />
+        <classShapeMoniker Id="d0330178-6437-4ca6-af07-ce9de707872a" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 35.5625022086589); (8.60416666666667 : 35.5625022086589 : JumpStart); (8.98958333333333 : 35.5625022086589 : JumpEnd); (9 : 35.5625022086589)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/customer/customer_tag_customer" />
       <nodes>
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
-        <classShapeMoniker Id="9e8e3aa5-5aa6-4812-b02f-42d74d8c3257" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
+        <classShapeMoniker Id="a63c78a0-f598-4836-bd95-6f3a77cc7dc4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 42.7555970307993); (8.35416666666667 : 42.7555970307993 : JumpStart); (8.52083333333333 : 42.7555970307993 : JumpEnd); (8.60416666666667 : 42.7555970307993 : JumpStart); (8.92708333333333 : 42.7555970307993 : JumpEnd); (9.12476061538462 : 42.7555970307993); (9.12476061538462 : 36.6362939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/tag/tag_tag_customer" />
       <nodes>
-        <classShapeMoniker Id="272de005-d72e-42c9-8848-ab77b428763e" />
-        <classShapeMoniker Id="9e8e3aa5-5aa6-4812-b02f-42d74d8c3257" />
+        <classShapeMoniker Id="fd71fb97-a57a-46e2-b925-d09a379ad614" />
+        <classShapeMoniker Id="a63c78a0-f598-4836-bd95-6f3a77cc7dc4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 24.1474519856771); (8.82291666666667 : 24.1474519856771 : JumpStart); (8.98958333333333 : 24.1474519856771 : JumpEnd); (11.0729166666667 : 24.1474519856771 : JumpStart); (11.2395833333333 : 24.1474519856771 : JumpEnd); (11.3229166666667 : 24.1474519856771 : JumpStart); (11.6458333333333 : 24.1474519856771 : JumpEnd); (11.6666666666667 : 24.1474519856771 : JumpStart); (11.8333333333333 : 24.1474519856771 : JumpEnd); (12 : 24.1474519856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/product/product_tag_product" />
       <nodes>
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
-        <classShapeMoniker Id="fb72299d-aeb4-4c1e-a289-d5305a266440" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
+        <classShapeMoniker Id="d3757c0f-b4d1-45b4-b479-623aac8e061d" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 42.3869389251302); (8.37857443490112 : 42.2583644902291 : JumpStart); (8.49642556509888 : 42.1405133600313 : JumpEnd); (8.62857443490112 : 42.0083644902291 : JumpStart); (8.74642556509888 : 41.8905133600313 : JumpEnd); (8.78482443490112 : 41.8521144902291 : JumpStart); (8.90267556509888 : 41.7342633600313 : JumpEnd); (8.90625 : 41.7306889251302); (8.90625 : 23.9086754785156); (11.0729166666667 : 23.9086754785156 : JumpStart); (11.2395833333333 : 23.9086754785156 : JumpEnd); (11.3229166666667 : 23.9086754785156 : JumpStart); (11.6458333333333 : 23.9086754785156 : JumpEnd); (11.6666666666667 : 23.9086754785156 : JumpStart); (11.8333333333333 : 23.9086754785156 : JumpEnd); (12 : 23.9086754785156)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/tag/tag_tag_product" />
       <nodes>
-        <classShapeMoniker Id="272de005-d72e-42c9-8848-ab77b428763e" />
-        <classShapeMoniker Id="fb72299d-aeb4-4c1e-a289-d5305a266440" />
+        <classShapeMoniker Id="fd71fb97-a57a-46e2-b925-d09a379ad614" />
+        <classShapeMoniker Id="d3757c0f-b4d1-45b4-b479-623aac8e061d" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(17.75 : 33.1306469726563); (21.5 : 33.1306469726563)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/order/order_transport" />
       <nodes>
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
-        <classShapeMoniker Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
+        <classShapeMoniker Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(20.75 : 29.2219962565104); (21.5 : 29.2219962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/shipping_status/shipping_status_transport" />
       <nodes>
-        <classShapeMoniker Id="9bb5b5bd-fd40-4053-8b91-3604ede9c2ed" />
-        <classShapeMoniker Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" />
+        <classShapeMoniker Id="80c092fd-dbd8-4f57-b074-4137e772be5b" />
+        <classShapeMoniker Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(23.5 : 31.1642976888021); (24.25 : 31.1642976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/transport/transport_transport_log" />
       <nodes>
-        <classShapeMoniker Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" />
-        <classShapeMoniker Id="24688ccf-ba7a-4dc0-8733-efdbba8df3a8" />
+        <classShapeMoniker Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" />
+        <classShapeMoniker Id="cd21dd44-06eb-495f-bfb4-bbc04b7c1146" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(11.40625 : 54.25); (11.40625 : 40.4767976888021); (11.4166666666667 : 40.4767976888021 : JumpStart); (11.7083333333333 : 40.4767976888021 : JumpEnd); (12.25 : 40.4767976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/type_of_category/type_of_category_category" />
       <nodes>
-        <classShapeMoniker Id="ef8cab7b-e449-4ceb-a1f7-28d6fc017b9e" />
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
+        <classShapeMoniker Id="10e0154f-ad53-4af4-adc4-a1da2d8ea4b4" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 16.4719962565104); (6.7187475 : 16.4719962565104); (6.7187475 : 23.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/unit/unit_product" />
       <nodes>
-        <classShapeMoniker Id="ec932002-dcae-4c07-9692-83ba12519015" />
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
+        <classShapeMoniker Id="cc5567b5-b11a-4f5a-ada3-ca08a364a951" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 35.019628999349); (5.75 : 35.019628999349); (5.75 : 33.875); (5.79166666666667 : 33.875 : JumpStart); (5.95833333333333 : 33.875 : JumpEnd); (5.97916666666667 : 33.875 : JumpStart); (6.20833333333333 : 33.875 : JumpEnd); (7.19791866666667 : 33.875 : JumpStart); (7.36458533333333 : 33.875 : JumpEnd); (8.375 : 33.875); (8.375 : 35); (8.60416666666667 : 35 : JumpStart); (9.02083333333333 : 35 : JumpEnd); (11.0729166666667 : 35 : JumpStart); (11.2395833333333 : 35 : JumpEnd); (11.4166666666667 : 35 : JumpStart); (11.6458333333333 : 35 : JumpEnd); (11.875 : 35); (11.875 : 33.625); (13.25 : 33.625); (13.25 : 32.7516097005208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_blog" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="4e8ecf0c-ab95-4158-a6b3-b2502544ad12" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="9330a97d-cf5b-439d-8c8f-2fa6206f8258" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 34.0492297692308); (5.81607443490112 : 33.7331553343297 : JumpStart); (5.93392556509888 : 33.6153042041319 : JumpEnd); (6.00357443490112 : 33.5456553343297 : JumpStart); (6.12142556509888 : 33.4278042041319 : JumpEnd); (6.1875 : 33.3617297692308); (6.1875 : 32.0969962565104); (6.25 : 32.0969962565104)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_cart_of_user" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="dce2310f-b2ea-4aa8-8340-b2fe86471d3f" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="7e0b0ade-b9ca-42e1-bf24-3210f109a415" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 34); (5.81607443490112 : 33.6839255650989 : JumpStart); (5.93392556509888 : 33.5660744349011 : JumpEnd); (6.00357443490112 : 33.4964255650989 : JumpStart); (6.12142556509888 : 33.3785744349011 : JumpEnd); (6.125 : 33.375); (6.125 : 32.0969962565104); (6.25 : 32.0969962565104)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_cart_of_user1" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="dce2310f-b2ea-4aa8-8340-b2fe86471d3f" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="7e0b0ade-b9ca-42e1-bf24-3210f109a415" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 36.962734281901); (5.54166666666667 : 36.962734281901 : JumpStart); (5.70833333333333 : 36.962734281901 : JumpEnd); (5.75 : 36.962734281901); (5.75 : 38.3285139973958); (5.94050756049678 : 38.3285139973958 : JumpStart); (6.10717422716345 : 38.3285139973958 : JumpEnd); (8.29166666666667 : 38.3285139973958 : JumpStart); (8.45833333333333 : 38.3285139973958 : JumpEnd); (8.5 : 38.3285139973958); (8.5 : 37.1362939453125); (8.60416666666667 : 37.1362939453125 : JumpStart); (9.02083333333333 : 37.1362939453125 : JumpEnd); (9.04142728205128 : 37.1362939453125 : JumpStart); (9.20809394871795 : 37.1362939453125 : JumpEnd); (11.0729166666667 : 37.1362939453125 : JumpStart); (11.2395833333333 : 37.1362939453125 : JumpEnd); (11.2916666666667 : 37.1362939453125 : JumpStart); (11.8333333333333 : 37.1362939453125 : JumpEnd); (11.875 : 37.1362939453125); (11.875 : 38.3381168619792); (12.0104166666667 : 38.3381168619792 : JumpStart); (12.1770833333333 : 38.3381168619792 : JumpEnd); (13.0416666666667 : 38.3381168619792 : JumpStart); (13.2083333333333 : 38.3381168619792 : JumpEnd); (13.718752 : 38.3381168619792); (13.718752 : 39)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_category" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="9139712e-9965-4d0d-a525-8b22428a739e" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="0c771c9d-1bc6-4c4c-bb9c-a770f2f6a111" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 37.4869734235026); (5.54166666666667 : 37.4869734235026 : JumpStart); (5.83333333333333 : 37.4869734235026 : JumpEnd); (5.97916666666667 : 37.4869734235026 : JumpStart); (6.14583333333333 : 37.4869734235026 : JumpEnd); (6.25 : 37.4869734235026)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_customer" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="ae8dbed0-b752-4148-9626-37c88ccffabb" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="8f7b90b6-1c16-4bb8-9e83-393cbf7224fc" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(4.5 : 34); (4.5 : 33.5); (4.68229266666667 : 33.5 : JumpStart); (4.84895933333333 : 33.5 : JumpEnd); (4.94791866666667 : 33.5 : JumpStart); (5.11458533333333 : 33.5 : JumpEnd); (5.2043093974359 : 33.5 : JumpStart); (5.37097606410256 : 33.5 : JumpEnd); (5.79166666666667 : 33.5 : JumpStart); (6.14583333333333 : 33.5 : JumpEnd); (8.54166666666667 : 33.5 : JumpStart); (8.70833333333333 : 33.5 : JumpEnd); (8.75 : 33.5); (8.75 : 34.7420068359375); (8.76041666666667 : 34.7420068359375 : JumpStart); (9.02083333333333 : 34.7420068359375 : JumpEnd); (11.0729166666667 : 34.7420068359375 : JumpStart); (11.2395833333333 : 34.7420068359375 : JumpEnd); (11.375 : 34.7420068359375); (11.375 : 33.5625); (11.4791666666667 : 33.5625 : JumpStart); (11.8958333333333 : 33.5625 : JumpEnd); (15.125 : 33.5625); (15.125 : 36.3857917949219); (15.75 : 36.3857917949219)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_order" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.031252 : 34); (5.031252 : 33.375); (5.2043093974359 : 33.375 : JumpStart); (5.37097606410256 : 33.375 : JumpEnd); (5.79166666666667 : 33.375 : JumpStart); (6.14583333333333 : 33.375 : JumpEnd); (8.625 : 33.375); (8.625 : 34.9295068359375); (8.76041666666667 : 34.9295068359375 : JumpStart); (9.02083333333333 : 34.9295068359375 : JumpEnd); (11.0729166666667 : 34.9295068359375 : JumpStart); (11.2395833333333 : 34.9295068359375 : JumpEnd); (11.4166666666667 : 34.9295068359375 : JumpStart); (11.6458333333333 : 34.9295068359375 : JumpEnd); (11.8125 : 34.9295068359375); (11.8125 : 33.4375); (13.1666666666667 : 33.4375 : JumpStart); (13.3333333333333 : 33.4375 : JumpEnd); (15.25 : 33.4375); (15.25 : 34.6928938974609); (15.5416666666667 : 34.6928938974609 : JumpStart); (15.7083333333333 : 34.6928938974609 : JumpEnd); (15.75 : 34.6928938974609)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_order1" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(3.968748 : 34); (3.968748 : 33.8125); (4.15104066666667 : 33.8125 : JumpStart); (4.31770733333333 : 33.8125 : JumpEnd); (4.41666666666667 : 33.8125 : JumpStart); (4.58333333333333 : 33.8125 : JumpEnd); (4.68229266666667 : 33.8125 : JumpStart); (4.84895933333333 : 33.8125 : JumpEnd); (4.94791866666667 : 33.8125 : JumpStart); (5.11458533333333 : 33.8125 : JumpEnd); (5.2043093974359 : 33.8125 : JumpStart); (5.37097606410256 : 33.8125 : JumpEnd); (5.58570512820513 : 33.8125 : JumpStart); (5.95833333333333 : 33.8125 : JumpEnd); (5.97916666666667 : 33.8125 : JumpStart); (6.14583333333333 : 33.8125 : JumpEnd); (8.5625 : 33.8125); (8.5625 : 34.5545068359375); (8.60416666666667 : 34.5545068359375 : JumpStart); (9.02083333333333 : 34.5545068359375 : JumpEnd); (11.0729166666667 : 34.5545068359375 : JumpStart); (11.2395833333333 : 34.5545068359375 : JumpEnd); (11.2916666666667 : 34.5545068359375 : JumpStart); (11.4583333333333 : 34.5545068359375 : JumpEnd); (11.4791666666667 : 34.5545068359375 : JumpStart); (11.6458333333333 : 34.5545068359375 : JumpEnd); (11.6875 : 34.5545068359375); (11.6875 : 33.25); (13.1666666666667 : 33.25 : JumpStart); (13.3333333333333 : 33.25 : JumpEnd); (15.4166666666667 : 33.25 : JumpStart); (15.5833333333333 : 33.25 : JumpEnd); (15.625 : 33.25); (15.625 : 35.9360758291016); (15.75 : 35.9360758291016)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_order2" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="983761d2-1371-4ebd-a3a3-c0bc91099636" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="42242dda-369d-4d27-8a42-2648d0d780f3" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.45076923076923 : 37.8862125651042); (5.56607443490112 : 38.0015177692361 : JumpStart); (5.68392556509888 : 38.1193688994338 : JumpEnd); (5.69107443490112 : 38.1265177692361 : JumpStart); (5.80892556509888 : 38.2443688994338 : JumpEnd); (5.875 : 38.3104433343349); (5.875 : 49.5104077148438); (6.25 : 49.5104077148438)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_page" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="896cb7cf-19a6-415c-8808-10d3a74c5871" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="41be3425-77ee-448b-9871-9c7e95dae741" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 37.8846731035657); (5.56607443490112 : 37.9507475384668 : JumpStart); (5.68392556509888 : 38.0685986686646 : JumpEnd); (5.69107443490112 : 38.0757475384668 : JumpStart); (5.80892556509888 : 38.1935986686646 : JumpEnd); (5.9375 : 38.3221731035657); (5.9375 : 49.5104077148438); (6.25 : 49.5104077148438)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_page1" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="896cb7cf-19a6-415c-8808-10d3a74c5871" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="41be3425-77ee-448b-9871-9c7e95dae741" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 35.5606954990234); (5.625 : 35.5606954990234); (5.625 : 38.4535139973958); (5.79166666666667 : 38.4535139973958 : JumpStart); (6.06635679747597 : 38.4535139973958 : JumpEnd); (8.375 : 38.4535139973958); (8.375 : 36.8862939453125); (8.60416666666667 : 36.8862939453125 : JumpStart); (9.02083333333333 : 36.8862939453125 : JumpEnd); (9.04142728205128 : 36.8862939453125 : JumpStart); (9.20809394871795 : 36.8862939453125 : JumpEnd); (11.0729166666667 : 36.8862939453125 : JumpStart); (11.2395833333333 : 36.8862939453125 : JumpEnd); (11.375 : 36.8862939453125); (11.375 : 38.4631168619792); (11.4166666666667 : 38.4631168619792 : JumpStart); (11.7083333333333 : 38.4631168619792 : JumpEnd); (12.0104166666667 : 38.4631168619792 : JumpStart); (12.1770833333333 : 38.4631168619792 : JumpEnd); (13.0416666666667 : 38.4631168619792 : JumpStart); (13.2083333333333 : 38.4631168619792 : JumpEnd); (13.6354186666667 : 38.4631168619792 : JumpStart); (13.8020853333333 : 38.4631168619792 : JumpEnd); (15.25 : 38.4631168619792); (15.25 : 37.625); (16.6666666666667 : 37.625 : JumpStart); (16.8333333333333 : 37.625 : JumpEnd); (18.25 : 37.625); (18.25 : 38.5978011067708); (22.25 : 38.5978011067708); (22.25 : 36.9151025390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_payment_information" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="4d7167d7-47ee-4225-a711-0f6106cf6a5e" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="6960e0db-0e67-4d11-bf49-aee454c4e488" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.48153846153846 : 34); (5.81607443490112 : 33.6654640266373 : JumpStart); (5.93392556509888 : 33.5476128964396 : JumpEnd); (5.96875 : 33.5127884615385); (5.96875 : 28.9362068339844); (5.97916666666667 : 28.9362068339844 : JumpStart); (6.14583333333333 : 28.9362068339844 : JumpEnd); (6.25 : 28.9362068339844)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_product" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="6c98ace5-7301-4b11-b5cb-061f97698e82" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="e0ee0c10-0773-43b0-944b-f627b87ae7d4" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.5 : 37.8046731035657); (5.56607443490112 : 37.8707475384668 : JumpStart); (5.68392556509888 : 37.9885986686646 : JumpEnd); (5.69107443490112 : 37.9957475384668 : JumpStart); (5.80892556509888 : 38.1135986686646 : JumpEnd); (6.15625 : 38.4609231035657); (6.15625 : 39.7315991210938); (6.25 : 39.7315991210938)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_system_log" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="e8b52540-7e3d-4b87-b1da-7593ee4a4ebb" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="f619aa08-cfdf-4c24-bba8-657cf4e22a5e" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(4.765626 : 34); (4.765626 : 32.4728011067708); (5.2043093974359 : 32.4728011067708 : JumpStart); (5.37097606410256 : 32.4728011067708 : JumpEnd); (5.54166666666667 : 32.4728011067708 : JumpStart); (5.70833333333333 : 32.4728011067708 : JumpEnd); (5.75 : 32.4728011067708); (5.75 : 31.125); (5.88541666666667 : 31.125 : JumpStart); (6.14583333333333 : 31.125 : JumpEnd); (8.53403558032853 : 31.125 : JumpStart); (8.77083333333333 : 31.125 : JumpEnd); (8.82291666666667 : 31.125 : JumpStart); (9.02083333333333 : 31.125 : JumpEnd); (11.0729166666667 : 31.125 : JumpStart); (11.2395833333333 : 31.125 : JumpEnd); (11.4791666666667 : 31.125 : JumpStart); (11.6458333333333 : 31.125 : JumpEnd); (12 : 31.125); (12 : 32.8766097005208); (12.0416666666667 : 32.8766097005208 : JumpStart); (12.2083333333333 : 32.8766097005208 : JumpEnd); (13.1666666666667 : 32.8766097005208 : JumpStart); (13.3333333333333 : 32.8766097005208 : JumpEnd); (14.5416666666667 : 32.8766097005208 : JumpStart); (14.7083333333333 : 32.8766097005208 : JumpEnd); (15.25 : 32.8766097005208); (15.25 : 32.125); (15.4166666666667 : 32.125 : JumpStart); (15.7083333333333 : 32.125 : JumpEnd); (18.25 : 32.125); (18.25 : 30.5344962565104); (21.5 : 30.5344962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_transport" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(4.234374 : 34); (4.234374 : 32.5978011067708); (4.68229266666667 : 32.5978011067708 : JumpStart); (4.84895933333333 : 32.5978011067708 : JumpEnd); (5.2043093974359 : 32.5978011067708 : JumpStart); (5.37097606410256 : 32.5978011067708 : JumpEnd); (5.625 : 32.5978011067708); (5.625 : 31.125); (5.88541666666667 : 31.125 : JumpStart); (6.14583333333333 : 31.125 : JumpEnd); (8.53403558032853 : 31.125 : JumpStart); (8.77083333333333 : 31.125 : JumpEnd); (8.82291666666667 : 31.125 : JumpStart); (9.02083333333333 : 31.125 : JumpEnd); (11.0729166666667 : 31.125 : JumpStart); (11.2395833333333 : 31.125 : JumpEnd); (11.4791666666667 : 31.125 : JumpStart); (11.6458333333333 : 31.125 : JumpEnd); (12.125 : 31.125); (12.125 : 33.0016097005208); (13.1666666666667 : 33.0016097005208 : JumpStart); (13.3333333333333 : 33.0016097005208 : JumpEnd); (14.5416666666667 : 33.0016097005208 : JumpStart); (14.7083333333333 : 33.0016097005208 : JumpEnd); (15.4166666666667 : 33.0016097005208 : JumpStart); (15.5833333333333 : 33.0016097005208 : JumpEnd); (15.625 : 33.0016097005208); (15.625 : 31.875); (18 : 31.875); (18 : 30.9547506282552); (18.1666666666667 : 30.9547506282552 : JumpStart); (18.3333333333333 : 30.9547506282552 : JumpEnd); (21.5 : 30.9547506282552)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_transport1" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="0b82f877-987f-4a9b-95da-59a28f4e6e7a" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="2593c364-ce06-4a5c-bbd3-d5e7d2b4a45e" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.71769230769231 : 32.2228011067708); (2.90982443490112 : 32.4149332339796 : JumpStart); (3.02767556509888 : 32.5327843641774 : JumpEnd); (3.125 : 32.6301087990785); (3.125 : 35.9431062825521); (3.19791666666667 : 35.9431062825521 : JumpStart); (3.36458333333333 : 35.9431062825521 : JumpEnd); (3.5 : 35.9431062825521)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/district/district_user" />
       <nodes>
-        <classShapeMoniker Id="d85f7e73-ff8f-43b8-838e-bcad05c08bc0" />
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
+        <classShapeMoniker Id="bfcaac6f-4cff-40ee-9e23-c51b9b5fbfa9" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 36.3185493977865); (2.88541666666667 : 36.3185493977865 : JumpStart); (3.05208333333333 : 36.3185493977865 : JumpEnd); (3.08853916666667 : 36.3185493977865 : JumpStart); (3.36458333333333 : 36.3185493977865 : JumpEnd); (3.5 : 36.3185493977865)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/gender/gender_user" />
       <nodes>
-        <classShapeMoniker Id="aaad442d-e783-4c6f-abd9-207a8490620d" />
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
+        <classShapeMoniker Id="c107e252-c832-4ba2-967a-e1bc5dbfc726" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(3.1718725 : 27.3574039713542); (3.1718725 : 37.2588525390625); (3.19791666666667 : 37.2588525390625 : JumpStart); (3.36458333333333 : 37.2588525390625 : JumpEnd); (3.5 : 37.2588525390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/province/province_user" />
       <nodes>
-        <classShapeMoniker Id="cef631f4-c127-4e88-b530-7e41d83d9d31" />
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
+        <classShapeMoniker Id="59a20a79-fff9-4eb9-999e-a4feb46a6e65" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(2.75 : 34.2844962565104); (2.88541666666667 : 34.2844962565104 : JumpStart); (3.36458333333333 : 34.2844962565104 : JumpEnd); (3.5 : 34.2844962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/role/role_user" />
       <nodes>
-        <classShapeMoniker Id="d739a997-3b1a-44c5-9336-4e1df9c9e31f" />
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
+        <classShapeMoniker Id="360f8a97-7ca6-4022-83d5-c336ff2c30c0" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.28764273076923 : 32.2228011067708); (5.28764273076923 : 34)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/ward/ward_user" />
       <nodes>
-        <classShapeMoniker Id="5fe49717-0e5e-4d59-87b3-3f6c10d7634f" />
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
+        <classShapeMoniker Id="eae01239-ba75-4ec4-8a45-ca504e99886f" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.4375 : 53.375); (8.4375 : 38.5705069986979); (8.60416666666667 : 38.5705069986979 : JumpStart); (9.02083333333333 : 38.5705069986979 : JumpEnd); (9.04142728205128 : 38.5705069986979 : JumpStart); (9.20809394871795 : 38.5705069986979 : JumpEnd); (9.25 : 38.5705069986979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/group_action/group_action_user_group_action" />
       <nodes>
-        <classShapeMoniker Id="2d6cddf1-dce8-471f-9c32-4a4b8f8d18d8" />
-        <classShapeMoniker Id="1bcb402c-1313-4193-b05b-73f789d33f60" />
+        <classShapeMoniker Id="72e05ec0-dea0-4050-8291-ae60823eebca" />
+        <classShapeMoniker Id="2337e8f9-6ed8-45d9-bfff-306e95812ec7" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(4.44413261538462 : 37.8862125651042); (4.44413261538462 : 38.6875); (5.66570412820513 : 38.6875 : JumpStart); (6.02083333333333 : 38.6875 : JumpEnd); (6.07291666666667 : 38.6875 : JumpStart); (6.23958333333333 : 38.6875 : JumpEnd); (8.35416666666667 : 38.6875 : JumpStart); (8.52083333333333 : 38.6875 : JumpEnd); (8.60416666666667 : 38.6875 : JumpStart); (8.98958333333333 : 38.6875 : JumpEnd); (9 : 38.6875); (9 : 39.230803188151); (9.04142728205128 : 39.230803188151 : JumpStart); (9.20809394871795 : 39.230803188151 : JumpEnd); (9.25 : 39.230803188151)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FreshMartDatabaseDataContext/user/user_user_group_action" />
       <nodes>
-        <classShapeMoniker Id="43f1893e-4f46-40a4-bc80-55f1f54ad76f" />
-        <classShapeMoniker Id="1bcb402c-1313-4193-b05b-73f789d33f60" />
+        <classShapeMoniker Id="020141fa-fe49-4c8a-9078-2760a6a5bdce" />
+        <classShapeMoniker Id="2337e8f9-6ed8-45d9-bfff-306e95812ec7" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

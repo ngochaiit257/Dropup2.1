@@ -1,0 +1,91 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+
+}
+
+@if (check_box_count == 0)
+{
+    <div style="text-align: center">
+        <h4 style="margin:auto; margin-bottom: 30px">Không tìm thấy sản phẩm nào.</h4>
+    </div>
+}
+else
+{
+    <div class="row filter-here">
+        <div class="content-product-list product-list filter clearfix">
+
+            @foreach (var product in Model)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-6 pro-loop col-5">
+                    <div class="product-block product-resize site-animation" data-anmation="1">
+                        <div class="product-img">
+                            @{var out_of_stock_status = new ProductVariationProvider().checkInStockForProduct(product.product_id);}
+                            @if (out_of_stock_status == false)
+                            {
+                                <span class="chay-hang">
+                                    CHÁY HÀNG
+                                </span>
+                            }
+
+                            <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                <picture>
+                                    <img class="img-loop lazyload" alt="@product.alt_image" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@product.product_image" />
+                                </picture>
+
+                                @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                @if (img_more != null)
+                                {
+                                    <picture>
+                                        <img class="img-loop img-hover lazyload" alt="@img_more.image_more_alt" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@img_more.image_more_url" />
+                                    </picture>
+                                }
+                            </a>
+                        </div>
+                        <div class="product-detail clearfix">
+                            <div class="box-pro-detail">
+                                <h3 class="pro-name">
+                                    <a href="/@product.seo_alias" title="@product.product_name">
+                                        @product.product_name
+                                    </a>
+                                </h3>
+                                <div class="box-pro-prices">
+                                    <p class="pro-price ">
+                                        <span class="giaban showNumeric">@product.promotion_price</span>
+                                        @if (product.price > 0)
+                                        {
+                                            <span class="pro-price-del showNumeric">@product.price</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="sortpagibar pagi clearfix text-center">
+        <div id="pagination" class="clearfix">
+            <div class="center-div">
+                <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList sản phẩm</a>
+                @Html.PagedListPager(Model, page_num => Url.Action("GetProductByCategory", new { page_num, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder}),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+            //$("img.lazyload").lazyload();
+        });
+    </script>
+}

@@ -31,6 +31,8 @@
 
 </head>
 <body id="bg">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=2746333342249280&autoLogAppEvents=1" nonce="WCZDj2NP"></script>
     <div id="loading-area" class="loading-02"></div>
     <div class="page-wraper">
         <!-- Header -->
@@ -60,7 +62,9 @@
                     <div class="container clearfix">
                         <!-- Website Logo -->
                         <div class="logo-header mostion">
-                            <a href="/"><img class="logo-2" src="../Assets/images/logo-3.png" alt=""></a>
+                            <a href="/">
+                                <img class="logo-2" src="~/Assets/images/common/logo.png" alt="">
+                            </a>
                         </div>
                         <!-- Nav Toggle Button -->
                         <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +75,7 @@
                         <!-- Extra Nav -->
                         <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
                             <div class="logo-header">
-                                <a href="/"><img src="../Assets/images/logo-3.png" alt=""></a>
+                                <a href="/"><img src="~/Assets/images/common/logo.png" alt=""></a>
                             </div>
                             <ul class="nav navbar-nav navbar">
                                 <li class="active">
@@ -147,9 +151,11 @@
                         <div class="col-xl-3 col-lg-12 col-md-4 col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
                             <div class="widget widget_about">
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="images/logo-white.png" alt="" /></a>
+                                    <a href="index.html">
+                                        <img src="~/Assets/images/common/logo-footer.png" />
+                                    </a>
                                 </div>
-                                <p>Maecenas pellentesque placerat quam, in finibus nisl tincidunt sed. Aliquam magna augue, malesuada ut feugiat eget, cursus eget felis.</p>
+                                <p>Công ty cổ phần Y Dược Lis ra đời nhằm kế thừa, bảo tồn và phát huy những bài thuốc Nam của Việt Nam. Lis Pharma với sứ mệnh kết nối Tây y và Đông y để chữa và phòng bệnh nhằm nâng cao sức khỏe cho khách hàng.</p>
                                 <div class="dlab-social-icon">
                                     <ul>
                                         <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
@@ -161,43 +167,57 @@
                         </div>
                         <div class="col-xl-2 col-lg-3 col-md-4  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.4s">
                             <div class="widget widget_services style-1">
-                                <h5 class="footer-title">Our links</h5>
+                                <h5 class="footer-title">Liên kết nhanh</h5>
                                 <ul>
-                                    <li><a href="javascript:void(0);">Home</a></li>
-                                    <li><a href="javascript:void(0);">About Us</a></li>
-                                    <li><a href="javascript:void(0);">Services</a></li>
-                                    <li><a href="javascript:void(0);">Team</a></li>
-                                    <li><a href="javascript:void(0);">Blog</a></li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            Thông tin y dược
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            Tuyến dụng
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            Tin tức
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            Khuyến mãi
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            Hỗ trợ khách hàng
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-3 col-md-4  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+                        <div class="col-xl-4 col-lg-4 col-md-6  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
                             <div class="widget widget_services style-1">
-                                <h5 class="footer-title">Our Services</h5>
-                                <ul>
-                                    <li><a href="javascript:void(0);">Strategy & Research</a></li>
-                                    <li><a href="javascript:void(0);">Web Development</a></li>
-                                    <li><a href="javascript:void(0);">Web Solution</a></li>
-                                    <li><a href="javascript:void(0);">Digital Marketing</a></li>
-                                    <li><a href="javascript:void(0);">App Design </a></li>
-                                </ul>
+                                <h5 class="footer-title">Fanpage</h5>
+                                <div class="fb-page" data-href="https://www.facebook.com/lispharma.vn" data-tabs="timeline" data-width="" data-height="180" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/lispharma.vn" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/lispharma.vn">LISPharma</a></blockquote></div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-3 col-md-4  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
-                            <div class="widget widget_services style-1">
-                                <h5 class="footer-title">Other links</h5>
-                                <ul>
-                                    <li><a href="javascript:void(0);">FAQ</a></li>
-                                    <li><a href="javascript:void(0);">Portfolio</a></li>
-                                    <li><a href="javascript:void(0);">Privacy Policy</a></li>
-                                    <li><a href="javascript:void(0);">Terms & Conditions</a></li>
-                                    <li><a href="javascript:void(0);">Support </a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        @*<div class="col-xl-2 col-lg-3 col-md-4  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+                                <div class="widget widget_services style-1">
+                                    <h5 class="footer-title">Other links</h5>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">FAQ</a></li>
+                                        <li><a href="javascript:void(0);">Portfolio</a></li>
+                                        <li><a href="javascript:void(0);">Privacy Policy</a></li>
+                                        <li><a href="javascript:void(0);">Terms & Conditions</a></li>
+                                        <li><a href="javascript:void(0);">Support </a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
                         <div class="col-xl-3 col-lg-3 col-md-4  col-sm-6 wow fadeIn" data-wow-duration="2s" data-wow-delay="1.0s">
                             <div class="widget widget_getintuch">
-                                <h5 class="footer-title">Contact Us</h5>
+                                <h5 class="footer-title">Liên hệ</h5>
                                 <ul>
                                     <li>
                                         <i class="fa fa-phone gradient"></i>
@@ -209,7 +229,7 @@
                                     </li>
                                     <li>
                                         <i class="fa fa-map-marker gradient"></i>
-                                        <span>Marmora Road Chi Minh City, Vietnam</span>
+                                        <span>Mỗ Lao, Hà Đông, Vietnam</span>
                                     </li>
                                 </ul>
                             </div>

@@ -1,0 +1,351 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+    var category_parent_special_first = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).FirstOrDefault();
+
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                    }
+
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span>@category_child_2.category_name</span></li>
+
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="container">
+    <div class="row mb-8">
+        <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
+            <div class="mb-6 border border-width-2 border-color-3 borders-radius-6">
+                <!-- List -->
+                <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar view-all">
+                    <li><div class="dropdown-title">Danh mục sản phẩm</div></li>
+                    @foreach (var c_parent in list_category_parent_default)
+                    {
+                        if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                        {
+                            var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                            <li>
+                                <a class="dropdown-toggle dropdown-toggle-collapse" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="sidebarNav1Collapse_@c_parent.category_id" data-target="#sidebarNav1Collapse_@c_parent.category_id">
+                                    @c_parent.category_name
+                                </a>
+                                @if (list_child_1.Count > 0)
+                                {
+                                    <div id="sidebarNav1Collapse_@c_parent.category_id" class="collapse" data-parent="#sidebarNav">
+                                        <ul id="sidebarNav1" class="list-unstyled dropdown-list">
+                                            @foreach (var child_1 in list_child_1)
+                                            {
+                                                <li><a class="dropdown-item" href="/collections/@child_1.seo_alias">@child_1.category_name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+
+                            </li>
+                        }
+                    }
+                </ul>
+                <!-- End List -->
+            </div>
+            <div class="mb-8">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Có thể bạn quan tâm</h3>
+                </div>
+                <ul class="list-unstyled">
+                    @foreach (var product in new ProductProvider().getByCategoryIdOnSite(category_parent_special_first.category_id))
+                    {
+                        <li class="mb-4">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="/@product.seo_alias" class="d-block width-75">
+                                        <img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image">
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <h3 class="text-lh-1dot2 font-size-14 mb-0"><a href="/@product.seo_alias">@product.product_name</a></h3>
+                                    <div class="text-warning text-ls-n2 font-size-16 mb-1" style="width: 80px;">
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <del class="font-size-11 text-gray-9 d-block showNumeric">$2299.00</del>
+                                        <ins class="font-size-15 text-red text-decoration-none d-block">$1999.00</ins>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                    <li class="mb-4">
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
+                                    <img class="img-fluid" src="../../assets/img/300X300/img3.jpg" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-lh-1dot2 font-size-14 mb-0"><a href="../shop/single-product-fullwidth.html">Notebook Black Spire V Nitro VN7-591G</a></h3>
+                                <div class="text-warning text-ls-n2 font-size-16 mb-1" style="width: 80px;">
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star text-muted"></small>
+                                </div>
+                                <div class="font-weight-bold font-size-15">
+                                    $499.00
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-4">
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
+                                    <img class="img-fluid" src="../../assets/img/300X300/img5.jpg" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-lh-1dot2 font-size-14 mb-0"><a href="../shop/single-product-fullwidth.html">Tablet Thin EliteBook Revolve 810 G6</a></h3>
+                                <div class="text-warning text-ls-n2 font-size-16 mb-1" style="width: 80px;">
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star text-muted"></small>
+                                </div>
+                                <div class="font-weight-bold font-size-15">
+                                    $100.00
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-4">
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
+                                    <img class="img-fluid" src="../../assets/img/300X300/img6.jpg" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-lh-1dot2 font-size-14 mb-0"><a href="../shop/single-product-fullwidth.html">Notebook Purple G952VX-T7008T</a></h3>
+                                <div class="text-warning text-ls-n2 font-size-16 mb-1" style="width: 80px;">
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star text-muted"></small>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <del class="font-size-11 text-gray-9 d-block">$2299.00</del>
+                                    <ins class="font-size-15 text-red text-decoration-none d-block">$1999.00</ins>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mb-4">
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="../shop/single-product-fullwidth.html" class="d-block width-75">
+                                    <img class="img-fluid" src="../../assets/img/300X300/img10.png" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <h3 class="text-lh-1dot2 font-size-14 mb-0"><a href="../shop/single-product-fullwidth.html">Laptop Yoga 21 80JH0035GE W8.1</a></h3>
+                                <div class="text-warning text-ls-n2 font-size-16 mb-1" style="width: 80px;">
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="fas fa-star"></small>
+                                    <small class="far fa-star text-muted"></small>
+                                </div>
+                                <div class="font-weight-bold font-size-15">
+                                    $1200.00
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-9 col-wd-9gdot5">
+            <!-- Shop-control-bar -->
+            <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
+                <div class="d-xl-none">
+                    <!-- Account Sidebar Toggle Button -->
+                    <a id="sidebarNavToggler1" class="btn btn-sm py-1 font-weight-normal" href="javascript:;" role="button"
+                       aria-controls="sidebarContent1"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       data-unfold-event="click"
+                       data-unfold-hide-on-scroll="false"
+                       data-unfold-target="#sidebarContent1"
+                       data-unfold-type="css-animation"
+                       data-unfold-animation-in="fadeInLeft"
+                       data-unfold-animation-out="fadeOutLeft"
+                       data-unfold-duration="500">
+                        <i class="fas fa-sliders-h"></i> <span class="ml-1">Filters</span>
+                    </a>
+                    <!-- End Account Sidebar Toggle Button -->
+                </div>
+                <div class="px-3 d-none d-xl-block">
+                    <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="data_table-tab" data-toggle="pill" href="#data_table" role="tab" aria-controls="data_table" aria-selected="false">
+                                <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                    <i class="fa fa-th"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex">
+
+                </div>
+                <nav class="px-3 flex-horizontal-center text-gray-20 d-none d-xl-flex">
+                    <form method="get">
+                        <!-- Select -->
+                        <select class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
+                                data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
+                            <option value="moi-nhat" selected="selected">Mới cập nhật</option>
+                            <option value="pho-bien-nhat">Phổ biến nhất</option>
+                            <option value="ten-az">Tên A đến Z</option>
+                            <option value="ten-za">Tên Z đến A</option>
+                            <option value="gia-cao-thap">Giá cao đến thấp</option>
+                            <option value="gia-thap-cao">Giá thấp đến cao</option>
+                        </select>
+                        <!-- End Select -->
+                    </form>
+                </nav>
+            </div>
+            <!-- End Shop-control-bar -->
+            <!-- Shop Body -->
+            <!-- Tab Content -->
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade pt-2 show active" id="data_table" role="tabpanel" aria-labelledby="data_table-tab" data-target-group="groups">
+                    @{Html.RenderAction("GetProductByCategory", "Category", new { num_product = ViewBag.NumProduct, seo_alias = ViewBag.CategorySeoAlias, select_order = ViewBag.SelectOrder });}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Brand Carousel -->
+    <div class="mb-6">
+        <div class="py-2 border-top border-bottom">
+            <div class="js-slick-carousel u-slick my-1"
+                 data-slides-show="5"
+                 data-slides-scroll="1"
+                 data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                 data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                 data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                 data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img1.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img2.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img3.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img4.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img5.png" alt="Image Description">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a href="#" class="link-hover__brand">
+                        <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img6.png" alt="Image Description">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Brand Carousel -->
+</div>

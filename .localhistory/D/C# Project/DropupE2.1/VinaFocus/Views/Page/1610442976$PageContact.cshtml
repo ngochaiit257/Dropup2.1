@@ -1,0 +1,137 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ VINA FOCUS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    var list_contact = new StoreContactProvider().getAll();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ VINA FOCUS";
+    ViewBag.Description = "Liên hệ với VINA FOCUS để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> Liên hệ</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="mb-8">
+    @Html.Raw(contact.map)
+</div>
+
+<div class="container">
+    <div class="row mb-10">
+        <div class="col-md-8 col-xl-9">
+            <div class="mr-xl-6">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title mb-0 pb-2 font-size-25">Để lại lời nhắn</h3>
+                </div>
+                <p class="max-width-830-xl text-gray-90">Bạn cần quan tâm đến sản phẩm nào hay cần chúng tư vấn, giải đáp thắc mắc. Hãy để lại lời nhắn cho chúng tôi, Vina Focus sẽ phản hồi lại sớm cho bạn.</p>
+                <form class="js-validate" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Input -->
+                            <div class="js-form-message mb-4">
+                                <label class="form-label">
+                                    Tên của bạn
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="" aria-label="" required="" data-msg="Nhập tên của bạn" data-error-class="u-has-error" data-success-class="u-has-success" autocomplete="off">
+                            </div>
+                            <!-- End Input -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Input -->
+                            <div class="js-form-message mb-4">
+                                <label class="form-label">
+                                    Số điện thoại
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="" aria-label="" required="" data-msg="Nhập số điện thoại" data-error-class="u-has-error" data-success-class="u-has-success">
+                            </div>
+                            <!-- End Input -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Input -->
+                            <div class="js-form-message mb-4">
+                                <label class="form-label">
+                                    Email
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="Nhập email" aria-label="" required="" data-msg="Yêu cầu nhập Email" data-error-class="u-has-error" data-success-class="u-has-success" autocomplete="off">
+                            </div>
+                            <!-- End Input -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Input -->
+                            <div class="js-form-message mb-4">
+                                <label class="form-label">
+                                    Tiêu đề
+                                </label>
+                                <input type="text" class="form-control" placeholder="Nhập tiêu đề" aria-label="" data-error-class="u-has-error" data-success-class="u-has-success">
+                            </div>
+                            <!-- End Input -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="js-form-message mb-4">
+                                <label class="form-label">
+                                    Lời nhắn
+                                </label>
+
+                                <div class="input-group">
+                                    <textarea class="form-control p-5" rows="4" name="text" placeholder="Để lại lời nhắn..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary-dark-w px-5">Gửi tin nhắn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-3">
+            <div class="border-bottom border-color-1 mb-5">
+                <h3 class="section-title mb-0 pb-2 font-size-25">Liên hệ</h3>
+            </div>
+            <div class="mr-xl-6">
+                <h5 class="font-size-14 font-weight-bold mb-3">Làm việc</h5>
+                <address class="mb-6">
+                    @contact.address
+                </address>
+                <h5 class="font-size-14 font-weight-bold mb-3">Làm việc</h5>
+                <ul class="list-unstyled mb-6">
+                    <li class="flex-center-between mb-1"><span class="">Các ngày:</span><span class="">Từ @contact.working_day</span></li>
+                    <li class="flex-center-between mb-1"><span class="">Thời gian:</span><span class="">Từ @contact.working_hour</span></li>
+                </ul>
+                <h5 class="font-size-14 font-weight-bold mb-3">Email</h5>
+                <p class="text-gray-90">Bạn có thể phản hồi quan email: <a class="text-blue text-decoration-on" href="mailto:@contact.email">@contact.email</a></p>
+                <h5 class="font-size-14 font-weight-bold mb-3">Điện thoại hỗ trợ</h5>
+                <p class="text-gray-90">@contact.phone_number</p>
+            </div>
+        </div>
+    </div>
+</div>

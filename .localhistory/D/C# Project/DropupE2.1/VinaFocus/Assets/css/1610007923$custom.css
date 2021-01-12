@@ -1,0 +1,66 @@
+﻿.u-header__navbar--wide .u-header__nav-item:first-child .u-header__nav-link {
+    padding-left: 0rem;
+}
+
+.btn-primary {
+    color: #fff;
+}
+
+.bg-primary {
+    background-image: linear-gradient(to right, #094eb6, #287ad1);
+}
+
+.nav-classic .nav-link {
+    text-transform: capitalize;
+}
+
+.u-header__navbar--wide.navbar-expand-md .u-header__navbar-nav .nav-item + .nav-item .u-header__nav-link {
+    border-left: 1px solid #334d99;
+}
+
+.section-title {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.nav-tab-pill .nav-link {
+    font-weight: 700;
+}
+
+.row-newsletter{
+    color: #fff;
+}
+
+.cart-nav{
+    float: right;
+}
+
+.nav-sticky .fixed{
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+#sidebarHeaderInvokerMenu {
+    display: block;
+}
+
+.btn-primary[href]:hover, .btn-primary[href]:focus, .btn-primary[href]:active, .btn-primary[type]:hover, .btn-primary[type]:focus, .btn-primary[type]:active {
+    box-shadow: 0 4px 11px #c8f1ff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #d8b700;
+    border-color: #cbac00;
+}
+
+@media (min-width: 1200px) {
+    .u-header__navbar-brand, .u-header__navbar-brand > img {
+        width: 12.375rem;
+    }
+
+    #sidebarHeaderInvokerMenu{
+        display: none;
+    }
+}

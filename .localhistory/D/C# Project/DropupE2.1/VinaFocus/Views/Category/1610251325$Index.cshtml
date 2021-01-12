@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                    }
+
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->

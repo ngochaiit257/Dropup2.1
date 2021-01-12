@@ -1,0 +1,37 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ VINA FOCUS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    var list_contact = new StoreContactProvider().getAll();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ VINA FOCUS";
+    ViewBag.Description = "Liên hệ với VINA FOCUS để được tư vấn về các sản phẩm và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> Liên hệ</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->

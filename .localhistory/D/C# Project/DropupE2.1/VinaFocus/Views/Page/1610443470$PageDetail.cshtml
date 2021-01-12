@@ -1,0 +1,51 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var page_parent = new page();
+    @if(Model.page_parent_id > 0)
+    {
+        page_parent = PageProvider().getById((int)Model.page_parent_id);
+    }
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    @if (page_parent != null && page_parent.page_id > 0)
+                    {
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a></li>
+                    }
+
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> @Model.page_title</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="bg-img-hero mb-14">
+    <div class="container">
+        @Html.Raw(Model.page_content)
+    </div>
+</div>

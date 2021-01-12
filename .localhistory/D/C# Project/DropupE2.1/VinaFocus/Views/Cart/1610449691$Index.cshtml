@@ -1,0 +1,84 @@
+﻿@using Data;
+@using Data.Providers;
+@using VinaFocus.Models;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Title = "Giỏ hàng | Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> Giỏ hàng</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="container">
+    <div class="mb-4">
+        <h1 class="text-center">Giỏ hàng của bạn</h1>
+    </div>
+    <div class="container">
+        <div class="show_when_cart_empty" style="display:none">
+            <div class="cart-empty-content" style="text-align: center">
+                <p>Giỏ hàng trống.</p>
+                <p>Tiếp tục mua hàng, <a href="/" class="text-info">nhấn vào đây</a>.</p>
+            </div>
+        </div>
+        <div id="data_table">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadCart();
+    });
+
+    function loadCart() {
+        if (Cookies.get("VINAFOCUS_CART") == null || Cookies.get("VINAFOCUS_CART") == undefined || $.parseJSON(Cookies.get("VINAFOCUS_CART")).length == 0) {
+            $('.show_when_cart_empty').css({ display: 'block' });
+            $('#data_table').empty();
+        } else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("VINAFOCUS_CART"));
+            var list_in_cart = [];
+            $.each(list_product_variation_in_cart, function (index, value) {
+                var obj = {};
+                obj.id = value.id;
+                obj.quantity = value.quantity;
+                list_in_cart.push(obj);
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetAllInCart",
+                data: {
+                    list_in_cart: list_in_cart,
+                },
+                context: document.body,
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html(data);
+                },
+                error: function (xhr) {
+                    console.log('Error')
+                }
+            });
+        }
+        getNumOfItemInCart();
+    }
+</script>

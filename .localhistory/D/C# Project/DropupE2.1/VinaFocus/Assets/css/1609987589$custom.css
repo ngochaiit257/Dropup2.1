@@ -1,0 +1,28 @@
+﻿.u-header__navbar--wide .u-header__nav-item:first-child .u-header__nav-link {
+    padding-left: 0rem;
+}
+
+.btn-primary {
+    color: #fff;
+}
+
+.nav-classic .nav-link {
+    text-transform: capitalize;
+}
+
+.u-header__navbar--wide.navbar-expand-md .u-header__navbar-nav .nav-item + .nav-item .u-header__nav-link {
+    border-left: 1px solid #334d99;
+}
+
+.section-title {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.nav-tab-pill .nav-link {
+    font-weight: 700;
+}
+
+.row-newsletter{
+    color: #fff;
+}
