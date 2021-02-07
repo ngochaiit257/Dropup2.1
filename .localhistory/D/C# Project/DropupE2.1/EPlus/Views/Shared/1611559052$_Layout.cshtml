@@ -1,0 +1,552 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>EduSkills - Tutor Online Courses & LMS Multipurpose HTML template</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <link rel="stylesheet" href="../Assets/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/jquery-nice-select/nice-select.css">
+    <link rel="stylesheet" href="../Assets/vendors/OwlCarousel2/owl.carousel.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/magnific-popup/css/magnific-popup.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <link href="../Assets/css/style.css" rel="stylesheet">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="../Assets/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca:400,500,700,800;display=swap" rel="stylesheet">
+
+    <script src="../Assets/vendors/jQuery/jquery.min.js"></script>
+
+</head>
+
+<body id="top">
+    <!-- start of preloader -->
+    <div class="preloader"></div>
+    <!-- end of preloader -->
+    <!-- signup-modal -->
+    <div class="modal fade rounded" id="signup-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-secondary font-weight-600">Register now</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3 p-sm-4">
+                    <form method="POST" class="row">
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="fname">Your Name*</label>
+                            <input class="form-control shadow-none rounded-sm" type="text" placeholder="Jack" id="fname" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="pnumber">Phone Number*</label>
+                            <input class="form-control shadow-none rounded-sm" type="text" placeholder="Phone Number" id="pnumber" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="email2">Email Address*</label>
+                            <input class="form-control shadow-none rounded-sm" type="email" placeholder="jack@email.com" id="email2" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2 d-block">Gender*</label>
+                            <div class="d-flex custom-radio-group rounded-sm">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">Male</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="password">Password*</label>
+                            <input class="form-control shadow-none rounded-sm" type="password" id="password" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="repassword">Retype Password*</label>
+                            <input class="form-control shadow-none rounded-sm" type="password" id="repassword" required>
+                        </div>
+                        <div class="form-group col-12">
+                            <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- signup-modal -->
+    <!-- signin-modal -->
+    <div class="modal fade rounded" id="signin-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto" style="max-width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-secondary font-weight-600">Welcome back</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3 p-sm-4">
+                    <ul class="nav nav-pills nav-justified tab-nav" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="guardian-tab" data-toggle="tab" href="#guardian" role="tab" aria-controls="guardian" aria-selected="true"><img src="../Assets/images/guardian.png" class="mr-2" alt="" style="height:45px"> Login as<br>Guardian</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="tutor-tab" data-toggle="tab" href="#tutor" role="tab" aria-controls="tutor" aria-selected="false"><img src="../Assets/images/tutor.png" class="mr-2" alt="" style="height:45px"> Login as<br>Tutor</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="guardian" role="tabpanel" aria-labelledby="guardian-tab">
+                            <form method="POST" class="row">
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="email">Email Address*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="email" id="email" required>
+                                </div>
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="passwordSignIn">Password*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="password" id="passwordSignIn" required>
+                                </div>
+                                <div class="form-group col-12">
+                                    <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign In</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="tutor" role="tabpanel" aria-labelledby="tutor-tab">
+                            <form method="POST" class="row">
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="email">Email Address*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="email" id="email" required>
+                                </div>
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="passwordSignIn">Password*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="password" id="passwordSignIn" required>
+                                </div>
+                                <div class="form-group col-12">
+                                    <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign In</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- signin-modal -->
+
+    <header class="bg-white shadow">
+        <div class="container-lg">
+            <nav class="navbar navbar-expand-xl navbar-dark px-0">
+                <a class="navbar-brand" href="index-2.html">
+                    <img src="../Assets/images/logo-2.png" alt="" style="height:49px">
+                </a>
+
+                <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarNavAlt" aria-controls="navbarNavAlt" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-bars"></span>
+                </button>
+                <div class="" style="text-align: right; width: calc(100% - 200px);">
+                    <div class="block-navbar__top">
+                        <a href="https://www.teachapax.com" class="badge badge-primary" target="_blank">CAREERS</a>
+                        <a href="http://core.apaxenglish.com/Authentication/Login.aspx" class="badge badge-primary" target="_blank">Đăng nhập</a>
+                        <a href="http://www.apaxleaders.edu.vn/lien-he" class="badge badge-primary">Liên hệ</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarNavAlt">
+
+                        <ul class="navbar-nav mt-4 mt-xl-0 ml-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Trang chủ
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Về Eplus <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="about.html">Giới thiệu</a></li>
+                                    <li><a class="dropdown-item" href="about-2.html">Tầm nhìn</a></li>
+                                    <li><a class="dropdown-item" href="about-3.html">Sứ mệnh</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Chương trình học <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="about.html">Khóa Beginer</a></li>
+                                    <li><a class="dropdown-item" href="about-2.html">Khóa Starter</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog.html">Đăng ký học thử</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog.html">Tin tức và sự kiện</a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="footer-newsletter-overlap bg-blue">
+        <div class="container">
+            <div class="pb-80 pt-60 text-white">
+                <div class="row justify-content-between">
+                    <div class="col-xl-4 col-lg-5 col-sm-8">
+                        <h3 class="font-weight-bold mb-30">Latest Courses</h3>
+                        <div class="row">
+                            <div class="col-xl-5 col-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Development
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Design
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Marketing
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Lifestyle
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> IT & Software
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-5 col-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Photography
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Personal
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Development
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Business
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#!" class="text-light">
+                                            <i class="fas fa-chevron-right small mr-2"></i> Music
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl col-lg-3 col-sm-4 col-6 mt-5 mt-sm-0">
+                        <h3 class="font-weight-bold mb-30">Our Pages</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> About
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Courses
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Gallery
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Career
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl col-lg-3 col-sm-6 col-6 mt-5 mt-lg-0">
+                        <h3 class="font-weight-bold mb-30">Valuable Links</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Pricing
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Privacy
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Conditions
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Refund Policy
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a href="#!" class="text-light">
+                                    <i class="fas fa-chevron-right small mr-2"></i> Our Product
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 mt-5 mt-xl-0">
+                        <img src="../../../www.s7template.com/tf/eduskills/images/logo.html" alt="">
+                        <p class="mt-15">Silent sir say desire fat him letter. Whatever settling goodness too and honoured she building.</p>
+                        <div class="mt-30">
+                            <a href="#!" class="pr-3 text-light"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-light"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-light"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-light"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-light py-3 border-dark border-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 text-center text-lg-left mb-3 mb-lg-0">
+                        &copy; Copyright All Review <span class="text-primary">Edu</span>Skills
+                    </div>
+                    <div class="col-lg-3 text-center text-lg-right">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-light">Privacy</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-light">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <a href="#top" class="scroll-to-top">
+        <span class="fas fa-chevron-up"></span>
+    </a>
+
+    <!-- jQuery -->
+    <script src="../Assets/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../Assets/vendors/jquery-nice-select/jquery.nice-select.min.js"></script>
+    <script src="../Assets/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="../Assets/vendors/counterup/waypoints.min.js"></script>
+    <script src="../Assets/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="../Assets/vendors/magnific-popup/js/magnific-popup.min.js"></script>
+
+    <!-- Main Script -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="../Assets/js/script.js"></script>
+    <script src="~/Assets/js/custom.js"></script>
+    <script>
+        var width_device = $(window).width();
+        var $swipeTabsContainer = $(".swipe-tabs"),
+            $swipeTabs = $(".swipe-tab"),
+            $swipeTabsContentContainer = $(".swipe-tabs-container"),
+            currentIndex = 0,
+            activeTabClassName = "active-tab";
+
+        $swipeTabsContainer.on("init", function (event, slick) {
+            $swipeTabsContentContainer.removeClass("invisible");
+            $swipeTabsContainer.removeClass("invisible");
+
+            currentIndex = slick.getCurrent();
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+        });
+
+        $swipeTabsContainer.slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            arrows: true,
+            infinite: false,
+            swipeToSlide: true,
+            swipe: true,
+            draggable: true,
+            touchThreshold: 10,
+            prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+            nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>',
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 4
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: true,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }],
+        });
+
+        $swipeTabsContentContainer.slick({
+            asNavFor: $swipeTabsContainer,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            infinite: false,
+            swipeToSlide: true,
+            swipe: true,
+            draggable: true,
+            touchThreshold: 10,
+            prevArrow: '<button type="button" class="slick-prev slick-prev-content"><i class="fas fa-chevron-left"></i></button>',
+            nextArrow: '<button type="button" class="slick-next slick-next-content"><i class="fas fa-chevron-right"></i></button>',
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        arrows: true,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                    }
+                }]
+        });
+
+        $swipeTabsContentContainer.on('afterChange', function (event, slick, currentSlide) {
+
+            
+        })
+
+        $swipeTabs.on("click", function (event) {
+            // gets index of clicked tab
+            currentIndex = $(this).data("slick-index");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+            $swipeTabsContainer.slick("slickGoTo", currentIndex);
+            $swipeTabsContentContainer.slick("slickGoTo", currentIndex);
+        });
+
+        //initializes slick navigation tabs swipe handler
+        $swipeTabsContentContainer.on("swipe", function (event, slick, direction) {
+            currentIndex = $(this).slick("slickCurrentSlide");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+        });
+
+        $swipeTabsContentContainer.on("afterChange", function (event, slick, i) {
+            currentIndex = $(this).slick("slickCurrentSlide");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+        })
+
+        $swipeTabsContainer.on("swipe", function (event, slick, i) {
+            currentIndex = $(this).slick("slickCurrentSlide");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+            $swipeTabsContentContainer.slick("slickGoTo", currentIndex);
+        })
+
+        $swipeTabsContainer.on("afterChange", function (event, slick, i) {
+            currentIndex = $(this).slick("slickCurrentSlide");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+            $swipeTabsContentContainer.slick("slickGoTo", currentIndex);
+        })
+
+
+        // student-says-carousel Init
+        var sliderMain = $('.slider-main');
+        sliderMain.owlCarousel({
+            loop: true,
+            nav: false,
+            dots: false,
+            items: 1
+        });
+        // Custom Navigation Events
+        $('.slider-main-left').click(function () {
+            sliderMain.trigger('prev.owl.carousel');
+        });
+        $('.slider-main-right').click(function () {
+            sliderMain.trigger('next.owl.carousel');
+        });
+
+
+    </script>
+
+</body>
+</html>

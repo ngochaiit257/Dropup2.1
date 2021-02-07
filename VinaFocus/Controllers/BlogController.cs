@@ -34,6 +34,10 @@ namespace VinaFocus.Controllers
             return PartialView("_PartialViewListBlog", list_return.ToPagedList(No_Of_Page, 12));
         }
 
+        [OutputCache(Duration = 2592000, VaryByParam = "none", SqlDependency = "SiteCache:product;SiteCache:category;SiteCache:category_product;" +
+           "SiteCache:cart_of_user;SiteCache:cart_product_variation;SiteCache:blog;SiteCache:system_log;" +
+           "SiteCache:store_logo;SiteCache:store_banner;SiteCache:store_slide;SiteCache:store_membership;SiteCache:store_customer_say;" +
+           "SiteCache:store_partner;SiteCache:store_contact")]
         public ActionResult BlogDetail(string seo_alias)
         {
             return View(blog_provider.getBySeoAlias(seo_alias));

@@ -1,7 +1,22 @@
-﻿
+﻿@using Data;
+@using Data.Providers;
 @{
     ViewBag.Title = "Công ty cổ phần y dược Lis Pharma";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var lp_linhvucgiacong = new PageProvider().getByPageParentId(2);
+    var lp_dichvutrongnuoc = new PageProvider().getByPageParentId(7);
+    var lp_dichvungoainuoc = new PageProvider().getByPageParentId(8);
+
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+    var list_product = new ProductProvider().getNewestShowing().Take(8).ToList();
+
+    var list_baochi = new BlogProvider().getByCategoryIdShowing(4).Take(5);
+    var list_blog = new BlogProvider().getIsShowing().Where(b => b.blog_category_id != 4).Take(7).ToList();
+    var newest_blog = list_blog.FirstOrDefault();
 }
 
 <div class="slider">
@@ -30,25 +45,10 @@
     </div>
     <!-- end gallery-thumbs -->
     <!--Waves Container-->
-    @*<div>
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-                </g>
-            </svg>
-        </div>*@
-    <!--Waves end-->
 </div>
 <!-- end slider -->
-<!-- Our Fetures -->
 
+<!-- Our Fetures -->
 <section class="content-inner-2 section-intro">
     <div class="container">
         <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
@@ -63,21 +63,21 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
                         <div class="icon-bx-wraper left m-b50 icon-up">
-                            <div class="icon-bx-sm radius gradient-sec shadow-primary m-b20">
-                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="flaticon-smile"></i></a>
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-heartbeat"></i></a>
                             </div>
-                            <div class="icon-content">
+                            <div class="icon-content-feature icon-content">
                                 <h4 class="dlab-tilte text-capitalize">Vì sức khỏe người Việt</h4>
-                                <p>Lis Pharma luôn cố gắng mang đến các sản phâm chất lượng, an toàn và điều trị bệnh tối ưu vì ức khỏe người Việt.</p>
+                                <p>Lis Pharma cố gắng mang đến các sản phẩm chất lượng, an toàn và điều trị bệnh vì sức khỏe người Việt.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
                         <div class="icon-bx-wraper left m-b50 icon-up">
-                            <div class="icon-bx-sm radius gradient-sec shadow-primary m-b20">
-                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="flaticon-bullhorn"></i></a>
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-thumbs-up"></i></a>
                             </div>
-                            <div class="icon-content">
+                            <div class="icon-content-feature icon-content">
                                 <h4 class="dlab-tilte text-capitalize">20+ Dòng sản phẩm chất lượng</h4>
                                 <p>Nhiều dòng sản phẩm của Lis Pharma đang có mặt tại các nhà thuốc lớn và uy tín trên toàn quốc.</p>
                             </div>
@@ -87,17 +87,17 @@
             </div>
             <div class="col-lg-4 wow zoomIn" data-wow-duration="2s" data-wow-delay="0.2s">
                 <div class="dz-media text-center m-b30">
-                    <img src="~/Assets/images/common/img-intro.png" />
+                    <img src="~/Assets/images/common/ban-do.png" />
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
                         <div class="icon-bx-wraper left m-b50 icon-up">
-                            <div class="icon-bx-sm radius gradient-sec shadow-primary m-b20">
-                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="flaticon-coding"></i></a>
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-plus-square"></i></a>
                             </div>
-                            <div class="icon-content">
+                            <div class="icon-content-feature icon-content">
                                 <h4 class="dlab-tilte text-capitalize">Các chứng chỉ y dược uy tín</h4>
                                 <p>Với sứ mệnh kết nối Tây y và Đông y, Lis Pharma được cấp nhiều chứng chỉ uy tín trong ngành y dược.</p>
                             </div>
@@ -105,12 +105,12 @@
                     </div>
                     <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
                         <div class="icon-bx-wraper left m-b50 icon-up">
-                            <div class="icon-bx-sm radius gradient-sec shadow-primary m-b20">
-                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="flaticon-rocket"></i></a>
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-share-alt-square"></i></a>
                             </div>
-                            <div class="icon-content">
+                            <div class="icon-content-feature icon-content">
                                 <h4 class="dlab-tilte text-capitalize">Hệ thống phân phối rộng khắp</h4>
-                                <p>Với hơn 100 nhà thuốc liên kết, Lis Pharma có hệ thống phân phối rộng khắp trên thị trường.</p>
+                                <p>Với hơn 100 nhà thuốc liên kết, Lis Pharma có hệ thống phân phối rộng khắp trên thị trường toàn quốc gia.</p>
                             </div>
                         </div>
                     </div>
@@ -118,33 +118,66 @@
             </div>
         </div>
     </div>
-</section>
-
-<section class="content-inner-2">
-    <div class="container">
+    <div class="container pt-5">
         <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-            <h6 class="sub-title text-primary">Truyền thông đưa tin</h6>
-            <h2 class="title m-t10">Báo chí nói gì về chúng tôi?</h2>
+            <h6 class="sub-title text-primary">Về chúng tôi</h6>
+            <h2 class="title m-t10">Công ty cổ phần Y Dược Lis</h2>
             <div class="line-branding">
                 <img src="~/Assets/images/background/line.png" />
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 m-b30 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.2s; animation-name: fadeInLeft;">
+
+                <div class="content-bottom-video">
+                    <h3> Về chúng tôi </h3>
+                    <p>
+                        Công ty cổ phần Y Dược Lis ra đời nhằm kế thừa, bảo tồn và phát huy những bài thuốc Nam của Việt Nam.
+                        Lis Pharma với sứ mệnh kết nối Tây y và Đông y để chữa và phòng bệnh nhằm nâng cao sức khỏe cho khách hàng.
+                        Cung cấp thuốc chất lượng, an toàn – chữa được tận gốc rễ, căn nguyên của các loại bệnh, đặc biệt các bệnh nan y, khó chữa nhất mà con người thường hay mắc phải.
+                    </p>
+                </div>
+
                 <div class="video-bx style-3">
                     <img src="../Assets/images/video/pic3.jpg" alt="">
                     <div class="video-btn">
                         <a href="https://www.youtube.com/watch?v=0S6pHex-KCo" class="popup-youtube"><i class="flaticon-play"></i></a>
                     </div>
                 </div>
-
             </div>
             <div class="col-lg-6 m-b30 wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.4s; animation-name: fadeInRight;">
-                <div class="widget recent-posts-entry">
+                <div class="widget recent-posts-entry recent-posts-entry-au">
+                    <h3> Báo chí đưa tin về chúng tôi </h3>
                     <div class="widget-post-bx">
                         <div class="widget-post clearfix">
                             <div class="dlab-media">
                                 <a href="blog-details-1.html"><img src="../Assets/images/blog/recent-blog/pic2.jpg" alt=""></a>
+                            </div>
+                            <div class="dlab-info">
+                                <h4 class="title"><a href="blog-details-1.html">Phóng sự VTV đưa tin về các sản phẩm dược đạt chất lượng tại Việt Nam</a></h4>
+                                <div class="dlab-meta">
+                                    <ul>
+                                        <li class="post-date"> 7 March, 2020 </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-post clearfix">
+                            <div class="dlab-media">
+                                <a href="blog-details-1.html"><img src="../Assets/images/blog/recent-blog/pic3.jpg" alt=""></a>
+                            </div>
+                            <div class="dlab-info">
+                                <h4 class="title"><a href="blog-details-1.html">Phóng sự VTV đưa tin về các sản phẩm dược đạt chất lượng tại Việt Nam</a></h4>
+                                <div class="dlab-meta">
+                                    <ul>
+                                        <li class="post-date"> 7 March, 2020 </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-post clearfix">
+                            <div class="dlab-media">
+                                <a href="blog-details-1.html"><img src="../Assets/images/blog/recent-blog/pic3.jpg" alt=""></a>
                             </div>
                             <div class="dlab-info">
                                 <h4 class="title"><a href="blog-details-1.html">Phóng sự VTV đưa tin về các sản phẩm dược đạt chất lượng tại Việt Nam</a></h4>
@@ -189,84 +222,65 @@
 </section>
 
 <!-- Nhà máy -->
-<section class="content-inner-2">
-    <div class="container">
-        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-            <h6 class="sub-title text-primary">Lĩnh vực hoạt động</h6>
-            <h2 class="title m-t10">Gia công và sản xuất</h2>
-            <div class="line-branding">
-                <img src="~/Assets/images/background/line.png" />
+@if (lp_linhvucgiacong.Count > 0)
+{
+    <section class="tab-slider-feature pt-50 pb-50" style="background-attachment: fixed;background-image: url(../Assets/images/background/bg-tab-slider.jpg); background-size: contain; background-position: center; background-repeat: no-repeat;">
+        <div class="container">
+            <div class="tt-2 tt-box" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <span>Lĩnh vực gia công</span>
             </div>
+            <div class="mb-10">
+                <div class="sub-header ">
+                    <div class="swipe-tabs">
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Thực phẩm chức năng
+                        </div>
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Thuốc cổ truyền
+                        </div>
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Mỹ phẩm
+                        </div>
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Men vi sinh
+                        </div>
+                    </div>
+                </div>
+                <div class="main-container">
+                    <div class="swipe-tabs-container ">
+                        @foreach (var lvgc in lp_linhvucgiacong)
+                        {
+                            <div class="swipe-tab-content">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <p>@lvgc.page_summary</p>
+                                        <div class="mt-20 mb-20 text-center">
+                                            <a href="/pages/@lvgc.page_seo_alias" class="btn btn-lg btn-primary">Xem Chi Tiết</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="item-only-img">
+                                            <img src="@urlCMS/@lvgc.page_image" alt="@lvgc.page_image_alt">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="row">
-            <div class="col-md-3 col-lg-3 col-6">
-                <div class="dlab-team style-3 m-b30">
-                    <div class="dlab-media">
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/common/gia cong tpcn.jpg" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">Gia công TPCN</a></h3>
-                            <span class="dlab-position"><a>Xem Chi Tiết</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-lg-3 col-6">
-                <div class="dlab-team style-3 m-b30">
-                    <div class="dlab-media">
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/common/gia cong thuoc co truyen.jpg" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">Gia công thuốc cổ truyền</a></h3>
-                            <span class="dlab-position"><a>Xem Chi Tiết</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-lg-3 col-6">
-                <div class="dlab-team style-3 m-b30">
-                    <div class="dlab-media">
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/common/gia cong my pham.jpg" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">Gia công mỹ phẩm</a></h3>
-                            <span class="dlab-position"><a>Xem Chi Tiết</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-lg-3 col-6">
-                <div class="dlab-team style-3 m-b30">
-                    <div class="dlab-media">
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/common/gia cong men vi sinh.jpg" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name">
-                                Gia công men vi sinh
-                            </h3>
-                            <span class="dlab-position"><a>Xem Chi Tiết</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}
+
 
 <!-- Counters -->
-<section class="counter-wraper-1" style="background-image: url(../Assets/images/background/bg8.png); background-size: contain; background-position: center; background-repeat: no-repeat;">
+<section class="counter-wraper-1" style="background-image: url(../Assets/images/background/bg-ban-do.png); background-size: contain; background-position: center; background-repeat: no-repeat;">
     <div class="container">
         <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
             <h6 class="sub-title text-primary">LisPharma cung cấp</h6>
@@ -283,6 +297,10 @@
                             <img src="~/Assets/images/common/nl-caoduoclieu.jpg" />
                             <div class="icon-content">
                                 <span class="title">Cao dược liệu</span>
+                                <p>
+                                    Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…
+                                    Đăng ký hồ sơ sản phẩm chức năng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -291,6 +309,10 @@
                             <img src="~/Assets/images/common/nl-tinhchat.jpg" />
                             <div class="icon-content">
                                 <span class="title">Tinh chất</span>
+                                <p>
+                                    Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…
+                                    Đăng ký hồ sơ sản phẩm chức năng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -299,6 +321,10 @@
                             <img src="~/Assets/images/common/nl-botduoclieu.jpg" />
                             <div class="icon-content">
                                 <span class="title">Bột dược liệu</span>
+                                <p>
+                                    Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…
+                                    Đăng ký hồ sơ sản phẩm chức năng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -307,6 +333,10 @@
                             <img src="~/Assets/images/common/nl-menvisinh.jpg" />
                             <div class="icon-content">
                                 <span class="title">Men vi sinh</span>
+                                <p>
+                                    Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…
+                                    Đăng ký hồ sơ sản phẩm chức năng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -315,6 +345,10 @@
                             <img src="~/Assets/images/common/nl-enzym.jpg" />
                             <div class="icon-content">
                                 <span class="title">Enzymes</span>
+                                <p>
+                                    Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…
+                                    Đăng ký hồ sơ sản phẩm chức năng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -327,81 +361,65 @@
 <!-- Trong - Ngoài nước -->
 <section class="content-inner-2">
     <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Dịch vụ</h6>
+            <h2 class="title m-t10">Gia công sản xuất trong và ngoài nước</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
         <div class="row">
-            <div class="col-lg-6">
-                <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                    <h6 class="sub-title text-primary">Dịch vụ</h6>
-                    <h2 class="title m-t10">Cung cấp trong nước</h2>
-                    <div class="line-branding">
-                        <img src="~/Assets/images/background/line.png"  style="width: 50%;"/>
+            @if (lp_dichvutrongnuoc.Count > 0)
+            {
+                <div class="col-lg-6">
+                    <div class="blog-slider">
+                        <div class="blog-slider__wrp swiper-wrapper">
+                            @foreach (var page in lp_dichvutrongnuoc)
+                            {
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="@urlCMS/@page.page_image" alt="@page.page_image_alt">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Cung cấp trong nước</span>
+                                        <div class="blog-slider__title">@page.page_title</div>
+                                        <div class="blog-slider__text">@page.page_summary</div>
+                                        <a href="/pages/@page.page_seo_alias" class="blog-slider__button">Đọc Thêm</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="blog-slider__pagination"></div>
                     </div>
+
                 </div>
-                <div class="service-in owl owl-carousel owl-none owl-theme owl-dots-primary-full lightgallery">
-                    <div class="dlab-blog style-1 bg-white text-center">
-                        <div class="dlab-media">
-                            <a href="blog-details-1.html">
-                                <img src="~/Assets/images/common/sx ngoai nuoc.jpg" />
-                            </a>
+            }
+
+            @if (lp_dichvungoainuoc.Count > 0)
+            {
+                <div class="col-lg-6">
+                    <div class="blog-slider">
+                        <div class="blog-slider__wrp swiper-wrapper">
+                            @foreach (var page in lp_dichvungoainuoc)
+                            {
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="@urlCMS/@page.page_image" alt="@page.page_image_alt">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Cung cấp ngoài nước</span>
+                                        <div class="blog-slider__title">@page.page_title</div>
+                                        <div class="blog-slider__text">@page.page_summary</div>
+                                        <a href="/pages/@page.page_seo_alias" class="blog-slider__button">Đọc Thêm</a>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        <div class="dlab-info">
-                            <h5 class="dlab-title">
-                                <a href="blog-details-1.html">Gia công sản xuất TPCN</a>
-                            </h5>
-                            <p class="m-b0">Cung cấp dịch vụ nghiên cứu các sản phẩm thực phẩm chức năng (dịch vụ nghiên cứu thực phẩm chức năng) hàng đầu tại Việt Nam. Với sứ mệnh mang đến cho cộng đồng những sản phẩm chăm sóc sức khoẻ…</p>
-                        </div>
+                        <div class="blog-slider__pagination"></div>
                     </div>
-                    <div class="dlab-blog style-1 bg-white text-center">
-                        <div class="dlab-media">
-                            <a href="blog-details-1.html">
-                                <img src="~/Assets/images/common/sx trong nuoc.jpg" />
-                            </a>
-                        </div>
-                        <div class="dlab-info">
-                            <h5 class="dlab-title">
-                                <a href="blog-details-1.html">Nghiên cứu công thức độc quyền</a>
-                            </h5>
-                            <p class="m-b0">Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…</p>
-                        </div>
-                    </div>
+
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                    <h6 class="sub-title text-primary">Dịch vụ</h6>
-                    <h2 class="title m-t10">Cung cấp ngoài nước</h2>
-                    <div class="line-branding">
-                        <img src="~/Assets/images/background/line.png"  style="width: 50%;"/>
-                    </div>
-                </div>
-                <div class="service-out owl owl-carousel owl-none owl-theme owl-dots-primary-full lightgallery">
-                    <div class="dlab-blog style-1 bg-white text-center">
-                        <div class="dlab-media">
-                            <a href="blog-details-1.html">
-                                <img src="~/Assets/images/common/sx ngoai nuoc.jpg" />
-                            </a>
-                        </div>
-                        <div class="dlab-info">
-                            <h5 class="dlab-title">
-                                <a href="blog-details-1.html">Tư vấn gia công đơn vị nước ngoài</a>
-                            </h5>
-                            <p class="m-b0">Cung cấp dịch vụ nghiên cứu các sản phẩm thực phẩm chức năng (dịch vụ nghiên cứu thực phẩm chức năng) hàng đầu tại Việt Nam. Với sứ mệnh mang đến cho cộng đồng những sản phẩm chăm sóc sức khoẻ…</p>
-                        </div>
-                    </div>
-                    <div class="dlab-blog style-1 bg-white text-center">
-                        <div class="dlab-media">
-                            <a href="blog-details-1.html">
-                                <img src="~/Assets/images/common/sx trong nuoc.jpg" />
-                            </a>
-                        </div>
-                        <div class="dlab-info">
-                            <h5 class="dlab-title">
-                                <a href="blog-details-1.html">Tư vấn trọn gói setup doanh nghiệp</a>
-                            </h5>
-                            <p class="m-b0">Với sứ mệnh chăm sóc sức khỏe cộng đồng thông qua các sản phẩm có nguồn gốc từ thiên nhiên, có hoạt tính sinh học phù hợp, kết hợp y học cổ truyền với nền khoa học – công nghệ hiện đại tất cả các…</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -498,7 +516,7 @@
 </section>
 
 <!-- Danh mục SP -->
-<section class="content-inner-2">
+<section class="content-inner-2 section-products">
     <div class="container">
         <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
             <h6 class="sub-title text-primary">Danh mục sản phẩm</h6>
@@ -510,166 +528,54 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="list-category owl-carousel owl-theme owl-btn-1 owl-btn-center-lr owl-dots-none owl-btn-primary">
-                    <div class="dlab-team style-2 m-b10">
-                        <div class="dlab-media dlab-media-custom">
-                            <a href="javascript:void(0);">
-                                <img src="~/Assets/images/product/a1.png" />
-                            </a>
-                        </div>
-                        <div class="dlab-content">
-                            <div class="clearfix">
-                                <ul class="star-rating">
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                </ul>
-                                <h3 class="dlab-name"><a href="javascript:void(0);">Sản phẩm chăm sóc sức khỏe</a></h3>
+                    @foreach (var category in list_category)
+                    {
+                        <div class="dlab-team style-2 m-b10 bg-none">
+                            <div class="dlab-media dlab-media-custom">
+                                <a href="javascript:void(0);">
+                                    <img src="@urlCMS/@category.image" alt="@category.alt_image" />
+                                </a>
+                            </div>
+                            <div class="dlab-content">
+                                <div class="clearfix">
+                                    <ul class="star-rating">
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                    </ul>
+                                    <h3 class="dlab-name"><a href="/collections/@category.seo_alias">@category.category_name</a></h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="dlab-team style-2 m-b10">
-                        <div class="dlab-media dlab-media-custom">
-                            <a href="javascript:void(0);">
-                                <img src="~/Assets/images/product/da-day-png.png" />
-                            </a>
-                        </div>
-                        <div class="dlab-content">
-                            <div class="clearfix">
-                                <ul class="star-rating">
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                </ul>
-                                <h3 class="dlab-name"><a href="javascript:void(0);">Dạ dày LisPharma</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dlab-team style-2 m-b10">
-                        <div class="dlab-media dlab-media-custom">
-                            <a href="javascript:void(0);">
-                                <img src="~/Assets/images/product/spdd.png" />
-                            </a>
-                        </div>
-                        <div class="dlab-content">
-                            <div class="clearfix">
-                                <ul class="star-rating">
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                </ul>
-                                <h3 class="dlab-name"><a href="javascript:void(0);">Sản phẩm dinh dưỡng</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dlab-team style-2 m-b10">
-                        <div class="dlab-media dlab-media-custom">
-                            <a href="javascript:void(0);">
-                                <img src="~/Assets/images/product/spld.png" />
-                            </a>
-                        </div>
-                        <div class="dlab-content">
-                            <div class="clearfix">
-                                <ul class="star-rating">
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                </ul>
-                                <h3 class="dlab-name"><a href="javascript:void(0);">Sản phẩm làm đẹp</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dlab-team style-2 m-b10">
-                        <div class="dlab-media dlab-media-custom">
-                            <a href="javascript:void(0);">
-                                <img src="~/Assets/images/product/vitamin.png" />
-                            </a>
-                        </div>
-                        <div class="dlab-content">
-                            <div class="clearfix">
-                                <ul class="star-rating">
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                    <li><i class="fa fa-star text-warning"></i></li>
-                                </ul>
-                                <h3 class="dlab-name"><a href="javascript:void(0);">Các loại Vitamin</a></h3>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-6">
-                <div class="dlab-team style-2 m-b10">
-                    <div>
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/product/lieu-hoan-dan.png" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">TPBVSK Liệu Hoàn Đan</a></h3>
+            @foreach (var product in list_product)
+            {
+                <div class="col-lg-3 col-md-3 col-6">
+                    <div class="dlab-team style-2 m-b10">
+                        <div>
+                            <a href="/@product.seo_alias">
+                                <img class="img-product" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                            </a>
+                        </div>
+                        <div class="dlab-content">
+                            <div class="clearfix">
+                                <h3 class="dlab-name"><a href="/@product.seo_alias">@product.product_name</a></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-6">
-                <div class="dlab-team style-2 m-b10">
-                    <div>
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/product/linh-cot-vuong.png" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">TPBVSK Linh Cốt Vương</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-6">
-                <div class="dlab-team style-2 m-b10">
-                    <div>
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/product/thien-cot-son.png" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">TPBVSK Thiên Cốt Sơn</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-6">
-                <div class="dlab-team style-2 m-b10">
-                    <div>
-                        <a href="javascript:void(0);">
-                            <img src="~/Assets/images/product/lo-copy-2.png" />
-                        </a>
-                    </div>
-                    <div class="dlab-content">
-                        <div class="clearfix">
-                            <h3 class="dlab-name"><a href="javascript:void(0);">TPBVSK Dinh Dưỡng</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
 
 <!-- Blog -->
-<section class="content-inner">
+<section class="content-inner blog-section">
     <div class="container">
         <div class="section-head style-2 text-center">
             <h6 class="sub-title text-primary">Lis Pharma</h6>
@@ -679,128 +585,44 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                <div class="dlab-blog blog-half m-b30">
-                    <div class="dlab-media">
-                        <a href="blog-details-3.html"><img src="../Assets/images/blog/default/thum1.jpg" alt=""></a>
-                    </div>
-                    <div class="dlab-info">
-                        <h5 class="dlab-title">
-                            <a href="blog-details-3.html">
-                                Bật mí: Sự thật đằng sau sản xuất thực phẩm chức năng
-                            </a>
-                        </h5>
-                        <p>Cụm từ thực phẩm chức năng đã trở nên vô cùng quen thuộc với cuộc sống thường ngày.</p>
-                        <div class="dlab-meta">
-                            <ul>
-                                <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
-                                <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
-                                <li class="post-share">
-                                    <i class="flaticon-share"></i>
-                                    <ul>
-                                        <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="col-12 col-lg-4 col-md-4 my-2">
+                <div class="position-relative blog-newest-item" style="border-radius:15px;min-height: 430px;background-image: url('@urlCMS/@newest_blog.blog_image'); background-position: center; background-size: cover;">
+                    <div class="position-absolute p-3 d-flex flex-column align-items-start justify-content-end" style="border-radius:15px;background: linear-gradient(to bottom, transparent, rgba(0,0,0,1)); top:0; bottom:0; left:0; right:0;">
+                        <h3 class="h5"><a href="/blogs/@newest_blog.blog_seo_alias" class="text-white" style="line-height: 1.5;">@newest_blog.blog_title</a></h3>
+                        <p>@newest_blog.blog_summary</p>
+                        <span><i class="fa fa-clock-o"></i> @newest_blog.create_datetime.Value.ToString("dd/MM/yyyy") &nbsp; <i class="fa fa-tag"></i> @newest_blog.blog_category.blog_category_name</span>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
-                <div class="dlab-blog blog-half m-b30">
-                    <div class="dlab-media">
-                        <a href="blog-details-3.html"><img src="../Assets/images/blog/default/thum2.jpg" alt=""></a>
-                    </div>
-                    <div class="dlab-info">
-                        <h5 class="dlab-title">
-                            <a href="blog-details-3.html">Top 3 nhà máy sản xuất dược phẩm tại Việt Nam</a>
-                        </h5>
-                        <p>Ngành dược Việt Nam đang đạt được những thành tựu mới, những bước đi lớn trên thị trường</p>
-                        <div class="dlab-meta">
-                            <ul>
-                                <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
-                                <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
-                                <li class="post-share">
-                                    <i class="flaticon-share"></i>
-                                    <ul>
-                                        <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="col-12 col-lg-8 col-md-8 my-2">
+                <div class="row">
+                    @foreach (var blog in list_blog)
+                    {
+                        if (blog.blog_id != newest_blog.blog_id)
+                        {
+                            <div class="col-6 col-lg-6 col-md-6 my-2">
+                                <div class="d-flex align-items-start mb-3 blog-item">
+                                    <img class="img-fluid mr-3" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                    <a href="/blogs/@blog.blog_seo_alias" class="blog-title mb-0">
+                                        <h4>@blog.blog_title</h4>
+                                        <p>@blog.blog_summary</p>
+                                        <span><i class="fa fa-clock-o"></i> @blog.create_datetime.Value.ToString("dd/MM/yyyy") &nbsp; <i class="fa fa-tag"></i> @blog.blog_category.blog_category_name</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
-            <div class="col-xl-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-                <div class="dlab-blog blog-half m-b30">
-                    <div class="dlab-media">
-                        <a href="blog-details-3.html"><img src="../Assets/images/blog/default/thum1.jpg" alt=""></a>
-                    </div>
-                    <div class="dlab-info">
-                        <h5 class="dlab-title">
-                            <a href="blog-details-3.html">
-                                Bật mí: Sự thật đằng sau sản xuất thực phẩm chức năng
-                            </a>
-                        </h5>
-                        <p>Cụm từ thực phẩm chức năng đã trở nên vô cùng quen thuộc với cuộc sống thường ngày.</p>
-                        <div class="dlab-meta">
-                            <ul>
-                                <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
-                                <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
-                                <li class="post-share">
-                                    <i class="flaticon-share"></i>
-                                    <ul>
-                                        <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
-                <div class="dlab-blog blog-half m-b30">
-                    <div class="dlab-media">
-                        <a href="blog-details-3.html"><img src="../Assets/images/blog/default/thum2.jpg" alt=""></a>
-                    </div>
-                    <div class="dlab-info">
-                        <h5 class="dlab-title">
-                            <a href="blog-details-3.html">Top 3 nhà máy sản xuất dược phẩm tại Việt Nam</a>
-                        </h5>
-                        <p>Ngành dược Việt Nam đang đạt được những thành tựu mới, những bước đi lớn trên thị trường</p>
-                        <div class="dlab-meta">
-                            <ul>
-                                <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
-                                <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
-                                <li class="post-share">
-                                    <i class="flaticon-share"></i>
-                                    <ul>
-                                        <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
-                                        <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center">
-            <a href="about-us-2.html" class="wow fadeInUp btn btn-light text-primary shadow rounded-xl" data-wow-delay="2s" style="visibility: visible; animation-delay: 2s; animation-name: fadeInUp;">Xem Thêm</a>
+
+
         </div>
     </div>
 </section>
 
 <!-- Testimonials -->
-<section class="content-inner bg-primary" style="background-image: url(images/background/bg3.png);">
-    <div class="px-xl-5 px-md-4 px-3">
+<section class="content-inner bg-testi">
+    <div class="container">
         <div class="row testimonials-wraper-1">
             <div class="col-lg-9">
                 <div class="testimonials-carousel1 owl-carousel owl-theme owl-btn-2 owl-btn-white owl-btn-center">

@@ -1,0 +1,98 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- breadcrumb -->
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/blogs">Dự án tiêu biểu</a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page"><span> @Model.blog_title</span></li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+<!-- End breadcrumb -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-wd">
+            <div class="min-width-1100-wd" id="data_table">
+                @Html.Raw(Model.blog_content)
+                <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+                <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="100%" data-numposts="10"></div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-xl-3 col-wd">
+            <aside class="mb-7">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Danh mục sản phẩm</h3>
+                </div>
+                <div class="list-group">
+                    @foreach (var category in list_category_parent_default)
+                    {
+                        <a href="/collections/@category.seo_alias" class="font-bold-on-hover px-3 py-2 list-group-item list-group-item-action border-0"><i class="mr-2 fas fa-angle-right"></i> @category.category_name</a>
+                    }
+                    @foreach (var category in list_category_parent_special)
+                    {
+                        <a href="/collections/@category.seo_alias" class="font-bold-on-hover px-3 py-2 list-group-item list-group-item-action border-0"><i class="mr-2 fas fa-angle-right"></i> @category.category_name</a>
+                    }
+                </div>
+            </aside>
+            <aside class="mb-7">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Dự án mới nhất</h3>
+                </div>
+                @foreach (var blog in list_blog_newest)
+                {
+                    <article class="mb-4">
+                        <div class="media">
+                            <div class="width-75 height-75 mr-3">
+                                <img class="img-fluid object-fit-cover" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="font-size-14 mb-1"><a href="/blogs/@blog.blog_seo_alias" class="text-gray-39">@blog.blog_title</a></h4>
+                                <span class="text-gray-5">@blog.show_datetime.Value.ToString("HH:mm dd/MM/yyyy")</span>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </aside>
+        </div>
+    </div>
+</div>

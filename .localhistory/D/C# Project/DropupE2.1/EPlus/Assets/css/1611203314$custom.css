@@ -1,0 +1,6 @@
+﻿.nav-arrows.arrow-vcentered span {
+    position: absolute;
+    top: calc(50% - 19px);
+    left: 10px;
+    z-index: 1;
+}

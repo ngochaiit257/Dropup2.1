@@ -7,10 +7,10 @@
     margin-right: 15px;
 }
 
-.footer-content-icon ul li a img{
-    width: 32px;
-    height: 32px;
-}
+    .footer-content-icon ul li a img {
+        width: 32px;
+        height: 32px;
+    }
 
 .number_phone a {
     color: #fff;
@@ -2450,4 +2450,54 @@ button.btn-addtocart {
 
 .wrapper-home-information .contentHomeStore {
     margin-bottom: 0;
+}
+
+#homepage_slider .owl-controls .owl-nav div:before {
+    position: relative;
+    content: "";
+    font-family: FontAwesome;
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+#homepage_slider .owl-nav .owl-prev {
+    left: 10px;
+}
+
+#homepage_slider .owl-nav .owl-next {
+    right: 10px;
+}
+
+@media (max-width: 767px) {
+    .wrapper-heading-home h2 {
+        font-size: 22px;
+        letter-spacing: 0.1em;
+    }
+}
+
+.button-showmore .moreproduct {
+    display: inline-block;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 0;
+    padding: 8px 20px;
+    font-size: 14px;
+    box-shadow: 0 0 14px 0 rgb(0 0 0 / 15%);
+    border-color: unset;
+}
+
+    .button-showmore .moreproduct:before {
+        background-color: #000;
+    }
+
+@media (max-width: 768px){
+    .hdchonsize {
+        width: 70%;
+    }
 }

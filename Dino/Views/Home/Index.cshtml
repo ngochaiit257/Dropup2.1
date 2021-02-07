@@ -19,6 +19,7 @@
     string quan_link = System.Configuration.ConfigurationManager.AppSettings["quan"];
     string phukien_link = System.Configuration.ConfigurationManager.AppSettings["phukien"];
     string giaydep_link = System.Configuration.ConfigurationManager.AppSettings["giaydep"];
+    string combo_link = System.Configuration.ConfigurationManager.AppSettings["combo"];
 
     ViewBag.Keywords = "DINO STORE, ICON DENIM, RUNPOW, NOMOUS ESSENTIALS";
     ViewBag.Description = "Dino Store là chuỗi cửa hàng bán lẻ thời trang nam với xu hướng thời trang hiện đại luôn luôn cập nhật nhanh nhất những trend thời trang mới trên thế giới.";
@@ -34,7 +35,7 @@
         {
             <div class="item">
                 <a href="@slide.link_url">
-                    <img title="@slide.main_text" alt="@slide.alt" src="@urlCMS/@slide.image">
+                    <img class="img-slider-custom" title="@slide.main_text" alt="@slide.alt" src="@urlCMS/@slide.image">
                 </a>
             </div>
         }
@@ -76,10 +77,10 @@
 
             <div class="col-xs-12 item-banner">
                 <div class="item-banner-img style-extrabold bg-color-gray fontsize35">
-                    <a class="a-title-banner" href="@giaydep_link">Giày dép Dino</a>
-                    <a href="@giaydep_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
+                    <a class="a-title-banner" href="@combo_link">Gợi ý combo Dino</a>
+                    <a href="@combo_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
                     <div class="content-ico">
-                        <img src="~/Assets/image/giaydep-img.png" alt="giay-dep"/>
+                        <img src="~/Assets/image/combo-img.png" alt="giay-phu-kien">
                     </div>
                 </div>
             </div>

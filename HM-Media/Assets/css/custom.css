@@ -353,6 +353,7 @@ body {
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         display: -webkit-box;
+        max-height: 110px;
     }
 
 .team-item .top img {

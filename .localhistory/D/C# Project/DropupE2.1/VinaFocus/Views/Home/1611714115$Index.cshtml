@@ -1,0 +1,418 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var category_parent_special_first = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).FirstOrDefault();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var contact = new StoreContactProvider().get1Contact();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_da = new BlogProvider().getByCategoryIdShowing(5);
+
+    ViewBag.Keywords = "Thiết bị điện, ống nhựa, phụ kiện, công tắc, ổ cắm, đèn, Opple, Edenki, Thuận Phát, Vina Focus";
+    ViewBag.Description = "Vina Focus cung cấp các dòng sản phẩm thiết bị điện cao cấp, ống nhựa và phụ kiện, đèn chiếu sáng chất lượng cao.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Slider Section -->
+<div class="mb-4 slide-desktop">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text != "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+<!-- Slider Section -->
+<div class="mb-4 slide-mobile">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text == "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+
+<div class="container banner-custom">
+    <!-- Banner -->
+    <div class="row mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-ongnhua.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-den.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-congtac.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1 d-xl-none d-wd-block">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-chinhsachdaily.jpg" />
+            </a>
+        </div>
+    </div>
+    <!-- End Banner -->
+</div>
+
+<!--gallery-->
+<div class="gallery-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Hình ảnh tiêu biểu</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Một số công trình và Dự án</h3>
+                </div>
+            </div>
+        </div>
+        <div class="gallery full">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3663038/pexels-photo-3663038.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3551207/pexels-photo-3551207.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3375493/pexels-photo-3375493.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3526416/pexels-photo-3526416.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3303614/pexels-photo-3303614.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3337210/pexels-photo-3337210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3326362/pexels-photo-3326362.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                        </div>
+
+                        <div class="overlay">
+                            <div class="text-wrap">
+                                <div class="name">
+                                    <span>Thumbnail Gallery</span>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quasi aliquam eius, blanditiis quae, explicabo praesentium corporis tempora quam et rem nulla repellendus placeat, nisi omnis earum sunt suscipit aspernatur!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-next-button">
+                <i class="fa fa-long-arrow-left"></i>
+            </div>
+            <div class="swiper-prev-button">
+                <i class="fa fa-long-arrow-right"></i>
+            </div>
+        </div>
+
+        <div class="gallery thumb">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3663038/pexels-photo-3663038.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3551207/pexels-photo-3551207.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3375493/pexels-photo-3375493.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3526416/pexels-photo-3526416.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3303614/pexels-photo-3303614.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3337210/pexels-photo-3337210.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="image">
+                            <img src="https://images.pexels.com/photos/3326362/pexels-photo-3326362.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-next-button">
+                <i class="fa fa-long-arrow-left"></i>
+            </div>
+            <div class="swiper-prev-button">
+                <i class="ec ec-arrow-right-categproes"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="home-six rs-services style7">
+    <div class="container">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Thế mạnh của chúng tôi</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Vì sao lựa chọn Vina Focus</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row gutter-16">
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/1.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">An toàn</a></h4>
+                        <p class="desc">Với sứ mệnh bảo vệ nguồn sống, bảo vệ sức khỏe cộng đồng, Vina Focus cam kết đưa ra thị trường những sản phẩm có chất lượng tốt nhất, đảm bảo an toàn cho sức khỏe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/2.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Uy tín</a></h4>
+                        <p class="desc">Vina Focus đã trở thành một trong những nhà phân phối sản phẩm và kinh doanh hàng đầu trong lĩnh vực sản xuất vật liệu xây dựng cũng như sản phẩm nội thất hiện đại tại Việt Nam.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 xs-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/3.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Chất lượng</a></h4>
+                        <p class="desc">Được các tổ chức và hiệp hội có uy tín bình chọn và trao tặng nhiều giải thưởng có giá trị, tạo được tiếng vang lớn với các sản phẩm thuộc về vật liệu xây dựng và lắp đặt công trình.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/4.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Tốc độ</a></h4>
+                        <p class="desc">Không chỉ đạt về chất lượng, chúng tôi còn tự hào khi có đội ngũ xử lý công việc đảm bảo được tiến độ xây dựng và lắp đặt trong các dự án, mang lại niềm tin cho khách hàng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container banner-dai">
+    <!-- Banner 2 columns -->
+    <div class="mb-8">
+        <div class="row">
+            <div class="col-md-12 mb-3 mb-md-0 banner-custom">
+                <a href="/">
+                    <img src="@urlCMS/@banner.image" alt="@banner.alt" />
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Banner 2 columns -->
+</div>
+
+<section>
+    <div class="container">
+        <div class="sec-title">
+            <div class="sub-title green">Tin tức & Sự kiện</div>
+            <div class="border-bottom border-color-1 mb-2">
+                <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Bài viết mới nhất</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-blog-1">
+        <img src="https://cuorebello.es/blog/wp-content/uploads/2018/10/decorar-la-entrada-de-tu-casa-ok1.jpg" class="imagen-1" />
+        <div class="sc-1">
+            <div class="contenido">
+                <h2 class="title">
+                    Shift the overall look and feel by adding these wonderful touches to furniture in your home
+                </h2>
+                <p class="p-1">
+                    Xin chào mừng quý vị và các bạn
+                    felt slightly bare and uninviting. I’ve got some simple tips to help
+                    you make any room feel complete.
+                </p>
+            </div>
+            <div class="perfil">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi2Wghgwu_2CZe5pdNVTUvhZl38LladTT3Eg&usqp=CAU" class="img-2" />
+                <div class="datos">
+                    <h3>Michelle Appleton</h3>
+                    <p class="p-2">28 Jun 2020</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

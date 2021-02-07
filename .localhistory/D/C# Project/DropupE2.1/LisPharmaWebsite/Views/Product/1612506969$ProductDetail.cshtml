@@ -1,0 +1,190 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+}
+
+<div class="bg-codeblocks">
+    <div class="main-box-codeblocks">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+
+                            @if (category_parent != null && category_parent.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                            }
+
+                            @if (category_child_1 != null && category_child_1.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                            }
+
+                            @if (category_child_2 != null && category_child_2.category_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                            }
+
+                            <li class="breadcrumb-item active" aria-current="page">@Model.product_name</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="box-image-codeblocks">
+                        <!-- Swiper -->
+                        <div class="swiper-container gallery-top">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="product-image">
+                                        <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image" class="img-fluid">
+                                    </div>
+                                </div>
+                                @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="product-image">
+                                            <img src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt" class="img-fluid">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                        </div>
+                        <div class="swiper-container gallery-thumbs">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="@urlCMS/@Model.product_image" alt="@Model.alt_image" class="img-fluid">
+                                </div>
+                                @foreach (var img in ViewBag.ListImageMore as List<image_more>)
+                                {
+                                    <div class="swiper-slide">
+                                        <img src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt" class="img-fluid">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <h2 class="text-bold text-strong">@Model.product_name</h2>
+                    @if (category_child_2 != null && category_child_2.category_id > 0)
+                    {
+                        <span class="seller-name-codeblocks">
+                            <h5><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></h5>
+                        </span>
+                    }
+                    <span class="description-codeblocks">
+                        <p>
+                            <strong>Mô tả:</strong> <br>
+                            <span class="text-muted">
+                                @Html.Raw(Model.description)
+                            </span>
+                        </p>
+                    </span>
+                    <span class="buy-form-codeblocks">
+                        <button class="btn btn-primary btn-lg btn-lg">Liên Hệ Ngay</button>
+                    </span>
+                    <span class="extras-codeblocks ">
+                        <ul class="nav nav-tabs my-2" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mô tả chi tiết</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Bình luận</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Chia sẻ</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h5>Full Description:</h5>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nostrum quam accusantium dolore ipsa beatae, autem illum libero, repudiandae, nihil cupiditate excepturi sequi eveniet? Incidunt maiores veniam atque cumque placeat!</p>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro consectetur quibusdam nulla officia tempore animi saepe perspiciatis harum inventore corrupti? Quidem odit consequatur fugiat earum odio explicabo! Quam, quisquam dolorum.
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="media">
+                                    <img src="http://placehold.it/64" class="mr-3" alt="...">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">Kalvin Harris <br> <small class="review-coment">Good Product</small></h5>
+                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <h5>Compartir</h5>
+                                <div id="share"></div>
+                            </div>
+                        </div>
+                    </span>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.product-image').zoom({ url: 'https://placehold.it/1080' });
+    });
+
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+            swiper: galleryThumbs
+        }
+    });
+
+
+    $("#share").jsSocials({
+        shares: ["email", "twitter", "facebook", "googleplus", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+    });
+</script>

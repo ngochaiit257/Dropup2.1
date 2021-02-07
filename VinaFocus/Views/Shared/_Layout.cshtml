@@ -59,8 +59,8 @@
     <meta name="robots" content="noodp,index,follow" />
 
     <!-- Helpers ================================================== -->
-    <meta name="apple-mobile-web-app-title" content="TPA Lock">
-    <meta name="application-name" content="TPA Lock">
+    <meta name="apple-mobile-web-app-title" content="Vina Focus">
+    <meta name="application-name" content="Vina Focus">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta name="theme-color" content="#000">
     <meta name="format-detection" content="telephone=no">
@@ -73,34 +73,19 @@
     <meta property="og:locale" content="vi_VN" />
     <meta property="og:url" content="@ViewBag.Url" />
     <meta property="og:description" content="@ViewBag.Description" />
-    <meta property="og:site_name" content="TPA Lock" />
+    <meta property="og:site_name" content="Vina Focus" />
     <meta property="og:image" content="@ViewBag.Image" />
     <meta property="og:type" content="website">
     <meta property="og:image:secure_url" content="@ViewBag.Image" />
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
-
-    <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="../Assets/vendor/font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../Assets/css/font-electro.css">
-
-    <link rel="stylesheet" href="../Assets/vendor/animate.css/animate.min.css">
-    <link rel="stylesheet" href="../Assets/vendor/hs-megamenu/src/hs.megamenu.css">
-    <link rel="stylesheet" href="../Assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="../Assets/vendor/fancybox/jquery.fancybox.css">
-    <link rel="stylesheet" href="../Assets/vendor/slick-carousel/slick/slick.css">
-    <link rel="stylesheet" href="../Assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-
-    <!-- CSS Electro Template -->
-    <link rel="stylesheet" href="../Assets/css/theme.css">
-    <link href="~/Assets/css/custom.css" rel="stylesheet" />
-    <link href="~/Assets/css/PagedList.css" rel="stylesheet" />
-    <link href="~/Assets/css/toaster-box.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Poppins:400,500,600,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    @*<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />*@
+    @Styles.Render("~/bundles/styleCore")
+    @Scripts.Render("~/bundles/jsCoreFirst")
 
 
-    <script src="../Assets/vendor/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -114,7 +99,7 @@
                 <div class="container">
                     <div class="d-flex align-items-center">
                         <div class="topbar-left">
-                            <a href="#" class="text-gray-110 font-size-13 u-header-topbar__nav-link">
+                            <a href="/" class="text-gray-110 font-size-13 u-header-topbar__nav-link">
                                 <marquee>Trang Thương mại điện tử - Công ty Cổ phần VinaFocus</marquee>
                             </a>
                         </div>
@@ -137,16 +122,38 @@
                                                data-unfold-hide-on-scroll="true"
                                                data-unfold-animation-in="slideInUp"
                                                data-unfold-animation-out="fadeOut">
-                                                <span class="d-none d-sm-inline-flex align-items-center">Vi</span>
+                                                <span class="d-none d-sm-inline-flex align-items-center" id="show-lang">vi</span>
                                             </a>
 
                                             <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
-                                                <a class="dropdown-item active" href="#">Vi</a>
-                                                <a class="dropdown-item" href="#">En</a>
+                                                <a class="dropdown-item active" href="#Vietnamese" onclick="changeLanguageByButtonClick('vi')">vi</a>
+                                                <a class="dropdown-item" href="#English" onclick="changeLanguageByButtonClick('en')">en</a>
                                             </div>
                                         </div>
                                         <!-- End Language -->
                                     </div>
+                                    <div id="google_translate_element" style="display:none"></div>
+                                    <script type="text/javascript">
+                                        function googleTranslateElementInit() {
+                                            new google.translate.TranslateElement({ pageLanguage: "vi", includedLanguages: 'vi,en,ko,zh-CN' }, 'google_translate_element');
+                                        }
+
+                                        function changeLanguageByButtonClick(language) {
+                                            $('#show-lang').text(language);
+                                            //var language = document.getElementById("language").value;
+                                            var selectField = document.querySelector("#google_translate_element select");
+                                            for (var i = 0; i < selectField.children.length; i++) {
+                                                var option = selectField.children[i];
+                                                // find desired langauge and change the former language of the hidden selection-field
+                                                if (option.value == language.toString()) {
+                                                    selectField.selectedIndex = i;
+                                                    // trigger change event afterwards to make google-lib translate this side
+                                                    selectField.dispatchEvent(new Event('change'));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    </script>
                                 </li>
                                 <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                     <a href="#" class="u-header-topbar__nav-link"><i class="fa fa-clock"></i>&nbsp; Giờ làm việc: @contact.working_hour</a>
@@ -310,6 +317,20 @@
                                                                 Dự án tiêu biểu
                                                             </a>
                                                         </li>
+                                                        <li class="u-has-submenu u-header-collapse__submenu">
+                                                            <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarCollapse-download" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarCollapse-download">
+                                                                Download Catalogue
+                                                            </a>
+
+                                                            <div id="headerSidebarCollapse-download" class="collapse" data-parent="#headerSidebarCollapse-download">
+                                                                <ul class="u-header-collapse__nav-list">
+                                                                    <li><a class="u-header-collapse__submenu-nav-link" href="">Edenki Catalogue</a></li>
+                                                                    <li><a class="u-header-collapse__submenu-nav-link" href="">OPPLE Catalogue</a></li>
+                                                                    <li><a class="u-header-collapse__submenu-nav-link" href="">Thuận Phát Catalogue</a></li>
+                                                                    <li><a class="u-header-collapse__submenu-nav-link" href="">Cáp Trần Phú Catalogue</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
                                                         <li>
                                                             <a class="u-header-collapse__nav-link" href="/pages/lien-he" role="button">
                                                                 Liên hệ
@@ -329,22 +350,48 @@
                         </div>
                         <!-- End Logo-offcanvas-menu -->
                         <!-- Search Bar -->
-                        <div class="col d-none d-xl-block">
-                            <form class="js-focus-state">
-                                <label class="sr-only" for="searchproduct">Tìm kiếm sản phẩm tại đây...</label>
-                                <div class="input-group">
-                                    <input type="email" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" id="searchproduct-item" placeholder="Tìm kiếm sản phẩm tại đây..." aria-label="Search for Products" aria-describedby="searchProduct1" required>
+                        <div class="col d-none d-xl-block" style="padding: 0">
+                            <div class="js-focus-state">
+                                <label class="sr-only" for="searchproduct">Tìm kiếm sản phẩm...</label>
+                                <div class="input-group" style="width: 115%;">
+                                    <input id="input_search_desktop" style="font-size: 0.7rem" type="text" class="form-control py-2 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" placeholder="Tìm kiếm sản phẩm tại đây..." aria-label="Search for Products" aria-describedby="searchProduct1" required>
                                     <div class="input-group-append">
                                         <!-- Select -->
                                         <!-- End Select -->
-                                        <button class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                        <button onclick="searchDesktop()" class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
                                             <span class="ec ec-search font-size-24"></span>
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <!-- End Search Bar -->
+                        <script>
+                            function searchMobile() {
+                                var keyword = $('#input_search_mobile').val();
+                                search(keyword);
+                            }
+
+                            function searchDesktop() {
+                                var keyword = $('#input_search_desktop').val();
+                                search(keyword);
+                            }
+
+                            $('#input_search_desktop').keypress(function (e) {
+                                if (e.which == 13) {
+                                    var keyword = $(this).val();
+                                    search(keyword);
+                                }
+                            });
+
+                            function search(keyword) {
+                                if (keyword == "" || keyword == null) {
+                                    alert("Vui lòng nhập từ khóa tìm kiếm");
+                                } else {
+                                    location.href = '/search/keyword=' + keyword;
+                                }
+                            }
+                        </script>
                         <!-- Header Icons -->
                         <div class="col col-xl-auto text-right text-xl-left pl-0 pl-xl-3 position-static">
                             <div class="d-inline-flex">
@@ -370,12 +417,12 @@
 
                                         <!-- Input -->
                                         <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
-                                            <form class="js-focus-state input-group px-3">
-                                                <input class="form-control" type="search" placeholder="Tìm kiếm sản phẩm...">
+                                            <div class="js-focus-state input-group px-3">
+                                                <input id="input_search_mobile" class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-primary px-3" type="button"><i class="font-size-18 ec ec-search"></i></button>
+                                                    <button onclick="searchMobile()" class="btn btn-primary px-3" type="button"><i class="font-size-18 ec ec-search"></i></button>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                         <!-- End Input -->
                                     </li>
@@ -456,13 +503,13 @@
                                                             if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
                                                             {
                                                                 var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-2r">
                                                                     <div class="row">
-                                                                        <div class="col">
-                                                                            <a href="/collections/@c_parent.seo_alias" class="d-block">
-                                                                                <img class="img-fluid" src="@urlCMS/@c_parent.image" alt="@c_parent.alt_image">
-                                                                            </a>
-                                                                        </div>
+                                                                        @*<div class="col">
+                                                                                <a href="/collections/@c_parent.seo_alias" class="d-block">
+                                                                                    <img class="img-fluid" src="@urlCMS/@c_parent.image" alt="@c_parent.alt_image">
+                                                                                </a>
+                                                                            </div>*@
                                                                         <div class="col">
                                                                             <a href="/collections/@c_parent.seo_alias"><span class="u-header__sub-menu-title">@c_parent.category_name</span></a>
                                                                             <ul class="u-header__sub-menu-nav-group">
@@ -531,6 +578,31 @@
                                         </li>
                                         <li class="nav-item hs-has-mega-menu u-header__nav-item"
                                             data-event="hover"
+                                            data-animation-in="slideInUp">
+                                            <a id="aboutVF" class="nav-link u-header__nav-link u-header__nav-link-toggle" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)">
+                                                Tải xuống Catalogue
+                                            </a>
+                                            <div class="hs-mega-menu w-25 u-header__sub-menu" aria-labelledby="aboutVF">
+                                                <div class="u-header__mega-menu-wrapper mega-pages">
+                                                    <div class="col">
+                                                        <a href="~/Assets/catalogue/Edenki-Catalogue.pdf" download="">
+                                                            <span class="u-header__sub-menu-title">Edenki Catalogue <i class="ec ec-arrow-right-categproes"></i></span>
+                                                        </a>
+                                                        <a href="/" download="">
+                                                            <span class="u-header__sub-menu-title">Thuận Phát Catalogue <i class="ec ec-arrow-right-categproes"></i></span>
+                                                        </a>
+                                                        <a href="" download="">
+                                                            <span class="u-header__sub-menu-title">OPPLE Catalogue <i class="ec ec-arrow-right-categproes"></i></span>
+                                                        </a>
+                                                        <a href="" download="">
+                                                            <span class="u-header__sub-menu-title">Cáp Trần Phú Catalogue <i class="ec ec-arrow-right-categproes"></i></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                            data-event="hover"
                                             data-animation-in="slideInUp"
                                             data-animation-out="fadeOut">
                                             <a id="GPSCarMegaMenu" class="nav-link u-header__nav-link" href="/pages/lien-he" aria-haspopup="true" aria-expanded="false">Liên hệ</a>
@@ -563,51 +635,23 @@
     <!-- ========== END HEADER ========== -->
     <main id="content" role="main">
         @RenderBody()
-        <!-- Brand Carousel -->
-        <div class="container mb-8">
-            <div class="py-2 border-top border-bottom">
-                <div class="js-slick-carousel u-slick my-1"
-                     data-slides-show="6"
-                     data-autoplay="true"
-                     data-slides-scroll="1"
-                     data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
-                     data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
-                     data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
-                     data-responsive='[{
-                            "breakpoint": 1200,
-                            "settings": {
-                                "slidesToShow": 6
-                            }
-                        },{
-                            "breakpoint": 992,
-                            "settings": {
-                                "slidesToShow": 4
-                            }
-                        }, {
-                            "breakpoint": 768,
-                            "settings": {
-                                "slidesToShow": 2
-                            }
-                        }, {
-                            "breakpoint": 554,
-                            "settings": {
-                                "slidesToShow": 2
-                            }
-                        }]'>
 
-                    @foreach (var partner in list_partner)
-                    {
-                        <div class="js-slide">
-                            <a href="@partner.link_url" class="link-hover__brand">
-                                <img style="width: 192px;height: 80px;object-fit: contain" class="img-fluid m-auto" src="@urlCMS/@partner.image" alt="@partner.alt">
-                            </a>
-                        </div>
-                    }
+        <div class="hotline-phone-ring-wrap">
+            <div class="hotline-phone-ring">
+                <div class="hotline-phone-ring-circle"></div>
+                <div class="hotline-phone-ring-circle-fill"></div>
+                <div class="hotline-phone-ring-img-circle">
+                    <a href="tel:contact.phone_number" class="pps-btn-img">
+                        <img src="~/Assets/img/icon/icon-call-nh.png" alt="call" width="80"/>
+                    </a>
                 </div>
             </div>
+            <div class="hotline-bar">
+                <a href="tel:@contact.phone_number">
+                    <span class="text-hotline">@contact.phone_number</span>
+                </a>
+            </div>
         </div>
-        <!-- End Brand Carousel -->
-
     </main>
     <!-- ========== FOOTER ========== -->
     <footer>
@@ -619,34 +663,26 @@
             <div class="container mt-1">
                 <div class="row">
                     <div class="col-lg-5">
-                        <div class="mb-6">
+                        <div class="mb-3">
                             <a href="/" class="d-inline-block">
-                                <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" style="width: 200px;" />
+                                <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" style="width: 135px;" />
                             </a>
                         </div>
-                        <div class="mb-4">
-                            <div class="row no-gutters">
-                                <div class="col-auto">
-                                    <i class="ec ec-support text-primary font-size-56"></i>
-                                </div>
-                                <div class="col pl-3">
-                                    <div class="font-size-13 font-weight-light">Bạn có câu hỏi? Tư vấn 24/7!</div>
-                                    <a href="tel:+@contact.phone_number" class="font-size-20 text-gray-90">@contact.phone_number
-                                </div>
+                        <div class="mb-2">
+                            <p class="font-size-14 color-black lh-2">Công Ty TNHH Đầu Tư Phát Triển Focus Việt Nam (tên viết tắt: Vinafocus ) là tổng phân phối các sản phẩm ống và phụ kiện nhựa HDPE, uPVC và PPR của THUANPHAT GROUP. Công ty được thành lập nhằm hỗ trợ và nâng cao chất lượng dịch vụ cung ứng vật tư cho hệ thống các cửa hàng, đại lý và các công trình, dự án trên toàn quốc.</p>
+                        </div>
+                        @*<div class="mb-2">
+                                <h6 class="mb-1 font-weight-bold">Email</h6>
+                                <p class="font-size-16">
+                                    @contact.email
+                                </p>
                             </div>
-                        </div>
-                        <div class="mb-4">
-                            <h6 class="mb-1 font-weight-bold">Email</h6>
-                            <p class="font-size-16">
-                                @contact.email
-                            </p>
-                        </div>
-                        <div class="mb-4">
-                            <h6 class="mb-1 font-weight-bold">Địa chỉ</h6>
-                            <p class="font-size-16">
-                                @contact.address
-                            </p>
-                        </div>
+                            <div class="mb-2">
+                                <h6 class="mb-1 font-weight-bold">Địa chỉ</h6>
+                                <p class="font-size-16">
+                                    @contact.address
+                                </p>
+                            </div>*@
                         <div class="my-4 my-md-4">
                             <ul class="list-inline mb-0 opacity-7">
                                 <li class="list-inline-item mr-0">
@@ -750,7 +786,7 @@
     <!-- ========== END SECONDARY CONTENTS ========== -->
     <!-- Go to Top -->
     <a class="js-go-to u-go-to" href="#"
-       data-position='{"bottom": 15, "right": 15 }'
+       data-position='{"bottom": 30, "right": 15 }'
        data-type="fixed"
        data-offset-top="400"
        data-compensation="#header"
@@ -759,45 +795,11 @@
         <span class="fas fa-arrow-up u-go-to__inner"></span>
     </a>
     <!-- End Go to Top -->
-    <!-- JS Global Compulsory -->
-    <script src="~/Assets/js/jquery.cookie.js"></script>
-    <script src="../Assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-    <script src="../Assets/vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../Assets/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="~/Assets/js/autoNumeric.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Assets/js/toaster-box.js"></script>
-    <script src="~/Assets/js/jquery.lazyload.js"></script>
-    <!-- JS Implementing Plugins -->
-    <script src="../Assets/vendor/appear.js"></script>
-    <script src="../Assets/vendor/jquery.countdown.min.js"></script>
-    <script src="../Assets/vendor/hs-megamenu/src/hs.megamenu.js"></script>
-    <script src="../Assets/vendor/svg-injector/dist/svg-injector.min.js"></script>
-    <script src="../Assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../Assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="../Assets/vendor/fancybox/jquery.fancybox.min.js"></script>
-    <script src="../Assets/vendor/typed.js/lib/typed.min.js"></script>
-    <script src="../Assets/vendor/slick-carousel/slick/slick.js"></script>
-    <script src="../Assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
-    <!-- JS Electro -->
-    <script src="../Assets/js/hs.core.js"></script>
-    <script src="../Assets/js/components/hs.countdown.js"></script>
-    <script src="../Assets/js/components/hs.header.js"></script>
-    <script src="../Assets/js/components/hs.hamburgers.js"></script>
-    <script src="../Assets/js/components/hs.unfold.js"></script>
-    <script src="../Assets/js/components/hs.focus-state.js"></script>
-    <script src="../Assets/js/components/hs.malihu-scrollbar.js"></script>
-    <script src="../Assets/js/components/hs.validation.js"></script>
-    <script src="../Assets/js/components/hs.fancybox.js"></script>
-    <script src="../Assets/js/components/hs.onscroll-animation.js"></script>
-    <script src="../Assets/js/components/hs.slick-carousel.js"></script>
-    <script src="../Assets/js/components/hs.show-animation.js"></script>
-    <script src="../Assets/js/components/hs.svg-injector.js"></script>
-    <script src="../Assets/js/components/hs.go-to.js"></script>
-    <script src="../Assets/js/components/hs.selectpicker.js"></script>
+    @Scripts.Render("~/bundles/jsCoreSecond")
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    @*<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>*@
 
-    <!-- JS Plugins Init. -->
     <script>
         var width_device = $(window).width();
         $(document).ready(function () {
@@ -1034,6 +1036,118 @@
 
             // initialization of select picker
             $.HSCore.components.HSSelectPicker.init('.js-select');
+        });
+    </script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container-category', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            autoplay: {
+                delay: 5000,
+            },
+            lazy: {
+                loadPrevNext: true,
+            },
+            nav: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                },
+                414: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 10
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 10
+                }
+            }
+        });
+
+        $(function () {
+            if ($('.gallery-wrapper').length) {
+                var galleryThumbs = new Swiper('.gallery-wrapper .content .gallery.thumb .swiper-container', {
+                    speed: 900,
+                    effect: 'slide',
+                    slidesPerView: 'auto',
+                    spaceBetween: 12,
+                    grabCursor: false,
+                    simulateTouch: true,
+                    loop: false,
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    navigation: {
+                        nextEl: '.gallery-wrapper .content .gallery.thumb .swiper-next-button',
+                        prevEl: '.gallery-wrapper .content .gallery.thumb .swiper-prev-button',
+                    },
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        414: {
+                            slidesPerView: 3,
+                            spaceBetween: 10
+                        },
+                        768: {
+                            slidesPerView: 5,
+                            spaceBetween: 10
+                        },
+                        1024: {
+                            slidesPerView: 7,
+                            spaceBetween: 10
+                        }
+                    }
+                });
+
+                var galleryFull = new Swiper('.gallery-wrapper .content .gallery.full .swiper-container', {
+                    speed: 900,
+                    effect: 'slide',
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    autoplay: {
+                        delay: 7000,
+                        disableOnInteraction: false,
+                        stopOnLastSlide: false
+                    },
+                    keyboard: {
+                        enabled: true,
+                    },
+                    grabCursor: false,
+                    simulateTouch: false,
+                    loop: true,
+                    navigation: {
+                        nextEl: '.gallery-wrapper .content .gallery.full .swiper-next-button',
+                        prevEl: '.gallery-wrapper .content .gallery.full .swiper-prev-button',
+                    },
+                    thumbs: {
+                        swiper: galleryThumbs
+                    },
+                    on: {
+                        slideChangeTransitionStart: function () {
+                            $('.gallery-wrapper .content .gallery.full .swiper-slide .overlay').removeClass('show');
+                        },
+                        slideChangeTransitionEnd: function () {
+                            $('.gallery-wrapper .content .gallery.full .swiper-slide-active .overlay').addClass('show');
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>

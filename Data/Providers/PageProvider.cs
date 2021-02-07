@@ -46,6 +46,18 @@ namespace Data.Providers
             }
         }
 
+        public List<page> getByPageParentId(int page_parent_id)
+        {
+            try
+            {
+                return db.pages.Where(p => p.page_parent_id == page_parent_id).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public page getBySeoAlias(string seo_alias)
         {
             try

@@ -1,0 +1,462 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var category_parent_special_first = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).FirstOrDefault();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+    var list_partner = new StorePartnerProvider().getAll();
+
+    var contact = new StoreContactProvider().get1Contact();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_da = new BlogProvider().getByCategoryIdShowing(5).Take(10).ToList();
+
+    ViewBag.Keywords = "Thiết bị điện, ống nhựa, phụ kiện, công tắc, ổ cắm, đèn, Opple, Edenki, Thuận Phát, Vina Focus";
+    ViewBag.Description = "Vina Focus cung cấp các dòng sản phẩm thiết bị điện cao cấp, ống nhựa và phụ kiện, đèn chiếu sáng chất lượng cao.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Slider Section -->
+<div class="mb-4 slide-desktop">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text != "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+<!-- Slider Section -->
+<div class="mb-4 slide-mobile">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text == "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+
+<section class="list-category-slider">
+    <div class="container">
+        <div class="swiper-container-category">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="~/Assets/img/banner/banner-ongnhua.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="~/Assets/img/banner/banner-den.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="~/Assets/img/banner/banner-congtac.jpg" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="~/Assets/img/banner/banner-chinhsachdaily.jpg" />
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</section>
+
+<!--gallery-->
+<div class="gallery-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Hình ảnh tiêu biểu</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Một số công trình và Dự án</h3>
+                </div>
+            </div>
+        </div>
+        <div class="gallery full">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var da in list_da)
+                    {
+                        <div class="swiper-slide">
+                            <div class="image">
+                                <img src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image" />
+                            </div>
+
+                            <div class="overlay">
+                                <div class="text-wrap">
+                                    <div class="name">
+                                        <span>@da.blog_title</span>
+                                    </div>
+                                    <div class="caption">
+                                        <p>
+                                            @da.blog_summary
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="swiper-next-button"> </div>
+            <div class="swiper-prev-button"> </div>
+        </div>
+
+        <div class="gallery thumb">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var da in list_da)
+                    {
+                        <div class="swiper-slide" style="width: 10vw%">
+                            <div class="image">
+                                <img src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="swiper-next-button"></div>
+            <div class="swiper-prev-button"></div>
+        </div>
+    </div>
+</div>
+
+<div class="home-six rs-services style7">
+    <div class="container">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Thế mạnh của chúng tôi</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Vì sao lựa chọn Vina Focus</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row gutter-16 mt-8 mb-8">
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-an-toan.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">An toàn</a></h4>
+                        <p class="desc">Với sứ mệnh bảo vệ nguồn sống, bảo vệ sức khỏe cộng đồng, Vina Focus cam kết đưa ra thị trường những sản phẩm có chất lượng tốt nhất, đảm bảo an toàn cho sức khỏe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-uy-tin.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Uy tín</a></h4>
+                        <p class="desc">Vina Focus đã trở thành một trong những nhà phân phối sản phẩm và kinh doanh hàng đầu trong lĩnh vực sản xuất vật liệu xây dựng cũng như sản phẩm nội thất hiện đại tại Việt Nam.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 xs-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-chat-luong.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Chất lượng</a></h4>
+                        <p class="desc">Được các tổ chức và hiệp hội có uy tín bình chọn và trao tặng nhiều giải thưởng có giá trị, tạo được tiếng vang lớn với các sản phẩm thuộc về vật liệu xây dựng và lắp đặt công trình.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-toc-do.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Tốc độ</a></h4>
+                        <p class="desc">Không chỉ đạt về chất lượng, chúng tôi còn tự hào khi có đội ngũ xử lý công việc đảm bảo được tiến độ xây dựng và lắp đặt trong các dự án, mang lại niềm tin cho khách hàng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="container banner-dai">
+         Banner 2 columns
+        <div class="mb-8">
+            <div class="row">
+                <div class="col-md-12 mb-3 mb-md-0 banner-custom">
+                    <a href="/">
+                        <img src="@urlCMS/@banner.image" alt="@banner.alt" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+
+<section class="verse3">
+    <div class="container text-lg-center">
+        <h2 class="par-text">VINA FOCUS</h2>
+        <h3>Giá trị vượt thời gian</h3>
+        <span>Chặng đường dài - Vững bước tương lai</span>
+    </div>
+</section>
+
+<div class="container mb-8">
+    <div class="py-2 border-top border-bottom">
+        <div class="js-slick-carousel u-slick my-1"
+             data-slides-show="4"
+             data-autoplay="true"
+             data-slides-scroll="1"
+             data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+             data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+             data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+             data-responsive='[{
+                            "breakpoint": 1200,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        },{
+                            "breakpoint": 992,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        }, {
+                            "breakpoint": 768,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }, {
+                            "breakpoint": 554,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }]'>
+
+            @foreach (var partner in list_partner)
+            {
+                <div class="js-slide">
+                    <a href="@partner.link_url" class="link-hover__brand">
+                        <img style="width: 100%;height: 150px;object-fit: cover" class="img-fluid m-auto" src="@urlCMS/@partner.image" alt="@partner.alt">
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<section>
+    <div class="container">
+        <div class="sec-title">
+            <div class="sub-title green mt-6">Bạn đã sẵn sàng để trở thành đại lý phân phối của Vina Focus?</div>
+            <div class="border-bottom border-color-1 mb-2">
+                <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Trở thành đại lý phân phối của Vina Focus</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="js-form-message mb-4">
+                            <label class="form-label">
+                                Tên của bạn
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input id="cname" type="text" class="form-control" placeholder="Nhập tên của bạn" aria-label="" required="" data-msg="Yêu cầu nhập tên của bạn" data-error-class="u-has-error" data-success-class="u-has-success" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="js-form-message mb-4">
+                            <label class="form-label">
+                                Số điện thoại
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input id="cphone" type="text" class="form-control" placeholder="Nhập số điện thoại" aria-label="" required="" data-msg="Yêu cầu nhập số điện thoại" data-error-class="u-has-error" data-success-class="u-has-success" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="js-form-message mb-4">
+                            <label class="form-label">
+                                Email
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input id="cemail" type="text" class="form-control" placeholder="Nhập email" aria-label="" required="" data-msg="Yêu cầu nhập Email" data-error-class="u-has-error" data-success-class="u-has-success" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="js-form-message mb-4">
+                            <label class="form-label">
+                                Địa chỉ
+                            </label>
+                            <input id="csubject" type="text" class="form-control" placeholder="Nhập tiêu đề" aria-label="" data-error-class="u-has-error" data-success-class="u-has-success">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Sản phẩm bạn quan tâm
+                        </label>
+
+                        <div class="input-group">
+                            <div class="js-form-message mb-4">
+                                @foreach (var cp in list_category_parent_default)
+                                {
+                                    <label class="container-form">
+                                        <input type="checkbox" value="@cp.category_name">
+                                        @cp.category_name
+                                    </label>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="js-form-message mb-4">
+                            <label class="form-label">
+                                Lời nhắn
+                            </label>
+
+                            <div class="input-group">
+                                <textarea style="width: 100%;" id="cmessage" class="form-control p-5" rows="4" name="text" placeholder="Để lại lời nhắn..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-center" style="margin:auto">
+                        <button id="submit" type="button" class="btn btn-primary px-5" onclick="sendMessage()">Gửi Thông Tin</button>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="sec-blog bg-blue-nhat">
+    <div class="container">
+        <div class="sec-title">
+            <div class="sub-title green mt-6">Tin tức & Sự kiện</div>
+            <div class="border-bottom border-color-1 mb-2">
+                <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Bài viết mới nhất</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-blog-1">
+        <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+             data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+             data-slides-show="3"
+             data-slides-scroll="1"
+             data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+             data-arrow-left-classes="fa fa-angle-left right-1"
+             data-arrow-right-classes="fa fa-angle-right right-0"
+             data-autoplay="true"
+             data-responsive='[{
+                          "breakpoint": 1400,
+                          "settings": {
+                            "slidesToShow": 3
+                          }
+                        }, {
+                            "breakpoint": 1200,
+                            "settings": {
+                              "slidesToShow": 3
+                            }
+                        }, {
+                          "breakpoint": 992,
+                          "settings": {
+                            "slidesToShow": 3
+                          }
+                        }, {
+                          "breakpoint": 768,
+                          "settings": {
+                            "slidesToShow": 1
+                          }
+                        }, {
+                          "breakpoint": 554,
+                          "settings": {
+                            "slidesToShow": 1
+                          }
+                        }]'>
+
+            @foreach (var da in list_da)
+            {
+                <div class="js-slide">
+                    <article class="card card-home border-0">
+                        <a href="/blogs/@da.blog_seo_alias" class="d-block"><img class="img-fluid" src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image"></a>
+                        <div class="card-body pt-5 pb-0 px-0">
+                            <h4 class="mb-3"><a href="/blogs/@da.blog_seo_alias">@da.blog_title</a></h4>
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="list-group list-group-horizontal flex-wrap list-group-borderless align-items-center mx-n0dot5">
+                                    <a href="/blogs/@da.blog_seo_alias" class="mx-0dot5 text-gray-5">Người đăng: @da.user.username</a>
+                                    <span class="mx-2 font-size-n5 mt-1 text-gray-5"><i class="fas fa-circle"></i></span>
+                                    <a href="/blogs/@da.blog_seo_alias" class="mx-0dot5 text-gray-5">Vào lúc: @da.create_datetime.Value.ToString("HH:mm dd/MM/yyyy")</a>
+                                </div>
+                            </div>
+                            <p>@Html.Raw(da.blog_summary)</p>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+    </div>
+</section>

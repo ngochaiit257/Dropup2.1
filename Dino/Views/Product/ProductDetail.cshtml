@@ -233,15 +233,6 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="product-action-bottom visible-xs">
-                                <div class="input-bottom">
-                                    <input id="quan-input" type="number" value="1" min="1">
-                                </div>
-                                <button type="button" id="add-to-cartbottom" class=" add-to-cartProduct add-cart-bottom button dark addtocart-modal" name="add">
-                                    Đặt hàng
-                                </button>
-                            </div>
-                            <a class="combo-giare hidden" href="javascript:void(0)">Combo giá rẻ</a>
                         </form>
                         <div class="product-description">
                             <div class="title-bl">
@@ -253,11 +244,6 @@
                                     <div id="ega-uti-editable-content">
                                         <div id="ega-uti-editable-content">
                                             @Html.Raw(Model.content) <br />
-
-                                            @foreach (var img in ViewBag.ListImageMore as List<image_more>)
-                                            {
-                                                <img style="margin: 5px 0;" class="lazyload" src="~/Assets/image/loader/img-loader.gif" data-src="@urlCMS/@img.image_more_url" alt="@img.image_more_alt show content">
-                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -419,6 +405,7 @@
                         });
                     })
                 </script>
+
                 @if (list_product_related.Count > 0)
                 {
                     <div class="container-fluid daxemlolo x2">

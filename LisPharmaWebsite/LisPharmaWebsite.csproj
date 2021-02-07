@@ -147,7 +147,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -155,10 +158,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\css\custom.css" />
+    <Content Include="Assets\css\font\font-awesome.html" />
+    <Content Include="Assets\css\font\font-awesome.svg" />
+    <Content Include="Assets\css\font\font.css" />
+    <Content Include="Assets\css\font\fontawesome7944.html" />
+    <Content Include="Assets\css\font\fontawesome7944.svg" />
     <Content Include="Assets\css\skin\skin-1.css" />
     <Content Include="Assets\css\skin\skin-2.css" />
     <Content Include="Assets\css\skin\skin-3.css" />
     <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\css\swiper-bundle.min.css" />
     <Content Include="Assets\css\swiper.min.css" />
     <Content Include="Assets\icons\flaticon\flaticon.css" />
     <Content Include="Assets\icons\flaticon\Flaticon.svg" />
@@ -180,6 +189,12 @@
     <Content Include="Assets\images\about\img8.png" />
     <Content Include="Assets\images\about\img9.png" />
     <Content Include="Assets\images\about\pic1.jpg" />
+    <Content Include="Assets\images\background\bg-about-us.jpg" />
+    <Content Include="Assets\images\background\bg-ban-do.png" />
+    <Content Include="Assets\images\background\bg-menu.jpg" />
+    <Content Include="Assets\images\background\bg-products.jpg" />
+    <Content Include="Assets\images\background\bg-tab-slider.jpg" />
+    <Content Include="Assets\images\background\bg-testi.jpg" />
     <Content Include="Assets\images\background\line.png" />
     <Content Include="Assets\images\background\bg1.png" />
     <Content Include="Assets\images\background\bg10.png" />
@@ -215,6 +230,7 @@
     <Content Include="Assets\images\blog\recent-blog\pic1.jpg" />
     <Content Include="Assets\images\blog\recent-blog\pic2.jpg" />
     <Content Include="Assets\images\blog\recent-blog\pic3.jpg" />
+    <Content Include="Assets\images\common\ban-do.png" />
     <Content Include="Assets\images\common\bg-custom.png" />
     <Content Include="Assets\images\common\gia cong men vi sinh.jpg" />
     <Content Include="Assets\images\common\gia cong my pham.jpg" />
@@ -415,7 +431,9 @@
     <Content Include="Assets\js\custom.js" />
     <Content Include="Assets\js\dz.ajax.js" />
     <Content Include="Assets\js\dz.carousel.js" />
+    <Content Include="Assets\js\jquery.easeScroll.js" />
     <Content Include="Assets\js\jquery.min.js" />
+    <Content Include="Assets\js\swiper-bundle.min.js" />
     <Content Include="Assets\js\swiper.min.js" />
     <Content Include="Assets\vendor\animate\animate.css" />
     <Content Include="Assets\vendor\bootstrap-select\bootstrap-select.min.css" />
@@ -493,6 +511,19 @@
     <Content Include="Assets\vendor\lightgallery\fonts\lgd641.ttf" />
     <Content Include="Assets\vendor\lightgallery\fonts\lgd641.woff" />
     <Content Include="Assets\images\common\medicom-logo-011.webp" />
+    <Content Include="Assets\css\font\PoppinsVN-400.woff" />
+    <Content Include="Assets\css\font\PoppinsVN-500.woff" />
+    <Content Include="Assets\css\font\PoppinsVN-600.woff" />
+    <Content Include="Assets\css\font\UTMPenumbra.ttf" />
+    <Content Include="Assets\css\font\UTMPenumbraBold.ttf" />
+    <Content Include="Assets\css\font\Averta-Bold.ttf" />
+    <Content Include="Assets\css\font\Averta-Regular.ttf" />
+    <Content Include="Assets\css\font\font-awesome.eot" />
+    <Content Include="Assets\css\font\font-awesome.ttf" />
+    <Content Include="Assets\css\font\font-awesome.woff" />
+    <Content Include="Assets\css\font\font-awesomed41d.eot" />
+    <Content Include="Assets\css\font\fontawesome7944.eot" />
+    <Content Include="Assets\css\font\fontawesome7944.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -516,10 +547,13 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Category\" />
+    <Folder Include="Views\Page\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -533,6 +567,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{f4f128a5-b7f8-4f2a-bf77-f2756556f8fb}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{93536850-bdb5-47b2-86f0-c97066160701}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -552,7 +596,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62601</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62601/</IISUrl>
+          <IISUrl>http://localhost:62602/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

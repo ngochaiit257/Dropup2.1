@@ -1,0 +1,476 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>EduSkills - Tutor Online Courses & LMS Multipurpose HTML template</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- ** Plugins Needed for the Project ** -->
+    <link rel="stylesheet" href="../Assets/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/jquery-nice-select/nice-select.css">
+    <link rel="stylesheet" href="../Assets/vendors/OwlCarousel2/owl.carousel.min.css">
+    <link rel="stylesheet" href="../Assets/vendors/magnific-popup/css/magnific-popup.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <link href="../Assets/css/style.css" rel="stylesheet">
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="../Assets/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca:400,500,700,800;display=swap" rel="stylesheet">
+
+    <script src="../Assets/vendors/jQuery/jquery.min.js"></script>
+
+</head>
+
+<body id="top">
+    <!-- start of preloader -->
+    <div class="preloader"></div>
+    <!-- end of preloader -->
+    <!-- signup-modal -->
+    <div class="modal fade rounded" id="signup-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-secondary font-weight-600">Register now</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3 p-sm-4">
+                    <form method="POST" class="row">
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="fname">Your Name*</label>
+                            <input class="form-control shadow-none rounded-sm" type="text" placeholder="Jack" id="fname" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="pnumber">Phone Number*</label>
+                            <input class="form-control shadow-none rounded-sm" type="text" placeholder="Phone Number" id="pnumber" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="email2">Email Address*</label>
+                            <input class="form-control shadow-none rounded-sm" type="email" placeholder="jack@email.com" id="email2" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2 d-block">Gender*</label>
+                            <div class="d-flex custom-radio-group rounded-sm">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">Male</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="password">Password*</label>
+                            <input class="form-control shadow-none rounded-sm" type="password" id="password" required>
+                        </div>
+                        <div class="form-group mb-20 col-12">
+                            <label class="text-secondary h6 mb-2" for="repassword">Retype Password*</label>
+                            <input class="form-control shadow-none rounded-sm" type="password" id="repassword" required>
+                        </div>
+                        <div class="form-group col-12">
+                            <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- signup-modal -->
+    <!-- signin-modal -->
+    <div class="modal fade rounded" id="signin-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mx-auto" style="max-width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-secondary font-weight-600">Welcome back</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3 p-sm-4">
+                    <ul class="nav nav-pills nav-justified tab-nav" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="guardian-tab" data-toggle="tab" href="#guardian" role="tab" aria-controls="guardian" aria-selected="true"><img src="../Assets/images/guardian.png" class="mr-2" alt="" style="height:45px"> Login as<br>Guardian</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="tutor-tab" data-toggle="tab" href="#tutor" role="tab" aria-controls="tutor" aria-selected="false"><img src="../Assets/images/tutor.png" class="mr-2" alt="" style="height:45px"> Login as<br>Tutor</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="guardian" role="tabpanel" aria-labelledby="guardian-tab">
+                            <form method="POST" class="row">
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="email">Email Address*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="email" id="email" required>
+                                </div>
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="passwordSignIn">Password*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="password" id="passwordSignIn" required>
+                                </div>
+                                <div class="form-group col-12">
+                                    <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign In</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="tutor" role="tabpanel" aria-labelledby="tutor-tab">
+                            <form method="POST" class="row">
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="email">Email Address*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="email" id="email" required>
+                                </div>
+                                <div class="form-group mb-20 col-12">
+                                    <label class="text-secondary h6 font-weight-600 mb-2" for="passwordSignIn">Password*</label>
+                                    <input class="form-control shadow-none rounded-sm" type="password" id="passwordSignIn" required>
+                                </div>
+                                <div class="form-group col-12">
+                                    <button class="btn btn-primary w-100 rounded-sm" type="submit">Sign In</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- signin-modal -->
+
+    <header class="bg-white shadow">
+        <div class="container-lg">
+            <nav class="navbar navbar-expand-xl navbar-dark px-0">
+                <a class="navbar-brand" href="index-2.html">
+                    <img src="../Assets/images/logo-2.png" alt="" style="height:49px">
+                </a>
+
+                <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarNavAlt" aria-controls="navbarNavAlt" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-bars"></span>
+                </button>
+                <div class="" style="text-align: right; width: calc(100% - 200px);">
+                    <div class="block-navbar__top">
+                        <a href="https://www.teachapax.com" class="badge badge-danger" target="_blank">CAREERS</a>
+                        <a href="http://core.apaxenglish.com/Authentication/Login.aspx" class="badge badge-danger" target="_blank">Đăng nhập</a>
+                        <a href="http://www.apaxleaders.edu.vn/lien-he" class="badge badge-danger">Liên hệ</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarNavAlt">
+
+                        <ul class="navbar-nav mt-4 mt-xl-0 ml-auto">
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Home <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item active" href="index-2.html">HomeTutor</a></li>
+                                    <li><a class="dropdown-item" href="index-3.html">Online Course</a></li>
+                                    <li><a class="dropdown-item" href="index-4.html">Online University</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    About <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="about.html">About Us 01</a></li>
+                                    <li><a class="dropdown-item" href="about-2.html">About Us 02</a></li>
+                                    <li><a class="dropdown-item" href="about-3.html">About Us 03</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="courses.html">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog.html">Blog</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pages <i class="fas fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="job-board.html">Job Board</a></li>
+                                    <li><a class="dropdown-item" href="course-details.html">Course Details</a></li>
+                                    <li><a class="dropdown-item" href="course-details-2.html">Course Details 02</a></li>
+                                    <li><a class="dropdown-item" href="blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" data-toggle="modal" data-target="#signin-modal">Signin</a>
+                            </li>
+                        </ul>
+
+                        @*<div class="ml-0 ml-xl-4 mt-3 mt-xl-0 mb-3 mb-xl-0 text-center text-xl-right">
+                                <a href="#!" class="btn btn-sm btn-blue rounded-pill" data-toggle="modal" data-target="#signup-modal">Become A Tutor</a>
+                            </div>*@
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="py-5 px-3 px-sm-5 bg-light">
+                        <div class="row align-items-center">
+                            <div class="col-lg-5">
+                                <div class="p-0 pr-lg-4">
+                                    <h2 class="section-title mb-20">Newsletter</h2>
+                                    <p>My he houses or months settle remove ladies appear. Engrossed suffering he recommend.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 mt-4 mt-lg-0">
+                                <div class="input-group newsletter-input-group d-block d-sm-flex">
+                                    <input type="email" class="form-control px-4" placeholder="youmail@email.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-blue">Subscribe Us</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-3">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 text-center text-lg-left mb-4 mb-lg-0">
+                        <ul class="list-unstyled list-inline font-weight-500">
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">HomeTutor</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Online Class</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">About</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Courses</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Blog</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Contact us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 text-center text-lg-right">
+                        <ul class="social-icons list-unstyled mr-2">
+                            <li><a href="#!" class="text-link"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#!" class="text-link"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#!" class="text-link"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#!" class="text-link pr-0"><i class="fab fa-skype"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom py-3 border-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 text-center text-lg-left mb-3 mb-lg-0">
+                        &copy; Copyright All Review <span class="text-primary">Edu</span>Skills
+                    </div>
+                    <div class="col-lg-3 text-center text-lg-right">
+                        <ul class="list-unstyled list-inline font-weight-500">
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Privacy</a></li>
+                            <li class="list-inline-item"><a href="#!" class="p-2 d-block text-link">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrap-box-register">
+            <div class="box-register">
+                <span class="ic-monkey"></span>
+                <div class="title">
+                    Đăng ký học thử miễn phí <span><i class="fa fa-caret-up"></i></span>
+                </div>
+                <div class="content">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Họ tên bố/ mẹ" id="register_fullname">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Độ tuổi của bé" id="register_behoctienganh">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" id="register_email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Số điện thoại" id="register_phone">
+                        </div>
+                        <div class="form-group">
+                            <select id="register_centre" class="form-control">
+                                <option value="0">Đăng ký học thử và kiểm tra trình độ</option>
+
+                                <option value="46">Apax Leaders - Cần Thơ</option>
+
+                            </select>
+                        </div>
+                        @*<div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="6LeMDFgUAAAAAEmErNlKXaNzbGeH8tIyAtTCpTeL"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LeMDFgUAAAAAEmErNlKXaNzbGeH8tIyAtTCpTeL&amp;co=aHR0cDovL3d3dy5hcGF4bGVhZGVycy5lZHUudm46ODA.&amp;hl=en&amp;v=_KUxfxvAoJ4k7SaKyLbja4Mi&amp;size=normal&amp;cb=6uf76ytrsfyw" width="304" height="78" role="presentation" name="a-h512gl5nr5s8" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+                            </div>*@
+                        <button type="button" class="btn btn--white" onclick="return ajax_post_register();">Đăng ký</button>
+                        <div class="form-group alert" style="    text-align: center;">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function ajax_post_register() {
+                    var fullname = $("#register_fullname").val();
+                    var behoctienganh = $("#register_behoctienganh").val();
+                    var email = $("#register_email").val();
+                    var phone = $("#register_phone").val();
+                    var centre = $("#register_centre").val();
+                    if (fullname == "") {
+                        $("#register_fullname").focus();
+                        return false;
+                    }
+                    if (behoctienganh == "") {
+                        $("#register_behoctienganh").focus();
+                        return false;
+                    }
+                    if (email == "") {
+                        $("#register_email").focus();
+                        return false;
+                    }
+
+                    if (phone == "") {
+                        $("#register_phone").focus();
+                        return false;
+                    }
+                    if (centre == 0) {
+                        $("#register_centre").focus();
+                        return false;
+                    }
+                    var url = root + "register/post_register";
+                    $.post(url, {
+                        fullname: fullname,
+                        email: email,
+                        behoctienganh: behoctienganh,
+                        centre: centre,
+                        phone: phone
+
+                    }, function (data) {
+                        if (data == 1) {
+                            $(".alert").html("<p>Cảm ơn đã đăng ký! <br/>Trung tâm Anh ngữ Apax sẽ liên hệ với bạn trong thời gian sớm nhất.</p>");
+                            $("#register_fullname").val("");
+                            $("#register_behoctienganh").val("");
+                            $("#register_email").val("");
+                            $("#register_phone").val("");
+                            $("#register_centre").val("");
+                        }
+                    });
+                    return false;
+                }
+            </script>
+        </div>
+    </footer>
+    <a href="#top" class="scroll-to-top">
+        <span class="fas fa-chevron-up"></span>
+    </a>
+
+    <!-- jQuery -->
+    <script src="../Assets/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../Assets/vendors/jquery-nice-select/jquery.nice-select.min.js"></script>
+    <script src="../Assets/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="../Assets/vendors/counterup/waypoints.min.js"></script>
+    <script src="../Assets/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="../Assets/vendors/magnific-popup/js/magnific-popup.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="../Assets/js/script.js"></script>
+    <script src="~/Assets/js/custom.js"></script>
+    <script>
+        var width_device = $(window).width();
+        var $swipeTabsContainer = $(".swipe-tabs"),
+            $swipeTabs = $(".swipe-tab"),
+            $swipeTabsContentContainer = $(".swipe-tabs-container"),
+            currentIndex = 0,
+            activeTabClassName = "active-tab";
+
+        $swipeTabsContainer.on("init", function (event, slick) {
+            $swipeTabsContentContainer.removeClass("invisible");
+            $swipeTabsContainer.removeClass("invisible");
+
+            currentIndex = slick.getCurrent();
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+        });
+
+        $swipeTabsContainer.slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            arrows: false,
+            infinite: false,
+            swipeToSlide: true,
+            touchThreshold: 10
+        });
+
+        $swipeTabsContentContainer.slick({
+            asNavFor: $swipeTabsContainer,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            infinite: false,
+            swipeToSlide: true,
+            draggable: true,
+            touchThreshold: 10
+        });
+
+        $swipeTabs.on("click", function (event) {
+            // gets index of clicked tab
+            currentIndex = $(this).data("slick-index");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+            $swipeTabsContainer.slick("slickGoTo", currentIndex);
+            $swipeTabsContentContainer.slick("slickGoTo", currentIndex);
+        });
+
+        //initializes slick navigation tabs swipe handler
+        $swipeTabsContentContainer.on("swipe", function (event, slick, direction) {
+            currentIndex = $(this).slick("slickCurrentSlide");
+            $swipeTabs.removeClass(activeTabClassName);
+            $(".swipe-tab[data-slick-index=" + currentIndex + "]").addClass(
+                activeTabClassName
+            );
+        });
+
+
+        // student-says-carousel Init
+        var sliderMain = $('.slider-main');
+        sliderMain.owlCarousel({
+            loop: true,
+            nav: false,
+            dots: false,
+            items: 1
+        });
+        // Custom Navigation Events
+        $('.slider-main-left').click(function () {
+            sliderMain.trigger('prev.owl.carousel');
+        });
+        $('.slider-main-right').click(function () {
+            sliderMain.trigger('next.owl.carousel');
+        });
+
+
+    </script>
+
+</body>
+</html>

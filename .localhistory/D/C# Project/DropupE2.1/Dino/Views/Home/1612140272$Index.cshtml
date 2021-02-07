@@ -1,0 +1,286 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Dino Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_sale_product = new ProductProvider().getByCategoryNameOnSite("Sale up to 50%");
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var contact = new StoreContactProvider().get1Contact();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+   
+    string ao_link = System.Configuration.ConfigurationManager.AppSettings["ao"];
+    string quan_link = System.Configuration.ConfigurationManager.AppSettings["quan"];
+    string phukien_link = System.Configuration.ConfigurationManager.AppSettings["phukien"];
+    string giaydep_link = System.Configuration.ConfigurationManager.AppSettings["giaydep"];
+    string combo_link = System.Configuration.ConfigurationManager.AppSettings["combo"];
+
+    ViewBag.Keywords = "DINO STORE, ICON DENIM, RUNPOW, NOMOUS ESSENTIALS";
+    ViewBag.Description = "Dino Store là chuỗi cửa hàng bán lẻ thời trang nam với xu hướng thời trang hiện đại luôn luôn cập nhật nhanh nhất những trend thời trang mới trên thế giới.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<div id="home-slider">
+    <div id="homepage_slider" class="owl-carousel owl-theme">
+        @foreach (var slide in list_slide)
+        {
+            <div class="item">
+                <a href="@slide.link_url">
+                    <img class="img-slider-custom" title="@slide.main_text" alt="@slide.alt" src="@urlCMS/@slide.image">
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="banner-1-index hidden-lg hidden-md">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 item-banner">
+                <div class="item-banner-img style-extrabold bg-color-gray fontsize35">
+                    <a class="a-title-banner" href="@ao_link">Áo Dino</a>
+                    <a href="@ao_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
+                    <div class="content-ico">
+                        <img src="~/Assets/image/ao-img.png" alt="ao">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 item-banner">
+                <div class="item-banner-img style-extrabold bg-color-gray fontsize35">
+                    <a class="a-title-banner" href="@quan_link">Quần Dino</a>
+                    <a href="@quan_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
+                    <div class="content-ico">
+                        <img src="~/Assets/image/quan-img.png" alt="quan">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 item-banner">
+                <div class="item-banner-img style-extrabold bg-color-gray fontsize35">
+                    <a class="a-title-banner" href="@phukien_link">Phụ kiện Dino</a>
+                    <a href="@phukien_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
+                    <div class="content-ico">
+                        <img src="~/Assets/image/phu-kien-img.png" alt="giay-phu-kien">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 item-banner">
+                <div class="item-banner-img style-extrabold bg-color-gray fontsize35">
+                    <a class="a-title-banner" href="@combo_link">Gợi ý combo Dino</a>
+                    <a href="@combo_link">Xem thêm <i class="fa fa-arrow-right"></i></a>
+                    <div class="content-ico">
+                        <img src="~/Assets/image/phu-kien-img.png" alt="giay-phu-kien">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<section class="section section-collection">
+    <div class="wrapper-heading-home animation-tran text-center">
+        <div class="container-fluid">
+            <div class="site-animation">
+                <h2 class="sp-moititle">
+                    <strong>HÀNG MỚI VỀ</strong>
+                </h2>
+                <a>Sản phẩm mới lên kệ cho anh em thỏa sức lựa chọn. Cập nhật hàng ngày.</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-collection-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="clearfix content-product-list ">
+                    @{ var list_new_product = new ProductProvider().getAll().OrderByDescending(p => p.show_datetime).Take(20).ToList();}
+                    @foreach (var product in list_new_product)
+                    {
+                        if (product.show_datetime <= System.DateTime.Now && product.status == true)
+                        {
+                            <div class="col-md-3 col-sm-6 col-xs-6 pro-loop index-loop-mb animation-tran">
+
+                                <div class="product-block product-resize site-animation" data-anmation="1">
+                                    <div class="product-img">
+                                        @{var out_of_stock_status = new ProductVariationProvider().checkInStockForProduct(product.product_id);}
+                                        @if (out_of_stock_status == false)
+                                        {
+                                            <span class="chay-hang">
+                                                CHÁY HÀNG
+                                            </span>
+                                        }
+
+                                        <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                            <picture>
+                                                <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                            </picture>
+
+                                            @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                            @if (img_more != null)
+                                            {
+                                                <picture>
+                                                    <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                </picture>
+
+                                            }
+                                        </a>
+
+                                    </div>
+                                    <div class="product-detail clearfix">
+                                        <div class="box-pro-detail">
+                                            <h3 class="pro-name">
+                                                <a href="/@product.seo_alias" title="@product.product_name">
+                                                    @product.product_name
+                                                </a>
+                                            </h3>
+                                            <div class="box-pro-prices">
+                                                <p class="pro-price ">
+                                                    <span class="giaban showNumeric">@product.promotion_price</span>
+                                                    @if (product.price > 0)
+                                                    {
+                                                        <span class="pro-price-del showNumeric">@product.price</span>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="button-showmore">
+                    <a href="/collections/new-arrivals" class="moreproduct button">Xem thêm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (list_sale_product.Count > 0)
+{
+    <section class="section section-collection">
+        <div class="wrapper-heading-home animation-tran text-center">
+            <div class="container-fluid">
+                <div class="site-animation">
+                    <h2>
+                        <a href="javascript:void(0)">
+                            <strong>SALE UP TO 50%</strong>
+                        </a>
+                    </h2>
+                    <a>Những sản phẩm đang khuyến mãi với mức giá cực sốc. Nhanh tay lên nào, số lượng và thời gian có hạn.</a>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-collection-sale">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="clearfix content-product-list ">
+                        <div class="owl-sale-product owl-carousel">
+                            @foreach (var product in list_sale_product)
+                            {
+                                if (product.show_datetime <= System.DateTime.Now && product.status == true)
+                                {
+                                    <div class="pro-loop index-loop-mb">
+
+                                        <div class="product-block product-resize site-animation" data-anmation="1">
+                                            <div class="product-img">
+                                                @{var out_of_stock_status = new ProductVariationProvider().checkInStockForProduct(product.product_id);}
+                                                @if (out_of_stock_status == false)
+                                                {
+                                                    <span class="chay-hang">
+                                                        CHÁY HÀNG
+                                                    </span>
+                                                }
+
+                                                <a href="/@product.seo_alias" title="@product.product_name" class="image-resize">
+                                                    <picture>
+                                                        <img class="img-loop" alt="@product.alt_image" src="@urlCMS/@product.product_image" />
+                                                    </picture>
+
+                                                    @{ var img_more = new ImageMoreProvider().get1ByProductId(product.product_id);}
+                                                    @if (img_more != null)
+                                                    {
+                                                        <picture>
+                                                            <img class="img-loop img-hover" alt="@img_more.image_more_alt" src="@urlCMS/@img_more.image_more_url" />
+                                                        </picture>
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-detail clearfix">
+                                                <div class="box-pro-detail">
+                                                    <h3 class="pro-name">
+                                                        <a href="/@product.seo_alias" title="@product.product_name">
+                                                            @product.product_name
+                                                        </a>
+                                                    </h3>
+                                                    <div class="box-pro-prices">
+                                                        <p class="pro-price ">
+                                                            <span class="giaban showNumeric">@product.promotion_price</span>
+                                                            @if (product.price > 0)
+                                                            {
+                                                                <span class="pro-price-del showNumeric">@product.price</span>
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+
+<section class="section-instagram">
+    <div class="container">
+        <div class="box-icon row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/delivery.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">Miễn phí vận chuyển toàn quốc</p>
+                        <p class="banner-footer-item-des">Với Đơn Hàng Trên 500.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/support.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">HỖ TRỢ (09:00-21:00)</p>
+                        <p class="banner-footer-item-des">@contact.phone_number</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="banner-footer-item">
+                    <img src="../Assets/image/icon/replace-icon.png" style="width: 50px !important;">
+                    <div class="banner-footer-item-info">
+                        <p class="banner-footer-item-title">Đổi Trả Dễ Dàng</p>
+                        <p class="banner-footer-item-des">Trong Vòng 07 ngày</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

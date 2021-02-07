@@ -1,0 +1,245 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var category_parent_special_first = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).FirstOrDefault();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var contact = new StoreContactProvider().get1Contact();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_da = new BlogProvider().getByCategoryIdShowing(5);
+
+    ViewBag.Keywords = "Thiết bị điện, ống nhựa, phụ kiện, công tắc, ổ cắm, đèn, Opple, Edenki, Thuận Phát, Vina Focus";
+    ViewBag.Description = "Vina Focus cung cấp các dòng sản phẩm thiết bị điện cao cấp, ống nhựa và phụ kiện, đèn chiếu sáng chất lượng cao.";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Slider Section -->
+<div class="mb-4 slide-desktop">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text != "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+<!-- Slider Section -->
+<div class="mb-4 slide-mobile">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
+                {
+                    if (slide.main_text == "mobile")
+                    {
+                        <div class="js-slide">
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+
+<div class="container banner-custom">
+    <!-- Banner -->
+    <div class="row mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-ongnhua.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-den.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-congtac.jpg" />
+            </a>
+        </div>
+        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1 d-xl-none d-wd-block">
+            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
+                <img src="~/Assets/img/banner/banner-chinhsachdaily.jpg" />
+            </a>
+        </div>
+    </div>
+    <!-- End Banner -->
+</div>
+
+<div class="home-six rs-services style7">
+    <div class="container">
+        <div class="sec-title style2 mb-60 md-mb-42">
+            <div class="first-half">
+                <div class="sub-title green">Đánh giá khách hàng</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Vì sao lựa chọn Vina Focus?</h3>
+                </div>
+            </div>
+            <div class="last-half">
+                <p class="mb-0 pr-10">Chúng tôi tự hào là đơn vị phân phối các sản phẩm chất lượng, đảm bảo với những chính sách ưu đãi, khuyến mãi và bảo hành tốt đến với tay người tiêu dùng.</p>
+            </div>
+        </div>
+        <div class="row gutter-16">
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/1.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">An toàn</a></h4>
+                        <p class="desc">Với sứ mệnh bảo vệ nguồn sống, bảo vệ sức khỏe cộng đồng, Vina Focus cam kết đưa ra thị trường những sản phẩm có chất lượng tốt nhất, đảm bảo an toàn cho sức khỏe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/2.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Uy tín</a></h4>
+                        <p class="desc">Vina Focus đã trở thành một trong những nhà sản xuất kinh doanh hàng đầu trong lĩnh vực sản xuất vật liệu xây dựng tại Việt Nam. Sản phẩm của Thuận Phát luôn được tin dùng tại các công trình lớn, dự án tiêu biểu, công trình dự án trọng điểm quốc gia…</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 xs-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/3.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Chất lượng</a></h4>
+                        <p class="desc">Được các tổ chức và hiệp hội có uy tín bình chọn và trao tặng nhiều giải thưởng có giá trị: Cúp vàng thương hiệu ngành xây dựng 4 năm liên tiếp 2006, 2007, 2008, 2009; Huy chương vàng chất lượng sản phẩm tại hội chợ triển lãm quốc tế VietBuild các năm 2006, 2007, 2008, 2009, 2010.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="https://rstheme.com/products/html/reobiz/assets/images/services/style6/4.png" alt="">
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Tốc độ</a></h4>
+                        <p class="desc">Không chỉ đạt về chất lượng, chúng tôi còn tự hào khi có đội ngũ xử lý công việc một cách tốc độ, đảm bảo được tiến độ xây dựng và lắp đặt thông qua các công trình.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container banner-dai">
+    <!-- Banner 2 columns -->
+    <div class="mb-8">
+        <div class="row">
+            <div class="col-md-12 mb-3 mb-md-0 banner-custom">
+                <a href="/">
+                    <img src="@urlCMS/@banner.image" alt="@banner.alt" />
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Banner 2 columns -->
+    <!-- Recommendation for you -->
+    <div class="position-relative">
+        <div class="border-bottom border-color-1 mb-2">
+            <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Một số dự án đã thực hiện</h3>
+        </div>
+        <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+             data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+             data-slides-show="3"
+             data-slides-scroll="1"
+             data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+             data-arrow-left-classes="fa fa-angle-left right-1"
+             data-arrow-right-classes="fa fa-angle-right right-0"
+             data-autoplay="true"
+             data-responsive='[{
+                          "breakpoint": 1400,
+                          "settings": {
+                            "slidesToShow": 3
+                          }
+                        }, {
+                            "breakpoint": 1200,
+                            "settings": {
+                              "slidesToShow": 3
+                            }
+                        }, {
+                          "breakpoint": 992,
+                          "settings": {
+                            "slidesToShow": 3
+                          }
+                        }, {
+                          "breakpoint": 768,
+                          "settings": {
+                            "slidesToShow": 1
+                          }
+                        }, {
+                          "breakpoint": 554,
+                          "settings": {
+                            "slidesToShow": 1
+                          }
+                        }]'>
+
+            @foreach (var da in list_da)
+            {
+                <div class="js-slide">
+                    <article class="card card-home border-0">
+                        <a href="/blogs/@da.blog_seo_alias" class="d-block"><img class="img-fluid" src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image"></a>
+                        <div class="card-body pt-5 pb-0 px-0">
+                            <h4 class="mb-3"><a href="/blogs/@da.blog_seo_alias">@da.blog_title</a></h4>
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="list-group list-group-horizontal flex-wrap list-group-borderless align-items-center mx-n0dot5">
+                                    <a href="/blogs/@da.blog_seo_alias" class="mx-0dot5 text-gray-5">Người đăng: @da.user.username</a>
+                                    <span class="mx-2 font-size-n5 mt-1 text-gray-5"><i class="fas fa-circle"></i></span>
+                                    <a href="/blogs/@da.blog_seo_alias" class="mx-0dot5 text-gray-5">Vào lúc: @da.create_datetime.Value.ToString("HH:mm dd/MM/yyyy")</a>
+                                </div>
+                            </div>
+                            <p>@Html.Raw(da.blog_summary)</p>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- End Recommendation for you -->
+
+</div>

@@ -1,0 +1,167 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Vina Focus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Input -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Tên của bạn
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input maxlength="255" id="rname" type="text" class="form-control" placeholder="Nhập tên của bạn" autocomplete="off">
+                    </div>
+                    <!-- End Input -->
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Input -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Số điện thoại
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input id="rphone" type="text" class="form-control" placeholder="Nhập số điện thoại" autocomplete="off">
+                    </div>
+                    <!-- End Input -->
+                </div>
+                <div class="col-md-6">
+                    <!-- Input -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Email
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input id="remail" type="text" class="form-control" placeholder="Nhập email" autocomplete="off">
+                    </div>
+                    <!-- End Input -->
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Input -->
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Địa chỉ
+                        </label>
+                        <input maxlength="255" id="raddress" type="text" class="form-control" placeholder="Nhập địa chỉ">
+                    </div>
+                    <!-- End Input -->
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">
+                        Sản phẩm bạn quan tâm
+                    </label>
+                    <div class="input-group">
+                        <div class="mb-4">
+                            @foreach (var cp in list_category_parent_default)
+                            {
+                                <label class="container-form">
+                                    <input id="cp_@cp.category_id" type="checkbox" onchange="checkSubject('@cp.category_id')" value="@cp.category_name">
+                                    @cp.category_name
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-4">
+                        <label class="form-label">
+                            Lời nhắn
+                        </label>
+
+                        <div class="input-group">
+                            <textarea maxlength="255" style="width: 100%;" id="rmessage" class="form-control p-5" rows="4" placeholder="Để lại lời nhắn..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 text-center" style="margin:auto">
+                    <button id="submitRegister" type="button" class="btn btn-primary px-5" onclick="register()">Gửi thông tin</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var list_subject = [];
+    function checkSubject(id) {
+        if ($('#cp_' + id).is(":checked")) {
+            list_subject.push($('#cp_' + id).val());
+        }
+        else {
+            list_subject = list_subject.filter(function (value) {
+                return value != $('#cp_' + id).val();
+            });
+        }
+    }
+
+    function register() {
+        var cphone = $("#rphone").val();
+        var cemail = $("#remail").val();
+        var cname = $("#rname").val();
+        var cmessage = "Địa chỉ: " + $('#raddress').val() + "<br />" + $('#rmessage').val();
+        var csubject = "Sản phẩm quan tâm: " + list_subject.toString();
+        if (cname == "" || cname == null) {
+            alert("Yêu cầu nhập tên trước khi gửi");
+        }
+        else if (cphone == "") {
+            alert("Yêu cầu nhập số điện thoại trước khi gửi");
+        }
+        else if (!phonenumber(cphone)) {
+            alert("Số điện thoại không đúng định dạng");
+        }
+        else if (cemail == "" || cemail == null) {
+            alert("Yêu cầu nhập email trước khi gửi");
+        }
+        else if (!isEmail(cemail)) {
+            alert("Email không đúng định dạng");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/RegisterDaiLy/SendMessage",
+                data: {
+                    sender_name: cname,
+                    sender_phone_number: cphone,
+                    sender_email: cemail,
+                    sender_subject: csubject,
+                    sender_message: cmessage,
+                },
+                context: document.body,
+                dataType: "html",
+                beforeSend: function () {
+                    $('#submitRegister').prop('disabled', true);
+                    $('#submitRegister').text("Loading...");
+                },
+                success: function (data) {
+                    $("#rname").val("");
+                    $("#remail").val("");
+                    $("#rphone").val("");
+                    $("#raddress").val("");
+                    $("#rmessage").val("");
+                    alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra.");
+                },
+                complete: function (xhr, status) {
+                    $('#submitRegister').text("Gửi thông tin");
+                    $('#submitRegister').prop('disabled', false);
+                }
+            });
+        }
+    }
+</script>

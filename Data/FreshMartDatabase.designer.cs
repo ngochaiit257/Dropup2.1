@@ -22,7 +22,7 @@ namespace Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="VinaFocus")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="LisPharma")]
 	public partial class FreshMartDatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -261,7 +261,7 @@ namespace Data
     #endregion
 		
 		public FreshMartDatabaseDataContext() : 
-				base(global::Data.Properties.Settings.Default.VinaFocusConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.LisPharmaConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

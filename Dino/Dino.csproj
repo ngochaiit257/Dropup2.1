@@ -199,6 +199,8 @@
     <Content Include="Assets\font\ionicons.svg" />
     <Content Include="Assets\font\themify-icons.svg" />
     <Content Include="Assets\image\ao-img.png" />
+    <Content Include="Assets\image\banner-tet.jpg" />
+    <Content Include="Assets\image\combo-img.png" />
     <Content Include="Assets\image\common\aosomi_d0e105d796244ffda4d9c872de9710c3-min.png" />
     <Content Include="Assets\image\common\aothun_8ba1fd7194ea474d9decf4aa2c349ab7-min.png" />
     <Content Include="Assets\image\common\ao_khoac_84baa27d9bf24bc8be3a9e9fb1519f2d-min.png" />
@@ -331,6 +333,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile7.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile8.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile9.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

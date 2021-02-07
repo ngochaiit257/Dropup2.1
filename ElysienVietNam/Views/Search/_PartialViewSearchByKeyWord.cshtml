@@ -4,14 +4,10 @@
 @using PagedList;
 @using PagedList.Mvc;
 @{
-                /**/
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
 
-                /**/
-
-                var check_box_count = Model.Count();
-                var current_datetime = System.DateTime.Now;
-
-                string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
 }
 
 @if (check_box_count == 0)

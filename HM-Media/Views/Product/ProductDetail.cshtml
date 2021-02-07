@@ -59,12 +59,12 @@
 </div>
 
 <!-- Services Details -->
-<div class="service-details-area ptb-100">
+<div class="ptb-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="details-item">
-                    @if (Model.is_video_url != null)
+                    @if (Model.product_video != null)
                     {
                         <iframe style="height: 500px;width: 100%" src="@Model.product_video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     }

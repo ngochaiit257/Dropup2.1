@@ -1,0 +1,22 @@
+﻿.nav-arrows span {
+    height: 50px;
+    width: 50px;
+}
+
+.nav-arrows.arrow-vcentered span {
+    position: absolute;
+    top: calc(50% - 19px);
+    left: 10px;
+    z-index: 1;
+    background-color: #cdcdcd;
+}
+
+    .nav-arrows.arrow-vcentered span.fa-chevron-right {
+        left: auto;
+        right: 10px;
+        z-index: 1;
+    }
+
+.banner-1{
+    height: 700px;
+}

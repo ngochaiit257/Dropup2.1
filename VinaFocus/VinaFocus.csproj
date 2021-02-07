@@ -161,6 +161,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\RegisterDaiLyController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,6 +185,7 @@
     <Content Include="Assets\css\custom.css" />
     <Content Include="Assets\css\font-electro.css" />
     <Content Include="Assets\css\pace.css" />
+    <Content Include="Assets\css\swiper-bundle.min.css" />
     <Content Include="Assets\css\theme.css" />
     <Content Include="Assets\css\toaster-box.css" />
     <Content Include="Assets\img\100X100\img1.jpg" />
@@ -347,6 +349,7 @@
     <Content Include="Assets\img\75X75\img7.jpg" />
     <Content Include="Assets\img\75X75\img8.jpg" />
     <Content Include="Assets\img\75X75\img9.jpg" />
+    <Content Include="Assets\img\banner\bg-feature.jpg" />
     <Content Include="Assets\img\banner\object-den.png" />
     <Content Include="Assets\img\banner\banner-21.jpg" />
     <Content Include="Assets\img\banner\banner-22.jpg" />
@@ -356,6 +359,15 @@
     <Content Include="Assets\img\banner\banner-den.jpg" />
     <Content Include="Assets\img\banner\banner-ongnhua.jpg" />
     <Content Include="Assets\img\banner\bg-banner-den.jpg" />
+    <Content Include="Assets\img\cup\cup-1.jpg" />
+    <Content Include="Assets\img\cup\cup-2.jpg" />
+    <Content Include="Assets\img\cup\cup-3.jpg" />
+    <Content Include="Assets\img\cup\cup-4.jpg" />
+    <Content Include="Assets\img\icon\icon-an-toan.png" />
+    <Content Include="Assets\img\icon\icon-call-nh.png" />
+    <Content Include="Assets\img\icon\icon-chat-luong.png" />
+    <Content Include="Assets\img\icon\icon-toc-do.png" />
+    <Content Include="Assets\img\icon\icon-uy-tin.png" />
     <Content Include="Assets\img\loader\cart-loader.gif" />
     <Content Include="Assets\img\loader\img-loader.gif" />
     <Content Include="Assets\img\loader\list-loader.gif" />
@@ -383,6 +395,7 @@
     <Content Include="Assets\js\jquery.cookie.js" />
     <Content Include="Assets\js\jquery.lazyload.js" />
     <Content Include="Assets\js\pace.js" />
+    <Content Include="Assets\js\swiper-bundle.min.js" />
     <Content Include="Assets\js\toaster-box.js" />
     <Content Include="Assets\template\YouHaveFastOrder.html" />
     <Content Include="Assets\template\YouHaveMessage.html" />
@@ -425,6 +438,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\catalogue\Edenki-Catalogue.pdf" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -448,7 +465,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_PartialViewListProductInCategory.cshtml" />
@@ -463,8 +479,11 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\_PartialViewListBlog.cshtml" />
     <Content Include="Views\Blog\BlogDetail.cshtml" />
-    <Content Include="Views\Search\_PartialViewSearchByKeyWord.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\_PartialViewSearchByKeyword.cshtml" />
+    <Content Include="Views\Home\HomeDemo.cshtml" />
+    <Content Include="Views\RegisterDaiLy\_PartialViewRegiterDaiLy.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

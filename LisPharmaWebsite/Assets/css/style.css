@@ -16,7 +16,7 @@
     
     
 */
-@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&amp;family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Muli:wght@100;200;300;400;500;600;700;800;900&amp;family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap");
 @import url("../icons/line-awesome/css/line-awesome.min.css");
 @import url("../icons/font-awesome/css/font-awesome.min.css");
 @import url("../icons/flaticon/flaticon.css");
@@ -80,7 +80,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Barlow", sans-serif;
+  font-family: "Averta", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -4636,7 +4636,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Barlow", sans-serif;
+  font-family: "Averta", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -4721,7 +4721,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Averta", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -8572,7 +8572,7 @@ h6 a {
   color: #1f2471; }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Barlow", sans-serif;
+  font-family: "Averta", sans-serif;
   font-weight: 700;
   color: #1f2471; }
 
@@ -9744,7 +9744,7 @@ section {
     line-height: 1;
     -webkit-text-stroke: 1px #000;
     z-index: -1;
-    font-family: "Barlow", sans-serif;
+    font-family: "Averta", sans-serif;
     opacity: 0.1;
     left: 0; }
     @media only screen and (max-width: 1400px) {
@@ -12130,7 +12130,7 @@ textarea {
 .testimonial-name {
   font-size: 22px;
   font-weight: 700;
-  font-family: "Barlow", sans-serif;
+  font-family: "Averta", sans-serif;
   color: #1f2471;
   line-height: 26px;
   margin-bottom: 5px; }
@@ -13908,7 +13908,7 @@ button.scroltop {
       opacity: 0;
       padding: 30px; }
       .dlab-overlay-box.style-1 .dlab-info .title {
-        font-family: "Barlow", sans-serif;
+        font-family: "Averta", sans-serif;
         font-weight: 600;
         margin-bottom: 20px; }
         .dlab-overlay-box.style-1 .dlab-info .title a {
@@ -13937,7 +13937,7 @@ button.scroltop {
       text-align: left;
       padding: 30px; }
       .dlab-overlay-box.style-2 .dlab-info .title {
-        font-family: "Barlow", sans-serif;
+        font-family: "Averta", sans-serif;
         font-size: 18px;
         font-weight: 500; }
         .dlab-overlay-box.style-2 .dlab-info .title a {
@@ -13974,7 +13974,7 @@ button.scroltop {
         .dlab-overlay-box.style-3 .dlab-info .post-author a {
           color: #5c6390; }
       .dlab-overlay-box.style-3 .dlab-info .title {
-        font-family: "Barlow", sans-serif;
+        font-family: "Averta", sans-serif;
         font-size: 18px;
         font-weight: 500; }
     .dlab-overlay-box.style-3:hover .dlab-info {
@@ -14490,7 +14490,7 @@ icon-bx-wraper style-4:hover .icon-cell i,
       height: 95px;
       width: 95px; }
     .comments-area .comment-list > .comment .comment-body .comment-author .fn {
-      font-family: "Barlow", sans-serif;
+      font-family: "Averta", sans-serif;
       font-size: 18px;
       line-height: 18px;
       color: #1f2471;

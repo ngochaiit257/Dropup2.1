@@ -38,12 +38,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-xl-9 col-wd">
-            <div class="min-width-1100-wd" id="data_table">
+        <div class="col-xl-9">
+            <div id="data_table">
                 @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
             </div>
         </div>
-        <div class="col-xl-3 col-wd">
+        <div class="col-xl-3">
             <aside class="mb-7">
                 <div class="border-bottom border-color-1 mb-5">
                     <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Danh mục sản phẩm</h3>

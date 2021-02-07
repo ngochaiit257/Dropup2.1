@@ -1,0 +1,1127 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    string fb_link = System.Configuration.ConfigurationManager.AppSettings["fb_link"];
+    string instagram_link = System.Configuration.ConfigurationManager.AppSettings["instagram_link"];
+    string zalo_link = System.Configuration.ConfigurationManager.AppSettings["zalo_link"];
+    string shopee_link = System.Configuration.ConfigurationManager.AppSettings["shopee_link"];
+    string lazada_link = System.Configuration.ConfigurationManager.AppSettings["lazada_link"];
+    string tiktok_link = System.Configuration.ConfigurationManager.AppSettings["titok_link"];
+
+    var list_category_parent_default = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 1).ToList();
+    var list_category_parent_special = new CategoryProvider().getListParentCategory().Where(c => c.type_of_category_id == 2).ToList();
+    var list_partner = new StorePartnerProvider().getAll();
+
+    string currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+    TempData["CurrentUrl"] = currentUrl;
+
+    long user_id_loged = 0;
+    string email_loged = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+        email_loged = username;
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="@urlCMS/@favicon.image" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+
+    <meta name="keywords" content="@ViewBag.Keywords">
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="HaiDN - ngochaiit257@gmail.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="revisit" content="1 days">
+    <meta name="robots" content="noodp,index,follow" />
+
+    <!-- Helpers ================================================== -->
+    <meta name="apple-mobile-web-app-title" content="TPA Lock">
+    <meta name="application-name" content="TPA Lock">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noodp,index, follow" />
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    <link rel="alternate" href="@ViewBag.Alternate" hreflang="vi-vn" />
+    <meta itemprop="name" content="@ViewBag.Title">
+    <meta itemprop="description" content="@ViewBag.Description">
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content="@ViewBag.Url" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:site_name" content="TPA Lock" />
+    <meta property="og:image" content="@ViewBag.Image" />
+    <meta property="og:type" content="website">
+    <meta property="og:image:secure_url" content="@ViewBag.Image" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Poppins:400,500,600,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
+    @Styles.Render("~/bundles/styleCore")
+    @Scripts.Render("~/bundles/jsCoreFirst")
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
+</head>
+
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=254374549377817&autoLogAppEvents=1" nonce="uzW6xc8L"></script>
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="u-header u-header-left-aligned-nav">
+        <div class="u-header__section">
+            <!-- Topbar -->
+            <div class="u-header-topbar py-2 d-none d-xl-block">
+                <div class="container">
+                    <div class="d-flex align-items-center">
+                        <div class="topbar-left">
+                            <a href="#" class="text-gray-110 font-size-13 u-header-topbar__nav-link">
+                                <marquee>Trang Thương mại điện tử - Công ty Cổ phần VinaFocus</marquee>
+                            </a>
+                        </div>
+                        <div class="topbar-right ml-auto">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border u-header-topbar__nav-item-no-border u-header-topbar__nav-item-border-single">
+                                    <div class="d-flex align-items-center">
+                                        <!-- Language -->
+                                        <div class="position-relative" style="display: -webkit-box;">
+                                            <i class="fa fa-globe"></i>&nbsp;
+                                            <a id="languageDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center u-header-topbar__nav-link font-weight-normal" href="javascript:;" role="button"
+                                               aria-controls="languageDropdown"
+                                               aria-haspopup="true"
+                                               aria-expanded="false"
+                                               data-unfold-event="hover"
+                                               data-unfold-target="#languageDropdown"
+                                               data-unfold-type="css-animation"
+                                               data-unfold-duration="300"
+                                               data-unfold-delay="300"
+                                               data-unfold-hide-on-scroll="true"
+                                               data-unfold-animation-in="slideInUp"
+                                               data-unfold-animation-out="fadeOut">
+                                                <span class="d-none d-sm-inline-flex align-items-center" id="show-lang">vi</span>
+                                            </a>
+
+                                            <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
+                                                <a class="dropdown-item active" href="#Vietnamese" onclick="changeLanguageByButtonClick('vi')">vi</a>
+                                                <a class="dropdown-item" href="#English" onclick="changeLanguageByButtonClick('en')">en</a>
+                                            </div>
+                                        </div>
+                                        <!-- End Language -->
+                                    </div>
+                                    <div id="google_translate_element" style="display:none"></div>
+                                    <script type="text/javascript">
+                                        function googleTranslateElementInit() {
+                                            new google.translate.TranslateElement({ pageLanguage: "vi", includedLanguages: 'vi,en,ko,zh-CN' }, 'google_translate_element');
+                                        }
+
+                                        function changeLanguageByButtonClick(language) {
+                                            $('#show-lang').text(language);
+                                            //var language = document.getElementById("language").value;
+                                            var selectField = document.querySelector("#google_translate_element select");
+                                            for (var i = 0; i < selectField.children.length; i++) {
+                                                var option = selectField.children[i];
+                                                // find desired langauge and change the former language of the hidden selection-field
+                                                if (option.value == language.toString()) {
+                                                    selectField.selectedIndex = i;
+                                                    // trigger change event afterwards to make google-lib translate this side
+                                                    selectField.dispatchEvent(new Event('change'));
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    </script>
+                                </li>
+                                <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                    <a href="#" class="u-header-topbar__nav-link"><i class="fa fa-clock"></i>&nbsp; Giờ làm việc: @contact.working_hour</a>
+                                </li>
+                                <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                    <a href="/" class="u-header-topbar__nav-link"><i class="fa fa-calendar"></i>&nbsp; Ngày làm việc: @contact.working_day</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Topbar -->
+            <!-- Logo-Search-header-icons -->
+            <div class="py-2 py-xl-3 bg-primary-down-lg">
+                <div class="container my-0dot5 my-xl-0">
+                    <div class="row align-items-center">
+                        <!-- Logo-offcanvas-menu -->
+                        <div class="col-auto">
+                            <!-- Nav -->
+                            <nav class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
+                                <!-- Logo -->
+                                <a class="order-1 order-xl-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="/" aria-label="Electro">
+                                    <img src="@urlCMS/@logo_header.image" alt="@logo_header.alt" />
+                                </a>
+                                <!-- End Logo -->
+                                <!-- Fullscreen Toggle Button -->
+                                <button id="sidebarHeaderInvokerMenu" type="button" class="navbar-toggler btn u-hamburger mr-3 mr-xl-0"
+                                        aria-controls="sidebarHeader"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        data-unfold-event="click"
+                                        data-unfold-hide-on-scroll="false"
+                                        data-unfold-target="#sidebarHeader1"
+                                        data-unfold-type="css-animation"
+                                        data-unfold-animation-in="fadeInLeft"
+                                        data-unfold-animation-out="fadeOutLeft"
+                                        data-unfold-duration="500">
+                                    <span id="hamburgerTriggerMenu" class="u-hamburger__box">
+                                        <span class="u-hamburger__inner bg-white"></span>
+                                    </span>
+                                </button>
+                                <!-- End Fullscreen Toggle Button -->
+                            </nav>
+                            <!-- End Nav -->
+                            <!-- ========== HEADER SIDEBAR ========== -->
+                            <aside id="sidebarHeader1" class="u-sidebar u-sidebar--left" aria-labelledby="sidebarHeaderInvokerMenu">
+                                <div class="u-sidebar__scroller">
+                                    <div class="u-sidebar__container">
+                                        <div class="u-header-sidebar__footer-offset pb-0">
+                                            <!-- Toggle Button -->
+                                            <div class="position-absolute top-0 right-0 z-index-2 pt-4 pr-7">
+                                                <button type="button" class="close ml-auto"
+                                                        aria-controls="sidebarHeader"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false"
+                                                        data-unfold-event="click"
+                                                        data-unfold-hide-on-scroll="false"
+                                                        data-unfold-target="#sidebarHeader1"
+                                                        data-unfold-type="css-animation"
+                                                        data-unfold-animation-in="fadeInLeft"
+                                                        data-unfold-animation-out="fadeOutLeft"
+                                                        data-unfold-duration="500">
+                                                    <span aria-hidden="true"><i class="ec ec-close-remove text-gray-90 font-size-20"></i></span>
+                                                </button>
+                                            </div>
+                                            <!-- End Toggle Button -->
+                                            <!-- Content -->
+                                            <div class="js-scrollbar u-sidebar__body">
+                                                <div id="headerSidebarContent" class="u-sidebar__content u-header-sidebar__content">
+                                                    <!-- Logo -->
+                                                    <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" href="/" aria-label="Electro">
+                                                        <img src="@urlCMS/@logo_mobile.image" alt="@logo_mobile.alt" style="width: 9rem" />
+                                                    </a>
+                                                    <!-- End Logo -->
+                                                    <!-- List -->
+                                                    <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                                        <!-- Home Section -->
+                                                        <li>
+                                                            <a class="u-header-collapse__nav-link" href="/" role="button">
+                                                                Trang chủ
+                                                            </a>
+                                                        </li>
+                                                        <!-- End Home Section -->
+                                                        <!-- Shop Pages -->
+                                                        @foreach (var c_parent in list_category_parent_default)
+                                                        {
+                                                            if (c_parent.type_of_category_id == 1)
+                                                            {
+                                                                if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                                                {
+                                                                    var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                                                                    if (list_child_1.Count > 0)
+                                                                    {
+                                                                        <li class="u-has-submenu u-header-collapse__submenu">
+                                                                            <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="/collections/@c_parent.seo_alias" data-target="#headerSidebarCollapse-@c_parent.category_id" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarCollapse-@c_parent.category_id">
+                                                                                @c_parent.category_name
+                                                                            </a>
+
+                                                                            <div id="headerSidebarCollapse-@c_parent.category_id" class="collapse" data-parent="#headerSidebarCollapse-@c_parent.category_id">
+                                                                                <ul class="u-header-collapse__nav-list">
+                                                                                    <!-- Shop Grid -->
+                                                                                    @foreach (var c_child in list_child_1)
+                                                                                    {
+                                                                                        <li><a class="u-header-collapse__submenu-nav-link" href="/collections/@c_child.seo_alias">@c_child.category_name</a></li>
+                                                                                    }
+                                                                                </ul>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li>
+                                                                            <a class="u-header-collapse__nav-link" href="/collections/@c_parent.seo_alias" role="button">
+                                                                                @c_parent.category_name
+                                                                            </a>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        @if (list_page_parent.Count > 0)
+                                                        {
+                                                            foreach (var pp in list_page_parent)
+                                                            {
+                                                                if (pp.mount_on_header_menu_status == true)
+                                                                {
+                                                                    var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                                    if (list_page_child.Count > 0)
+                                                                    {
+                                                                        <li class="u-has-submenu u-header-collapse__submenu">
+                                                                            <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarPage_@pp.page_id" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarPage_@pp.page_id">
+                                                                                @pp.page_title
+                                                                            </a>
+
+                                                                            <div id="headerSidebarPage_@pp.page_id" class="collapse" data-parent="#headerSidebarContent">
+                                                                                <ul class="u-header-collapse__nav-list">
+                                                                                    @foreach (var pc in list_page_child)
+                                                                                    {
+                                                                                        <li><a class="u-header-collapse__submenu-nav-link" href="/pages/@pc.page_seo_alias">@pc.page_title</a></li>
+                                                                                    }
+                                                                                </ul>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li>
+                                                                            <a class="u-header-collapse__nav-link" href="/pages/@pp.page_seo_alias" role="button">
+                                                                                @pp.page_title
+                                                                            </a>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            }
+
+                                                        }
+                                                        <li>
+                                                            <a class="u-header-collapse__nav-link" href="/blogs" role="button">
+                                                                Dự án tiêu biểu
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="u-header-collapse__nav-link" href="/pages/lien-he" role="button">
+                                                                Liên hệ
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                    <!-- End List -->
+                                                </div>
+                                            </div>
+                                            <!-- End Content -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </aside>
+                            <!-- ========== END HEADER SIDEBAR ========== -->
+                        </div>
+                        <!-- End Logo-offcanvas-menu -->
+                        <!-- Search Bar -->
+                        <div class="col d-none d-xl-block" style="padding: 0">
+                            <div class="js-focus-state">
+                                <label class="sr-only" for="searchproduct">Tìm kiếm sản phẩm...</label>
+                                <div class="input-group" style="width: 115%;">
+                                    <input id="input_search_desktop" style="font-size: 0.7rem" type="text" class="form-control py-2 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" placeholder="Tìm kiếm sản phẩm tại đây..." aria-label="Search for Products" aria-describedby="searchProduct1" required>
+                                    <div class="input-group-append">
+                                        <!-- Select -->
+                                        <!-- End Select -->
+                                        <button onclick="searchDesktop()" class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                            <span class="ec ec-search font-size-24"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Search Bar -->
+                        <script>
+                            function searchMobile() {
+                                var keyword = $('#input_search_mobile').val();
+                                search(keyword);
+                            }
+
+                            function searchDesktop() {
+                                var keyword = $('#input_search_desktop').val();
+                                search(keyword);
+                            }
+
+                            $('#input_search_desktop').keypress(function (e) {
+                                if (e.which == 13) {
+                                    var keyword = $(this).val();
+                                    search(keyword);
+                                }
+                            });
+
+                            function search(keyword) {
+                                if (keyword == "" || keyword == null) {
+                                    alert("Vui lòng nhập từ khóa tìm kiếm");
+                                } else {
+                                    location.href = '/search/keyword=' + keyword;
+                                }
+                            }
+                        </script>
+                        <!-- Header Icons -->
+                        <div class="col col-xl-auto text-right text-xl-left pl-0 pl-xl-3 position-static">
+                            <div class="d-inline-flex">
+                                <ul class="d-flex list-unstyled mb-0 align-items-center">
+                                    <!-- Search -->
+                                    <li class="col d-xl-none px-2 px-sm-3 position-static">
+                                        <a id="searchClassicInvoker" class="font-size-22 color-white text-lh-1 btn-text-secondary" href="javascript:;" role="button"
+                                           data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Search"
+                                           aria-controls="searchClassic"
+                                           aria-haspopup="true"
+                                           aria-expanded="false"
+                                           data-unfold-target="#searchClassic"
+                                           data-unfold-type="css-animation"
+                                           data-unfold-duration="300"
+                                           data-unfold-delay="300"
+                                           data-unfold-hide-on-scroll="true"
+                                           data-unfold-animation-in="slideInUp"
+                                           data-unfold-animation-out="fadeOut">
+                                            <span class="ec ec-search"></span>
+                                        </a>
+
+                                        <!-- Input -->
+                                        <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
+                                            <div class="js-focus-state input-group px-3">
+                                                <input id="input_search_mobile" class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
+                                                <div class="input-group-append">
+                                                    <button onclick="searchMobile()" class="btn btn-primary px-3" type="button"><i class="font-size-18 ec ec-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Input -->
+                                    </li>
+                                    <!-- End Search -->
+
+                                    <li class="col pr-xl-0 px-2 px-sm-3 hidden-md hidden-lg">
+                                        <a href="/cart" class="color-white position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Cart">
+                                            <i class="font-size-22 ec ec-shopping-bag"></i>
+                                            <span class="bg-lg-down-black width-22 height-22 bg-red position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 cart-count-item" style="color: #fff">0</span>
+                                        </a>
+                                    </li>
+                                    <li class="d-none d-xl-block col-md-auto">
+                                        <div class="d-flex">
+                                            <i class="ec ec-support font-size-50 text-primary"></i>
+                                            <div class="ml-2">
+                                                <div class="phone">
+                                                    <strong>Hỗ trợ</strong> <a href="tel:@contact.phone_number" class="text-gray-90">@contact.phone_number</a>
+                                                </div>
+                                                <div class="email">
+                                                    Email: <a href="mailto:@contact.email" class="text-gray-90">@contact.email</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="d-none d-xl-block col-md-auto">
+                                        <div class="d-flex">
+                                            <i class="ec ec-map-pointer font-size-50 text-primary"></i>
+                                            <div class="ml-2">
+                                                <div class="phone">
+                                                    <strong>Văn phòng đại diện</strong>
+                                                </div>
+                                                <div class="email">
+                                                    <a href="mailto:@contact.email" class="text-gray-90">@contact.address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Header Icons -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Logo-Search-header-icons -->
+            <!-- Primary-menu-wide -->
+            <div class="d-none d-xl-block bg-primary nav-sticky">
+                <div class="container">
+                    <div class="min-height-45">
+                        <!-- Nav -->
+                        <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--wide u-header__navbar--no-space">
+                            <!-- Navigation -->
+                            <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse row">
+                                <div class="col-lg-10 col-md-10">
+                                    <ul class="navbar-nav u-header__navbar-nav">
+
+                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                            data-event="hover"
+                                            data-animation-in="slideInUp"
+                                            data-animation-out="fadeOut"
+                                            data-position="left">
+                                            <a id="homeMegaMenu" class="nav-link u-header__nav-link " href="/" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+                                        </li>
+
+                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                            data-event="hover"
+                                            data-animation-in="slideInUp"
+                                            data-animation-out="fadeOut">
+                                            <a id="product-sub" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">Sản phẩm</a>
+
+                                            <!-- Smart Phones - Mega Menu -->
+                                            <div class="hs-mega-menu w-100 u-header__sub-menu" aria-labelledby="product-sub">
+                                                <div class="row u-header__mega-menu-wrapper">
+                                                    @foreach (var c_parent in list_category_parent_default)
+                                                    {
+                                                        if (c_parent.type_of_category_id == 1)
+                                                        {
+                                                            if (c_parent.show_datetime <= DateTime.Now && c_parent.status == true)
+                                                            {
+                                                                var list_child_1 = new CategoryProvider().getByCategoryParentId(c_parent.category_id);
+                                                                <div class="col-md-2r">
+                                                                    <div class="row">
+                                                                        @*<div class="col">
+                                <a href="/collections/@c_parent.seo_alias" class="d-block">
+                                    <img class="img-fluid" src="@urlCMS/@c_parent.image" alt="@c_parent.alt_image">
+                                </a>
+                            </div>*@
+                                                                        <div class="col">
+                                                                            <a href="/collections/@c_parent.seo_alias"><span class="u-header__sub-menu-title">@c_parent.category_name</span></a>
+                                                                            <ul class="u-header__sub-menu-nav-group">
+                                                                                @foreach (var c_child in list_child_1)
+                                                                                {
+                                                                                    <li><a href="/collections/@c_child.seo_alias" class="nav-link u-header__sub-menu-nav-link">@c_child.category_name</a></li>
+                                                                                }
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <!-- End Movies & Games - Mega Menu -->
+                                        </li>
+                                        @if (list_page_parent.Count > 0)
+                                        {
+                                            foreach (var pp in list_page_parent)
+                                            {
+                                                if (pp.mount_on_header_menu_status == true)
+                                                {
+                                                    var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == pp.page_id).ToList();
+                                                    if (list_page_child.Count > 0)
+                                                    {
+                                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                                            data-event="hover"
+                                                            data-animation-in="slideInUp">
+                                                            <a id="aboutVF" class="nav-link u-header__nav-link u-header__nav-link-toggle" aria-haspopup="true" aria-expanded="false" href="/pages/@pp.page_seo_alias" title="@pp.page_title">
+                                                                @pp.page_title
+                                                            </a>
+                                                            <div class="hs-mega-menu w-25 u-header__sub-menu" aria-labelledby="aboutVF">
+                                                                <div class="u-header__mega-menu-wrapper mega-pages">
+                                                                    <div class="col">
+                                                                        @foreach (var pc in list_page_child)
+                                                                        {
+                                                                            <a href="/pages/@pc.page_seo_alias" title="@pc.page_title">
+                                                                                <span class="u-header__sub-menu-title">@pc.page_title <i class="ec ec-arrow-right-categproes"></i></span>
+                                                                            </a>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                                            data-event="hover"
+                                                            data-animation-in="slideInUp"
+                                                            data-animation-out="fadeOut">
+                                                            <a class="nav-link u-header__nav-link " href="/pages/@pp.page_seo_alias" title="@pp.page_title" aria-haspopup="true" aria-expanded="false">@pp.page_title</a>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                            data-event="hover"
+                                            data-animation-in="slideInUp"
+                                            data-animation-out="fadeOut">
+                                            <a id="GadgetsMegaMenu" class="nav-link u-header__nav-link" href="/blogs" aria-haspopup="true" aria-expanded="false">Dự án tiêu biểu</a>
+                                        </li>
+                                        <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                            data-event="hover"
+                                            data-animation-in="slideInUp"
+                                            data-animation-out="fadeOut">
+                                            <a id="GPSCarMegaMenu" class="nav-link u-header__nav-link" href="/pages/lien-he" aria-haspopup="true" aria-expanded="false">Liên hệ</a>
+                                        </li>
+
+
+
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="nav-item hs-has-mega-menu u-header__nav-item cart-nav">
+                                        <a href="/cart" class="text-white position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Cart">
+                                            <i class="font-size-22 ec ec-shopping-bag"></i>
+                                            <span class="bg-lg-down-black width-22 height-22 bg-red position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 cart-count-item">0</span>
+                                            <span class="d-none d-xl-block font-weight-bold font-size-16 ml-3">Giỏ hàng</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Navigation -->
+                        </nav>
+                        <!-- End Nav -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Primary-menu-wide -->
+        </div>
+    </header>
+    <!-- ========== END HEADER ========== -->
+    <main id="content" role="main">
+        @RenderBody()
+        <!-- Brand Carousel -->
+        @*<div class="container mb-8">
+            <div class="py-2 border-top border-bottom">
+                <div class="js-slick-carousel u-slick my-1"
+                     data-slides-show="6"
+                     data-autoplay="true"
+                     data-slides-scroll="1"
+                     data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                     data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                     data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                     data-responsive='[{
+                            "breakpoint": 1200,
+                            "settings": {
+                                "slidesToShow": 6
+                            }
+                        },{
+                            "breakpoint": 992,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        }, {
+                            "breakpoint": 768,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }, {
+                            "breakpoint": 554,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }]'>
+
+                    @foreach (var partner in list_partner)
+                    {
+                        <div class="js-slide">
+                            <a href="@partner.link_url" class="link-hover__brand">
+                                <img style="width: 192px;height: 80px;object-fit: contain" class="img-fluid m-auto" src="@urlCMS/@partner.image" alt="@partner.alt">
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>*@
+        <!-- End Brand Carousel -->
+
+    </main>
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <!-- Footer-newsletter -->
+        <div class="bg-primary py-3"></div>
+        <!-- End Footer-newsletter -->
+        <!-- Footer-bottom-widgets -->
+        <div class="pt-8 pb-4 bg-gray-13">
+            <div class="container mt-1">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <a href="/" class="d-inline-block">
+                                <img src="@urlCMS/@logo_footer.image" alt="@logo_footer.alt" style="width: 135px;" />
+                            </a>
+                        </div>
+                        <div class="mb-2">
+                            <p class="font-size-14 color-black lh-2">Công Ty TNHH Đầu Tư Phát Triển Focus Việt Nam (tên viết tắt: Vinafocus ) là tổng phân phối các sản phẩm ống và phụ kiện nhựa HDPE, uPVC và PPR của THUANPHAT GROUP. Công ty được thành lập nhằm hỗ trợ và nâng cao chất lượng dịch vụ cung ứng vật tư cho hệ thống các cửa hàng, đại lý và các công trình, dự án trên toàn quốc.</p>
+                        </div>
+                        @*<div class="mb-2">
+                                <h6 class="mb-1 font-weight-bold">Email</h6>
+                                <p class="font-size-16">
+                                    @contact.email
+                                </p>
+                            </div>
+                            <div class="mb-2">
+                                <h6 class="mb-1 font-weight-bold">Địa chỉ</h6>
+                                <p class="font-size-16">
+                                    @contact.address
+                                </p>
+                            </div>*@
+                        <div class="my-4 my-md-4">
+                            <ul class="list-inline mb-0 opacity-7">
+                                <li class="list-inline-item mr-0">
+                                    <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="#">
+                                        <span class="fab fa-facebook-f btn-icon__inner"></span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mr-0">
+                                    <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="#">
+                                        <span class="fab fa-google btn-icon__inner"></span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mr-0">
+                                    <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="#">
+                                        <span class="fab fa-twitter btn-icon__inner"></span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item mr-0">
+                                    <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="#">
+                                        <span class="fab fa-github btn-icon__inner"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-12 col-md mb-4 mb-md-0">
+                                <h6 class="mb-3 font-weight-bold">Danh mục sản phẩm</h6>
+                                <!-- List Group -->
+                                <ul class="list-group list-group-flush list-group-borderless mb-0 list-group-transparent">
+                                    @foreach (var cpd in list_category_parent_default)
+                                    {
+                                        <li><a class="list-group-item list-group-item-action" href="/collections/@cpd.seo_alias">@cpd.category_name</a></li>
+                                    }
+
+                                </ul>
+                                <!-- End List Group -->
+                            </div>
+
+                            <div class="col-12 col-md mb-4 mb-md-0">
+                                <!-- List Group -->
+                                <ul class="list-group list-group-flush list-group-borderless mb-0 list-group-transparent mt-md-6">
+                                    @foreach (var cps in list_category_parent_special)
+                                    {
+                                        <li><a class="list-group-item list-group-item-action" href="/collections/@cps.seo_alias">@cps.category_name</a></li>
+                                    }
+                                </ul>
+                                <!-- End List Group -->
+                            </div>
+
+                            <div class="col-12 col-md mb-4 mb-md-0">
+                                <h6 class="mb-3 font-weight-bold">Liên kết nhanh</h6>
+                                <!-- List Group -->
+                                <ul class="list-group list-group-flush list-group-borderless mb-0 list-group-transparent">
+                                    @foreach (var page in list_page_link)
+                                    {
+                                        if (page.mount_on_footer_menu_status == true)
+                                        {
+                                            <li><a class="list-group-item list-group-item-action" href="/pages/@page.page_seo_alias">@page.page_title</a></li>
+                                        }
+                                    }
+                                </ul>
+                                <!-- End List Group -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer-bottom-widgets -->
+        <!-- Footer-copy-right -->
+        <div class="bg-gray-14 py-2">
+            <div class="container">
+                <div class="flex-center-between d-block d-md-flex">
+                    <div class="mb-3 mb-md-0">Bản quyền thuộc về © <a href="" class="font-weight-bold text-gray-90">Vinafocus</a> - Thiết kế bởi <a href="https://diwe.vn/">Diwe.vn</a></div>
+                    <div class="text-md-right">
+                        <span class="d-inline-block bg-white border rounded p-1">
+                            <img class="max-width-5" src="../Assets/img/100X60/img1.jpg" alt="Image Description">
+                        </span>
+                        <span class="d-inline-block bg-white border rounded p-1">
+                            <img class="max-width-5" src="../Assets/img/100X60/img2.jpg" alt="Image Description">
+                        </span>
+                        <span class="d-inline-block bg-white border rounded p-1">
+                            <img class="max-width-5" src="../Assets/img/100X60/img3.jpg" alt="Image Description">
+                        </span>
+                        <span class="d-inline-block bg-white border rounded p-1">
+                            <img class="max-width-5" src="../Assets/img/100X60/img4.jpg" alt="Image Description">
+                        </span>
+                        <span class="d-inline-block bg-white border rounded p-1">
+                            <img class="max-width-5" src="../Assets/img/100X60/img5.jpg" alt="Image Description">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer-copy-right -->
+    </footer>
+    <!-- ========== END FOOTER ========== -->
+    <!-- ========== SECONDARY CONTENTS ========== -->
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+    <!-- Go to Top -->
+    <a class="js-go-to u-go-to" href="#"
+       data-position='{"bottom": 15, "right": 15 }'
+       data-type="fixed"
+       data-offset-top="400"
+       data-compensation="#header"
+       data-show-effect="slideInUp"
+       data-hide-effect="slideOutDown">
+        <span class="fas fa-arrow-up u-go-to__inner"></span>
+    </a>
+    <!-- End Go to Top -->
+
+    @Scripts.Render("~/bundles/jsCoreSecond")
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        var width_device = $(window).width();
+        $(document).ready(function () {
+            // Header Sticky
+            $(window).on('scroll', function () {
+                if ($(this).scrollTop() >= 125) {
+                    $('.nav-sticky').addClass("fixed");
+                }
+                else {
+                    $('.nav-sticky').removeClass("fixed");
+                }
+            });
+            //$("img.lazyload").lazyload();
+
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+            if (Cookies.get("VINAFOCUS_CART") == null || Cookies.get("VINAFOCUS_CART") == undefined || $.parseJSON(Cookies.get("VINAFOCUS_CART")).length == 0) {
+                $('.cart-count-item').text(0);
+            } else {
+                getNumOfItemInCart();
+            }
+        });
+
+        function phonenumber(inputtxt) {
+            var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (inputtxt.match(phoneno)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+
+        function getNumOfItemInCart() {
+            var number_in_order = 0;
+            if (Cookies.get("VINAFOCUS_CART") == null || Cookies.get("VINAFOCUS_CART") == undefined || $.parseJSON(Cookies.get("VINAFOCUS_CART")).length == 0) {
+                number_in_order = 0;
+            } else {
+                $.each(JSON.parse(Cookies.get("VINAFOCUS_CART")), function (index, value) {
+                    number_in_order += parseInt(value.quantity);
+                });
+            }
+            $('.cart-count-item').text(number_in_order);
+        }
+
+        function updateCartForUserLoged() {
+            if (@user_id_loged > 0) {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                if (Cookies.get("VINAFOCUS_CART") != null || Cookies.get("VINAFOCUS_CART") != undefined) {
+                    $.each(JSON.parse(Cookies.get("VINAFOCUS_CART")), function (index, value) {
+                        var obj = {};
+                        obj.id = value.id;
+                        obj.quantity = value.quantity;
+                        list_from_cookie.push(obj);
+                    });
+                }
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: @user_id_loged,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function () {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        function updateCookieCartWhenLogin(user_id) {
+            if (Cookies.get("VINAFOCUS_CART") == null || Cookies.get("VINAFOCUS_CART") == undefined || $.parseJSON(Cookies.get("VINAFOCUS_CART")).length == 0) {
+                //Lấy giỏ hàng từ db ra áp vào cookie
+                $.ajax({
+                    url: '/Cart/GetCartFromDbToUpdateCookie/',
+                    data: {
+                        user_id: user_id,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        var data_json = JSON.parse(data);
+                        var list_product_variation_in_cart = [];
+                        $.each(data_json.list_return, function (i, model) {
+                            var product_variation_add_to_cart = {};
+                            product_variation_add_to_cart.id = model.id;
+                            product_variation_add_to_cart.quantity = model.quantity;
+                            list_product_variation_in_cart.push(product_variation_add_to_cart);
+                        });
+                        var date_obj = new Date();
+                        var minutes = 525600;
+                        date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                        var obj_cart = JSON.stringify(list_product_variation_in_cart)
+                        Cookies.set("VINAFOCUS_CART", obj_cart, { expires: date_obj, path: '/' });
+                    },
+                    error: function (xhr) {
+                        //alert("Có lỗi xảy ra.");
+                    }
+                });
+            } else {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                $.each(JSON.parse(Cookies.get("VINAFOCUS_CART")), function (index, value) {
+                    var obj = {};
+                    obj.id = value.id;
+                    obj.quantity = value.quantity;
+                    list_from_cookie.push(obj);
+                });
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: user_id,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+
+
+        $(window).on('load', function () {
+            // initialization of HSMegaMenu component
+            $('.js-mega-menu').HSMegaMenu({
+                event: 'hover',
+                direction: 'horizontal',
+                pageContainer: $('.container'),
+                breakpoint: 767.98,
+                hideTimeOut: 0
+            });
+        });
+
+        $(document).on('ready', function () {
+            // initialization of header
+            $.HSCore.components.HSHeader.init($('#header'));
+
+            // initialization of animation
+            $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+
+            // initialization of unfold component
+            $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                afterOpen: function () {
+                    $(this).find('input[type="search"]').focus();
+                }
+            });
+
+            // initialization of popups
+            $.HSCore.components.HSFancyBox.init('.js-fancybox');
+
+            // initialization of countdowns
+            var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
+                yearsElSelector: '.js-cd-years',
+                monthsElSelector: '.js-cd-months',
+                daysElSelector: '.js-cd-days',
+                hoursElSelector: '.js-cd-hours',
+                minutesElSelector: '.js-cd-minutes',
+                secondsElSelector: '.js-cd-seconds'
+            });
+
+            // initialization of malihu scrollbar
+            $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+
+            // initialization of forms
+            $.HSCore.components.HSFocusState.init();
+
+            // initialization of form validation
+            $.HSCore.components.HSValidation.init('.js-validate', {
+                rules: {
+                    confirmPassword: {
+                        equalTo: '#signupPassword'
+                    }
+                }
+            });
+
+            // initialization of show animations
+            $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+
+            // initialization of fancybox
+            $.HSCore.components.HSFancyBox.init('.js-fancybox');
+
+            // initialization of slick carousel
+            $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+
+            // initialization of go to
+            $.HSCore.components.HSGoTo.init('.js-go-to');
+
+            // initialization of hamburgers
+            $.HSCore.components.HSHamburgers.init('#hamburgerTrigger');
+
+            // initialization of unfold component
+            $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                beforeClose: function () {
+                    $('#hamburgerTrigger').removeClass('is-active');
+                },
+                afterClose: function () {
+                    $('#headerSidebarList .collapse.show').collapse('hide');
+                }
+            });
+
+            $('#headerSidebarList [data-toggle="collapse"]').on('click', function (e) {
+                e.preventDefault();
+
+                var target = $(this).data('target');
+
+                if ($(this).attr('aria-expanded') === "true") {
+                    $(target).collapse('hide');
+                } else {
+                    $(target).collapse('show');
+                }
+            });
+
+            // initialization of unfold component
+            $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+
+            // initialization of select picker
+            $.HSCore.components.HSSelectPicker.init('.js-select');
+        });
+    </script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container-category', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        $(function () {
+            if ($('.gallery-wrapper').length) {
+                var galleryThumbs = new Swiper('.gallery-wrapper .content .gallery.thumb .swiper-container', {
+                    speed: 900,
+                    effect: 'slide',
+                    slidesPerView: 'auto',
+                    spaceBetween: 12,
+                    grabCursor: false,
+                    simulateTouch: true,
+                    loop: false,
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    navigation: {
+                        nextEl: '.gallery-wrapper .content .gallery.thumb .swiper-next-button',
+                        prevEl: '.gallery-wrapper .content .gallery.thumb .swiper-prev-button',
+                    },
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        414: {
+                            slidesPerView: 3,
+                            spaceBetween: 10
+                        },
+                        768: {
+                            slidesPerView: 5,
+                            spaceBetween: 10
+                        },
+                        1024: {
+                            slidesPerView: 7,
+                            spaceBetween: 10
+                        }
+                    }
+                });
+
+                var galleryFull = new Swiper('.gallery-wrapper .content .gallery.full .swiper-container', {
+                    speed: 900,
+                    effect: 'slide',
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    autoplay: {
+                        delay: 7000,
+                        disableOnInteraction: false,
+                        stopOnLastSlide: false
+                    },
+                    keyboard: {
+                        enabled: true,
+                    },
+                    grabCursor: false,
+                    simulateTouch: false,
+                    loop: true,
+                    navigation: {
+                        nextEl: '.gallery-wrapper .content .gallery.full .swiper-next-button',
+                        prevEl: '.gallery-wrapper .content .gallery.full .swiper-prev-button',
+                    },
+                    thumbs: {
+                        swiper: galleryThumbs
+                    },
+                    on: {
+                        slideChangeTransitionStart: function () {
+                            $('.gallery-wrapper .content .gallery.full .swiper-slide .overlay').removeClass('show');
+                        },
+                        slideChangeTransitionEnd: function () {
+                            $('.gallery-wrapper .content .gallery.full .swiper-slide-active .overlay').addClass('show');
+                        }
+                    }
+                });
+            }
+        });
+
+
+        
+
+        //$(window).on("load", function () {
+        //    setTimeout(function () {
+        //        $('.loader').fadeOut();
+        //    }, 1000);
+        //});
+    </script>
+</body>
+</html>

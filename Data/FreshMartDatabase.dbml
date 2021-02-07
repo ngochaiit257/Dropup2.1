@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="VinaFocus" Class="FreshMartDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-A9CMMFQ;Initial Catalog=VinaFocus;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="VinaFocusConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LisPharma" Class="FreshMartDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-A9CMMFQ;Initial Catalog=LisPharma;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="LisPharmaConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.address" Member="addresses">
     <Type Name="address">
       <Column Name="address_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

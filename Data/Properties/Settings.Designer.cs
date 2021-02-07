@@ -654,5 +654,26 @@ namespace Data.Properties {
                 return ((string)(this["VinaFocusConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.73,1433;Initial Catalog=vin10795_vinafocusdb;Persist Securit" +
+            "y Info=True;User ID=vin10795_haiit;Password=Ngochaiit257!")]
+        public string vin10795_vinafocusdbConnectionString {
+            get {
+                return ((string)(this["vin10795_vinafocusdbConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=LisPharma;Integrated Security=True")]
+        public string LisPharmaConnectionString {
+            get {
+                return ((string)(this["LisPharmaConnectionString"]));
+            }
+        }
     }
 }

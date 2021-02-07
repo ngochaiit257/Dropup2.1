@@ -13,10 +13,12 @@
 
     var list_slide = new StoreSlideProvider().getIsShowing();
     var banner = new StoreBannerProvider().getbyId(1);
+    var list_partner = new StorePartnerProvider().getAll();
 
     var contact = new StoreContactProvider().get1Contact();
     var logo_header = new StoreLogoProvider().getLogoHeader();
-    var list_da = new BlogProvider().getByCategoryIdShowing(5);
+    var list_da = new BlogProvider().getByCategoryIdShowing(5).OrderByDescending(da => da.create_datetime).Take(10).ToList();
+    var list_newest_blog = new BlogProvider().getIsShowing().Where(b => b.blog_category_id != 5).Take(10).ToList();
 
     ViewBag.Keywords = "Thiết bị điện, ống nhựa, phụ kiện, công tắc, ổ cắm, đèn, Opple, Edenki, Thuận Phát, Vina Focus";
     ViewBag.Description = "Vina Focus cung cấp các dòng sản phẩm thiết bị điện cao cấp, ống nhựa và phụ kiện, đèn chiếu sáng chất lượng cao.";
@@ -27,20 +29,23 @@
 }
 
 <!-- Slider Section -->
-<div class="mb-4">
+<div class="mb-4 slide-desktop">
     <div class="bg-img-hero">
         <div class="overflow-hidden">
             <div class="js-slick-carousel u-slick"
                  data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
                 @foreach (var slide in list_slide)
                 {
-                    <div class="js-slide">
-                        <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
-                            <a href="@slide.link_url">
-                                <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
-                            </a>
+                    if (slide.main_text != "mobile")
+                    {
+                        <div class="js-slide">
+                            <div>
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
 
             </div>
@@ -48,332 +53,483 @@
     </div>
 </div>
 <!-- End Slider Section -->
-<div class="container banner-custom">
-    <!-- Banner -->
-    <div class="row mb-6 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
-        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
-            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
-                <img src="~/Assets/img/banner/banner-ongnhua.jpg" />
-            </a>
-        </div>
-        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
-            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
-                <img src="~/Assets/img/banner/banner-den.jpg" />
-            </a>
-        </div>
-        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1">
-            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
-                <img src="~/Assets/img/banner/banner-congtac.jpg" />
-            </a>
-        </div>
-        <div class="col-md-6 mb-4 mb-xl-0 col-xl-4 col-wd-3 flex-shrink-0 flex-xl-shrink-1 d-xl-none d-wd-block">
-            <a href="/" class="min-height-146 py-1 py-xl-2 py-wd-1 d-flex align-items-center text-gray-90">
-                <img src="~/Assets/img/banner/banner-chinhsachdaily.jpg" />
-            </a>
-        </div>
-    </div>
-    <!-- End Banner -->
-    
-    <!-- Tab Prodcut Section -->
-    <div class="mb-6">
-        <!-- Nav Classic -->
-        <div class="position-relative bg-white text-center z-index-2">
-            <ul class="nav nav-classic nav-tab justify-content-center" id="pills-tab" role="tablist">
-                @foreach (var category in list_category_parent_special)
+<!-- Slider Section -->
+<div class="mb-4 slide-mobile">
+    <div class="bg-img-hero">
+        <div class="overflow-hidden">
+            <div class="js-slick-carousel u-slick"
+                 data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-center mb-3 mb-md-4">
+                @foreach (var slide in list_slide)
                 {
-                    if (category_parent_special_first.category_id == category.category_id)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link active js-animation-link" id="pills-tab-@category_parent_special_first.category_id" data-toggle="pill" href="#pills-@category_parent_special_first.category_id" role="tab" aria-controls="pills-@category_parent_special_first.category_id" aria-selected="true"
-                               data-target="#pills-@category_parent_special_first.category_id"
-                               data-link-group="groups"
-                               data-animation-in="slideInUp">
-                                <div class="d-md-flex justify-content-md-center align-items-md-center">
-                                    @category.category_name
-                                </div>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link js-animation-link" id="pills-tab-@category.category_id" data-toggle="pill" href="#pills-@category.category_id" role="tab" aria-controls="pills-@category.category_id" aria-selected="false"
-                               data-target="#pills-@category.category_id"
-                               data-link-group="groups"
-                               data-animation-in="slideInUp">
-                                <div class="d-md-flex justify-content-md-center align-items-md-center">
-                                    @category.category_name
-                                </div>
-                            </a>
-                        </li>
-                    }
-                }
-            </ul>
-        </div>
-        <!-- End Nav Classic -->
-        <!-- Tab Content -->
-        <div class="tab-content" id="pills-tabContent">
-            @foreach (var category in list_category_parent_special)
-            {
-                if (category_parent_special_first.category_id == category.category_id)
-                {
-                    <div class="tab-pane fade pt-2 show active" id="pills-@category_parent_special_first.category_id" role="tabpanel" aria-labelledby="pills-tab-@category_parent_special_first.category_id" data-target-group="groups">
-                        <ul class="row list-unstyled products-group no-gutters">
-                            @foreach (var product in new ProductProvider().getByCategoryIdOnSite(category.category_id).OrderByDescending(p => p.create_date).Take(7).ToList())
-                            {
-                                <li class="col-6 col-md-4 col-xl product-item">
-                                    <div class="product-item__outer h-100 w-100">
-                                        <div class="product-item__inner p-3">
-                                            <div class="product-item__body product-item__grid pb-xl-2">
-                                                @{ var category_main = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
-                                                <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5 text_category">@category_main.category_name</a></div>
-                                                <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
-                                                <div class="mb-2">
-                                                    <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                                </div>
-                                                <div class="flex-center-between mb-1">
-                                                    <div class="prodcut-price d-flex align-items-center position-relative">
-                                                        <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
-                                                        @if (product.price > 0)
-                                                        {
-                                                            <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div class="tab-pane fade pt-2" id="pills-@category.category_id" role="tabpanel" aria-labelledby="pills-tab-@category.category_id" data-target-group="groups">
-                        <ul class="row list-unstyled products-group no-gutters">
-                            @foreach (var product in new ProductProvider().getByCategoryIdOnSite(category.category_id).OrderByDescending(p => p.create_date).Take(7).ToList())
-                            {
-                                <li class="col-6 col-md-4 col-xl product-item">
-                                    <div class="product-item__outer h-100 w-100">
-                                        <div class="product-item__inner p-3">
-                                            <div class="product-item__body product-item__grid pb-xl-2">
-                                                @{ var category_main = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
-                                                <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5 text_category">@category_main.category_name</a></div>
-                                                <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
-                                                <div class="mb-2">
-                                                    <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                                </div>
-                                                <div class="flex-center-between mb-1">
-                                                    <div class="prodcut-price d-flex align-items-center position-relative">
-                                                        <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
-                                                        @if (product.price > 0)
-                                                        {
-                                                            <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-            }
-        </div>
-        <!-- End Tab Content -->
-    </div>
-    <!-- End Tab Prodcut Section -->
-</div>
-<!-- Đèn chiếu sáng -->
-<div class="mb-6" style="background: url('../../Assets/img/banner/bg-banner-den.jpg') no-repeat;background-size: cover">
-    <div class="container">
-        <div class="row min-height-564 align-items-center">
-            <div class="col-12 col-lg-4 col-xl-5 col-wd-6 d-none d-md-block" style="text-align:center">
-                <img class="img-fluid" src="~/Assets/img/banner/object-den.png" style="width: 65%;" alt="Đèn"/>
-            </div>
-            <div class="col-12 col-lg-8 col-xl-7 col-wd-6 pt-6 pt-md-0">
-                <div class=" d-flex border-bottom border-color-1 mr-md-2">
-                    <h3 class="section-title section-title__full mb-0 pb-2 font-size-22">Đèn chiếu sáng OPPLE</h3>
-                </div>
-                <div class="js-slick-carousel position-static u-slick u-slick--gutters-2 u-slick overflow-hidden u-slick-overflow-visble py-5"
-                     data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10 pt-6 pt-md-0"
-                     data-arrow-left-classes="fa fa-angle-left right-2"
-                     data-arrow-right-classes="fa fa-angle-right right-1"
-                     data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-4"
-                     data-autoplay="true">
-                    @{var list_den_con = new CategoryProvider().getByCategoryParentId(56);}
-                    @foreach (var den_con in list_den_con)
+                    if (slide.main_text == "mobile")
                     {
                         <div class="js-slide">
-                            <ul class="row list-unstyled products-group no-gutters mb-0 overflow-visible">
-                                @foreach (var product in new ProductProvider().getByCategoryIdOnSite(den_con.category_id).OrderByDescending(p => p.create_date).Take(4).ToList())
-                                {
-                                    <li class="col-md-6 product-item product-item__card mb-2 remove-divider pr-md-2 border-bottom-0">
-                                        <div class="product-item__outer h-100 w-100">
-                                            <div class="product-item__inner p-md-3 row no-gutters bg-white max-width-334">
-                                                <div class="col col-lg-auto product-media-left">
-                                                    <a href="/@product.seo_alias" class="max-width-120 d-block"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                                </div>
-                                                <div class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1 pr-3 pr-md-0 pt-1 pt-md-0">
-                                                    <div class="mb-2">
-                                                        <div class="mb-2"><a href="/collections/@den_con.seo_alias" class="font-size-12 text-gray-5 text_category">@den_con.category_name</a></div>
-                                                        <h5 class="product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
-                                                    </div>
-                                                    <div class="flex-center-between mb-1">
-                                                        <div class="prodcut-price">
-                                                            <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
-                                                            @if (product.price > 0)
-                                                            {
-                                                                <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
+                            <div data-scs-animation-in="fadeInRight" data-scs-animation-delay="500">
+                                <a href="@slide.link_url">
+                                    <img class="img-fluid ml-auto mr-10 mr-wd-auto img-slider" src="@urlCMS/@slide.image" alt="@slide.alt">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Slider Section -->
+
+<section class="list-category-slider">
+    <div class="container">
+        <div class="swiper-container-category">
+            <div class="swiper-wrapper">
+                @foreach (var cp in list_category_parent_default)
+                {
+                    <div class="swiper-slide" style="padding: 15px;">
+                        <img src="@urlCMS/@cp.image" alt="@cp.alt_image" />
+                    </div>
+                }
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</section>
+
+<!--gallery-->
+<div class="gallery-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Hình ảnh tiêu biểu</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Một số công trình và Dự án</h3>
+                </div>
+            </div>
+        </div>
+        <div class="gallery full">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var da in list_da)
+                    {
+                        <div class="swiper-slide">
+                            <div class="image">
+                                <img src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image" />
+                            </div>
+
+                            <div class="overlay">
+                                <div class="text-wrap">
+                                    <div class="name">
+                                        <a href="/blogs/@da.blog_seo_alias"><span>@da.blog_title</span></a>
+                                    </div>
+                                    <div class="caption">
+                                        <p>
+                                            @da.blog_summary
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
             </div>
+
+            <div class="swiper-next-button"> </div>
+            <div class="swiper-prev-button"> </div>
+        </div>
+
+        <div class="gallery thumb">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var da in list_da)
+                    {
+                        <div class="swiper-slide">
+                            <div class="image">
+                                <img src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="swiper-next-button"></div>
+            <div class="swiper-prev-button"></div>
         </div>
     </div>
 </div>
-<!-- End Đèn chiếu sáng -->
-<!-- Products-8-1 -->
-@{
-    var list_ct_edenki = new CategoryProvider().getByCategoryParentId(55);
-    var ct_edenki_first = new CategoryProvider().getByCategoryParentId(55).FirstOrDefault();
-}
-<div class="products-group-8-1 space-1 bg-gray-7 mb-6">
-    <h2 class="sr-only">Thiết bị điện Edenki</h2>
-    <div class="container">
-        <!-- Nav nav-pills -->
-        <div class="position-relative text-center z-index-2 mb-3">
-            <div class=" d-flex justify-content-between border-bottom border-color-1 flex-lg-nowrap flex-wrap border-md-down-top-0 border-md-down-bottom-0">
-                <h3 class="section-title mb-0 pb-2 font-size-22">Công tắc - Ổ cắm EDENKI</h3>
 
-                <ul class="nav nav-pills nav-tab-pill mb-2 pt-3 pt-lg-0 mb-0 border-top border-color-1 border-lg-top-0 align-items-center font-size-15 font-size-15-lg flex-nowrap flex-lg-wrap overflow-auto overflow-lg-visble pr-0" id="pills-tab-1" role="tablist">
-                    <li class="nav-item flex-shrink-0 flex-lg-shrink-1">
-                        <a class="nav-link rounded-pill active" id="Tpills-@ct_edenki_first.category_id-tab" data-toggle="pill" href="#Tpills-@ct_edenki_first.category_id" role="tab" aria-controls="Tpills-@ct_edenki_first.category_id" aria-selected="true">@ct_edenki_first.category_name</a>
-                    </li>
-                    @foreach (var ct_edenki in list_ct_edenki)
-                    {
-                        if (ct_edenki.category_id != ct_edenki_first.category_id)
-                        {
-                            <li class="nav-item flex-shrink-0 flex-lg-shrink-1">
-                                <a class="nav-link rounded-pill" id="Tpills-@ct_edenki.category_id-tab" data-toggle="pill" href="#Tpills-@ct_edenki.category_id" role="tab" aria-controls="Tpills-@ct_edenki.category_id" aria-selected="false">@ct_edenki.category_name</a>
-                            </li>
-                        }
-                    }
-                </ul>
+<div class="home-six rs-services style7" style="background:url('../Assets/img/banner/bg-feature.jpg') no-repeat center">
+    <div class="container">
+        <div class="container">
+            <div class="sec-title">
+                <div class="sub-title green">Thế mạnh của chúng tôi</div>
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Vì sao lựa chọn Vina Focus</h3>
+                </div>
             </div>
         </div>
-        <!-- End Nav Pills -->
-        <!-- Tab Content -->
-        <div class="tab-content" id="Tpills-tabContent">
-            <div class="tab-pane fade pt-2 show active" id="Tpills-@ct_edenki_first.category_id" role="tabpanel" aria-labelledby="Tpills-@ct_edenki_first.category_id-tab">
-                <div class="row no-gutters">
-                    <div class="col-md-12 col-lg-12 col-wd-12 d-md-flex d-wd-block">
-                        <ul class="row list-unstyled products-group no-gutters mb-0">
-                            @foreach (var product in new ProductProvider().getByCategoryIdOnSite(ct_edenki_first.category_id).Take(12).ToList())
-                            {
-                                <li class="col-md-2 col-lg-2 col-wd-2 col-xs-6 col-sm-6 col-6 product-item remove-divider">
-                                    <div class="product-item__outer h-100 w-100">
-                                        <div class="product-item__inner p-3">
-                                            <div class="product-item__body product-item__grid pb-xl-2">
-                                                @{ var category_main = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
-                                                <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5 text_category">@category_main.category_name</a></div>
-                                                <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
-                                                <div class="mb-2">
-                                                    <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                                </div>
-                                                <div class="flex-center-between mb-1">
-                                                    <div class="prodcut-price d-flex align-items-center position-relative">
-                                                        <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
-                                                        @if (product.price > 0)
-                                                        {
-                                                            <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+        <div class="row gutter-16 mt-8 mb-8">
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-an-toan.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">An toàn</a></h4>
+                        <p class="desc">Với sứ mệnh bảo vệ nguồn sống, bảo vệ sức khỏe cộng đồng, Vina Focus cam kết đưa ra thị trường những sản phẩm có chất lượng tốt nhất, đảm bảo an toàn cho sức khỏe.</p>
                     </div>
                 </div>
             </div>
-            @foreach (var ct_edenki in list_ct_edenki)
-            {
-                if (ct_edenki.category_id != ct_edenki_first.category_id)
+            <div class="col-lg-3 col-sm-6 md-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-uy-tin.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Uy tín</a></h4>
+                        <p class="desc">Vina Focus đã trở thành một trong những nhà phân phối sản phẩm và kinh doanh hàng đầu trong lĩnh vực sản xuất vật liệu xây dựng cũng như sản phẩm nội thất hiện đại tại Việt Nam.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 xs-mb-16">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-chat-luong.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Chất lượng</a></h4>
+                        <p class="desc">Được các tổ chức và hiệp hội có uy tín bình chọn và trao tặng nhiều giải thưởng có giá trị, tạo được tiếng vang lớn với các sản phẩm thuộc về vật liệu xây dựng và lắp đặt công trình.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="services-wrap">
+                    <div class="icon-part">
+                        <img src="~/Assets/img/icon/icon-toc-do.png" />
+                    </div>
+                    <div class="content-part">
+                        <h4 class="title"><a href="#">Tốc độ</a></h4>
+                        <p class="desc">Không chỉ đạt về chất lượng, chúng tôi còn tự hào khi có đội ngũ xử lý công việc đảm bảo được tiến độ xây dựng và lắp đặt trong các dự án, mang lại niềm tin cho khách hàng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="container banner-dai">
+         Banner 2 columns
+        <div class="mb-8">
+            <div class="row">
+                <div class="col-md-12 mb-3 mb-md-0 banner-custom">
+                    <a href="/">
+                        <img src="@urlCMS/@banner.image" alt="@banner.alt" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+
+<section class="verse3">
+    <div class="container text-lg-center">
+        <h2 class="par-text">VINA FOCUS</h2>
+        <h3>Giá trị vượt thời gian</h3>
+        <span>Chặng đường dài - Vững bước tương lai</span>
+    </div>
+</section>
+
+<section class="section-partner">
+    <div class="container mb-6 mt-6">
+        <div class="py-2 border-top border-bottom">
+            <div class="js-slick-carousel u-slick my-1"
+                 data-slides-show="4"
+                 data-autoplay="true"
+                 data-slides-scroll="1"
+                 data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                 data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                 data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                 data-responsive='[{
+                            "breakpoint": 1200,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        },{
+                            "breakpoint": 992,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        }, {
+                            "breakpoint": 768,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }, {
+                            "breakpoint": 554,
+                            "settings": {
+                                "slidesToShow": 1
+                            }
+                        }]'>
+
+                @foreach (var partner in list_partner)
                 {
-                    <div class="tab-pane fade pt-2" id="Tpills-@ct_edenki.category_id" role="tabpanel" aria-labelledby="Tpills-@ct_edenki.category_id-tab">
-                        <div class="row no-gutters">
-                            <div class="col-md-12 col-lg-12 col-wd-12 d-md-flex d-wd-block">
-                                <ul class="row list-unstyled products-group no-gutters mb-0">
-                                    @foreach (var product in new ProductProvider().getByCategoryIdOnSite(ct_edenki.category_id).Take(12).ToList())
-                                    {
-                                        <li class="col-md-2 col-lg-2 col-wd-2 col-xs-6 col-sm-6 col-6 product-item remove-divider">
-                                            <div class="product-item__outer h-100 w-100">
-                                                <div class="product-item__inner p-3">
-                                                    <div class="product-item__body product-item__grid pb-xl-2">
-                                                        @{ var category_main = new CategoryProvider().getByProductId(product.product_id).FirstOrDefault();}
-                                                        <div class="mb-2"><a href="/collections/@category_main.seo_alias" class="font-size-12 text-gray-5 text_category">@category_main.category_name</a></div>
-                                                        <h5 class="mb-1 product-item__title"><a href="/@product.seo_alias" class="text-blue font-weight-bold">@product.product_name</a></h5>
-                                                        <div class="mb-2">
-                                                            <a href="/@product.seo_alias" class="d-block text-center"><img class="img-fluid" src="@urlCMS/@product.product_image" alt="@product.alt_image"></a>
-                                                        </div>
-                                                        <div class="flex-center-between mb-1">
-                                                            <div class="prodcut-price d-flex align-items-center position-relative">
-                                                                <ins class="font-size-20 text-decoration-none text-gray-100 showNumeric">@product.promotion_price</ins>
-                                                                @if (product.price > 0)
-                                                                {
-                                                                    <del class="font-size-12 tex-gray-6 bottom-100 showNumeric">@product.price</del>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
+                    <div class="js-slide">
+                        <a href="@partner.link_url" class="link-hover__brand">
+                            <img style="width: 75%;height: 100px;object-fit: cover" class="img-fluid m-auto" src="@urlCMS/@partner.image" alt="@partner.alt">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="pt-1 pb-1">
+            <div class="container">
+                <div class="sec-title">
+                    <div class="sub-title green">Sản phẩm của chúng tôi đã được công nhận</div>
+                    <div class="border-bottom border-color-1 mb-2">
+                        <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Chứng chỉ và Giải thưởng</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="js-slick-carousel u-slick my-2"
+                 data-slides-show="4"
+                 data-autoplay="true"
+                 data-slides-scroll="1"
+                 data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                 data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                 data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                 data-responsive='[{
+                            "breakpoint": 1200,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        },{
+                            "breakpoint": 992,
+                            "settings": {
+                                "slidesToShow": 4
+                            }
+                        }, {
+                            "breakpoint": 768,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }, {
+                            "breakpoint": 554,
+                            "settings": {
+                                "slidesToShow": 2
+                            }
+                        }]'>
+
+                <div class="js-slide">
+                    <a class="link-hover__brand">
+                        <img style="height: auto" class="img-fluid m-auto" src="~/Assets/img/cup/cup-1.jpg" alt="cup-1">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a class="link-hover__brand">
+                        <img style="height: auto" class="img-fluid m-auto" src="~/Assets/img/cup/cup-2.jpg" alt="cup-2">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a class="link-hover__brand">
+                        <img style="height: auto" class="img-fluid m-auto" src="~/Assets/img/cup/cup-3.jpg" alt="cup-3">
+                    </a>
+                </div>
+                <div class="js-slide">
+                    <a class="link-hover__brand">
+                        <img style="height: auto" class="img-fluid m-auto" src="~/Assets/img/cup/cup-4.jpg" alt="cup-4">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="mb-10">
+    <div class="container">
+        <div class="sec-title">
+            <div class="sub-title green mt-6">Bạn đã sẵn sàng để trở thành đại lý phân phối của Vina Focus?</div>
+            <div class="border-bottom border-color-1 mb-2">
+                <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Trở thành đại lý phân phối của Vina Focus</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="" style="height: 100%; width: 100%; background: url('@urlCMS/@banner.image');">
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Tên của bạn
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input maxlength="255" id="rname" type="text" class="form-control" placeholder="Nhập tên của bạn" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Số điện thoại
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input maxlength="15" id="rphone" type="text" class="form-control" placeholder="Nhập số điện thoại" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Email
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input maxlength="255" id="remail" type="text" class="form-control" placeholder="Nhập email" autocomplete="off">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Input -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Địa chỉ
+                            </label>
+                            <input maxlength="255" id="raddress" type="text" class="form-control" placeholder="Nhập địa chỉ">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Sản phẩm bạn quan tâm
+                        </label>
+                        <div class="input-group">
+                            <div class="mb-4">
+                                @foreach (var cp in list_category_parent_default)
+                                {
+                                    <label class="container-form">
+                                        <input id="cp_@cp.category_id" type="checkbox" onchange="checkSubject('@cp.category_id')" value="@cp.category_name">
+                                        @cp.category_name
+                                    </label>
+                                }
                             </div>
                         </div>
                     </div>
-                }
-            }
-        </div>
-        <!-- End Tab Content -->
-    </div>
-</div>
-<!-- End Products-8-1 -->
-<div class="container">
-    <!-- Banner 2 columns -->
-    <div class="mb-8">
-        <div class="row">
-            <div class="col-md-12 mb-3 mb-md-0 banner-custom">
-                <a href="/">
-                    <img src="~/Assets/img/banner/banner-dai.jpg" />
-                </a>
+                    <div class="col-md-12">
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Lời nhắn
+                            </label>
+
+                            <div class="input-group">
+                                <textarea maxlength="255" style="width: 100%;" id="rmessage" class="form-control p-5" rows="4" placeholder="Để lại lời nhắn..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 text-center" style="margin:auto">
+                        <button id="submitRegister" type="button" class="btn btn-primary px-5" onclick="register()">Gửi thông tin</button>
+                    </div>
+                </div>
             </div>
-            
+
         </div>
     </div>
-    <!-- End Banner 2 columns -->
-    <!-- Recommendation for you -->
-    <div class="position-relative">
-        <div class="border-bottom border-color-1 mb-2">
-            <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Một số dự án đã thực hiện</h3>
+    <script>
+        var list_subject = [];
+        function checkSubject(id) {
+            if ($('#cp_' + id).is(":checked")) {
+                list_subject.push($('#cp_' + id).val());
+            }
+            else {
+                list_subject = list_subject.filter(function (value) {
+                    return value != $('#cp_' + id).val();
+                });
+            }
+        }
+
+        function register() {
+            var cphone = $("#rphone").val();
+            var cemail = $("#remail").val();
+            var cname = $("#rname").val();
+            var cmessage = "Địa chỉ: " + $('#raddress').val() + " - Tin nhắn: " + $('#rmessage').val();
+            var csubject = "Sản phẩm quan tâm: " + list_subject.toString();
+            if (cname == "" || cname == null) {
+                alert("Yêu cầu nhập tên trước khi gửi");
+            }
+            else if (cphone == "") {
+                alert("Yêu cầu nhập số điện thoại trước khi gửi");
+            }
+            else if (!phonenumber(cphone)) {
+                alert("Số điện thoại không đúng định dạng");
+            }
+            else if (cemail == "" || cemail == null) {
+                alert("Yêu cầu nhập email trước khi gửi");
+            }
+            else if (!isEmail(cemail)) {
+                alert("Email không đúng định dạng");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Page/SendMessage",
+                    data: {
+                        sender_name: cname,
+                        sender_phone_number: cphone,
+                        sender_email: cemail,
+                        sender_subject: csubject,
+                        sender_message: cmessage,
+                    },
+                    context: document.body,
+                    dataType: "html",
+                    beforeSend: function () {
+                        $('#submitRegister').prop('disabled', true);
+                        $('#submitRegister').text("Loading...");
+                    },
+                    success: function (data) {
+                        $("#rname").val("");
+                        $("#remail").val("");
+                        $("#rphone").val("");
+                        $("#raddress").val("");
+                        $("#rmessage").val("");
+                        alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    },
+                    complete: function (xhr, status) {
+                        $('#submitRegister').text("Gửi thông tin");
+                        $('#submitRegister').prop('disabled', false);
+                    }
+                });
+            }
+        }
+    </script>
+</section>
+
+<section class="sec-blog bg-blue-nhat">
+    <div class="container">
+        <div class="sec-title">
+            <div class="sub-title green mt-6">Tin tức & Sự kiện</div>
+            <div class="border-bottom border-color-1 mb-2">
+                <h3 class="section-title section-title__full d-inline-block mb-0 pb-2 font-size-22">Bài viết mới nhất</h3>
+            </div>
         </div>
+    </div>
+
+    <div class="container container-blog-1">
         <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
              data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
              data-slides-show="3"
@@ -395,7 +551,7 @@
                         }, {
                           "breakpoint": 992,
                           "settings": {
-                            "slidesToShow": 3
+                            "slidesToShow": 2
                           }
                         }, {
                           "breakpoint": 768,
@@ -409,10 +565,10 @@
                           }
                         }]'>
 
-            @foreach (var da in list_da)
+            @foreach (var da in list_newest_blog)
             {
                 <div class="js-slide">
-                    <article class="card card-home mb-13 border-0">
+                    <article class="card card-home border-0">
                         <a href="/blogs/@da.blog_seo_alias" class="d-block"><img class="img-fluid" src="@urlCMS/@da.blog_image" alt="@da.blog_alt_image"></a>
                         <div class="card-body pt-5 pb-0 px-0">
                             <h4 class="mb-3"><a href="/blogs/@da.blog_seo_alias">@da.blog_title</a></h4>
@@ -424,15 +580,10 @@
                                 </div>
                             </div>
                             <p>@Html.Raw(da.blog_summary)</p>
-                            <div class="flex-horizontal-center">
-                                <a href="/blogs/@da.blog_seo_alias" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">Chi Tiết</a>
-                            </div>
                         </div>
                     </article>
                 </div>
             }
         </div>
     </div>
-    <!-- End Recommendation for you -->
-
-</div>
+</section>
