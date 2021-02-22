@@ -1,0 +1,66 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row extra-blog style-1">
+        <div class="col-lg-12">
+            <h2 class="blog-title">Related Blogs</h2>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="dlab-blog style-1 bg-white text-center m-b30">
+                <div class="dlab-media">
+                    <a href="blog-details-1.html"><img src="images/blog/default/thum3.jpg" alt=""></a>
+                </div>
+                <div class="dlab-info">
+                    <h5 class="dlab-title">
+                        <a href="blog-details-1.html">Praesent ut lobortis purus hasellus libero orci, accumsan.</a>
+                    </h5>
+                    <p class="m-b0">Pellentesque vel nibh gravida erat interdum lacinia vel in lectus. Sed fermentum  pulvinar.</p>
+                    <div class="dlab-meta meta-bottom">
+                        <ul>
+                            <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
+                            <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
+                            <li class="post-share">
+                                <i class="flaticon-share"></i>
+                                <ul>
+                                    <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
+                                    <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
+                                    <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="center-div">
+        <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Bài viết</a>
+        @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
+}

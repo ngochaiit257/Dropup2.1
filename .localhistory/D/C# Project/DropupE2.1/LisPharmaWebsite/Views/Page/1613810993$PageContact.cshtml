@@ -1,0 +1,170 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Lis Pharma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Lis Pharma, tư vấn sản phẩm dược, dịch vụ dược";
+    ViewBag.Description = "Liên hệ với Lis Pharma để được tư vấn về các sản phẩm, dịch vụ và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Liên hệ</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Liên hệ</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+
+<section class="content-inner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 m-b30 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s">
+                <div class="dlab-form">
+                    <h3>Bạn có thắc mắc hoặc có câu hỏi nào cần được giải đáp?</h3>
+                    <p>Để lại lời nhắn cho chúng tôi và chúng tôi sẽ liên hệ với bạn sớm nhất để trả lời cho bạn.</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-user"></i></span>
+                                </div>
+                                <input id="cname" maxlength="255" type="text" class="form-control" placeholder="Tên của bạn">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-envelope"></i></span>
+                                </div>
+                                <input id="cemail" maxlength="255" type="text" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-phone"></i></span>
+                                </div>
+                                <input id="cphone" maxlength="15" type="text" class="form-control" placeholder="Số điện thoại">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-phone"></i></span>
+                                </div>
+                                <input id="csubject" maxlength="255" type="text" class="form-control" placeholder="Lĩnh vực quan tâm">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-sms"></i></span>
+                                </div>
+                                <textarea id="cmessage" maxlength="500" class="form-control" placeholder="Lời nhắn"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <button onclick="sendMessage()" id="submit" class="btn btn-link d-inline-flex align-items-center"><i class="fa fa-angle-right m-r10"></i>Gửi Thông Tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 m-b30 wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.2s">
+                <div class="dlab-media">
+                    <img src="~/Assets/images/common/img-lien-he.jpg" class="move-4"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var cphone = $("#cphone").val();
+            var cemail = $("#cemail").val();
+            var cname = $("#cname").val();
+            var cmessage = $('#cmessage').val();
+            var csubject = $('#csubject').val();
+            if (cname == "" || cname == null) {
+                alert("Yêu cầu nhập tên trước khi gửi");
+            }
+            else if (cemail == "" || cemail == null) {
+                alert("Yêu cầu nhập email trước khi gửi");
+            }
+            else if (!isEmail(cemail)) {
+                alert("Email không đúng định dạng");
+            }
+            else if (cphone == "") {
+                alert("Yêu cầu nhập số điện thoại trước khi gửi");
+            }
+            else if (!phonenumber(cphone)) {
+                alert("Số điện thoại không đúng định dạng");
+            }
+            else if (cmessage == "") {
+                alert("Yêu cầu nhập số điện thoại trước khi gửi");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Page/SendMessage",
+                    data: {
+                        sender_name: cname,
+                        sender_phone_number: cphone,
+                        sender_email: cemail,
+                        sender_subject: csubject,
+                        sender_message: cmessage,
+                    },
+                    context: document.body,
+                    dataType: "html",
+                    beforeSend: function () {
+                        $('#submit').prop('disabled', true);
+                        $('#submit').text("Loading...");
+                    },
+                    success: function (data) {
+                        $("#cname").val("");
+                        $("#cemail").val("");
+                        $("#cphone").val("");
+                        $("#csubject").val("");
+                        $("#cmessage").val("");
+                        alert("Thông tin của bạn đã được gửi cho chúng tôi. Chúng tôi sẽ liên hệ lại với bạn sớm nhất. Cảm ơn bạn đã quan tâm!");
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    },
+                    complete: function (xhr, status) {
+                        $('#submit').text("Gửi Lời Nhắn");
+                        $('#submit').prop('disabled', false);
+                    }
+                });
+            }
+        }
+
+    </script>
+</section>
+

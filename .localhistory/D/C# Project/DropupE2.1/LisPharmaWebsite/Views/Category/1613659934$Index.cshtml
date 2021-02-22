@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>@ViewBag.Category.category_name</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_parent.seo_alias">@category_parent.category_name </a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_1.seo_alias">@category_child_1.category_name </a></li>
+
+                    }
+
+                    @if (category_child_2 != null)
+                    {
+                        <li class="breadcrumb-item"><a class="secondary-color" href="/collections/@category_child_2.seo_alias">@category_child_2.category_name </a></li>
+
+                    }
+                    @if (category_parent != null && category_parent.category_id > 0)
+                    {
+                        <li class="breadcrumb-item"><a href="/collections/@category_parent.seo_alias">@category_parent.category_name</a></li>
+                    }
+
+                    @if (category_child_1 != null && category_child_1.category_id > 0)
+                    {
+                        <li class="breadcrumb-item"><a href="/collections/@category_child_1.seo_alias">@category_child_1.category_name</a></li>
+                    }
+
+                    @if (category_child_2 != null && category_child_2.category_id > 0)
+                    {
+                        <li class="breadcrumb-item"><a href="/collections/@category_child_2.seo_alias">@category_child_2.category_name</a></li>
+                    }
+
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.Category.category_name</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->

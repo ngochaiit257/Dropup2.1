@@ -1,0 +1,38 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Lis Pharma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Lis Pharma";
+    ViewBag.Description = "Liên hệ với Lis Pharma để được tư vấn về các sản phẩm, dịch vụ và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Liên hệ</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Liên hệ</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->

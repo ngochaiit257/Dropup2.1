@@ -1,0 +1,98 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Blog Large</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Blog Large -->
+<section class="content-inner bg-img-fix">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 m-b50">
+                @Html.Raw(Model.blog_content)
+            </div>
+            <div class="col-xl-4 col-lg-4 m-b30">
+                <aside class="side-bar sticky-top">
+
+                    <div class="widget recent-posts-entry">
+                        <h2 class="widget-title">Bài viết mới nhất</h2>
+                        <div class="widget-post-bx">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <div class="widget-post clearfix">
+                                    <div class="dlab-media-custom-2">
+                                        <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                                    </div>
+                                    <div class="dlab-info">
+                                        <h4 class="title"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                        <div class="dlab-meta">
+                                            <ul>
+                                                <li class="post-date"> @blog.create_datetime.Value.ToString("dd - MM, yyyy") </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="widget widget_archive">
+                        <h2 class="widget-title">Danh mục sản phẩm</h2>
+                        <ul>
+                            @foreach (var category in list_category)
+                            {
+                                <li><a href="javascript:void(0);">@category.category_name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+

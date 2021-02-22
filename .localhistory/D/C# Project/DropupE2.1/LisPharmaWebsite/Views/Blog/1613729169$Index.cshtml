@@ -1,0 +1,88 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tin tức và sự kiện Lis Pharma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, TPA lock";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ TPA Lock";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Tin tức Lis Pharma</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tin tức</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Blog Large -->
+<section class="content-inner bg-img-fix">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 m-b50">
+                <div id="data_table">
+                    @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num });}
+                </div><!-- /container -->
+            </div>
+            <div class="col-xl-4 col-lg-4 m-b30">
+                <aside class="side-bar sticky-top">
+                    <div class="widget widget_archive">
+                        <h2 class="widget-title">Danh mục sản phẩm</h2>
+                        <ul>
+                            @foreach (var category in list_category)
+                            {
+                                <li><a href="/collections/@category.seo_alias">@category.category_name</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="widget recent-posts-entry">
+                        <h2 class="widget-title">Bài viết mới nhất</h2>
+                        <div class="widget-post-bx">
+                            @foreach (var blog in list_blog_newest)
+                            {
+                                <div class="widget-post clearfix">
+                                    <div class="dlab-media">
+                                        <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                                    </div>
+                                    <div class="dlab-info">
+                                        <h4 class="title"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                        <div class="dlab-meta">
+                                            <ul>
+                                                <li class="post-date"><i class="flaticon-clock m-r10"></i> @blog.create_datetime.Value.ToString("dd/MM/yyyy") </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+

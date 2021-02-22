@@ -1,0 +1,53 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+}
+
+<!-- Header End -->
+<div class="page-content bg-white">
+    <!-- Banner  -->
+    <div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+        <div class="container">
+            <div class="dlab-bnr-inr-entry">
+                <h1>@Model.page_title</h1>
+                <!-- Breadcrumb Row -->
+                <nav aria-label="breadcrumb" class="breadcrumb-row">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        @if (page_parent != null && page_parent.page_id > 0)
+                        {
+                            <li class="breadcrumb-item">
+                                <a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active">@Model.page_title</li>
+                    </ul>
+                </nav>
+                <!-- Breadcrumb Row End -->
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->
+
+</div>
+

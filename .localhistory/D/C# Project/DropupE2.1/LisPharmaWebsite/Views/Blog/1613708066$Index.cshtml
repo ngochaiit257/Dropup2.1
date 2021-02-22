@@ -1,0 +1,20 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tin tức và sự kiện TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, TPA lock";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ TPA Lock";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}

@@ -1,0 +1,42 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tin tức và sự kiện TPA Lock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var list_blog_newest = new BlogProvider().getIsShowing().OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    ViewBag.Keywords = "Chia sẻ, tin tức, sự kiện, TPA lock";
+    ViewBag.Description = "Chia sẻ những bài viết thú vị và mới nhất từ TPA Lock";
+    ViewBag.Canonical = urlSite + "/blogs";
+    ViewBag.Alternate = urlSite + "/blogs";
+    ViewBag.Url = urlSite + "/blogs";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Blog Large</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    @if (Model.blog_category != null)
+                    {
+                        <li class="breadcrumb-item"><a class="secondary-color" href="/">@Model.blog_category.blog_category_name</a></li>
+                    }
+                    <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->

@@ -41,7 +41,7 @@ namespace Data.Providers
         {
             try
             {
-                return db.blogs.Where(b => b.status == true && b.show_datetime <= System.DateTime.Now).OrderByDescending(b => b.create_datetime).ToList();
+                return db.blogs.Where(b => b.status == true && b.show_datetime <= System.DateTime.Now).ToList();
             }
             catch
             {
@@ -247,7 +247,7 @@ namespace Data.Providers
         {
             try
             {
-                return getIsShowing().OrderByDescending(b => b.show_datetime).ToList();
+                return getIsShowing();
             }
             catch
             {

@@ -1,0 +1,177 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Blog Large</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+<!-- Blog Large -->
+<section class="content-inner bg-img-fix" style="background-image: url(images/background/bg1.png); background-size: contain;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 m-b50">
+                <div class="row extra-blog style-1">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="dlab-blog style-1 bg-white text-center m-b30">
+                            <div class="dlab-media">
+                                <a href="blog-details-1.html"><img src="images/blog/default/thum3.jpg" alt=""></a>
+                            </div>
+                            <div class="dlab-info">
+                                <h5 class="dlab-title">
+                                    <a href="blog-details-1.html">Praesent ut lobortis purus hasellus libero orci, accumsan.</a>
+                                </h5>
+                                <p class="m-b0">Pellentesque vel nibh gravida erat interdum lacinia vel in lectus. Sed fermentum  pulvinar.</p>
+                                <div class="dlab-meta meta-bottom">
+                                    <ul>
+                                        <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
+                                        <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
+                                        <li class="post-share">
+                                            <i class="flaticon-share"></i>
+                                            <ul>
+                                                <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
+                                                <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
+                                                <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="dlab-blog style-1 bg-white text-center m-b30">
+                            <div class="dlab-media">
+                                <a href="blog-details-1.html"><img src="images/blog/default/thum2.jpg" alt=""></a>
+                            </div>
+                            <div class="dlab-info">
+                                <h5 class="dlab-title">
+                                    <a href="blog-details-1.html">Donec feugiat mollis nisi in dignissim. Morbi sollicitudin.</a>
+                                </h5>
+                                <p class="m-b0">Pellentesque vel nibh gravida erat interdum lacinia vel in lectus. Sed fermentum  pulvinar.</p>
+                                <div class="dlab-meta meta-bottom">
+                                    <ul>
+                                        <li class="post-date"><i class="flaticon-clock m-r10"></i>7 March, 2020</li>
+                                        <li class="post-comment"><a href="javascript:void(0);"><i class="flaticon-speech-bubble"></i></a></li>
+                                        <li class="post-share">
+                                            <i class="flaticon-share"></i>
+                                            <ul>
+                                                <li><a class="fa fa-facebook" href="javascript:void(0);"></a></li>
+                                                <li><a class="fa fa-twitter" href="javascript:void(0);"></a></li>
+                                                <li><a class="fa fa-linkedin" href="javascript:void(0);"></a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 m-b30">
+                <aside class="side-bar sticky-top">
+                
+                    <div class="widget recent-posts-entry">
+                        <h2 class="widget-title">Recent Posts</h2>
+                        <div class="widget-post-bx">
+                            <div class="widget-post clearfix">
+                                <div class="dlab-media">
+                                    <a href="blog-details-1.html"><img src="images/blog/recent-blog/pic1.jpg" alt=""></a>
+                                </div>
+                                <div class="dlab-info">
+                                    <h4 class="title"><a href="blog-details-1.html">Fusce mollis felis quis tristique</a></h4>
+                                    <div class="dlab-meta">
+                                        <ul>
+                                            <li class="post-date"> 7 March, 2020 </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-post clearfix">
+                                <div class="dlab-media">
+                                    <a href="blog-details-1.html"><img src="images/blog/recent-blog/pic2.jpg" alt=""></a>
+                                </div>
+                                <div class="dlab-info">
+                                    <h4 class="title"><a href="blog-details-1.html">Fusce mollis felis quis tristique</a></h4>
+                                    <div class="dlab-meta">
+                                        <ul>
+                                            <li class="post-date"> 7 March, 2020 </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-post clearfix">
+                                <div class="dlab-media">
+                                    <a href="blog-details-1.html"><img src="images/blog/recent-blog/pic3.jpg" alt=""></a>
+                                </div>
+                                <div class="dlab-info">
+                                    <h4 class="title"><a href="blog-details-1.html">Fusce mollis felis quis tristique</a></h4>
+                                    <div class="dlab-meta">
+                                        <ul>
+                                            <li class="post-date"> 7 March, 2020 </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-post clearfix">
+                                <div class="dlab-media">
+                                    <a href="blog-details-1.html"><img src="images/blog/recent-blog/pic3.jpg" alt=""></a>
+                                </div>
+                                <div class="dlab-info">
+                                    <h4 class="title"><a href="blog-details-1.html">Fusce mollis felis quis tristique</a></h4>
+                                    <div class="dlab-meta">
+                                        <ul>
+                                            <li class="post-date"> 7 March, 2020 </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,54 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var page_parent = new page();
+    if (Model.page_parent_id > 0)
+    {
+        page_parent = new PageProvider().getById((int)Model.page_parent_id);
+    }
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+}
+
+<!-- Header End -->
+<div class="page-content bg-white">
+    <!-- Banner  -->
+    <div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+        <div class="container">
+            <div class="dlab-bnr-inr-entry">
+                <h1>Services 1</h1>
+                <!-- Breadcrumb Row -->
+                <nav aria-label="breadcrumb" class="breadcrumb-row">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        @if (page_parent != null && page_parent.page_id > 0)
+                        {
+                            <li class="breadcrumb-item">
+                                <a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active">@Model.page_title</li>
+                    </ul>
+                </nav>
+                <!-- Breadcrumb Row End -->
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->
+
+    <section class="content-inner">
+
+    </section>
+</div>

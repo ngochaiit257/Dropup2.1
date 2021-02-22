@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
     /*  Team Carousel = owl.carousel.js */
     jQuery('.list-category').owlCarousel({
         loop: true,
-        margin: 15,
+        margin: 30,
         nav: true,
         autoplaySpeed: 1500,
         navSpeed: 1500,
@@ -140,17 +140,17 @@ jQuery(document).ready(function() {
         navText: ['<i class="fa fa-arrow-left"></i>', '<i class="fa fa-arrow-right"></i>'],
         responsive: {
             0: {
-                items: 2
+                items: 1
             },
             600: {
-                items: 2
+                items: 1
             },
 
             767: {
-                items: 3
+                items: 2
             },
             1200: {
-                items: 3
+                items: 4
             }
         }
     })

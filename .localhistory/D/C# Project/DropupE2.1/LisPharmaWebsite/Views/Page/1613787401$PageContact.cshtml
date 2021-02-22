@@ -1,0 +1,106 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Liên hệ Lis Pharma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var contact = new StoreContactProvider().get1Contact();
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+
+
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "Liên hệ Lis Pharma, tư vấn sản phẩm dược, dịch vụ dược";
+    ViewBag.Description = "Liên hệ với Lis Pharma để được tư vấn về các sản phẩm, dịch vụ và chính sách ưu đãi.";
+    ViewBag.Canonical = urlSite + "/pages/lien-he";
+    ViewBag.Alternate = urlSite + "/pages/lien-he";
+    ViewBag.Url = urlSite + "/pages/lien-he";
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+<!-- Banner  -->
+<div class="dlab-bnr-inr overlay-primary-dark" style="background-image: url(../Assets/images/banner/bnr1.jpg);">
+    <div class="container">
+        <div class="dlab-bnr-inr-entry">
+            <h1>Liên hệ</h1>
+            <!-- Breadcrumb Row -->
+            <nav aria-label="breadcrumb" class="breadcrumb-row">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Liên hệ</li>
+                </ul>
+            </nav>
+            <!-- Breadcrumb Row End -->
+        </div>
+    </div>
+</div>
+<!-- Banner End -->
+
+<section class="content-inner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 m-b30 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s">
+                <div class="dlab-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-envelope"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Số điện thoaij">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-phone"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Lĩnh vực quan tâm">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="la la-sms"></i></span>
+                                </div>
+                                <textarea class="form-control">Message</textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-link d-inline-flex align-items-center"><i class="fa fa-angle-right m-r10"></i>Gửi Thông Tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 m-b30 wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.2s">
+                <div class="dlab-media">
+                    <img src="../Assets/images/about/img2.png" class="move-4" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
