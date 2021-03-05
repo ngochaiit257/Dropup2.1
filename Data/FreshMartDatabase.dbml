@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LisPharma" Class="FreshMartDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-A9CMMFQ;Initial Catalog=LisPharma;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="LisPharmaConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuynhBoki" Class="FreshMartDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-A9CMMFQ;Initial Catalog=QuynhBoki;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="QuynhBokiConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.address" Member="addresses">
     <Type Name="address">
       <Column Name="address_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -7,22 +7,6 @@
       <Column Name="address_location" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
       <Column Name="contact_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="contact_address" Member="contact" ThisKey="contact_id" OtherKey="contact_id" Type="contact" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ward" Member="wards">
-    <Type Name="ward">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="LatiLongTude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="ward_customer" Member="customers" ThisKey="Id" OtherKey="ward_id" Type="customer" />
-      <Association Name="ward_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="ward_id" Type="delivery_address" />
-      <Association Name="ward_user" Member="users" ThisKey="Id" OtherKey="ward_id" Type="user" />
-      <Association Name="district_ward" Member="district" ThisKey="DistrictID" OtherKey="Id" Type="district" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.AspNet_SqlCacheTablesForChangeNotification" Member="AspNet_SqlCacheTablesForChangeNotifications">
@@ -278,11 +262,11 @@
       <Association Name="customer_order" Member="orders" ThisKey="customer_id" OtherKey="customer_id" Type="order" />
       <Association Name="customer_order1" Member="orders1" ThisKey="customer_id" OtherKey="customer_id" Type="order" />
       <Association Name="customer_tag_customer" Member="tag_customers" ThisKey="customer_id" OtherKey="customer_id" Type="tag_customer" />
-      <Association Name="ward_customer" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
       <Association Name="district_customer" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
       <Association Name="gender_customer" Member="gender" ThisKey="gender_id" OtherKey="gender_id" Type="gender" IsForeignKey="true" />
       <Association Name="province_customer" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
       <Association Name="user_customer" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+      <Association Name="ward_customer" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.delivery_address" Member="delivery_addresses">
@@ -301,9 +285,9 @@
       <Column Name="default_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="delivery_address_order" Member="orders" ThisKey="delivery_address_id" OtherKey="delivery_address_id" Type="order" />
       <Association Name="customer_delivery_address" Member="customer" ThisKey="customer_id" OtherKey="customer_id" Type="customer" IsForeignKey="true" />
-      <Association Name="ward_delivery_address" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
       <Association Name="district_delivery_address" Member="district" ThisKey="district_id" OtherKey="Id" Type="district" IsForeignKey="true" />
       <Association Name="province_delivery_address" Member="province" ThisKey="province_id" OtherKey="Id" Type="province" IsForeignKey="true" />
+      <Association Name="ward_delivery_address" Member="ward" ThisKey="ward_id" OtherKey="Id" Type="ward" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.discount_type" Member="discount_types">
@@ -325,11 +309,11 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="district_ward" Member="wards" ThisKey="Id" OtherKey="DistrictID" Type="ward" />
       <Association Name="district_cost_for_district_shipping" Member="cost_for_district_shippings" ThisKey="Id" OtherKey="district_id" Type="cost_for_district_shipping" />
       <Association Name="district_customer" Member="customers" ThisKey="Id" OtherKey="district_id" Type="customer" />
       <Association Name="district_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="district_id" Type="delivery_address" />
       <Association Name="district_user" Member="users" ThisKey="Id" OtherKey="district_id" Type="user" />
+      <Association Name="district_ward" Member="wards" ThisKey="Id" OtherKey="DistrictID" Type="ward" />
       <Association Name="province_district" Member="province" ThisKey="ProvinceId" OtherKey="Id" Type="province" IsForeignKey="true" />
     </Type>
   </Table>
@@ -1016,6 +1000,22 @@
       <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="group_action_user_group_action" Member="group_action" ThisKey="group_action_id" OtherKey="group_action_id" Type="group_action" IsForeignKey="true" />
       <Association Name="user_user_group_action" Member="user" ThisKey="user_id" OtherKey="user_id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ward" Member="wards">
+    <Type Name="ward">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LatiLongTude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DistrictID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsPublished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ward_customer" Member="customers" ThisKey="Id" OtherKey="ward_id" Type="customer" />
+      <Association Name="ward_delivery_address" Member="delivery_addresses" ThisKey="Id" OtherKey="ward_id" Type="delivery_address" />
+      <Association Name="ward_user" Member="users" ThisKey="Id" OtherKey="ward_id" Type="user" />
+      <Association Name="district_ward" Member="district" ThisKey="DistrictID" OtherKey="Id" Type="district" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

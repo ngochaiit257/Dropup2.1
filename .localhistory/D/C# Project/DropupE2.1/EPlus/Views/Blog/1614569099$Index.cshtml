@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Data.blog>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.BlogCategory.blog_category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.BlogCategory.blog_category_name;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Alternate = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Url = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+<h2>Index</h2>
+

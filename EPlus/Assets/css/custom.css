@@ -1,12 +1,30 @@
 ﻿:root {
     --mainColor: #027100;
-    --childColor: #8B0101;
+    --childColor: #fe0f0f;
     --gradientColor: linear-gradient(90deg, #00d1c0, #00d17a);
 }
+
+
 
 body {
     color: #363636;
     font-size: 16px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Josefin Sans', serif;
+    /*font-weight: 700;*/
+    /*text-transform: uppercase;*/
+    font-weight: 500;
+}
+
+h5, .h5 {
+    font-size: 20px;
+}
+
+header .navbar {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 header .nav-item .nav-link {
@@ -16,6 +34,28 @@ header .nav-item .nav-link {
     padding-left: 12px !important;
     padding-right: 12px !important;
     letter-spacing: 0.04em;
+}
+
+@media (min-width: 991px) {
+    header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+
+    .slider-main {
+        margin-top: 80px;
+    }
+
+    .section-breadcrumb {
+        margin-top: 80px;
+    }
+}
+
+@media (min-width: 1199px) {
+    .navbar .dropdown-menu {
+        width: 260px;
+    }
 }
 
 .section-padding {
@@ -32,7 +72,9 @@ header .nav-item .nav-link {
     top: calc(50% - 19px);
     left: 10px;
     z-index: 1;
-    background-color: #cdcdcd;
+    background-color: #fff;
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
 }
 
     .nav-arrows.arrow-vcentered span.fa-chevron-right {
@@ -84,17 +126,17 @@ header .nav-item .nav-link {
     margin-top: -9px;
     word-break: break-word;
 }
+
 .div-section-title p {
     font-size: 18px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.form-control {
-    height: 42px;
+.wrap-box-register .form-control {
     padding: 0 15px;
     height: 36px !important;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     color: var(--mainColor);
     background: #fff;
@@ -234,6 +276,7 @@ header .nav-item .nav-link {
     transition: all 0.5s;
     font-weight: 700;
     padding-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .slick-initialized .swipe-tab-2 {
@@ -250,6 +293,7 @@ header .nav-item .nav-link {
     transition: all 0.5s;
     font-weight: 700;
     padding-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .slick-initialized .swipe-tab:hover {
@@ -372,6 +416,13 @@ header .nav-item .nav-link {
     margin-top: -25px;
 }
 
+.main-container-2 {
+    padding: 25px;
+    background: #f1f1f1;
+    margin-top: -25px;
+    max-height: 620px;
+}
+
 .slick-prev.slick-arrow {
     position: absolute;
     top: calc(50% - 35px);
@@ -448,13 +499,19 @@ header .nav-item .nav-link {
 }
 
 .banner-slider .slider.slider-nav {
-    height: 610px;
+    height: 550px;
     overflow: hidden;
 }
 
 .slider-banner-image {
-    height: 610px;
+    height: auto;
 }
+
+    .slider-banner-image h4 {
+        text-align: center;
+        margin-top: 10px;
+        color: var(--mainColor);
+    }
 
 .slider-nav .slick-slide.thumbnail-image .thumbImg {
     max-width: 178px;
@@ -754,16 +811,18 @@ header .nav-item .nav-link {
 
 /*======*/
 .btn {
-    font-size: 15px;
-    padding: 14px 30px;
+    font-size: 17px;
+    text-transform: uppercase;
+    padding: 10px 25px !important;
     color: #ffffff;
     border-radius: 50px;
     border: 0;
-    font-weight: 500;
+    font-weight: 700;
     transition: .3s;
     position: relative;
     z-index: 1;
     overflow: hidden;
+    background-color: var(--mainColor) !important;
 }
 
     .btn.btn-lg {
@@ -772,7 +831,7 @@ header .nav-item .nav-link {
     }
 
     .btn.btn-secondary {
-        background-color: var(--mainColor) !important;
+        background-color: var(--childColor) !important;
     }
 
 
@@ -887,14 +946,225 @@ header .nav-item .nav-link {
     font-weight: 700 !important;
 }
 
-.bg-brand-color{
+.bg-brand-color {
     background-color: var(--mainColor) !important;
 }
 
+section.testi-section {
+    background-color: #F5F5F5;
+    margin-bottom: 30px;
+    padding-top: 30px;
+}
 
 
 @media screen and (max-width: 767px) {
     .swipe-tab-content p {
         height: auto;
     }
+}
+
+/*=====*/
+
+.course-card .card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    -webkit-filter: unset;
+    filter: unset;
+}
+
+.course-card .card-body p {
+    font-size: 14px;
+}
+
+    .course-card .card-body p i {
+        color: var(--childColor);
+    }
+
+.page-header {
+    padding-top: 220px;
+    padding-bottom: 220px;
+}
+
+.box-content h4.box-quote {
+    padding-left: 20px;
+    border-left: 4px solid var(--childColor);
+    font-family: "Muli", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.card-content .media i {
+    width: 32px;
+    height: 32px;
+}
+
+h5.course_detail_subject {
+    font-family: "Muli", sans-serif !important;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#steps {
+    margin-bottom: 30px;
+}
+
+.loi-ich .number-loi-ich {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+    border-width: 4px !important;
+    background-color: var(--mainColor);
+}
+
+.loi-ich .bg-white {
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 12px #071C551F;
+    box-shadow: 0px 0px 12px #071C551F;
+}
+
+.loi-ich img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    margin-top: -20px;
+}
+
+.loi-ich h4 {
+    font-weight: 700;
+    color: var(--childColor);
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.loi-ich p {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.rs-services.style7 .services-wrap {
+    padding: 25px 25px 20px;
+    box-shadow: 0 0 72px -10px rgb(0 0 0 / 15%);
+    text-align: center;
+    border-radius: 30px;
+    background: #fff;
+    margin-top: 30px;
+}
+
+    .rs-services.style7 .services-wrap .icon-part {
+        margin-bottom: 19px;
+    }
+
+        .rs-services.style7 .services-wrap .icon-part img {
+            max-width: 80px;
+        }
+
+    .rs-services.style7 .services-wrap .title {
+        font-size: 20px;
+        line-height: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+        .rs-services.style7 .services-wrap .title a {
+            color: var(--childColor);
+        }
+
+    .rs-services.style7 .services-wrap p {
+        text-align: justify;
+    }
+
+h2.text-center {
+    margin-bottom: 10px;
+}
+
+span.sub_title {
+    color: var(--childColor);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.col_tkb {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.075) !important;
+}
+
+.card-content p {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--childColor);
+}
+
+.gtco-testimonials .card h5 span {
+    font-size: 16px;
+    font-family: "Muli", sans-serif;
+    font-weight: 400;
+}
+
+img.card-img-top {
+    height: 228px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card .blog_summury {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card h5.blog_title a {
+    height: 54.4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-blog h5 a {
+    height: 54.4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-blog .blog_summury {
+    height: 84px;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text-main-color {
+    color: var(--mainColor);
+}
+
+@media (max-width: 1199px) {
+    .navbar .navbar-nav {
+        width: unset;
+    }
+
+    .block-navbar__top {
+        text-align: left;
+    }
+}
+
+.widget .widget-title {
+    background-color: var(--mainColor);
+}
+
+ol.breadcrumb {
+    margin-top: 15px;
 }

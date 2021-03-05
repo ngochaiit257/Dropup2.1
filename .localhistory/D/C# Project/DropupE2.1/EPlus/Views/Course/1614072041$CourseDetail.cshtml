@@ -1,0 +1,73 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+}
+
+<section class="page-header bg-cover" style="background-image: url('@urlCMS/@Model.product_image')"></section>
+<section class="pt-30">
+    <div class="container">
+        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng: @Model.product_name</h2>
+        <div class="row justify-content-center mt-30">
+            <div class="col-lg-5">
+                <div class="p-30 mb-35 bg-white shadow rounded">
+                    <h3 href="#!" class="h3 text-blue font-weight-600">Thông tin khóa học</h3>
+                    <div class="border-top mt-30">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-25 align-items-center">
+                                    <i class="fas fa-book text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue">Subject</h5>
+                                        <p>English</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-25 align-items-center">
+                                    <i class="far fa-calendar-alt text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue">Tutoring Days</h5>
+                                        <p>3 days/week</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-25 align-items-center">
+                                    <i class="fas fa-book-reader text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue">Class</h5>
+                                        <p>Standard 9</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-25 align-items-center">
+                                    <i class="fas fa-hand-holding-usd text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue">Salary</h5>
+                                        <p>$599 USD</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-30 text-center">
+                                <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="box-content">
+                    <h4 class="box-quote">@Model.description</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

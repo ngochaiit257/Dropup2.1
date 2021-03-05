@@ -1,0 +1,54 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+            <!-- Single Slide -->
+            <div class="singles_items">
+                <div class="education_block_grid style_2">
+
+                    <div class="education_block_thumb">
+                        <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" class="img-fluid" alt="@blog.blog_alt_image"></a>
+                    </div>
+
+                    <div class="education_block_body education_block_body_blog">
+                        <h4 class="bl-title"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                    </div>
+
+                    <div class="education_block_footer">
+                        <p>@blog.blog_summary</p>
+                    </div>
+                    <div class="education_block_footer">
+                        <div class="education_block_author">
+                            <div class="path-img"><a href="/blogs/@blog.blog_seo_alias" tabindex="0"><img src="@urlCMS/@blog.user.avatar" class="img-fluid" alt="@blog.user.username"></a></div>
+                            <h5><a href="/blogs/@blog.blog_seo_alias" tabindex="0">@blog.user.username</a></h5>
+                        </div>
+                        <a href="/blogs/@blog.blog_seo_alias"><strong class="theme-cl">Đọc Thêm</strong></a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="center-div" style="margin: auto; text-align: center;margin-top: 30px;">
+            <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Bài viết</a>
+            @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+        </div>
+    </div>
+}

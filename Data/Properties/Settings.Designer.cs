@@ -675,5 +675,25 @@ namespace Data.Properties {
                 return ((string)(this["LisPharmaConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=EPlus;Integrated Security=True")]
+        public string EPlusConnectionString {
+            get {
+                return ((string)(this["EPlusConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-A9CMMFQ;Initial Catalog=QuynhBoki;Integrated Security=True")]
+        public string QuynhBokiConnectionString {
+            get {
+                return ((string)(this["QuynhBokiConnectionString"]));
+            }
+        }
     }
 }

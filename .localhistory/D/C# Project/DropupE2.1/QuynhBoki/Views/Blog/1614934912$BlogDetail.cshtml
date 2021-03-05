@@ -1,0 +1,194 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/blogs/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">How To Increase Wordpress Speed</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/blogs">Kiến thức hữu ích</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@Model.blog_title</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->
+<!-- ============================ Agency List Start ================================== -->
+<section class="gray">
+    <div class="container">
+        <!-- row Start -->
+        <div class="row">
+            <!-- Blog Detail -->
+            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+                    <div class="article_body_wrap">
+
+                        <div class="article_featured_image">
+                            <img class="img-fluid" src="@urlCMS/@Model.blog_image" alt="@Model.blog_alt_image">
+                        </div>
+
+                        <div class="article_top_info">
+                            <ul class="article_middle_info">
+                                <li><a href="#"><span class="icons"><i class="ti-user"></i></span>by @Model.user.username</a></li>
+                                <li><a href="#"><span class="icons"><i class="ti-alarm-clock"></i></span>@Model.create_datetime.Value.ToString("dd/MM/yyyy")</a></li>
+                            </ul>
+                        </div>
+                        <h2 class="post-title">@Model.blog_title</h2>
+                        <p>
+                            @Html.Raw(Model.blog_content)
+                        </p>
+                        <div class="article_bottom_info">
+                            <div class="post-tags">
+                                <div class="fb-like" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="100%" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Blog Comment -->
+                <div class="article_detail_wrapss single_article_wrap format-standard">
+
+                    <div class="comment-area">
+                        <div class="comment-box submit-form">
+                            <h3 class="reply-title">Để lại bình luận của bạn</h3>
+                            <div class="comment-form">
+                                <div class="fb-comments" data-href="@urlSite/blogs/@Model.blog_seo_alias" data-width="100%" data-numposts="10"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- Single blog Grid -->
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+
+                <!-- Categories -->
+                <div class="single_widgets widget_category">
+                    <h4 class="title">Khóa học và tài liệu</h4>
+                    <ul>
+                        <li><a href="#">Lifestyle <span>09</span></a></li>
+                        <li><a href="#">Travel <span>12</span></a></li>
+                        <li>
+                            <a href="#">Fashion <span>19</span></a>
+                        </li>
+                        <li><a href="#">Branding <span>17</span></a></li>
+                        <li><a href="#">Music <span>10</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Trending Posts -->
+                <div class="single_widgets widget_thumb_post">
+                    <h4 class="title">Trending Posts</h4>
+                    <ul>
+                        <li>
+                            <span class="left">
+                                <img src="assets/img/tour-1.jpg" alt="" class="">
+                            </span>
+                            <span class="right">
+                                <a class="feed-title" href="#">Alonso Kelina Falao Asiano Pero</a>
+                                <span class="post-date"><i class="ti-calendar"></i>10 Min ago</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="left">
+                                <img src="assets/img/tour-2.jpg" alt="" class="">
+                            </span>
+                            <span class="right">
+                                <a class="feed-title" href="#">It is a long established fact that a reader</a>
+                                <span class="post-date"><i class="ti-calendar"></i>2 Hours ago</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="left">
+                                <img src="assets/img/tour-3.jpg" alt="" class="">
+                            </span>
+                            <span class="right">
+                                <a class="feed-title" href="#">Many desktop publish packages and web</a>
+                                <span class="post-date"><i class="ti-calendar"></i>4 Hours ago</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="left">
+                                <img src="assets/img/tour-4.jpg" alt="" class="">
+                            </span>
+                            <span class="right">
+                                <a class="feed-title" href="#">Various versions have evolved over the years</a>
+                                <span class="post-date"><i class="ti-calendar"></i>7 Hours ago</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="left">
+                                <img src="assets/img/tour-5.jpg" alt="" class="">
+                            </span>
+                            <span class="right">
+                                <a class="feed-title" href="#">Photo booth anim 8-bit PBR 3 wolf moon.</a>
+                                <span class="post-date"><i class="ti-calendar"></i>3 Days ago</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tags Cloud -->
+                <div class="single_widgets widget_tags">
+                    <h4 class="title">Tags Cloud</h4>
+                    <ul>
+                        <li><a href="#">Lifestyle</a></li>
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Fashion</a></li>
+                        <li><a href="#">Branding</a></li>
+                        <li><a href="#">Music</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /row -->
+
+    </div>
+
+</section>
+<!-- ============================ Agency List End ================================== -->

@@ -1,0 +1,29 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Danh sách các chương trình đào tạo tại EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+}
+
+<!-- start of page-header -->
+<section class="py-80 bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title font-weight-bold mb-20">Chương trình đào tạo</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item">Courses</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of page-header -->

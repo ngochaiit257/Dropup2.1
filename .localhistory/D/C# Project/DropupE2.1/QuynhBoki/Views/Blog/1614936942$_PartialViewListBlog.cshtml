@@ -1,0 +1,31 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+
+        }
+        <div class="center-div" style="margin: auto; text-align: center;margin-top: 30px;">
+            <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Bài viết</a>
+            @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+        </div>
+    </div>
+}

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Data.blog>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.BlogCategory.blog_category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    //var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    //if (list_tag.Count > 0)
+    //{
+    //    foreach (var tag in list_tag)
+    //    {
+    //        meta_keyword += tag.tag_name + ", ";
+    //    }
+    //}
+
+    ViewBag.Keywords = meta_keyword + ViewBag.BlogCategory.blog_category_name;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Alternate = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Url = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<!-- start of page-header -->
+<section class="py-80 bg-gray section-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title font-weight-bold mb-20">Chương trình đào tạo</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item">Chương trình đào tạo</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of page-header -->

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Data.blog>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.BlogCategory.blog_category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var newest_blog = new BlogProvider().getNewest().Take(5).ToList();
+
+    ViewBag.Keywords = ViewBag.BlogCategory.blog_category_name;
+    ViewBag.Description = ViewBag.BlogCategory.blog_category_seo_description;
+    ViewBag.Canonical = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Alternate = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Url = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<!-- start of page-header -->
+<section class="py-80 bg-gray section-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title font-weight-bold mb-20">@ViewBag.BlogCategory.blog_category_name</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a class="text-primary" href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a class="text-primary" href="/">Tin tức</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.BlogCategory.blog_category_name</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of page-header -->
+<!-- start of courses-details -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="data_table">
+                    @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num, bc_seo_alias = ViewBag.BlogCategory.blog_category_seo_alias });}
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="widget">
+                    <h4 class="widget-title">Bài viết mới nhất</h4>
+                    @foreach (var blog in newest_blog)
+                    {
+                        <div class="mt-25 px-3">
+                            <div class="post-meta font-weight-500 small mb-2">
+                                <span class="mr-4"><i class="far fa-calendar-alt text-primary mr-2"></i> 25/02/2020</span>
+                                <span><i class="fas fa-user text-primary mr-2"></i> Dispatched</span>
+                            </div>
+                            <a href="#!" class="text-secondary font-weight-600 h5">She exposed painted fifteen are noisier mistake led waiting</a>
+                        </div>
+                    }
+                </div>
+
+                <div class="widget">
+                    <h4 class="widget-title">Danh mục bài viết</h4>
+                    <ul class="widget-list list-unstyled">
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>April</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>May</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>June</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>Julay</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>August</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>September</a></li>
+                    </ul>
+                </div>
+
+                <div class="widget">
+                    <h4 class="widget-title">Các khóa học tại EPlus</h4>
+                    <ul class="widget-list list-unstyled">
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>April</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>May</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>June</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>Julay</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>August</a></li>
+                        <li><a href="#!"><i class="fas fa-caret-right mr-2"></i>September</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of courses-details -->

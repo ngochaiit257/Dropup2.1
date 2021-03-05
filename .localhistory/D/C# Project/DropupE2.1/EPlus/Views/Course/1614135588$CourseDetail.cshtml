@@ -1,0 +1,200 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var info_course = new ProductVariationProvider().get1ByProductId(Model.product_id);
+    var info_course_time = new ElementVariationProvider().getByProductVariationId(info_course.product_variation_id).FirstOrDefault();
+}
+
+<section class="page-header bg-cover" style="background-image: url('@urlCMS/@Model.product_image')"></section>
+<section class="pt-30">
+    <div class="container">
+        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng: @Model.product_name</h2>
+        <div class="row justify-content-center mt-30">
+            <div class="col-lg-6">
+                <div class="p-30 mb-35 bg-white shadow rounded">
+                    <h3 href="#!" class="h3 text-blue font-weight-600">Thông tin khóa học</h3>
+                    <div class="card-content border-top mt-30">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-clock text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Thời gian học</h5>
+                                        @if (info_course_time != null)
+                                        {
+                                            <p>@info_course_time.element_variation_name</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="far fa-calendar-alt text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng buổi học</h5>
+                                        <p>@info_course.product_variation_code</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-book-reader text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng học viên</h5>
+                                        <p>@info_course.product_variation_in_stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-hand-holding-usd text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Giá khóa học</h5>
+                                        <p class="showNumeric">@info_course.product_variation_price</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-30 text-center">
+                                <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="box-content">
+                    <p>@Html.Raw(Model.content)</p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="box-content">
+                    <p>@Html.Raw(Model.content_2)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-gray">
+    <div class="container">
+        <div class="loi-ich pt-30 pb-30">
+            <div class="container my-5">
+                <div id="steps">
+                    <div class="text-center mb-5">
+                        <h2 class="text-center text-blue font-weight-700">Sau khóa học bạn nhận được gì?</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-30 text-center">
+                        <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="loi-ich pt-30 pb-30">
+            <div class="container my-5">
+                <div id="steps">
+                    <div class="text-center mb-5">
+                        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng nào?</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                                <i class="fas fa-phone fa-2x text-primary"></i>
+                                <div class="ml-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="text-secondary font-weight-600 mb-1">Contact Details</h4>
+                                    <p>Phone: <a href="tel:+7800123452" class="text-dark">+780 123 452</a></p>
+                                    <p>Mail: <a href="mailto:contact@eduskill.com" class="text-dark">contact@eduskill.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-30 text-center">
+                        <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

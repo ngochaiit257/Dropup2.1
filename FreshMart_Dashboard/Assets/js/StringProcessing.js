@@ -15,9 +15,15 @@
     str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
     str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
     str = str.replace(/Đ/g, "D");
+
+    
     
     str = str.replace(/[^0-9a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]/gi, '-');
 
-    str = str.replace(/\s+/g, '-').toLowerCase();
+    str = str.replace(/\s+/g, '-');
+
+    str = str.replace(/^-*/, '');
+    str = str.replace(/-*$/, '');
+    str = str.replace(/-+/g, '-').toLowerCase();
     return str;
 }

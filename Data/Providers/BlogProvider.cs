@@ -255,6 +255,19 @@ namespace Data.Providers
             }
         }
 
+        public List<blog> getByCategorySeoAlias(string seo_alias)
+        {
+            try
+            {
+                var bc = bc_provider.getBySeoAlias(seo_alias);
+                return getListShowOnClientSite(bc.blog_category_id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public List<blog> getListShowOnClientSite(long blog_category_id)
         {
             try

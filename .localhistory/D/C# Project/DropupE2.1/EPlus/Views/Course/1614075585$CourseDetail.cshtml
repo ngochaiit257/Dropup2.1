@@ -1,0 +1,82 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var info_course = new ProductVariationProvider().get1ByProductId(Model.product_id);
+    var info_course_time = new ElementVariationProvider().getByProductVariationId(info_course.product_variation_id).FirstOrDefault();
+}
+
+<section class="page-header bg-cover" style="background-image: url('@urlCMS/@Model.product_image')"></section>
+<section class="pt-30">
+    <div class="container">
+        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng: @Model.product_name</h2>
+        <div class="row justify-content-center mt-30">
+            <div class="col-lg-5">
+                <div class="p-30 mb-35 bg-white shadow rounded">
+                    <h3 href="#!" class="h3 text-blue font-weight-600">Thông tin khóa học</h3>
+                    <div class="card-content border-top mt-30">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-clock text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Thời gian học</h5>
+                                        @if (info_course_time != null)
+                                        {
+                                            <p>@info_course_time.element_variation_name</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="far fa-calendar-alt text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng buổi học</h5>
+                                        <p>@info_course.product_variation_code</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-book-reader text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng học viên</h5>
+                                        <p>@info_course.product_variation_in_stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-hand-holding-usd text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Giá khóa học</h5>
+                                        <p class="showNumeric">@info_course.product_variation_price</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-30 text-center">
+                                <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="box-content">
+                    <p>@Html.Raw(Model.content)</p>
+                </div>
+                <div class="box-content">
+                    <p>@Html.Raw(Model.content_2)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

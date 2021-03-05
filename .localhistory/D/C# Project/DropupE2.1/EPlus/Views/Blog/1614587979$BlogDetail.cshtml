@@ -1,0 +1,53 @@
+﻿@model Data.blog
+@using Data
+@using Data.Providers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.blog_title;
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_blog_related = new BlogProvider().getIsShowing().Where(b => b.blog_category_id == Model.blog_category_id && b.blog_id != Model.blog_id).ToList();
+    var list_blog_newest = new BlogProvider().getIsShowing().Where(b => b.blog_id != Model.blog_id).OrderByDescending(b => b.show_datetime).Take(5).ToList();
+
+    var list_tag = new TagProvider().getByBlogId(Model.blog_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + Model.blog_seo_header;
+    ViewBag.Description = Model.blog_seo_description;
+    ViewBag.Canonical = urlSite + "/articles/" + Model.blog_seo_alias;
+    ViewBag.Alternate = urlSite + "/articles/" + Model.blog_seo_alias;
+    ViewBag.Url = urlSite + "/articles/" + Model.blog_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.blog_image;
+}
+
+<!-- start of page-header -->
+<section class="py-80 bg-gray section-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title font-weight-bold mb-20">@Model.blog_title</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a class="text-primary" href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a class="text-primary" href="/">Tin tức</a></li>
+                        @if (Model.blog_category != null)
+                        {
+                            <li class="breadcrumb-item"><a class="text-primary" href="/blog-categories/@Model.blog_category.blog_category_seo_alias">@Model.blog_category.blog_category_name</a></li>
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.BlogCategory.blog_category_name</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of page-header -->

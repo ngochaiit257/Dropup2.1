@@ -88,3 +88,13 @@ D:\C# Project\DropupE2.1\EPlus\obj\Release\EPlus.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\EPlus\obj\Release\EPlus.csproj.CopyComplete
 D:\C# Project\DropupE2.1\EPlus\obj\Release\EPlus.dll
 D:\C# Project\DropupE2.1\EPlus\obj\Release\EPlus.pdb
+D:\C# Project\DropupE2.1\EPlus\obj\Release\EPlus.csprojAssemblyReference.cache
+D:\C# Project\DropupE2.1\EPlus\bin\Common.dll
+D:\C# Project\DropupE2.1\EPlus\bin\Data.dll
+D:\C# Project\DropupE2.1\EPlus\bin\Common.pdb
+D:\C# Project\DropupE2.1\EPlus\bin\Data.pdb
+D:\C# Project\DropupE2.1\EPlus\bin\Data.dll.config
+D:\C# Project\DropupE2.1\EPlus\bin\PagedList.dll
+D:\C# Project\DropupE2.1\EPlus\bin\PagedList.Mvc.dll
+D:\C# Project\DropupE2.1\EPlus\bin\PagedList.xml
+D:\C# Project\DropupE2.1\EPlus\bin\PagedList.Mvc.xml

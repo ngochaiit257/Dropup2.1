@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Data.product>
+@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = ViewBag.Category.category_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByCategoryId(ViewBag.CategoryID);
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    if (category_child_2.category_parent_id != null)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1.category_parent_id != null)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var list_tag = new TagProvider().getByCategoryId(ViewBag.Category.category_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    ViewBag.Keywords = meta_keyword + ViewBag.Category.seo_header;
+    ViewBag.Description = ViewBag.Category.seo_description;
+    ViewBag.Canonical = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Alternate = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Url = urlSite + "/collections/" + ViewBag.Category.seo_alias;
+    ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+<h2>Index</h2>
+

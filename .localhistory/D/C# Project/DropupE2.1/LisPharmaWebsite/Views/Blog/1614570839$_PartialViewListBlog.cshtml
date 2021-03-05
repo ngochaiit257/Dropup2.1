@@ -1,0 +1,52 @@
+﻿@model IPagedList<Data.blog>
+@using Data.Providers;
+@using Data;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+@if (check_box_count == 0)
+{
+    <div class="center-div">
+        <h3>Không có bài viết nào.</h3>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var blog in Model)
+        {
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 mb-40 hover-grayscale">
+                <a href="#!"><img class="card-img-top" src="assets/images/blogs/01.jpg" alt=""></a>
+                <div class="card-body border-top p-30">
+                    <div class="post-meta font-weight-500 small mb-20">
+                        <span class="mr-3"><i class="far fa-calendar-alt text-primary mr-2"></i> 25/02/2020</span>
+                        <span><i class="fas fa-user text-primary mr-2"></i> Dispatched</span>
+                    </div>
+                    <h5 class="font-weight-600"><a href="#!" class="text-blue">Dispatched Entreaties Boister ous Say Why Stimulated</a></h5>
+                    <p class="mt-3">She exposed painted fifteen are noisier mistake led waiting surprise.</p>
+                </div>
+            </div>
+        </div>
+        }
+        <div class="center-div" style="margin: auto; text-align: center;margin-top: 30px;">
+            <a>Hiển thị @check_box_count trong @ViewBag.NumberOfList Bài viết</a>
+            @Html.PagedListPager(Model, page_num => Url.Action("GetBlog", new { page_num}),
+                PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+        </div>
+    </div>
+
+    
+
+    <script>
+        $(document).ready(function () {
+            $("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+    </script>
+}

@@ -1,0 +1,367 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+    var list_testi = new StoreCustomerSayProvider().getAll();
+
+    var list_newest_blog = new BlogProvider().getNewest().Take(3).ToList();
+}
+
+
+<!-- start of banner -->
+<div class="justify-content-center position-relative">
+    <div class="slider-main owl-carousel">
+        <div class="banner-1 bg-cover" style="background-image: url(../Assets/images/slider/1609757549_banner-web.jpg);"></div>
+        <!-- end of banner -->
+        <div class="banner-1 bg-cover" style="background-image: url(../Assets/images/slider/1603078509_cover-web-april-30-01.jpg);"></div>
+    </div>
+    <div class="nav-arrows arrow-vcentered">
+        <span class="fas fa-chevron-left slider-main-left"></span>
+        <span class="fas fa-chevron-right slider-main-right"></span>
+    </div>
+</div>
+
+<section class="tab-slider-feature pt-50 pb-50">
+    <div class="container">
+        <div class="tt-2 tt-box" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+            <h2><span>Chỉ có tại EPLUS </span></h2>
+        </div>
+        <div class="mb-10">
+            <div class="sub-header ">
+                <div class="swipe-tabs">
+                    <div class="swipe-tab">
+                        Sống toàn diện <br />
+                        Trong môi trường Anh ngữ
+                    </div>
+                    <div class="swipe-tab">
+                        E-Learning <br />
+                        Học ở mọi nơi
+                    </div>
+                    <div class="swipe-tab">
+                        Chương trình <br />
+                        7 tính cách thành công
+                    </div>
+                    <div class="swipe-tab">
+                        100% giáo viên <br />
+                        Trình độ bản ngữ
+                    </div>
+                </div>
+            </div>
+            <div class="main-container">
+                <div class="swipe-tabs-container ">
+                    <div class="swipe-tab-content">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <p>
+                                    EPlus xây dựng hệ sinh thái giáo dục giúp trẻ tiếp thu kiến thức và phát triển toàn diện nhất.
+                                    <br>
+                                    <br>
+                                    Một xã hội thu nhỏ được mô phỏng chuyên nghiệp ngay tại khuôn viên của EPlus, như: thư viện, căn-tin, khu mua sắm, ẩm thực,… giúp trẻ có những trải nghiệm thực tiễn đáng nhớ, gia tăng hiểu biết trên nhiều lĩnh vực và phát triển khả năng giao tiếp của trẻ.
+                                    <br>
+                                </p>
+                                <div class="mt-20 mb-20 text-center">
+                                    <a href="#!" class="btn btn-lg btn-secondary">Xem Chi Tiết</a>
+                                    <a href="#!" class="btn btn-lg btn-primary">Liên hệ</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="item-only-img">
+                                    <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913816_dsc02597-2.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swipe-tab-content">Tab 2</div>
+                    <div class="swipe-tab-content">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <p>
+                                    Chương trình giáo dục kỹ năng &amp; ứng dụng 7 tính cách thành công, được EPlus xây dựng và đào tạo giúp trẻ hướng tới thay đổi tư duy toàn diện từ bên trong, hình thành thói quen tốt, phát huy tiềm năng và xây dựng tinh thần lãnh đạo bản thân.
+                                </p>
+                                <div class="mt-20 mb-20 text-center">
+                                    <a href="#!" class="btn btn-lg btn-secondary">Xem Chi Tiết</a>
+                                    <a href="#!" class="btn btn-lg btn-primary">Liên hệ</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="item-only-img">
+                                    <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913831_dsc02716-2.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swipe-tab-content">Tab 4</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@if (list_khoa_hoc.Count > 0)
+{
+    <!-- start of courses section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="section-title">Các chương trình học tại EPlus</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                @foreach (var kh in list_khoa_hoc)
+                {
+                    var info_course = new ProductVariationProvider().get1ByProductId(kh.product_id);
+                    var info_course_time = new ElementVariationProvider().getByProductVariationId(info_course.product_variation_id).FirstOrDefault();
+                    <div class="col-lg-4 col-md-5 col-sm-6 mt-20">
+                        <div class="card course-card shadow">
+                            <a href="/courses/@kh.seo_alias"><img class="card-img-top" src="@urlCMS/@kh.product_image" alt="@kh.alt_image"></a>
+                            <div class="card-body p-30">
+                                <h5 class="font-weight-700"><a href="/courses/@kh.seo_alias" class="text-blue">@kh.product_name</a></h5>
+                                <p class="mt-2">
+                                    <span>
+                                        <i class="fa fa-clock"></i>&nbsp;
+                                        @if (info_course_time != null)
+                                        {
+                                            <strong>Thời gian:</strong> @info_course_time.element_variation_name
+                                        }
+                                    </span>
+                                    <br>
+                                    <span><i class="fa fa-user"></i>&nbsp; <strong>Số lượng học viên:</strong> @info_course.product_variation_in_stock</span><br>
+                                    <span><i class="fa fa-calendar"></i>&nbsp; <strong>Số lượng buổi học:</strong> @info_course.product_variation_code</span><br>
+                                </p>
+                            </div>
+                            <div class="px-30">
+                                <div class="card-footer px-0 bg-transparent mb-10 d-flex justify-content-between align-items-center">
+                                    <div class="rating text-primary">
+                                        <span class="font-weight-600">5.0</span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <a class="price h6" href="/courses/@kh.seo_alias">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- end of courses section -->
+
+}
+
+<!-- start of students says -->
+<section class="testi-section pb-75">
+    <div class="container">
+        <div class="gtco-testimonials">
+            <div class="div-section-title text-center">
+                <h2 class="section-title">Phụ huynh nghĩ về Eplus</h2>
+                <p>Cảm ơn các quý phụ huynh đã luôn quan tâm, tin tưởng <br /> và gửi gắm con em mình được đào tạo dưới môi trường giao dục của Eplus</p>
+            </div>
+            <div class="owl-carousel owl-carousel-testi owl-theme">
+                @foreach (var testi in list_testi)
+                {
+                    <div>
+                        <div class="card text-center">
+                            <img class="card-img-top" src="@urlCMS/@testi.cimage" alt="@testi.cimage_alt">
+                            <div class="card-body">
+                                <h5>
+                                    @testi.cname <br />
+                                    <span> @testi.cposition</span>
+                                </h5>
+                                <p class="card-text">
+                                    “ @testi.ccomment ”
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end of students says -->
+
+<section class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title">Các hoạt động tại EPlus</h2>
+            </div>
+        </div>
+        <div class="mb-10">
+            <div class="sub-header ">
+                <div class="swipe-tabs-2">
+                    <div class="swipe-tab-2">
+                        Các hoạt động <br /> Ngoại khóa
+                    </div>
+                    <div class="swipe-tab-2">
+                        Lịch học <br /> Tại trung tâm
+                    </div>
+                    <div class="swipe-tab-2">
+                        Không gian <br /> Tại EPlus
+                    </div>
+                    <div class="swipe-tab-2">
+                        Demo khóa học <br /> Tại Eplus
+                    </div>
+                </div>
+            </div>
+            <div class="main-container">
+                <div class="swipe-tabs-container-2">
+                    <div class="swipe-tab-content-2">
+                        <section class="banner-section">
+                            <div class="container">
+                                <div class="vehicle-detail-banner banner-content clearfix">
+                                    <div class="banner-slider">
+                                        <div class="slider slider-for">
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Car-Image">
+                                            </div>
+                                            <div class="slider-banner-image">
+                                                <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="Car-Image">
+                                            </div>
+                                        </div>
+                                        <div class="slider slider-nav thumb-image">
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570942872213-1242607a35eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1570171278960-d6c2b316f3b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail-image">
+                                                <div class="thumbImg">
+                                                    <img src="https://images.unsplash.com/photo-1564376130023-5360fbb7c91b?ixlib=rb-1.2.1&auto=format&fit=crop&w=724&q=80" alt="slider-img">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="swipe-tab-content-2">Tab 2</div>
+                    <div class="swipe-tab-content-2">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <p>
+                                    Chương trình giáo dục kỹ năng &amp; ứng dụng 7 tính cách thành công, được EPlus xây dựng và đào tạo giúp trẻ hướng tới thay đổi tư duy toàn diện từ bên trong, hình thành thói quen tốt, phát huy tiềm năng và xây dựng tinh thần lãnh đạo bản thân.
+                                </p>
+                                <div class="mt-20 mb-20 text-center">
+                                    <a href="#!" class="btn btn-lg btn-secondary">Xem Chi Tiết</a>
+                                    <a href="#!" class="btn btn-lg btn-primary">Liên hệ</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="item-only-img">
+                                    <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913831_dsc02716-2.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swipe-tab-content-2">Tab 4</div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- start of blogs -->
+<section class="section-padding pt-0 blog-half-bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center pt-50">
+                <h2 class="section-title mb-20">Tin tức và Sự kiện</h2>
+            </div>
+            @foreach (var blog in list_newest_blog)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card blog-card shadow border-0 mt-40 hover-grayscale">
+                        <a href="#!"><img class="card-img-top" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                        <div class="card-body border-top p-30">
+                            <div class="post-meta font-weight-500 small mb-20">
+                                <span class="mr-4"><i class="far fa-calendar-alt text-primary mr-2"></i> @blog.create_datetime.Value.ToString("dd/MM/yyyy");</span>
+                                <span><i class="fas fa-user text-primary mr-2"></i> @blog.user.username</span>
+                            </div>
+                            <h5 class="blog_title font-weight-600"><a href="/blogs/@blog.blog_seo_alias" class="text-blue">@blog.blog_title</a></h5>
+                            <p class="blog_summury">@blog.blog_summary</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- end of blogs -->

@@ -1,0 +1,407 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_kh = new CategoryProvider().getListCategoryAreShowing();
+
+    var list_bg = new ProductProvider().getByCategoryIdOnSite(59);
+    var list_tl = new ProductProvider().getByCategoryIdOnSite(60);
+}
+
+<!-- ============================ Hero Banner  Start================================== -->
+<div class="slideshow">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img class="swiper-slide" src="~/Assets/common-img/slide.jpg" />
+        </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+<!-- ============================ Hero Banner End ================================== -->
+<div class="rowpage01"></div>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="sec-heading center sec-heading-custom">
+                <h2>Học <span class="theme-cl">Quỳnh Boki</span> Thi là đỗ</h2>
+                <h4 class="subtitle">
+                    <strong class="count"><span data-countup="">1.200</span>+</strong>
+                    Học viên tham gia khoá học offline + online
+                    <br>
+                    <strong class="count"><span data-countup="">850</span>+</strong>
+                    Học viên đã có thể làm việc
+                </h4>
+            </div>
+            <div class="paper">
+                <img src="~/Assets/img/paper.png" />
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ============================ Featured Courses Start ================================== -->
+<section class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Danh sách <span class="theme-cl">Khóa học & Tài Liệu</span></h2>
+                    <h4 class="subtitle">
+                        Chương trình học với
+                        <strong class="count"><span>100</span>+</strong> bài giảng
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Cource Grid 1 -->
+            @foreach (var bg in list_bg)
+            {
+                var _info = new ProductVariationProvider().get1ByProductId(bg.product_id);
+                var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="education_block_grid style_2">
+
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/courses/@bg.seo_alias"><img src="@urlCMS/@bg.product_image" class="img-fluid" alt="@bg.alt_image"></a>
+                        </div>
+
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/@bg.seo_alias">@bg.product_name</a></h4>
+                        </div>
+
+                        <div class="cources_facts">
+                            <ul class="cources_facts_list">
+                                @if ((DateTime.Now - bg.show_datetime).Value.Days <= 30)
+                                {
+                                    <li class="facts-1">Mới nhất</li>
+                                }
+                                @if (bg.price > 0)
+                                {
+                                    <li class="facts-2">Khuyến mãi</li>
+                                }
+                                <li class="facts-5">Xu hướng</li>
+                            </ul>
+                        </div>
+                        <div class="cources_info">
+                            <div class="cources_info_first">
+                                <ul>
+                                    <li><strong>Số lượng bài giảng</strong></li>
+                                    <li class="theme-cl">20 Video</li>
+                                </ul>
+                            </div>
+                            <div class="cources_info_last text-right">
+                                <h3><span class="showNumeric">@bg.promotion_price</span></h3>
+                                <h6><del class="gray showNumeric">@bg.price</del></h6>
+                            </div>
+                        </div>
+
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                <h5><a>@_ev.element_variation_name</a></h5>
+                            </div>
+                            <a href="/courses/@bg.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <div class="arrow_slide three_slide-dots arrow_middle">
+
+                    @foreach (var tl in list_tl)
+                    {
+                        <!-- Single Slide -->
+                        <div class="singles_items">
+                            <div class="edu_cat">
+                                <div class="pic">
+                                    <a class="pic-main" href="/documents/@tl.seo_alias" style="background-image:url('@urlCMS/@tl.product_image');"></a>
+                                </div>
+                                <div class="edu_data">
+                                    <h4 class="title"><a href="/documents/@tl.seo_alias">Finance & Accounting</a></h4>
+                                    <ul class="meta">
+                                        <li class="video"><i class="ti-video-clapper"></i>23 Videos</li>
+                                        <li class="lessions"><i class="ti-book"></i>54 Lessions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="text-center">
+                    <a href="#" class="btn btn-theme btn-browse-btn">Xem Thêm Tài Liệu & Khóa Học</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Featured Courses End ================================== -->
+<!-- ========================== About Facts List Section =============================== -->
+<section class="team-block">
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap">
+                    <div class="row justify-content-center">
+                        <div class="sec-heading">
+                            <h2>Đội ngũ <span class="theme-cl">Giảng viên</span> tại Quỳnh Boki</h2>
+                            <h4 class="subtitle">
+                                Đội ngũ giáo viên có trình độ <strong class="count"><span>N2-N1</span></strong> và kinh nghiệm là những nhân tố quan trọng trong việc tạo nên sự thành công trong chất lượng đào tạo tại Quỳnh Boki.
+                            </h4>
+                            <div class="text-left">
+                                <a href="#" class="btn btn-theme btn-browse-btn">Xem Thêm</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap_img">
+                    <div class="col-item col-images">
+                        <img class="col-images-team01" src="~/Assets/common-img/team01.png">
+                        <img class="col-images-team02" src="~/Assets/common-img/team02.png">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ========================== About Facts List Section =============================== -->
+<!-- ========================== Featured Courses Section =============================== -->
+<section class="gray">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Tin tức và sự kiện</h2>
+                    <h4 class="subtitle">
+                        Bài viết mới nhất của <strong><span class="theme-cl">Quỳnh Boki</span></strong>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+
+                <div class="arrow_slide three_slide-dots arrow_middle">
+
+                    <!-- Single Slide -->
+                    <div class="singles_items">
+                        <div class="education_block_grid style_2">
+
+                            <div class="education_block_thumb">
+                                <a href="course-detail.html"><img src="../Assets/img/course-3.jpg" class="img-fluid" alt=""></a>
+                            </div>
+
+                            <div class="education_block_body">
+                                <h4 class="bl-title"><a href="course-detail.html">An Entire MBA In 1 Course:Award Winning Business School Prof</a></h4>
+                            </div>
+
+                            <div class="education_block_footer">
+                                <p>An Entire MBA In 1 Course:Award Winning Business School Prof</p>
+                            </div>
+                            <div class="education_block_footer">
+                                <div class="education_block_author">
+                                    <div class="path-img"><a href="instructor-detail.html" tabindex="0"><img src="../Assets/img/user-1.jpg" class="img-fluid" alt=""></a></div>
+                                    <h5><a href="instructor-detail.html" tabindex="0">Dhananjay Preet</a></h5>
+                                </div>
+                                <a href="#">Đọc Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Slide -->
+                    <div class="singles_items">
+                        <div class="education_block_grid style_2">
+
+                            <div class="education_block_thumb">
+                                <a href="course-detail.html"><img src="../Assets/img/course-3.jpg" class="img-fluid" alt=""></a>
+                            </div>
+
+                            <div class="education_block_body">
+                                <h4 class="bl-title"><a href="course-detail.html">An Entire MBA In 1 Course:Award Winning Business School Prof</a></h4>
+                            </div>
+
+                            <div class="education_block_footer">
+                                <p>An Entire MBA In 1 Course:Award Winning Business School Prof</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Single Slide -->
+                    <div class="singles_items">
+                        <div class="education_block_grid style_2">
+
+                            <div class="education_block_thumb">
+                                <a href="course-detail.html"><img src="../Assets/img/course-3.jpg" class="img-fluid" alt=""></a>
+                            </div>
+
+                            <div class="education_block_body">
+                                <h4 class="bl-title"><a href="course-detail.html">An Entire MBA In 1 Course:Award Winning Business School Prof</a></h4>
+                            </div>
+
+                            <div class="education_block_footer">
+                                <p>An Entire MBA In 1 Course:Award Winning Business School Prof</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Single Slide -->
+                    <div class="singles_items">
+                        <div class="education_block_grid style_2">
+
+                            <div class="education_block_thumb">
+                                <a href="course-detail.html"><img src="../Assets/img/course-3.jpg" class="img-fluid" alt=""></a>
+                            </div>
+
+                            <div class="education_block_body">
+                                <h4 class="bl-title"><a href="course-detail.html">An Entire MBA In 1 Course:Award Winning Business School Prof</a></h4>
+                            </div>
+
+                            <div class="education_block_footer">
+                                <p>An Entire MBA In 1 Course:Award Winning Business School Prof</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ========================== Featured Courses Section =============================== -->
+<!-- ============================ Testimonial Start ================================== -->
+<section style="background:url(../Assets/img/testimonial.png)">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Học viên nghĩ gì?</h2>
+                    <h4 class="subtitle">
+                        Cảm nhận của học viên về
+                        <strong class="count"><span>Quỳnh Boki</span></strong>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="testimonials_style" class="slick-carousel-3 arrow_middle">
+                    <div class="testimonial-detail">
+                        <div class="client-detail-box">
+                            <div class="pic">
+                                <img src="../Assets/img/user-1.jpg" alt="">
+                            </div>
+                            <div class="client-detail">
+                                <h3 class="testimonial-title">Adam Alloriam</h3>
+                                <span class="post">Web Developer</span>
+                            </div>
+                        </div>
+                        <p class="description">
+                            " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam eligendi facilis itaque minus non odio, quaerat ullam unde  unde voluptatum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi. "
+                        </p>
+                    </div>
+
+                    <div class="testimonial-detail">
+                        <div class="client-detail-box">
+                            <div class="pic">
+                                <img src="../Assets/img/user-2.jpg" alt="">
+                            </div>
+                            <div class="client-detail">
+                                <h3 class="testimonial-title">Illa Millia</h3>
+                                <span class="post">Project Manager</span>
+                            </div>
+                        </div>
+                        <p class="description">
+                            " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum eligendi facilis itaque minus non odio, quaerat ullam unde  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi."
+                        </p>
+                    </div>
+
+                    <div class="testimonial-detail">
+                        <div class="client-detail-box">
+                            <div class="pic">
+                                <img src="../Assets/img/user-3.jpg" alt="">
+                            </div>
+                            <div class="client-detail">
+                                <h3 class="testimonial-title">Rout Millance</h3>
+                                <span class="post">Web Designer</span>
+                            </div>
+                        </div>
+                        <p class="description">
+                            " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi."
+                        </p>
+                    </div>
+
+                    <div class="testimonial-detail">
+                        <div class="client-detail-box">
+                            <div class="pic">
+                                <img src="../Assets/img/user-4.jpg" alt="">
+                            </div>
+                            <div class="client-detail">
+                                <h3 class="testimonial-title">williamson</h3>
+                                <span class="post">Web Developer</span>
+                            </div>
+                        </div>
+                        <p class="description">
+                            " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum eligendi facilis itaque minus non odio, quaerat ullam unde ? "
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Testimonial End ================================== -->
+<!-- ============================== Start Newsletter ================================== -->
+<section class="newsletter theme-bg inverse-theme">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8 col-sm-12">
+                <div class="text-center">
+                    <h2>Join Thousand of Happy Students!</h2>
+                    <p>Subscribe our newsletter & get latest news and updation!</p>
+                    <form class="sup-form">
+                        <input type="email" class="form-control sigmup-me" placeholder="Your Email Address" required="required">
+                        <input type="submit" class="btn btn-theme" value="Get Started">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================================= End Newsletter =============================== -->

@@ -1,0 +1,413 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var info_course = new ProductVariationProvider().get1ByProductId(Model.product_id);
+    var info_course_time = new ElementVariationProvider().getByProductVariationId(info_course.product_variation_id).FirstOrDefault();
+}
+
+<section class="page-header bg-cover" style="background-image: url('@urlCMS/@Model.product_image')"></section>
+<section class="pt-30">
+    <div class="container">
+        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng: @Model.product_name</h2>
+        <div class="row justify-content-center mt-30">
+            <div class="col-lg-6">
+                <div class="p-30 mb-35 bg-white shadow rounded">
+                    <h3 href="#!" class="h3 text-blue font-weight-600">Thông tin khóa học</h3>
+                    <div class="card-content border-top mt-30">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-clock text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Thời gian học</h5>
+                                        @if (info_course_time != null)
+                                        {
+                                            <p>@info_course_time.element_variation_name</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="far fa-calendar-alt text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng buổi học</h5>
+                                        <p>@info_course.product_variation_code</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-book-reader text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Số lượng học viên</h5>
+                                        <p>@info_course.product_variation_in_stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="media mt-20 align-items-center">
+                                    <i class="fas fa-hand-holding-usd text-primary fa-2x"></i>
+                                    <div class="ml-3">
+                                        <h5 class="font-weight-600 text-blue course_detail_subject">Giá khóa học</h5>
+                                        <p class="showNumeric">@info_course.product_variation_price</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-30 text-center">
+                                <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="box-content">
+                    <p>@Html.Raw(Model.description)</p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="box-content">
+                    <p>@Html.Raw(Model.content)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-gray">
+    <div class="container">
+        <div class="loi-ich pt-30 pb-30">
+            <div class="container my-5">
+                <div id="steps">
+                    <div class="text-center mb-5">
+                        <h2 class="text-center text-blue font-weight-700">Sau khóa học bạn nhận được gì?</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white position-relative px-3">
+                                <div class="number-loi-ich font-weight-bold circle text-white rounded-circle d-flex align-items-center justify-content-center mx-auto position-relative border border-white">
+                                    1
+                                </div>
+                                <div class="px-3 text-center pb-3">
+                                    <img src="http://static.ielts-fighter.com/uploads/2017/Pre%20111/Pre111.jpg" alt="num-1" />
+                                    <h4>Nắm vững kiến thức căn bản</h4>
+                                    <p class="font-weight-light">
+                                        Quét trọn từ vựng của 12 chuyên đề từ vựng bài thi THPTQG kèm bài tập, bài đọc hiểu, cụm từ, ngữ cảnh giúp các em học sinh học dễ nhớ, dễ áp dụng hơn. Học hết lượng từ vựng trong cuốn sách này là đủ để làm bài thi THPTQG và bạn sẽ không cần học ở đâu nữa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-30 text-center">
+                        <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="loi-ich pt-30 pb-30">
+            <div class="container my-5">
+                <div id="steps">
+                    <div class="text-center">
+                        <h2 class="text-center text-blue font-weight-700">Khóa học dành cho đối tượng nào?</h2>
+                    </div>
+                    <div class="row mb-10">
+                        <div class="col-md-4">
+                            <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                                <i class="fa fa-briefcase fa-2x text-primary"></i>
+                                <div class="ml-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="font-weight-600 mb-1">1. Là học sinh</h4>
+                                    <p>Các bạn đang học tại các trường Trung học phổ thông.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                                <i class="fa fa-graduation-cap fa-2x text-primary"></i>
+                                <div class="ml-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="font-weight-600 mb-1">2. Là giảng viên THPT</h4>
+                                    <p>Những bạn đang có nhu cầu làm giáo viên bộ môn Anh ngữ.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                                <i class="fa fa-book fa-2x text-primary"></i>
+                                <div class="ml-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="font-weight-600 mb-1">3. Là người thi đại học</h4>
+                                    <p>Những bạn đang chuẩn bị bước chân vào kỳ thi đại học.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-30 text-center">
+                        <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="home-six rs-services style7 p-60" style="background:url('../Assets/images/banner/bg-feature.jpg') no-repeat center">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="text-center text-blue font-weight-700">Nội dung khóa học</h2>
+            </div>
+            <div class="row gutter-16 mt-8 mb-8">
+                <div class="col-lg-3 col-sm-6 md-mb-16">
+                    <div class="services-wrap">
+                        <div class="icon-part">
+                            <img src="~/Assets/images/icon/icon-an-toan.png" />
+                        </div>
+                        <div class="content-part">
+                            <h4 class="title"><a href="#">Giáo trình sử dụng</a></h4>
+                            <p class="desc">• Nhiệm vụ và vai trò của Marketing trong quy trình kinh doanh.&nbsp;&nbsp;<br style="color: rgb(66, 66, 66);">• Nắm bắt bản chất của Marketing thông qua nghiên cứu và phân tích thị trường 3C (Consumer, Competitor, Company)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 md-mb-16">
+                    <div class="services-wrap">
+                        <div class="icon-part">
+                            <img src="~/Assets/images/icon/icon-uy-tin.png" />
+                        </div>
+                        <div class="content-part">
+                            <h4 class="title"><a href="#">Phương pháp đào tạo</a></h4>
+                            <p class="desc">• Nhiệm vụ và vai trò của Marketing trong quy trình kinh doanh.&nbsp;&nbsp;<br style="color: rgb(66, 66, 66);">• Nắm bắt bản chất của Marketing thông qua nghiên cứu và phân tích thị trường 3C (Consumer, Competitor, Company)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 xs-mb-16">
+                    <div class="services-wrap">
+                        <div class="icon-part">
+                            <img src="~/Assets/images/icon/icon-chat-luong.png" />
+                        </div>
+                        <div class="content-part">
+                            <h4 class="title"><a href="#">Hoạt động ngoại khóa</a></h4>
+                            <p class="desc">• Nhiệm vụ và vai trò của Marketing trong quy trình kinh doanh.&nbsp;&nbsp;<br style="color: rgb(66, 66, 66);">• Nắm bắt bản chất của Marketing thông qua nghiên cứu và phân tích thị trường 3C (Consumer, Competitor, Company)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="services-wrap">
+                        <div class="icon-part">
+                            <img src="~/Assets/images/icon/icon-toc-do.png" />
+                        </div>
+                        <div class="content-part">
+                            <h4 class="title"><a href="#">Chương trình đào tạo</a></h4>
+                            <p class="desc">• Nhiệm vụ và vai trò của Marketing trong quy trình kinh doanh.&nbsp;&nbsp;<br style="color: rgb(66, 66, 66);">• Nắm bắt bản chất của Marketing thông qua nghiên cứu và phân tích thị trường 3C (Consumer, Competitor, Company)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mt-30 text-center">
+                <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-30">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="text-center text-blue font-weight-700">Đội ngũ giáo viên và trợ giảng</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-20">
+                <div class="card instructors-item border-0">
+                    <div class="position-relative">
+                        <img src="../Assets/images/instructors/02.jpg" alt="" class="card-img-top">
+                        <div class="instructor-social text-center">
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#!" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <h4 class="font-weight-600 text-blue mb-1">Jesmin Walkaer</h4>
+                        <p>Pittsburgh, USA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mt-30 text-center">
+            <a href="#!" class="btn bg-blue text-white rounded-pill">Đăng ký ngay</a>
+        </div>
+    </div>
+</section>
+
+<section class="bg-gray">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="text-center text-blue font-weight-700">Đội ngũ giáo viên và trợ giảng</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                @Html.Raw(Model.content_2)
+            </div>
+            <div class="col-lg-6">
+                @Html.Raw(Model.content_3)
+            </div>
+        </div>
+    </div>
+</section>

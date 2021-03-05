@@ -245,6 +245,12 @@ h4.dlab-tilte {
     text-transform: uppercase;
 }
 
+@media only screen and (min-width: 992px) {
+    .header-nav .nav > li {
+        margin: 18px 0;
+    }
+}
+
 @media only screen and (max-width: 991px) {
     .header-nav .nav > li > a i {
         background-color: transparent;
@@ -596,6 +602,10 @@ svg:not(:root) {
 
     .header-transparent .nav > li > a {
         color: #fff;
+    }
+
+    .header-transparent .nav > li > a:hover {
+        color: #ffe918;
     }
 }
 

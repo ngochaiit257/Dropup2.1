@@ -35,7 +35,7 @@
 </div>
 <!-- end row -->
 <div class="row">
-    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
         <div class="card card-statistics" id="div_product_info">
             <div class="card-header">
                 <div class="card-heading">
@@ -81,10 +81,13 @@
                         <a class="text-primary" href="javascript:void(0)" id="add_sort_description"><i class="fa fa-pencil-square"></i>&nbsp; Thêm Mô Tả Ngắn</a>
                         <div class="form-group hidden_element" id="body_of_sort_description">
                             <label class="control-label" for="product_description">Mô tả ngắn</label>
-                            <div id="editor" style="height:100px;">
+                            @*<div id="editor" style="height:100px;">
 
+                                </div>
+                                <div id="counter"></div>*@
+                            <div class="mb-2">
+                                <div id="summernoteDescription" class="summernote"></div>
                             </div>
-                            <div id="counter"></div>
                         </div>
                     </form>
                 </div>
@@ -375,7 +378,7 @@
                             <a href="javascript:void(0);" class="btn btn-primary" onclick="openModalSelectListProductVariation()">Tạo Combo</a>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="card-body selects-contant-boots">
@@ -899,6 +902,7 @@
                 ['view', ['fullscreen', 'codeview']],
                 ['help', ['help']],
             ],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '36', '48', '64', '82', '150'],
             callbacks: {
                 onKeyup: function (e) {
                     form_has_changed = true;
@@ -929,7 +933,7 @@
             }
         });
 
-        $('#summernote2').summernote({
+        $('#summernote2,#summernote3,#summernoteDescription').summernote({
             followingToolbar: false,
             height: 245,
             toolbar: [
@@ -950,41 +954,18 @@
                 ['subscript', ['subscript']],
                 ['view', ['fullscreen', 'codeview']],
                 ['help', ['help']],
-            ]
-        });
-
-        $('#summernote3').summernote({
-            followingToolbar: false,
-            height: 245,
-            toolbar: [
-                ['undo', ['undo',]],
-                ['redo', ['redo',]],
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['fontsize', ['fontsize']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['table', ['bootstrap-grid']],
-                ['strikethrough', ['strikethrough']],
-                ['superscript', ['superscript']],
-                ['subscript', ['subscript']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']],
-            ]
+            ],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '36', '48', '64', '82', '150'],
         });
 
         //QUILL EDITOR
-        var quill = new Quill('#editor', {
-            modules: {
-                toolbar: toolbarOptions
-            },
-            placeholder: 'Nhập mô tả ngắn không quá 500 ký tự...',
-            theme: 'snow'
-        });
+        //var quill = new Quill('#editor', {
+        //    modules: {
+        //        toolbar: toolbarOptions
+        //    },
+        //    placeholder: 'Nhập mô tả ngắn không quá 500 ký tự...',
+        //    theme: 'snow'
+        //});
 
         $("#tag_property_1").tagsinput({
             confirmKeys: [13, 44, 47]
@@ -1686,7 +1667,7 @@
     }
 
     function insertProduct() {
-        var quill = new Quill('#editor');
+        //var quill = new Quill('#editor');
         var myDropzone = $('#my-awesome-dropzone').get(0).dropzone.getAcceptedFiles();;
         var fileData = new FormData();
         var fileUpload = $("#file").get(0);
@@ -1713,12 +1694,12 @@
             $("#product_price_promotion").addClass('is-invalid');
             $("#product_rent_cost_promotion").addClass('is-invalid');
         }
-        else if (quill.getLength() > 500) {
-            $('html, body').animate({
-                scrollTop: $("#editor").offset().top
-            }, 600);
-            showToast("error", "Mô tả ngắn của sản phẩm không được phép vượt quá <strong>500 ký tự</strong>", "Lỗi nhập mô tả ngắn vượt quá 500 ký tự");
-        }
+        //else if (quill.getLength() > 500) {
+        //    $('html, body').animate({
+        //        scrollTop: $("#editor").offset().top
+        //    }, 600);
+        //    showToast("error", "Mô tả ngắn của sản phẩm không được phép vượt quá <strong>500 ký tự</strong>", "Lỗi nhập mô tả ngắn vượt quá 500 ký tự");
+        //}
         else {
             $("#product_name_feedback").css('display', 'none');
             $("#product_name").removeClass('is-invalid');
@@ -1834,7 +1815,8 @@
             fileData.append("content", $('#summernote').summernote('code'));
             fileData.append("content_2", $('#summernote2').summernote('code'));
             fileData.append("content_3", $('#summernote3').summernote('code'));
-            fileData.append("description", quill.root.innerHTML);
+            fileData.append("description", $('#summernoteDescription').summernote('code'));
+            //fileData.append("description", quill.root.innerHTML);
             fileData.append("supplier_id", $("#select_supplier_for_product").val());
 
             fileData.append("seo_alias", $("#seo_alias").val().trim());
@@ -1967,7 +1949,7 @@
     }
 
     function cancelSelectListProductVariationForCoupon() {
-        
+
     }
 
     $('#select_filter_product_variation').on('change', function () {

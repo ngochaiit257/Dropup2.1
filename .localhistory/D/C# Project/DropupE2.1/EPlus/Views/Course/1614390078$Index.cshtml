@@ -1,0 +1,82 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Danh sách các chương trình đào tạo tại EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+}
+
+<!-- start of page-header -->
+<section class="py-80 bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title font-weight-bold mb-20">Chương trình đào tạo</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item active" aria-current="page"><a class="text-primary" href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item">Chương trình đào tạo</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of page-header -->
+
+@if (list_khoa_hoc.Count > 0)
+{
+    <!-- start of courses section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                @foreach (var kh in list_khoa_hoc)
+                {
+                    var info_course = new ProductVariationProvider().get1ByProductId(kh.product_id);
+                    var info_course_time = new ElementVariationProvider().getByProductVariationId(info_course.product_variation_id).FirstOrDefault();
+                    <div class="col-lg-4 col-md-5 col-sm-6 mt-20">
+                        <div class="card course-card shadow">
+                            <a href="/courses/@kh.seo_alias"><img class="card-img-top" src="@urlCMS/@kh.product_image" alt="@kh.alt_image"></a>
+                            <div class="card-body p-30">
+                                <h5 class="font-weight-700"><a href="/courses/@kh.seo_alias" class="text-blue">@kh.product_name</a></h5>
+                                <p class="mt-2">
+                                    <span>
+                                        <i class="fa fa-clock"></i>&nbsp;
+                                        @if (info_course_time != null)
+                                        {
+                                            <strong>Thời gian:</strong> @info_course_time.element_variation_name
+                                        }
+                                    </span>
+                                    <br>
+                                    <span><i class="fa fa-user"></i>&nbsp; <strong>Số lượng học viên:</strong> @info_course.product_variation_in_stock</span><br>
+                                    <span><i class="fa fa-calendar"></i>&nbsp; <strong>Số lượng buổi học:</strong> @info_course.product_variation_code</span><br>
+                                </p>
+                            </div>
+                            <div class="px-30">
+                                <div class="card-footer px-0 bg-transparent mb-10 d-flex justify-content-between align-items-center">
+                                    <div class="rating text-primary">
+                                        <span class="font-weight-600">5.0</span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <a class="price h6" href="/courses/@kh.seo_alias">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- end of courses section -->
+
+}

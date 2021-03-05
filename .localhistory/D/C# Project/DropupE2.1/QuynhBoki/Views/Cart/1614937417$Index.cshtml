@@ -1,0 +1,12 @@
+﻿@using Data;
+@using Data.Providers;
+@using ElysienVietNam.Models;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Title = "Giỏ hàng Quỳnh Boki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}

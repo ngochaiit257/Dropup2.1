@@ -1,0 +1,53 @@
+﻿:root {
+    --color: #ed1b24;
+    --gradient: linear-gradient(to right,#ffee36 0,#e83f3a 100%);
+}
+
+section {
+    padding: 40px 0;
+    position: relative;
+}
+
+.cart-icon a{
+    color: #ff4b00 !important;
+}
+
+.cart-icon .num-cart {
+    font-size: 14px;
+}
+
+.nav-menu > li > a {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+.theme-cl{
+    color: var(--color);
+}
+
+.subtitle strong {
+    font-weight: 700;
+    color: var(--color);
+}
+
+.alert.alert_top {
+    background: var(--color);
+}
+
+.alert_caption {
+    color: #ffee36;
+}
+
+.alert_rate i.filled {
+    color: #ffee36;
+}
+
+.paper img{
+    width: 100%;
+}

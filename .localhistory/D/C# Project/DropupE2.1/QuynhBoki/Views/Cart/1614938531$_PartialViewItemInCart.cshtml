@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ProductVariationModel>
+@using QuynhBoki.Models;
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+}
+
+<div class="row">
+    <div class="col-lg-8 col-md-12">
+
+        <div class="table-responsive">
+            <table class="table add_to_cart">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pv in Model)
+                    {
+                        var product = new ProductProvider().getById(pv.product_id);
+                        <tr>
+                            <td><div class="tb_course_thumb"><img src="@urlCMS/@product.product_image" class="img-fluid" alt="@product.alt_image" /></div></td>
+                            <th>@product.product_name</th>
+                            <td><span class="wish_price theme-cl">@product.promotion_price</span></td>
+                            <td class="product-quantity">
+                                <div class="cart-plus-minus">
+                                    <div class="dec qtybutton" onclick="decreaseQuantity('@pv.product_variation_id')">-</div>
+                                    <input id="Quantity_@pv.product_variation_id" class="cart-plus-minus-box quantity_input" min="1" max="100000" type="text" name="qtybutton" value="@pv.quantity_in_cart" />
+                                    <div class="inc qtybutton" onclick="increaseQuantity('@pv.product_variation_id')">+</div>
+                                </div>
+                            </td>
+                            <td><a href="#" class="btn btn-remove">Remove</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <!-- Total Cart -->
+        <div class="cart_totals checkout">
+            <h4>Hóa đơn</h4>
+            <div class="cart-wrap">
+                <ul class="cart_list">
+                    <li>Base price<strong>$140.00</strong></li>
+                    <li>Discount<strong>$10.00</strong></li>
+                    <li>CGST<strong>$10.00</strong></li>
+                    <li>SGST<strong>$10.00</strong></li>
+                </ul>
+                <div class="flex_cart">
+                    <div class="flex_cart_1">
+                        Total Cost
+                    </div>
+                    <div class="flex_cart_2">
+                        $170.00
+                    </div>
+                </div>
+                <button type="button" class="btn checkout_btn">Proceed To Checkout</button>
+            </div>
+        </div>
+    </div>
+
+</div>
