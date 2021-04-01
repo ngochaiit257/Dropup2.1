@@ -1,0 +1,93 @@
+﻿@using Data;
+@using Data.Providers;
+@using QuynhBoki.Models;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Title = "Giỏ hàng Quỳnh Boki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title image-cover ed_detail_head lg theme-ov" data-overlay="8">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">Giỏ hàng của bạn</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->
+<!-- ============================ Add To cart ================================== -->
+<section class="pt-0">
+    <div class="container">
+        <div class="container">
+            <div class="show_when_cart_empty" style="display:none">
+                <div class="cart-empty-content text-center" style="margin-top: 100px;">
+                    <h3 class="text-uppercase">Giỏ hàng trống.</h3>
+                    <p>Tiếp tục mua hàng, <a href="/" class="text-info">nhấn vào đây</a>.</p>
+                </div>
+            </div>
+            <div id="data_table" style="margin-top: 50px">
+
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!-- ============================ Add To cart End ================================== -->
+
+<script>
+    $(document).ready(function () {
+        loadCart();
+    });
+
+    function loadCart() {
+        if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+            $('.show_when_cart_empty').css({ display: 'block' });
+            $('#data_table').empty();
+        } else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+            var list_in_cart = [];
+            $.each(list_product_variation_in_cart, function (index, value) {
+                var obj = {};
+                obj.id = value.id;
+                obj.quantity = value.quantity;
+                list_in_cart.push(obj);
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetAllInCart",
+                data: {
+                    list_in_cart: list_in_cart,
+                },
+                context: document.body,
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html(data);
+                },
+                error: function (xhr) {
+                    console.log('Error')
+                }
+            });
+        }
+        getNumOfItemInCart();
+    }
+
+    
+</script>
+

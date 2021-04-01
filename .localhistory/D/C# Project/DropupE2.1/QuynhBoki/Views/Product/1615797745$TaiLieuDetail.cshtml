@@ -1,0 +1,710 @@
+﻿@model Data.product
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    int i = 0;
+    int dataTriger = 0;
+
+    var list_product_variation = new ProductVariationProvider().getByProductId(Model.product_id);
+    int sumNumberInstock = new ProductVariationProvider().getSumNumberByProductId(Model.product_id);
+    long product_variation_selected_start = 0;
+    if (list_product_variation.Count() == 1)
+    {
+        product_variation_selected_start = new ProductVariationProvider().get1ByProductId(Model.product_id).product_variation_id;
+    }
+
+    var list_product_related = new ProductProvider().getListRelatedByProductId(Model.product_id).Take(8).ToList();
+
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var category_parent = new category();
+    var category_child_1 = new category();
+    var category_child_2 = new CategoryProvider().getByProductId(Model.product_id).FirstOrDefault();
+
+    if (category_child_2 != null && category_child_2.category_parent_id > 0)
+    {
+        category_child_1 = new CategoryProvider().getByCategoryId((long)category_child_2.category_parent_id);
+    }
+
+    if (category_child_1 != null && category_child_1.category_parent_id > 0)
+    {
+        category_parent = new CategoryProvider().getByCategoryId((long)category_child_1.category_parent_id);
+    }
+
+    var bai_giang = new ComboProductProvider().getByProductId(Model.product_id).FirstOrDefault();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_related = new ProductProvider().getListRelatedByProductId(Model.product_id);
+
+    ViewBag.Title = Model.product_name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_tag = new TagProvider().getByProductId(Model.product_id);
+    var meta_keyword = "";
+    if (list_tag.Count > 0)
+    {
+        foreach (var tag in list_tag)
+        {
+            meta_keyword += tag.tag_name + ", ";
+        }
+    }
+
+    var _info = new ProductVariationProvider().get1ByProductId(Model.product_id);
+    var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+
+    ViewBag.Keywords = meta_keyword + Model.seo_header;
+    ViewBag.Description = Model.seo_description;
+    ViewBag.Canonical = urlSite + "/" + Model.seo_alias;
+    ViewBag.Alternate = urlSite + "/" + Model.seo_alias;
+    ViewBag.Url = urlSite + "/" + Model.seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.product_image;
+}
+
+
+<!-- ============================ Course Header Info Start================================== -->
+<div class="image-cover ed_detail_head lg theme-ov" style="background:#f4f4f4 url(../Assets/img/banner-2.jpg);" data-overlay="8">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-7 col-md-9">
+                <div class="ed_detail_wrap light">
+                    <ul class="cources_facts_list">
+                        <li class="facts-2">Trang chủ</li>
+                        @if (category_parent != null && category_parent.category_id > 0)
+                        {
+                            <li class="facts-2">@category_parent.category_name</li>
+                        }
+
+                        @if (category_child_1 != null && category_child_1.category_id > 0)
+                        {
+                            <li class="facts-3">@category_child_1.category_name</li>
+                        }
+
+                        @if (category_child_2 != null && category_child_2.category_id > 0)
+                        {
+                            <li class="facts-4">@category_child_2.category_name</li>
+                        }
+                        <li class="facts-5">@Model.product_name</li>
+                    </ul>
+                    <div class="ed_header_caption">
+                        <h2 class="ed_title">@Model.product_name</h2>
+                        <ul>
+                            <li><i class="ti-control-forward"></i>@_info.product_variation_in_stock Lesson</li>
+                        </ul>
+                    </div>
+
+                    <div class="ed_rate_info">
+                        <div class="star_info">
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                            <i class="fas fa-star filled"></i>
+                        </div>
+                        <div class="review_counter">
+                            <strong class="good">4.7</strong> (3120 Đánh giá)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================ Course Header Info End ================================== -->
+<!-- ============================ Course Detail ================================== -->
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-8">
+
+                <div class="inline_edu_wrap">
+                    <div class="inline_edu_first">
+                        <h4>@Model.product_name</h4>
+                        <ul class="edu_inline_info">
+                            <li><i class="ti-control-forward"></i>@_info.product_variation_in_stock Lesson</li>
+                        </ul>
+                    </div>
+                    <div class="inline_edu_last">
+                        <h4 class="edu_price showNumeric">@Model.promotion_price</h4>
+                        <a href="javascript:void(0)" onclick="addToCart('@product_variation_selected_start')" class="btn btn-theme enroll-btn">Mua Tài Liệu<i class="ti-angle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="property_video xl">
+                    <div class="thumb">
+                        <img class="pro_img img-fluid w100" src="@urlCMS/@Model.product_image" alt="@Model.alt_image">
+                    </div>
+
+                    <div class="instructor_over_info">
+                        <ul>
+                            <li>
+                                <div class="ins_info">
+                                    <div class="ins_info_thumb">
+                                        <img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt" />
+                                    </div>
+                                    <div class="ins_info_caption">
+                                        <span>Biên soạn</span>
+                                        <h4>@_ev.element_variation_name</h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Đánh giá</span>
+                                <div class="eds_rate">
+                                    4.8
+                                    <div class="eds_rating">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- All Info Show in Tab -->
+                <div class="tab_box_info mt-4">
+                    <ul class="nav nav-pills mb-3 light" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="overview-tab" data-toggle="pill" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Tổng quan khóa học</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="instructor-tab" data-toggle="pill" href="#instructor" role="tab" aria-controls="instructor" aria-selected="false">Thông tin giảng viên</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="reviews-tab" data-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Đánh giá</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+
+                        <!-- Overview Detail -->
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                            @Html.Raw(Model.content)
+                        </div>
+
+                        <!-- Instructor Detail -->
+                        <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
+                            @Html.Raw(Model.content_2)
+                        </div>
+
+                        <!-- Reviews Detail -->
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+
+                            <!-- Overall Reviews -->
+                            <div class="rating-overview">
+                                <div class="rating-overview-box">
+                                    <span class="rating-overview-box-total">4.8</span>
+                                    <span class="rating-overview-box-percent">trên 5.0</span>
+                                    <div class="star-rating" data-rating="5">
+                                        <i class="ti-star filled"></i>
+                                        <i class="ti-star filled"></i>
+                                        <i class="ti-star filled"></i>
+                                        <i class="ti-star filled"></i>
+                                        <i class="ti-star filled"></i>
+                                    </div>
+                                </div>
+
+                                <div class="rating-bars">
+                                    <div class="rating-bars-item">
+                                        <span class="rating-bars-name">5 Star</span>
+                                        <span class="rating-bars-inner">
+                                            <span class="rating-bars-rating high" data-rating="4.8">
+                                                <span class="rating-bars-rating-inner" style="width: 90%;"></span>
+                                            </span>
+                                            <strong>90%</strong>
+                                        </span>
+                                    </div>
+                                    <div class="rating-bars-item">
+                                        <span class="rating-bars-name">4 Star</span>
+                                        <span class="rating-bars-inner">
+                                            <span class="rating-bars-rating good" data-rating="4.2">
+                                                <span class="rating-bars-rating-inner" style="width: 10%;"></span>
+                                            </span>
+                                            <strong>10%</strong>
+                                        </span>
+                                    </div>
+                                    <div class="rating-bars-item">
+                                        <span class="rating-bars-name">3 Star</span>
+                                        <span class="rating-bars-inner">
+                                            <span class="rating-bars-rating mid" data-rating="3.2">
+                                                <span class="rating-bars-rating-inner" style="width: 0%;"></span>
+                                            </span>
+                                            <strong>0%</strong>
+                                        </span>
+                                    </div>
+                                    <div class="rating-bars-item">
+                                        <span class="rating-bars-name">1 Star</span>
+                                        <span class="rating-bars-inner">
+                                            <span class="rating-bars-rating poor" data-rating="2.0">
+                                                <span class="rating-bars-rating-inner" style="width:0%;"></span>
+                                            </span>
+                                            <strong>0%</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reviews -->
+                            <div class="list-single-main-item fl-wrap">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Bình luận -  <span> 3 </span></h3>
+                                </div>
+                                <div class="reviews-comments-wrap">
+                                    <!-- reviews-comments-item -->
+                                    <div class="reviews-comments-item">
+                                        <div class="review-comments-avatar">
+                                            <img src="assets/img/user-1.jpg" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="reviews-comments-item-text">
+                                            <h4><a href="#">Josaph Manrty</a><span class="reviews-comments-item-date"><i class="ti-calendar theme-cl"></i>27 Oct 2019</span></h4>
+
+                                            <div class="listing-rating high" data-starrating2="5"><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><span class="review-count">4.9</span> </div>
+                                            <div class="clearfix"></div>
+                                            <p>" Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris. "</p>
+                                            <div class="pull-left reviews-reaction">
+                                                <a href="#" class="comment-like active"><i class="ti-thumb-up"></i> 12</a>
+                                                <a href="#" class="comment-dislike active"><i class="ti-thumb-down"></i> 1</a>
+                                                <a href="#" class="comment-love active"><i class="ti-heart"></i> 07</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--reviews-comments-item end-->
+                                    <!-- reviews-comments-item -->
+                                    <div class="reviews-comments-item">
+                                        <div class="review-comments-avatar">
+                                            <img src="assets/img/user-2.jpg" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="reviews-comments-item-text">
+                                            <h4><a href="#">Rita Chawla</a><span class="reviews-comments-item-date"><i class="ti-calendar theme-cl"></i>2 Nov May 2019</span></h4>
+
+                                            <div class="listing-rating mid" data-starrating2="5"><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star"></i><span class="review-count">3.7</span> </div>
+                                            <div class="clearfix"></div>
+                                            <p>" Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris. "</p>
+                                            <div class="pull-left reviews-reaction">
+                                                <a href="#" class="comment-like active"><i class="ti-thumb-up"></i> 12</a>
+                                                <a href="#" class="comment-dislike active"><i class="ti-thumb-down"></i> 1</a>
+                                                <a href="#" class="comment-love active"><i class="ti-heart"></i> 07</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--reviews-comments-item end-->
+                                    <!-- reviews-comments-item -->
+                                    <div class="reviews-comments-item">
+                                        <div class="review-comments-avatar">
+                                            <img src="assets/img/user-3.jpg" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="reviews-comments-item-text">
+                                            <h4><a href="#">Adam Wilsom</a><span class="reviews-comments-item-date"><i class="ti-calendar theme-cl"></i>10 Nov 2019</span></h4>
+
+                                            <div class="listing-rating good" data-starrating2="5"><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star active"></i><i class="ti-star"></i> <span class="review-count">4.2</span> </div>
+                                            <div class="clearfix"></div>
+                                            <p>" Commodo est luctus eget. Proin in nunc laoreet justo volutpat blandit enim. Sem felis, ullamcorper vel aliquam non, varius eget justo. Duis quis nunc tellus sollicitudin mauris. "</p>
+                                            <div class="pull-left reviews-reaction">
+                                                <a href="#" class="comment-like active"><i class="ti-thumb-up"></i> 12</a>
+                                                <a href="#" class="comment-dislike active"><i class="ti-thumb-down"></i> 1</a>
+                                                <a href="#" class="comment-love active"><i class="ti-heart"></i> 07</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--reviews-comments-item end-->
+
+                                </div>
+                            </div>
+
+                            <!-- Submit Reviews -->
+                            <div class="edu_wraper">
+                                <h4 class="edu_title">Để lại bình luận của bạn</h4>
+                                <div class="review-form-box form-submit">
+                                    <div class="fb-comments" data-href="@urlSite/documents/@Model.seo_alias" data-width="100%" data-numposts="10"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="sec-heading center">
+                                <h2>Có thể bạn quan tâm</h2>
+                                <h4 class="subtitle">
+                                    Khóa học hoặc Tài liệu
+                                    <strong class="count"><span>liên quan</span></strong>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Cource Grid 1 -->
+                        @foreach (var obj in list_product_related)
+                        {
+                            var _info_obj = new ProductVariationProvider().get1ByProductId(obj.product_id);
+                            var _ev_obj = new ElementVariationProvider().getByProductVariationId(_info_obj.product_variation_id).FirstOrDefault();
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="education_block_grid style_2">
+
+                                    <div class="education_block_thumb n-shadow">
+                                        <a href="/courses/@obj.seo_alias"><img src="@urlCMS/@obj.product_image" class="img-fluid" alt="@obj.alt_image"></a>
+                                    </div>
+
+                                    <div class="education_block_body">
+                                        <h4 class="bl-title"><a href="/courses/@obj.seo_alias">@obj.product_name</a></h4>
+                                    </div>
+
+                                    <div class="cources_facts">
+                                        <ul class="cources_facts_list">
+                                            @if ((DateTime.Now - obj.show_datetime).Value.Days <= 30)
+                                            {
+                                                <li class="facts-1">Mới nhất</li>
+                                            }
+                                            @if (obj.price > 0)
+                                            {
+                                                <li class="facts-2">Khuyến mãi</li>
+                                            }
+                                            <li class="facts-5">Xu hướng</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cources_info">
+                                        <div class="cources_info_first">
+                                            <ul>
+                                                <li><strong>Số lượng</strong></li>
+                                                <li class="theme-cl">@_info_obj.product_variation_in_stock Video bài giảng</li>
+                                            </ul>
+                                        </div>
+                                        <div class="cources_info_last text-right">
+                                            <h3><span class="showNumeric">@obj.promotion_price</span></h3>
+                                            @if (obj.price > 0)
+                                            {
+                                                <h6><del class="gray showNumeric">@obj.price</del></h6>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="education_block_footer">
+                                        <div class="education_block_author">
+                                            <div class="path-img"><a><img src="@urlCMS/@_info_obj.product_variation_image" class="img-fluid" alt="@_info_obj.product_variation_image_alt"></a></div>
+                                            <h5><a>@_ev_obj.element_variation_name</a></h5>
+                                        </div>
+                                        <a href="/courses/@obj.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                @if (bai_giang != null)
+                {
+                    var product_variation = new ProductVariationProvider().getById((long)bai_giang.product_variation_id);
+                    <!-- Course info -->
+                    <div class="ed_view_box style_3" id="ed_view_box">
+
+                        <div class="property_video sm">
+                            <div class="thumb">
+                                <img class="pro_img img-fluid w100" src="@urlCMS/@product_variation.product.product_image" alt="@product_variation.product.alt_image">
+                                <div class="overlay_icon">
+                                    <div class="bb-video-box">
+                                        <div class="bb-video-box-inner">
+                                            <div class="bb-video-box-innerup">
+                                                <a href="@product_variation.product.product_video" data-toggle="modal" data-target="#popup-video" class="theme-cl"><i class="ti-control-play"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ed_view_price pl-4">
+                            <h3>@product_variation.product.product_name</h3>
+                            <h2 class="theme-cl showNumeric">@product_variation.product.promotion_price</h2>
+                            @*@if (product_variation.product.price > 0)
+                    {
+                        <h4><del class="showNumeric">@product_variation.product.price</del></h4>
+                    }*@
+                        </div>
+
+                        <div class="ed_view_short content pl-4 pr-4">
+                            <p>@Html.Raw(product_variation.product.description)</p>
+                        </div>
+                        <div class="ed_view_link">
+                            <a href="javascript:void(0)" onclick="addToCart('@product_variation.product_variation_id')" class="btn btn-theme enroll-btn">Mua bài giảng<i class="ti-angle-right"></i></a>
+                        </div>
+
+                    </div>
+
+                    <!-- Video Modal -->
+                    <div class="modal fade" id="popup-video" tabindex="-1" role="dialog" aria-labelledby="popup-video" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <iframe class="embed-responsive-item" width="800" height="480" src="@product_variation.product.product_video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <!-- End Video Modal -->
+                }
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Course Detail ================================== -->
+
+
+
+<script>
+    $(document).ready(function () {
+        //var width_device = $(window).width();
+        //if (width_device >= 1024) {
+        //    var q2w3_sidebar_1_options = {
+        //        "sidebar": "ed_view_box",
+        //        "margin_top": 100,
+        //        "margin_bottom": 500,
+        //        "screen_max_width": 0,
+        //        "width_inherit": false,
+        //        "widgets": ['ed_view_box']
+        //    };
+        //    q2w3_sidebar(q2w3_sidebar_1_options);
+        //    setInterval(function () { q2w3_sidebar(q2w3_sidebar_1_options); }, 500);
+        //}
+
+
+        @*if (@list_product_variation.Count() == 1) {
+            product_variation_id_selected = @product_variation_selected_start;
+        }*@
+
+        $('input[type=radio]').trigger('reset');
+        $('input').trigger('reset');
+        for (var z = 1; z <= '@i'; z++) {
+            $('input[type=radio][name=pe_' + z + ']').change(function () {
+                $(this > 'label').addClass('sd');
+                getEvSelected();
+            });
+        }
+
+        $('form').trigger('reset');
+
+        $.ajax({
+            type: "POST",
+            url: "/Product/GetProductVariationElement",
+            data: { product_id: product_id },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                list_pve_ajax = data_json.list_pve;
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+    var product_id = '@Model.product_id';
+    var list_pve_ajax = [];
+    var list_ev = [];
+    function getEvSelected() {
+        list_ev = [];
+        for (var z = 1; z <= '@i'; z++) {
+            var ev = {};
+            ev.prop_id = $('.input_pe_' + z).attr('data-target');
+            ev.value = $("input[name='pe_" + z + "']:checked").val();
+            if (ev.value != undefined) {
+                list_ev.push(ev);
+            }
+        }
+
+        var list_filter = [];
+        $.each(list_ev, function (key, item) {
+            var list_pve_ajax_filter = list_pve_ajax.filter(function (elem) {
+                return (elem.prop_id == item.prop_id && elem.ev_name == item.value);
+            });
+            list_filter.concat(list_pve_ajax_filter);
+            $.each(list_pve_ajax_filter, function (key, obj) {
+                list_filter.push(obj);
+            });
+
+        });
+
+        var list_pv_id_filter = list_filter.map(function (value) { return value.product_variation_id });
+
+        if (list_ev.length == '@i') {
+
+            if (list_pv_id_filter.length > 1) {
+                product_variation_id_selected = findDuplicates(list_pv_id_filter).find(element => element > 0);
+            }
+            else {
+                product_variation_id_selected = list_pv_id_filter.find(element => element > 0);
+            }
+
+            if (product_variation_id_selected != undefined && product_variation_id_selected > 0) {
+                $.each(list_pve_ajax, function (key, obj) {
+                    if (obj.product_variation_id == product_variation_id_selected) {
+                        $('.product-image-feature').prop('src', '@urlCMS/' + obj.pv_image_url);
+                        //if (obj.pv_promotion_percent > 0) {
+                        //    $('#badges_promotion_percent').text("-" + obj.pv_promotion_percent + "%");
+                        //}
+
+                        if ($('#show_price_promotion').length > 0) {
+                            $('#show_price_promotion').autoNumeric('set', obj.pv_price);
+                        }
+                        //if ($('#show_price_comparison').length > 0) {
+                        //    $('#show_price_comparison').autoNumeric('set', obj.pv_price_comparison);
+                        //}
+                        //$('#number_instock').text(obj.pv_in_stock);
+
+                        $.ajax({
+                            url: '/Product/GetNumInStock',
+                            context: document.body,
+                            type: "POST",
+                            dataType: "html",
+                            data: {
+                                product_variation_id: product_variation_id_selected,
+                            },
+                            //beforeSend: function () {
+                            //    $('#loading_request').removeClass('hide');
+                            //},
+                            success: function (data) {
+                                var data_json = JSON.parse(data);
+                                if (data_json.status == false || data_json.status == "False" || data_json.status == "false") {
+                                    $('.btnAddToCart').attr('disabled', true);
+                                    $('.text_show_instock').text("Hết hàng.");
+                                    $('.btnAddToCart').innerHTML = 'Tạm hết hàng';
+                                } else {
+                                    $('.text_show_instock').text("Có sẵn " + data_json.num_in_stock + " sản phẩm.");
+                                    $('.btnAddToCart').attr('disabled', false);
+                                    $('.btnAddToCart').innerHTML = 'Thêm vào giỏ hàng';
+                                }
+                            },
+                            error: function (xhr, status) {
+                                alert("Có lỗi xảy ra, vui lòng tải lại trang.");
+                            },
+                        });
+                    }
+                });
+            }
+            else {
+                $('.btnAddToCart').attr('disabled', true);
+                $('.text_show_instock').text("Hết hàng.");
+            }
+
+            $('.configurable-wrap').removeClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', true);
+        }
+        else {
+            product_variation_id_selected = 0;
+        }
+    }
+
+    const findDuplicates = (arr) => {
+        let sorted_arr = arr.slice().sort();
+        let results = [];
+        for (let i = 0; i < sorted_arr.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                results.push(sorted_arr[i]);
+            }
+        }
+        return results;
+    }
+
+    var product_variation_id_selected = 0;
+
+    function addToCart(product_variation_id_selected) {
+        var quantity = 1;
+        if (product_variation_id_selected == 0 || product_variation_id_selected == undefined) {
+            //$('.configurable-wrap').addClass('alert-danger-select-option');
+            $('#alert_phan_loai').prop('hidden', false);
+            $('#alert_phan_loai').addClass('shake_alert');
+            setTimeout(function () { $('#alert_phan_loai').removeClass('shake_alert'); }, 820);
+        }
+        else if (quantity == 0 || quantity == null) {
+            $('#alert_so_luong').prop('hidden', false);
+            $('#alert_so_luong').addClass('shake_alert');
+            setTimeout(function () { $('#alert_so_luong').removeClass('shake_alert'); }, 820);
+        }
+        else {
+            updateCart();
+            getNumOfItemInCart();
+            new ToasterBox({
+                msg: 'Thêm vào giỏ hàng thành công',
+                duration: 5000,
+                maxWidth: 260,
+                closeButton: false,
+                position: 'bottom-center'
+            });
+        }
+    }
+
+    $(".quantity_input").keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+
+    function updateCart() {
+        if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+            var list_product_variation_in_cart = [];
+            var product_variation_add_to_cart = {};
+            product_variation_add_to_cart.id = product_variation_id_selected;
+            product_variation_add_to_cart.quantity = 1;
+            list_product_variation_in_cart.push(product_variation_add_to_cart);
+
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            var obj_cart = JSON.stringify(list_product_variation_in_cart)
+            Cookies.set("QUYNHBOKI_CART", obj_cart, { expires: date_obj, path: '/' });
+        }
+        else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+            var quantity = 0;
+            var product_variation_add_to_cart = {};
+            $.each(list_product_variation_in_cart, function (index, value) {
+                if (value.id == product_variation_id_selected) {
+                    quantity = parseInt(value.quantity) + parseInt(1);
+                    list_product_variation_in_cart = list_product_variation_in_cart.filter(function (el) { return el.id != product_variation_id_selected });
+                } else {
+                    product_variation_add_to_cart.id = product_variation_id_selected;
+                    product_variation_add_to_cart.quantity = parseInt(1);
+                }
+            });
+            if (quantity != 0) {
+                list_product_variation_in_cart.push({ 'id': product_variation_id_selected, 'quantity': quantity });
+            } else {
+                list_product_variation_in_cart.push(product_variation_add_to_cart);
+            }
+            Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+        }
+
+        updateCartForUserLoged();
+
+        var number_in_order = 0;
+        $.each(JSON.parse(Cookies.get("QUYNHBOKI_CART")), function (index, value) {
+            number_in_order += parseInt(value.quantity);
+        });
+        $('.cart-count-item').text(number_in_order);
+
+    }
+</script>

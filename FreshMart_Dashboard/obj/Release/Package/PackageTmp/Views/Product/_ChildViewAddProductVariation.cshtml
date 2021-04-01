@@ -1,0 +1,249 @@
+﻿@model IEnumerable<Data.product_variation_property>
+@using Data;
+@using Data.Providers;
+
+@{
+    product product = new ProductProvider().getById(ViewBag.ProductId);
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">
+        Tạo lựa chọn mới cho sản phẩm này
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="row">
+            @foreach (var property in Model)
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" for="property_value_@property.product_variation_property_id">@property.product_variation_property_name <span class="requirement-star-text">&ast;</span></label>
+                        <div class="mb-2">
+                            <input hidden type="text" class="form-control" id="property_@property.product_variation_property_id" value="@property.product_variation_property_id">
+                            <input type="text" class="form-control" id="property_value_@property.product_variation_property_id" placeholder="Nhập tên của thuộc tính @property.product_variation_property_name">
+                            <div class="invalid-feedback" id="feedback_property_value_@property.product_variation_property_id">
+                                Yêu cầu nhập giá trị thuộc tính @property.product_variation_property_name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" for="product_price_promotion">Giá bán sản phẩm <span class="requirement-star-text">&ast;</span></label>
+                    <div class="mb-2">
+                        <input value="@product.promotion_price" type="text" class="form-control autoNumericInput" id="product_variation_promotion_price" name="product_variation_promotion_price" placeholder="đ">
+                        <div class="invalid-feedback" id="product_variation_promotion_price_feedback" hidden>
+                            Yêu cầu nhập giá bán.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" for="product_price">Giá bán so sánh</label>
+                    <div class="mb-2">
+                        <input value="@product.price" type="text" class="form-control autoNumericInput" id="product_variation_comparision_price" name="product_variation_comparision_price" placeholder="đ">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label for="product_weight">Khối lượng sản phẩm (grams)</label>
+                    <input min="0" max="1000000000000" type="number" id="product_variation_weight" class="form-control" value="0">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" for="product_code">Mã sản phẩm / SKU</label>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" id="product_variation_code" name="product_variation_code" placeholder="Nhập mã SKU sản phẩm">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label for="barcode">Mã BarCode</label>
+                    <input type="text" id="product_variation_barcode" class="form-control" placeholder="Nhập mã BarCode">
+                </div>
+            </div>
+        </div>
+        <div class="line_div"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group bs-select-1">
+                    <label for="select_warehouse_condition">Chính sách tồn kho</label>
+                    <select class="custom-select input_slect_border" id="select_management_warehouse">
+                        <option selected="" value="false">Không quản lý tồn kho</option>
+                        <option value="true">Có quản lý tồn kho</option>
+                    </select>
+                    <script>
+                        $('#select_management_warehouse').on('change', function () {
+                            var status = $(this).val();
+                            if (status == "true") {
+                                $('#div_input_instock').prop('hidden', false);
+                                $('#div_checkbox_allow_ordering_while_out_of_stock').prop('hidden', false);
+                            }
+                            else {
+                                $('#div_input_instock').prop('hidden', true);
+                                $('#div_checkbox_allow_ordering_while_out_of_stock').prop('hidden', true);
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group" id="div_input_instock" hidden>
+                    <label for="product_variation_in_stock">Số lượng</label>
+                    <input min="0" max="1000000000" type="number" id="product_variation_in_stock" class="form-control quantity_input" value="0">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="" id="div_allow_ordering_while_out_of_stock">
+                    <div class="form-check" id="div_checkbox_allow_ordering_while_out_of_stock" hidden>
+                        <input class="form-check-input" type="checkbox" value="true" id="allow_ordering_while_out_of_stock" checked>
+                        <label class="form-check-label" for="allow_ordering_while_out_of_stock">
+                            Cho phép đặt hàng <strong class="font-bold">ngay cả khi hết hàng</strong>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="allow_delivery" checked>
+                        <label class="form-check-label" for="allow_delivery">
+                            Sản phẩm này có giao hàng
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+    <button type="button" class="btn btn-success" id="btn_confirm_create_customer" onclick="createNewProductVariation()">Xác nhận</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        $(".autoNumericInput").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+
+        var product_id = '@ViewBag.ProductId';
+         $.ajax({
+             url: "/Product/GetListPropertyJson",
+            data: {
+                product_id: product_id,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                arr_property_id = data_json.list_property;
+            },
+            error: function (xhr, status) {
+                toastError();
+            }
+        });
+
+    });
+
+
+
+    var arr_property_id = [];
+    function createNewProductVariation() {
+        var product_id = '@ViewBag.ProductId';
+        var list_ev = [];
+        $.each(arr_property_id, function (key, value) {
+            var ev = {};
+            var id = value.product_variation_property_id;
+            var element_variation_name = $('#property_value_' + id).val();
+            if (element_variation_name == "") {
+                $('#feedback_property_value_' + id).prop('hidden', false);
+                $('#property_value_' + id).addClass('is-invalid');
+            } else {
+                ev.product_variation_property_id = id;
+                ev.element_variation_name = element_variation_name;
+                list_ev.push(ev);
+            }
+        });
+
+        if (list_ev.length > 0) {
+            var product_variation_price = $('#product_variation_promotion_price').autoNumeric('get');
+            var product_variation_price_comparison = $('#product_variation_comparision_price').autoNumeric('get');
+            var product_variation_weight = $('#product_variation_weight').val();
+            var product_variation_code = $('#product_variation_code').val();
+            var product_variation_barcode = $('#product_variation_barcode').val();
+            var warehouse_management_status = $('#select_management_warehouse').val();
+            var product_variation_in_stock = $('#product_variation_in_stock').val();
+            var allow_ordering_while_out_of_stock = $('#allow_ordering_while_out_of_stock').is(":checked");
+            var allow_delivery = $('#allow_delivery').is(":checked");
+
+            if (product_variation_price == "" || product_variation_price == null) {
+                $('#product_variation_promotion_price_feedback').prop('hidden', false);
+                $('#product_variation_promotion_price').addClass('is-invalid');
+            }
+            else {
+                var product_variation = {};
+                product_variation.product_variation_price = product_variation_price;
+                product_variation.product_variation_price_comparison = product_variation_price_comparison;
+                product_variation.product_variation_weight = product_variation_weight;
+                product_variation.product_variation_code = product_variation_code;
+                product_variation.product_variation_barcode = product_variation_barcode;
+                product_variation.warehouse_management_status = warehouse_management_status;
+                product_variation.product_variation_in_stock = product_variation_in_stock;
+                product_variation.allow_ordering_while_out_of_stock = allow_ordering_while_out_of_stock;
+                product_variation.allow_delivery = allow_delivery;
+
+                $.ajax({
+                    url: "/Product/AddNewProductVariation",
+                    data: {
+                        product_id: product_id,
+                        list_ev: list_ev,
+                        product_variation: product_variation
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        updateListProductVariation();
+                        $('#modalAddProductVariation').modal('hide');
+                        showToast("success", 'Lựa chọn biến thể mới đã được tạo.', "Tạo thành công");
+                    },
+                    error: function (xhr, status) {
+                        toastError();
+                    }
+                });
+            }
+        }
+
+        $.each(arr_property_id, function (key, value) {
+            var id_keyup = value.product_variation_property_id;
+            $('#property_value_' + id_keyup).keyup(function () {
+                $(this).removeClass('is-invalid');
+                $('#feedback_property_value_' + id_keyup).prop('hidden', true);
+            });
+        });
+        $('#product_variation_promotion_price').keyup(function () {
+            $(this).removeClass('is-invalid');
+            $('#product_variation_promotion_price_feedback').prop('hidden', true);
+        });
+
+        console.log(list_ev);
+    }
+</script>

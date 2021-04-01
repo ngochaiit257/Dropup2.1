@@ -1,0 +1,359 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Học boki cùng Quỳnh - đào tạo kế toán Nhật Bản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_kh = new CategoryProvider().getListCategoryAreShowing();
+
+    var list_bg = new ProductProvider().getByCategoryIdOnSite(59);
+    var list_tl = new ProductProvider().getByCategoryIdOnSite(60);
+
+    var list_2kyu = new ProductProvider().getByCategoryIdOnSite(59);
+    var list_3kyu = new ProductProvider().getByCategoryIdOnSite(60);
+
+    var list_blog = new BlogProvider().getNewest();
+
+    var list_team = new StoreCustomerSayProvider().getAll();
+    var list_slider = new StoreSlideProvider().getIsShowing();
+    var banner = new StoreBannerProvider().getbyId(1);
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Keywords = "học boki, kế toán tiếng nhật, quỳnh boki, quynh boki, kế toán sản xuất, kế toán thương mại, kế toán nhật bản";
+    ViewBag.Description = "Học boki cùng Quỳnh, Trung tâm giảng dạy kế toán Nhật Bản số 1 tại Việt Nam Quỳnh Boki";
+    ViewBag.Canonical = urlSite;
+    ViewBag.Alternate = urlSite;
+    ViewBag.Url = urlSite;
+    ViewBag.Image = urlCMS + "/" + logo_header.image;
+}
+
+
+
+<div class="slideshow" style="width: 100%; overflow: hidden">
+    <div class="swiper-wrapper">
+        @foreach (var slide in list_slider)
+        {
+            <img class="swiper-slide" src="@urlCMS/@slide.image" />
+        }
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="sec-heading center sec-heading-custom">
+                <h2>Học <span class="theme-cl">Quỳnh Boki</span> Thi là đỗ</h2>
+                <h4 class="subtitle">
+                    <strong class="count"><span data-countup="">1.200</span>+</strong>
+                    Học viên tham gia khoá học offline + online
+                    <br>
+                    <strong class="count"><span data-countup="">850</span>+</strong>
+                    Học viên đã có thể làm việc
+                </h4>
+            </div>
+            <div class="paper">
+                <img src="~/Assets/img/paper.png" />
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ============================ Featured Courses Start ================================== -->
+<section class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Danh sách <span class="theme-cl">Khóa học & Tài Liệu</span></h2>
+                    <h4 class="subtitle">
+                        Chương trình học với
+                        <strong class="count"><span>100</span>+</strong> bài giảng
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Cource Grid 1 -->
+            @foreach (var bg in list_bg)
+            {
+                var _info = new ProductVariationProvider().get1ByProductId(bg.product_id);
+                var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="education_block_grid style_2">
+
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/courses/@bg.seo_alias"><img src="@urlCMS/@bg.product_image" class="img-fluid" alt="@bg.alt_image"></a>
+                        </div>
+
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/courses/@bg.seo_alias">@bg.product_name</a></h4>
+                        </div>
+
+                        <div class="cources_facts">
+                            <ul class="cources_facts_list">
+                                @if ((DateTime.Now - bg.show_datetime).Value.Days <= 30)
+                                {
+                                    <li class="facts-1">Mới nhất</li>
+                                }
+                                @if (bg.price > 0)
+                                {
+                                    <li class="facts-2">Khuyến mãi</li>
+                                }
+                                <li class="facts-5">Xu hướng</li>
+                            </ul>
+                        </div>
+                        <div class="cources_info">
+                            <div class="cources_info_first">
+                                <ul>
+                                    <li><strong>Số lượng</strong></li>
+                                    <li class="theme-cl">@_info.product_variation_in_stock Video bài giảng</li>
+                                </ul>
+                            </div>
+                            <div class="cources_info_last text-right">
+                                <h3><span class="showNumeric">@bg.promotion_price</span></h3>
+                                @if (bg.price > 0)
+                                {
+                                    <h6><del class="gray showNumeric">@bg.price</del></h6>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                <h5><a>@_ev.element_variation_name</a></h5>
+                            </div>
+                            <a href="/courses/@bg.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+            @foreach (var tl in list_tl)
+            {
+                var _info = new ProductVariationProvider().get1ByProductId(tl.product_id);
+                var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="education_block_grid style_2">
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/documents/@tl.seo_alias"><img src="@urlCMS/@tl.product_image" class="img-fluid" alt="@tl.alt_image"></a>
+                        </div>
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/documents/@tl.seo_alias">@tl.product_name</a></h4>
+                        </div>
+                        <div class="cources_facts">
+                            <ul class="cources_facts_list">
+                                @if ((DateTime.Now - tl.show_datetime).Value.Days <= 30)
+                                {
+                                    <li class="facts-1">Mới nhất</li>
+                                }
+                                @if (tl.price > 0)
+                                {
+                                    <li class="facts-2">Khuyến mãi</li>
+                                }
+                                <li class="facts-5">Xu hướng</li>
+                            </ul>
+                        </div>
+                        <div class="cources_info">
+                            <div class="cources_info_first">
+                                <ul>
+                                    <li><strong>Số lượng</strong></li>
+                                    <li class="theme-cl">@_info.product_variation_in_stock Lesson</li>
+                                </ul>
+                            </div>
+                            <div class="cources_info_last text-right">
+                                <h3><span class="showNumeric">@tl.promotion_price</span></h3>
+                                @if (tl.price > 0)
+                                {
+                                    <h6><del class="gray showNumeric">@tl.price</del></h6>
+                                }
+                            </div>
+                        </div>
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                <h5><a>@_ev.element_variation_name</a></h5>
+                            </div>
+                            <a href="/documents/@tl.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+ 
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="text-center">
+                    <a href="/collections" class="btn btn-theme btn-browse-btn">Xem Thêm Khóa Học & Tài Liệu</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Featured Courses End ================================== -->
+<!-- ========================== About Facts List Section =============================== -->
+<section class="team-block" style="background-image: url('../Assets/common-img/bg2.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap">
+                    <div class="row justify-content-center">
+                        <div class="sec-heading">
+                            <h2>Đội ngũ <span class="theme-cl">Giảng viên</span> tại Quỳnh Boki</h2>
+                            <h4 class="subtitle">
+                                Đội ngũ giáo viên có trình độ <strong class="count"><span>N2-N1</span></strong> và kinh nghiệm là những nhân tố quan trọng trong việc tạo nên sự thành công trong chất lượng đào tạo tại Quỳnh Boki.
+                            </h4>
+                            <div class="text-left">
+                                <a href="#" class="btn btn-theme btn-browse-btn">Xem Thêm</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="list_facts_wrap_img">
+                    <div class="col-item col-images">
+                        <img src="@urlCMS/@banner.image" alt="Mrs. Quỳnh" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ========================== About Facts List Section =============================== -->
+<!-- ========================== Featured Courses Section =============================== -->
+<section class="gray">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Tin tức và sự kiện</h2>
+                    <h4 class="subtitle">
+                        Bài viết mới nhất của <strong><span class="theme-cl">Quỳnh Boki</span></strong>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+
+                <div class="arrow_slide three_slide-dots arrow_middle">
+                    @foreach (var blog in list_blog)
+                    {
+                        <!-- Single Slide -->
+                        <div class="singles_items">
+                            <div class="education_block_grid style_2">
+
+                                <div class="education_block_thumb">
+                                    <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" class="img-fluid" alt="@blog.blog_alt_image"></a>
+                                </div>
+
+                                <div class="education_block_body education_block_body_blog">
+                                    <h4 class="bl-title"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                </div>
+
+                                <div class="education_block_footer">
+                                    <p>@blog.blog_summary</p>
+                                </div>
+                                <div class="education_block_footer">
+                                    <div class="education_block_author">
+                                        <div class="path-img"><a href="/blogs/@blog.blog_seo_alias" tabindex="0"><img src="@urlCMS/@blog.user.avatar" class="img-fluid" alt="@blog.user.username"></a></div>
+                                        <h5><a href="/blogs/@blog.blog_seo_alias" tabindex="0">@blog.user.username</a></h5>
+                                    </div>
+                                    <a href="/blogs/@blog.blog_seo_alias"><strong class="theme-cl">Đọc Thêm</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ========================== Featured Courses Section =============================== -->
+<!-- ============================ Testimonial Start ================================== -->
+<section style="background:url(../Assets/img/testimonial.png)">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Học viên nghĩ gì?</h2>
+                    <h4 class="subtitle">
+                        Cảm nhận của học viên về
+                        <strong class="count"><span>Quỳnh Boki</span></strong>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="testimonials_style" class="slick-carousel-3 arrow_middle">
+
+                    @foreach (var team in list_team)
+                    {
+                        <div class="testimonial-detail">
+                            <div class="client-detail-box">
+                                <div class="pic">
+                                    <img src="@urlCMS/@team.cimage" alt="@team.cimage_alt">
+                                </div>
+                                <div class="client-detail">
+                                    <h3 class="testimonial-title">@team.cname</h3>
+                                    <span class="post">@team.cposition</span>
+                                </div>
+                            </div>
+                            <p class="description">
+                                " @team.ccomment "
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Testimonial End ================================== -->
+<!-- ============================== Start Newsletter ================================== -->
+<section class="newsletter theme-bg inverse-theme">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8 col-sm-12">
+                <div class="text-center">
+                    <h2>Trung tâm đào tạo kế toán Nhật Bản</h2>
+                    <p>Thành công của bạn là niềm hạnh phúc của Quỳnh Boki</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================================= End Newsletter =============================== -->
+
+<script>
+    $(document).ready(function () {
+        $('#home').addClass('active');
+    });
+</script>

@@ -32,7 +32,7 @@ namespace Common
             client.Host = smtpHost;
             client.EnableSsl = enabledSsl;
             client.Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0;
-            client.Send(message);
+            await client.SendMailAsync(message);
         }
     }
 }

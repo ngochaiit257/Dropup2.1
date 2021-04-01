@@ -1,0 +1,235 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Danh sách bài giảng và tài liệu Quỳnh Boki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var list_bg = new ProductProvider().getByCategoryIdOnSite(59);
+    var list_tl = new ProductProvider().getByCategoryIdOnSite(60);
+}
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title image-cover ed_detail_head lg theme-ov" data-overlay="8">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">Khóa học và Tài liệu</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Khóa học và Tài liệu</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Nội dung <span class="theme-cl">chương trình học</span></h2>
+                    <h4 class="subtitle">
+                        Các khóa học được chia làm
+                        <strong class="count"><span>2</span></strong> loại
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Single Package -->
+            <div class="col-lg-4 col-md-4">
+                <div class="packages_wrapping">
+
+                    <div class="packages_headers">
+                        <i class="lni-layers"></i>
+                        <h4 class="packages_pr_title">Khóa boki 3kyu</h4>
+                        <span class="packages_price-subtitle">Bao gồm video và học online</span>
+                    </div>
+                    @*<div class="packages_price">
+                            <h4 class="pr-value">49</h4>
+                        </div>*@
+                    <div class="packages_middlebody">
+                        <ul>
+                            <li>Nền kiến thức cơ bản của boki nhập môn</li>
+                            <li>Quy luật hạch toán kế toán</li>
+                            <li>Các giao dịch liên quan đến mua bán hàng hóa</li>
+                            <li>Các giao dịch liên quan đến tiền mặt và chứng từ tương đương tiền</li>
+                            <li>Các giao dịch liên quan đến tài sản cố định và các nghĩa vụ, quyền lợi khác</li>
+                            <li>Quy trình quyết toán năm: lên bảng cân đối thử, bút toán điều chỉnh quyết toán, lên báo cáo tài chính</li>
+                            <li>Kiến thức thuế cơ bản: thuế doanh nghiệp và thuế tiêu dùng</li>
+                            <li>Chứng từ thực tế</li>
+                        </ul>
+                    </div>
+                    <div class="packages_bottombody">
+                        <a href="#list_sec" class="btn-pricing">Xem các khóa học</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Single Package -->
+            <div class="col-lg-4 col-md-4">
+                <div class="packages_wrapping recommended">
+
+                    <div class="packages_headers">
+                        <i class="lni-invention"></i>
+                        <h4 class="packages_pr_title">Khóa boki 2kyu - Kế toán công nghiệp</h4>
+                        <span class="packages_price-subtitle">Bao gồm video và học online</span>
+                    </div>
+                    @*<div class="packages_price">
+                            <h4 class="pr-value">49</h4>
+                        </div>*@
+                    <div class="packages_middlebody">
+                        <ul>
+                            <li>Sự khác nhau với kế toán thương mại</li>
+                            <li>Các phương pháp tính giá thành sản xuất đơn</li>
+                            <li>Các phương pháp tính giá thành sản xuất hàng loạt</li>
+                        </ul>
+                    </div>
+                    <div class="packages_bottombody">
+                        <a href="#list_sec" class="btn-pricing">Xem các khóa học</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Single Package -->
+            <div class="col-lg-4 col-md-4">
+                <div class="packages_wrapping">
+
+                    <div class="packages_headers">
+                        <i class="lni-anchor"></i>
+                        <h4 class="packages_pr_title">Khóa boki 2kyu - Kế toán thương mại</h4>
+                        <span class="packages_price-subtitle">Bao gồm video và học online</span>
+                    </div>
+                    <div class="packages_middlebody">
+                        <ul>
+                            <li>Ôn lại kiến thức boki 3kyu và sự khác biệt báo cáo tài chính của boki 2kyu và 3kyu</li>
+                            <li>Giao dich mua bán hàng hóa và các chiết khấu giảm giá</li>
+                            <li>Các giao dịch liên quan đến các quyền lợi và nghĩa vụ khác: hối phiếu, credit, ghi chép sổ sách điện tử</li>
+                            <li>Tiền mặt tiền gửi ngân hàng và điều chỉnh số dư</li>
+                            <li>Cổ phần, chứng khoán</li>
+                            <li>Giao dịch về tài sản cố định hữu hình và vô hình: mua, bán , thuê…</li>
+                            <li>Công ty cổ phần, phân chia cổ tức</li>
+                            <li>Thuế và điều chỉnh thuế</li>
+                            <li>Kế toán hợp nhất công ty mẹ con</li>
+                        </ul>
+                    </div>
+                    <div class="packages_bottombody">
+                        <a href="#list_sec" class="btn-pricing">Xem các khóa học</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================ Featured Courses Start ================================== -->
+<section class="bg-light" id="list_sec">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Danh sách <span class="theme-cl">Khóa học & Tài Liệu</span></h2>
+                    <h4 class="subtitle">
+                        Chương trình học với
+                        <strong class="count"><span>100</span>+</strong> bài giảng
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Cource Grid 1 -->
+            @foreach (var bg in list_bg)
+            {
+                var _info = new ProductVariationProvider().get1ByProductId(bg.product_id);
+                var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="education_block_grid style_2">
+
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/courses/@bg.seo_alias"><img src="@urlCMS/@bg.product_image" class="img-fluid" alt="@bg.alt_image"></a>
+                        </div>
+
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/courses/@bg.seo_alias">@bg.product_name</a></h4>
+                        </div>
+
+                        <div class="cources_facts">
+                            <ul class="cources_facts_list">
+                                @if ((DateTime.Now - bg.show_datetime).Value.Days <= 30)
+                                {
+                                    <li class="facts-1">Mới nhất</li>
+                                }
+                                @if (bg.price > 0)
+                                {
+                                    <li class="facts-2">Khuyến mãi</li>
+                                }
+                                <li class="facts-5">Xu hướng</li>
+                            </ul>
+                        </div>
+                        <div class="cources_info">
+                            <div class="cources_info_first">
+                                <ul>
+                                    <li><strong>Số lượng</strong></li>
+                                    <li class="theme-cl">@_info.product_variation_in_stock Video bài giảng</li>
+                                </ul>
+                            </div>
+                            <div class="cources_info_last text-right">
+                                <h3><span class="showNumeric">@bg.promotion_price</span></h3>
+                                @if (bg.price > 0)
+                                {
+                                    <h6><del class="gray showNumeric">@bg.price</del></h6>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                <h5><a>@_ev.element_variation_name</a></h5>
+                            </div>
+                            <a href="/courses/@bg.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Featured Courses End ================================== -->
+
+<script>
+    $(document).ready(function () {
+        $('#collections').addClass('active');
+
+        $(".btn-pricing").on('click', function (event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function () {
+                    window.location.hash = hash;
+                });
+            }
+        });
+    });
+</script>

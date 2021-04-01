@@ -1,0 +1,155 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Danh sách bài giảng và tài liệu Quỳnh Boki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list_bg = new ProductProvider().getByCategoryIdOnSite(59);
+    var list_tl = new ProductProvider().getByCategoryIdOnSite(60);
+}
+
+<!-- ============================ Featured Courses Start ================================== -->
+<section class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="sec-heading center">
+                    <h2>Danh sách <span class="theme-cl">Khóa học & Tài Liệu</span></h2>
+                    <h4 class="subtitle">
+                        Chương trình học với
+                        <strong class="count"><span>100</span>+</strong> bài giảng
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Cource Grid 1 -->
+            @foreach (var bg in list_bg)
+            {
+                var _info = new ProductVariationProvider().get1ByProductId(bg.product_id);
+                var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="education_block_grid style_2">
+
+                        <div class="education_block_thumb n-shadow">
+                            <a href="/courses/@bg.seo_alias"><img src="@urlCMS/@bg.product_image" class="img-fluid" alt="@bg.alt_image"></a>
+                        </div>
+
+                        <div class="education_block_body">
+                            <h4 class="bl-title"><a href="/courses/@bg.seo_alias">@bg.product_name</a></h4>
+                        </div>
+
+                        <div class="cources_facts">
+                            <ul class="cources_facts_list">
+                                @if ((DateTime.Now - bg.show_datetime).Value.Days <= 30)
+                                {
+                                    <li class="facts-1">Mới nhất</li>
+                                }
+                                @if (bg.price > 0)
+                                {
+                                    <li class="facts-2">Khuyến mãi</li>
+                                }
+                                <li class="facts-5">Xu hướng</li>
+                            </ul>
+                        </div>
+                        <div class="cources_info">
+                            <div class="cources_info_first">
+                                <ul>
+                                    <li><strong>Số lượng</strong></li>
+                                    <li class="theme-cl">@_info.product_variation_in_stock Video bài giảng</li>
+                                </ul>
+                            </div>
+                            <div class="cources_info_last text-right">
+                                <h3><span class="showNumeric">@bg.promotion_price</span></h3>
+                                @if (bg.price > 0)
+                                {
+                                    <h6><del class="gray showNumeric">@bg.price</del></h6>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="education_block_footer">
+                            <div class="education_block_author">
+                                <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                <h5><a>@_ev.element_variation_name</a></h5>
+                            </div>
+                            <a href="/courses/@bg.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+                <div class="arrow_slide three_slide-dots arrow_middle">
+
+                    @foreach (var tl in list_tl)
+                    {
+                        var _info = new ProductVariationProvider().get1ByProductId(tl.product_id);
+                        var _ev = new ElementVariationProvider().getByProductVariationId(_info.product_variation_id).FirstOrDefault();
+
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="education_block_grid style_2">
+                                <div class="education_block_thumb n-shadow">
+                                    <a href="/documents/@tl.seo_alias"><img src="@urlCMS/@tl.product_image" class="img-fluid" alt="@tl.alt_image"></a>
+                                </div>
+                                <div class="education_block_body">
+                                    <h4 class="bl-title"><a href="/documents/@tl.seo_alias">@tl.product_name</a></h4>
+                                </div>
+                                <div class="cources_facts">
+                                    <ul class="cources_facts_list">
+                                        @if ((DateTime.Now - tl.show_datetime).Value.Days <= 30)
+                                        {
+                                            <li class="facts-1">Mới nhất</li>
+                                        }
+                                        @if (tl.price > 0)
+                                        {
+                                            <li class="facts-2">Khuyến mãi</li>
+                                        }
+                                        <li class="facts-5">Xu hướng</li>
+                                    </ul>
+                                </div>
+                                <div class="cources_info">
+                                    <div class="cources_info_first">
+                                        <ul>
+                                            <li><strong>Số lượng</strong></li>
+                                            <li class="theme-cl">@_info.product_variation_in_stock Lesson</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cources_info_last text-right">
+                                        <h3><span class="showNumeric">@tl.promotion_price</span></h3>
+                                        @if (tl.price > 0)
+                                        {
+                                            <h6><del class="gray showNumeric">@tl.price</del></h6>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="education_block_footer">
+                                    <div class="education_block_author">
+                                        <div class="path-img"><a><img src="@urlCMS/@_info.product_variation_image" class="img-fluid" alt="@_info.product_variation_image_alt"></a></div>
+                                        <h5><a>@_ev.element_variation_name</a></h5>
+                                    </div>
+                                    <a href="/documents/@tl.seo_alias"><span class="education_block_time"><i class="ti-arrow-circle-right mr-1"></i>Xem Chi Tiết</span></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="text-center">
+                    <a href="#" class="btn btn-theme btn-browse-btn">Xem Thêm Khóa Học & Tài Liệu</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- ============================ Featured Courses End ================================== -->

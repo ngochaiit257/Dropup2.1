@@ -54,21 +54,12 @@ namespace ElysienVietNam.Controllers
             return View();
         }
 
-        public PartialViewResult GetProductByCategory(int? page_num, string seo_alias, string select_order, string search_string, string tab_filter, string choose_grid_view,
-                                    string color, decimal? min_price, decimal? max_price)
+        public PartialViewResult GetProductByCategory(int? page_num, string seo_alias, string select_order, decimal? min_price, decimal? max_price)
         {
             var list_return = new List<product>();
             if (!page_num.HasValue)
             {
                 page_num = 1;
-            }
-            if (search_string == null)
-            {
-                search_string = "";
-            }
-            if (color == null)
-            {
-                color = "";
             }
             if (min_price == null)
             {
@@ -86,14 +77,9 @@ namespace ElysienVietNam.Controllers
             ViewBag.page_num = page_num;
             int No_Of_Page = (page_num ?? 1);
             ViewBag.SelectOrder = select_order;
-            ViewBag.FilterValue = search_string;
-            ViewBag.TabFilter = tab_filter;
-            ViewBag.ChooseGridView = choose_grid_view;
-            ViewBag.Color = color;
             ViewBag.MinPrice = min_price;
             ViewBag.MaxPrice = max_price;
-            list_return = product_provider.filterOnClientSite(seo_alias, search_string, tab_filter, color, (decimal)min_price, (decimal)max_price);
-            //list_return = product_provider.filterOnClientSite(seo_alias);
+            list_return = product_provider.filterOnClientSiteElysien(seo_alias, (decimal)min_price, (decimal)max_price);
 
             if (select_order == "ten-az")
             {

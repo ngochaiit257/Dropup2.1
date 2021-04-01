@@ -1,0 +1,172 @@
+﻿@model IPagedList<Data.customer>
+@using Data.Providers;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+}
+
+<div class="table-responsive data-grid">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th align="center" scope="col" style="width:25%;" id="checkHeader" class="col_to_merge" colspan="2">
+
+                </th>
+                <th scope="col" style="width:20%">
+                    <p class="th_table">Tên khách hàng</p>
+                </th>
+                <th scope="col" style="width:20%">
+                    <p class="th_table">Khu vực</p>
+                </th>
+                <th scope="col" style="width:10%; text-align:center">
+                    <p class="th_table">Tổng đơn hàng</p>
+                </th>
+                <th scope="col" style="width:10%; text-align:center">
+                    <p class="th_table">Đơn hàng gần nhất</p>
+                </th>
+                <th scope="col" style="width:15%; text-align:center">
+                    <p class="th_table">Tổng tiền đã mua</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td align="center">
+                        <div class="form-check">
+                            @if (customer.black_list_status == true)
+                            {
+                                <a class="btn btn-primary disabled" href="javascript:void(0)" onclick="selectThisCustomer('@customer.customer_id')" data-dismiss="modal">Chọn</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" href="javascript:void(0)" onclick="selectThisCustomer('@customer.customer_id')" data-dismiss="modal">Chọn</a>
+                            }
+                        </div>
+                    </td>
+                    @if (customer.black_list_status == true)
+                    {
+                        <td align="center">
+                            <p><span class="badge badge-warning-inverse px-2 py-1 mt-1">Danh sách đen</span></p>
+                        </td>
+                    }
+                    else
+                    {
+                        if (customer.marketing_status == true)
+                        {
+                            <td align="center">
+                                <p><span class="badge badge-success-inverse px-2 py-1 mt-1">Nhận quảng cáo</span></p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td align="center">
+                                <p><span class="badge badge-secondary-inverse px-2 py-1 mt-1">Không nhận quảng cáo</span></p>
+                            </td>
+                        }
+                    }
+                    <td>
+                        <a href="/Customer/CustomerDetail?id=@customer.customer_id" class="text-primary">
+                            @if (customer.customer_first_name != null && customer.customer_last_name != null)
+                            {
+                                @customer.customer_first_name <span> </span> @customer.customer_last_name
+                            }
+                            else
+                            {
+                                @customer.customer_email
+                            }
+                        </a>
+                    </td>
+                    @if (customer.province_id != null)
+                    {
+                        if (customer.district_id != null)
+                        {
+                            <td>
+                                @customer.district.Type @customer.district.Name, @customer.province.Name
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @customer.province.Name
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td>--</td>
+                    }
+
+                    <td align="center">
+                        @(new OrderProvider().getOfficialOrderByCustomerId(customer.customer_id).Count())
+                    </td>
+
+                    @if ((new OrderProvider().getOfficialOrderByCustomerId(customer.customer_id).Count()) > 0)
+                    {
+                        long order_id = new OrderProvider().getLastestOfficialOrderByCustomerId(customer.customer_id).order_id;
+                        <td align="center">
+                            <a target="_blank" class="text-primary" href="/Order/OrderDetail?id=@order_id">#@order_id</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td align="center">
+                            --
+                        </td>
+                    }
+                    <td align="center" class="showNumeric">@(new OrderProvider().getSumCostByCustomerId(customer.customer_id))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+    <div style="text-align:center">
+        <h3>Không có kết quả nào được tìm thấy.</h3>
+        <img src="~/Assets/images/image_system/not_found.png" style="width:50%" />
+    </div>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetCustomerListSelect", new { page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = 0, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa thông tin các khách hàng này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="cancelBtn()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa thông tin các khách hàng bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelBtn()">Hủy</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteCategory()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+    });
+</script>

@@ -1,0 +1,653 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Tạo trang nội dung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string url = System.Configuration.ConfigurationManager.AppSettings["urlPresentationFreshMart"];
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Tạo trang nội dung</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Configuration/Index">Quản trị website</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Page/Index">Trang nội dung</a>
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Tạo trang nội dung</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics" id="div_page_info">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Nội dung trang</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="control-label" for="page_title">Tiêu đề trang <span class="requirement-star-text">&ast;</span></label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="page_title" name="page_title" placeholder="Nhập tiêu đề trang nội dung" onchange="checkTitlePage()">
+                                <div class="invalid-feedback" id="page_title_feedback">
+                                    Yêu cầu nhập tiêu đề.
+                                </div>
+                                <div class="invalid-feedback" id="page_title_check_duplicate_true">
+                                    Tiêu đề này đã tồn tại trong cơ sở dữ liệu. Vui lòng chọn tiêu đề khác.
+                                </div>
+                                <div class="valid-feedback" id="page_title_check_duplicate_false">
+                                    Tiêu đề có thể sử dụng được.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nội dung</label>
+                            <div class="mb-2">
+                                <div id="summernote" class="summernote"></div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="body_of_sort_description">
+                            <label class="control-label" for="page_summary">Mô tả ngắn</label>
+                            <textarea class="form-control" rows="5" placeholder="Nhập mô tả ngắn không quá 500 ký tự" id="page_summary"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Tối ưu SEO</h4>
+                    <small>
+                        Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy trang nội dung này trên công cụ tìm kiếm như Google.
+                    </small>
+                </div>
+            </div>
+            <div class="card-body" id="body_of_seo_product">
+                <div>
+                    <form class="form-horizontal" novalidate="novalidate">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_header">Tiêu đề trang</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_header"> 70</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" maxlength="70" class="form-control" id="seo_header" name="seo_header" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="seo_description">Thẻ mô tả</label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a>Số ký tự còn lại: </a><a id="count_seo_description"> 320</a>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <textarea class="form-control" id="seo_description" name="seo_description" rows="3" maxlength="320"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="seo_alias">Đường dẫn / Alias</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">@url/pages</span>
+                                </div>
+                                <input type="text" class="form-control" name="seo_alias" id="seo_alias" aria-describedby="basic-addon3" maxlength="150">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Trạng thái </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="set_time_show" id="show" value="true" checked>
+                            <label class="form-check-label" for="show">
+                                Hiển thị
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="set_time_show" id="hidden" value="false">
+                            <label class="form-check-label" for="hidden">
+                                Ẩn
+                            </label>
+                        </div>
+                        <div class="div_show_datetime_title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="javascript:void:(0)" class="card-title text-primary show_datetime_title hidden_element">Đặt lịch hiển thị</a>
+                                </div>
+                                <div class="col-md-6" style="text-align:right">
+                                    <span>
+                                        <a id="icon_remove_set_time_show" href="javascript:void:(0)" class="text-primary hidden_element"><i class="fa fa-remove"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="div_show_datetime hidden_element">
+                            <div class="form-group">
+                                <div class="input-group date" id="datepicker-bottom-left">
+                                    <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="page_date_to_show" name="page_date_to_show" placeholder="Nhập ngày hiển thị">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-append">
+                                    <input class="form-control inputmask sel-time-am" type="text" id="page_time_to_show" name="page_time_to_show" placeholder="Nhập giờ hiển thị">
+                                    <span class="input-group-addon open_clock_face">
+                                        <i class="fe fe-clock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Ảnh đại diện trang</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="displayImageUpload" style="display: none">
+                        <img id="pictureUpload" />
+
+                        <div class="row" id="bottomImageupload">
+                            <div class="col-md-4">
+                                <a href="javascript:void(0);" class="text-primary" id="edit_alt_image">Tạo Alt</a>
+                            </div>
+                            <div class="col-md-4" style="text-align: center">
+                                <label for="file">
+                                    <a class="text-primary">Đổi Ảnh</a>
+                                </label>
+                            </div>
+                            <div class="col-md-4" style="text-align: right">
+                                <a href="javascript:void(0);" onclick="deleteImg()" class="text-primary">Xóa Ảnh</a>
+                            </div>
+                        </div>
+
+                        <div style="display: none" id="div_alt_image">
+                            <label class="control-label" for="alt_image">Alt của hình ảnh</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="alt_image" name="alt_image" placeholder="Nhập alt của hình ảnh">
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <input type="file" id="file" accept="image/*" hidden>
+                    </form>
+                    <div class="custom-card-body custom-file">
+                        <div>
+                            <img id="img-icon" src="~/Assets/images/Icon/iconImg.png" />
+                        </div>
+                        <div>
+                            <label for="file" class="btn btn-warning custom-btn-file">
+                                Upload ảnh
+                            </label>
+                        </div>
+                    </div>
+                    <div class="alert alert-icon alert-outline-danger alert_image_limit" role="alert" id="alert_image_limit">
+                        <i class="fa fa-info-circle"></i> Hình ảnh vượt giới hạn 3MB
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Phân loại</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="true" id="check_has_page_parent">
+                                <label class="form-check-label" for="check_has_page_parent">
+                                    Trang này có trang cha
+                                </label>
+                            </div>
+                            <div class="form-group bs-select-1">
+                                <select class="custom-select input_slect_border hidden_element" id="select_page_parent">
+                                    <option selected="" disabled>Chọn trang cha</option>
+                                    @foreach (var p in new PageProvider().getAll())
+                                    {
+                                        <option value="@p.page_id">@p.page_title</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Đặt vị trí trang</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="mount_on_header_menu_status">
+                            <label class="form-check-label" for="mount_on_header_menu_status">
+                                Gắn vào menu chính
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="mount_on_footer_menu_status">
+                            <label class="form-check-label" for="mount_on_footer_menu_status">
+                                Gắn lên menu chân trang
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <button class="btn btn-secondary" onclick="backHistory()">Hủy</button>
+            <button class="btn btn-primary" id="btn_insert" onclick="insertPage()">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#page').addClass('active');
+        $('#add_page').addClass('active');
+
+        $('#page_time_to_show').clockface({
+            format: 'HH:mm',
+        });
+
+        $('.open_clock_face').click(function (e) {
+            e.stopPropagation();
+            $('#page_time_to_show').clockface('toggle');
+        });
+
+        $.fn.noMask = function (regex) {
+            this.on("keypress", function (e) {
+                if (regex.test(String.fromCharCode(e.which))) {
+                    return false;
+                }
+            });
+        }
+
+        $("#page_time_to_show").noMask(/[a-zA-Z]/);
+
+        $('form, .summernote, input, select').trigger("reset");
+        $('#summernote').summernote({
+            followingToolbar: false,
+            height: 500,
+            toolbar: [
+                ['undo', ['undo',]],
+                ['redo', ['redo',]],
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['table', ['bootstrap-grid']],
+                ['strikethrough', ['strikethrough']],
+                ['superscript', ['superscript']],
+                ['subscript', ['subscript']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']],
+            ],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '36', '48', '64', '82', '150'],
+            callbacks: {
+                onKeyup: function (e) {
+                    form_has_changed = true;
+                    var product_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+
+                    if (product_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+
+                    $('#seo_description').val(product_description.slice(0, 320));
+
+                    var textlenght = maxLengthDescription - product_description.length;
+                    $('#count_seo_description').text(textlenght);
+                    if (product_description.length > 320) {
+                        $('#count_seo_description').text("0");
+                    }
+                },
+                onPaste: function () {
+                    var product_description = $('#summernote').summernote('code').replace(/<[^>]*>/g, '');
+                    if (product_description.length > 0) {
+                        form_has_changed = true;
+                    } else {
+                        form_has_changed = false;
+                    }
+                },
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#pictureUpload').attr('src', e.target.result);
+        $('.displayImageUpload').css({
+            display: 'block',
+        });
+        $('.custom-card-body').css({
+            display: 'none'
+        });
+    };
+
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+                form_has_changed = true;
+            }
+        });
+    });
+
+    function deleteImg() {
+        $('.displayImageUpload').css({
+            display: 'none',
+        });
+        $('.custom-card-body').css({
+            display: 'block'
+        });
+        $('#file').val("");
+        $("#pictureUpload").attr("src", "");
+
+    }
+
+    $('input:radio[name="set_time_show"]').change(function () {
+        if (this.checked && this.value == 'true') {
+            $('.div_show_datetime').css('display', 'none');
+            $('.show_datetime_title').css('display', 'none');
+            $('#icon_remove_set_time_show').css('display', 'none');
+        }
+        else {
+            $('.show_datetime_title').css('display', 'block');
+        }
+    });
+
+    var get_datetime_to_show_status = false;
+    $('.show_datetime_title').click(function () {
+        $('#icon_remove_set_time_show').css('display', 'block');
+        $('.div_show_datetime').css('display', 'block');
+        get_datetime_to_show_status = true;
+    });
+
+    $('#icon_remove_set_time_show').click(function () {
+        $('.div_show_datetime').css('display', 'none');
+        $('#icon_remove_set_time_show').css('display', 'none');
+        get_datetime_to_show_status = false;
+    });
+
+    var maxLength = 70;
+    $('input[id=page_title]').keyup(function () {
+        var page_title = $('#page_title').val().trim();
+
+        $("#seo_header").val(page_title.slice(0, 70));
+
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+        if (page_title.length > 70) {
+            $('#count_seo_header').text("0");
+        }
+        $("#seo_alias").val(ConvertToSeoTitle(page_title));
+        $("#alt_image").val(ConvertToSeoTitle(page_title));
+
+        $("#page_title").removeClass('is-invalid');
+        $("#page_title").removeClass('is-valid');
+
+        $("#page_title_check_duplicate_true").css('display', 'none');
+        $("#page_title_check_duplicate_false").css('display', 'none');
+
+        $("#page_title_feedback").css('display', 'none');
+    });
+
+    $('input[id=seo_header]').keyup(function () {
+        var textlenght = maxLength - $(this).val().length;
+        $('#count_seo_header').text(textlenght);
+    });
+
+    var maxLengthDescription = 320;
+    $('textarea#seo_description').keyup(function () {
+        var textlenght = maxLengthDescription - $('textarea#seo_description').val().length;
+        $('#count_seo_description').text(textlenght);
+    });
+
+    $('#edit_alt_image').click(function () {
+        $('#div_alt_image').css('display', 'block');
+    });
+
+    $('textarea#page_summary').keyup(function () {
+        if ($('#page_summary').val().length > 500) {
+            $('#page_summary').addClass('is-invalid');
+        } else {
+            $('#page_summary').removeClass('is-invalid');
+        }
+    });
+
+    var checkPageTitleDupplicateStatus = true;
+    function checkTitlePage() {
+        var page_title = $("#page_title").val().trim();
+        if (page_title == null || page_title == "") {
+            $("#page_title_feedback").css('display', 'block');
+            $("#page_title").addClass('is-invalid');
+            $("#page_title_check_duplicate_true").css('display', 'none');
+            $("#page_title_check_duplicate_false").css('display', 'none');
+        }
+        else {
+            $.ajax({
+                url: "/Page/CheckPageTitleDuplicate",
+                data: {
+                    page_title: page_title,
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    if (data != "True") {
+                        checkPageTitleDupplicateStatus = false;
+                        $("#page_title").removeClass('is-invalid');
+                        $("#page_title").addClass('is-valid');
+
+                        $("#page_title_check_duplicate_false").css('display', 'block');
+                        $("#page_title_check_duplicate_true").css('display', 'none');
+
+                        $("#page_title_feedback").css('display', 'none');
+                    }
+                    else {
+                        checkPageTitleDupplicateStatus = true;
+                        $("#page_title").removeClass('is-valid');
+                        $("#page_title").addClass('is-invalid');
+
+                        $("#page_title_check_duplicate_false").css('display', 'none');
+                        $("#page_title_check_duplicate_true").css('display', 'block');
+
+                        $("#page_title_feedback").css('display', 'none');
+                    }
+                },
+                error: function (xhr, status) {
+                    showToast("error", "Có lỗi xảy ra.", "Lỗi");
+                },
+                complete: function (xhr, status) {
+                    //$('#showresults').slideDown('slow')
+                }
+            });
+        }
+    }
+
+    function insertPage() {
+        var fileData = new FormData();
+        var fileUpload = $("#file").get(0);
+        var files = fileUpload.files;
+
+        //Validation
+        if ($("#page_title").val().trim() == null || $("#page_title").val().trim() == "") {
+            $('html, body').animate({
+                scrollTop: $("#div_page_info").offset().top
+            }, 600);
+            showToast("error", "Trang nội dung yêu cầu cần có <strong>Tiêu đề</strong>", "Lỗi nhập tiêu đề");
+            $("#page_title_feedback").css('display', 'block');
+            $("#page_title").addClass('is-invalid');
+            $("#page_title_check_duplicate_true").css('display', 'none');
+            $("#page_title_check_duplicate_false").css('display', 'none');
+            $('#page_summary').removeClass('is-invalid');
+        }
+        else if (checkPageTitleDupplicateStatus == true) {
+            $('html, body').animate({
+                scrollTop: $("#div_page_info").offset().top
+            }, 600);
+            showToast("error", "Tiêu đề trang đã tồn tại. Vui lòng chọn tiêu đề khác", "Lỗi nhập tiêu đề");
+            $("#page_title_check_duplicate_true").css('display', 'block');
+            $("#page_title").addClass('is-invalid');
+            $("#page_title_feedback").css('display', 'none');
+            $("#page_title_check_duplicate_false").css('display', 'none');
+            $('#page_summary').removeClass('is-invalid');
+        }
+        else if ($('#page_summary').val().length > 500) {
+            $('html, body').animate({
+                scrollTop: $("#body_of_sort_description").offset().top
+            }, 600);
+            $('#page_summary').addClass('is-invalid');
+            showToast("error", "Mô tả vượt quá 500 ký tự", "Lỗi nhập mô tả");
+        }
+        else {
+            $("#page_title_feedback").css('display', 'none');
+            $("#page_title_check_duplicate_true").css('display', 'none');
+            $("#page_title_check_duplicate_false").css('display', 'none');
+            $("#page_title").removeClass('is-invalid');
+            $('#page_summary').removeClass('is-invalid');
+
+            if ($('#check_has_page_parent').is(':checked') && $('#select_page_parent').val() != null) {
+                fileData.append("page_parent_id", $("#select_page_parent").val());
+            }
+
+            //Set time show page
+            var is_showing = true;
+            if ($("input[name='set_time_show']:checked").val() == "false" || $("input[name='set_time_show']:checked").val() == false) {
+                is_showing = false;
+                fileData.append("is_showing", is_showing);
+                fileData.append("page_date_to_show", $("#page_date_to_show").val().trim());
+                fileData.append("page_time_to_show", $('#page_time_to_show').clockface('getTime').trim());
+            }
+            else {
+                fileData.append("is_showing", is_showing);
+            }
+
+            fileData.append("page_image", files[0]);
+            fileData.append("page_image_alt", $("#alt_image").val());
+            fileData.append("page_title", $("#page_title").val().trim());
+            fileData.append("page_category_id", $('#select_category_page_id').val());
+            fileData.append("page_content", $('#summernote').summernote('code'));
+            fileData.append("page_summary", $('#page_summary').val());
+            fileData.append("mount_on_header_menu_status", $('#mount_on_header_menu_status').is(":checked"));
+            fileData.append("mount_on_footer_menu_status", $('#mount_on_footer_menu_status').is(":checked"));
+
+            fileData.append("page_seo_alias", $("#seo_alias").val().trim());
+            fileData.append("page_seo_description", $("#seo_description").val().trim());
+            fileData.append("page_seo_header", $("#seo_header").val().trim());
+
+            $.ajax({
+            type: "POST",
+            url: '@Url.Action("InsertPage", "Page", null)',
+            data: fileData,
+            processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    $('#btn_insert').prop('disabled', true);
+                    $('#btn_insert').text("Đang tạo danh mục...");
+                },
+                success: function (data) {
+                    var date_obj = new Date();
+                    var minutes = 30;
+                    date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                    Cookies.set("insert_page_success", "" + data.page_id, { expires: date_obj });
+                    var url = '/Page/PageDetail?id=' + data.page_id;
+                    window.location.href = url;
+            },
+                error: function (xhr) {
+                    toastError();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                },
+                complete: function (xhr, status) {
+                    $('#btn_insert').prop('disabled', false);
+                    $('#btn_insert').text("Xác nhận");
+                }
+            });
+        }
+    }
+
+    $('#check_has_page_parent').change(function () {
+        if (this.checked) {
+            $('#select_page_parent').removeClass('hidden_element');
+        } else {
+            $('#select_page_parent').addClass('hidden_element');
+        }
+    });
+</script>

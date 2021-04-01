@@ -682,6 +682,22 @@ namespace Data.Providers
             }
         }
 
+        public List<product> filterOnClientSiteElysien(string seo_alias, decimal? min_price, decimal? max_price)
+        {
+            try
+            {
+                var list_input = new List<product>();
+                list_input = getByCategorySeoAliasOnSite(seo_alias);
+                var list_return = new List<product>();
+                list_return = getByMoneyRange((decimal)min_price, (decimal)max_price, list_input).ToList();
+                return list_return;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public List<product> filterOnClientSiteMorcar(string seo_alias, decimal? min_price, decimal? max_price)
         {
             try

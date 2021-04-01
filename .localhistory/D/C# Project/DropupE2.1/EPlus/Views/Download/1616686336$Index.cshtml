@@ -1,0 +1,116 @@
+﻿@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = "Tải tài liệu EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var contact = new StoreContactProvider().get1Contact();
+
+    var newest_blog = new BlogProvider().getNewest().Take(5).ToList();
+    var list_bc = new BlogCategoryProvider().getAll();
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+
+    ViewBag.Keywords = "Tải tài liệu eplus, eplus tài liệu, tài liệu eplus, tai lieu eplus, download eplus";
+    ViewBag.Description = "Download thư viện tài liệu tiếng Anh khổng lồ từ EPlus";
+    ViewBag.Canonical = urlSite + "/download";
+    ViewBag.Alternate = urlSite + "/download";
+    ViewBag.Url = urlSite + "/download";
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">Download tài liệu</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Download tài liệu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-gray">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-7 order-1 order-lg-0">
+                <div class="mb-5">
+                    <h2 class="text-secondary font-weight-bold mb-2">Đăng ký tư vấn</h2>
+                    <p>Điền đầy đủ các thông tin dưới đây, EPlus sẽ liên hệ lại với bạn</p>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cname">Họ tên *</label>
+                                <input type="text" class="form-control rounded-sm" id="cname" placeholder="Nhập tên của bạn">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cemail">Email *</label>
+                                <input type="email" class="form-control rounded-sm" id="cemail" placeholder="Nhập Email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cphone">Số điện thoại *</label>
+                                <input type="text" class="form-control rounded-sm" id="cphone" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="csubject">Bạn quan tâm điều gì tại EPlus? *</label>
+                                <input type="text" class="form-control rounded-sm" id="csubject" placeholder="Nhập tiêu đều bạn quan tâm">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-30">
+                                <label for="cmessage">Ghi chú *</label>
+                                <textarea class="form-control rounded-sm" id="cmessage" rows="5" placeholder="Để lại lời nhắn"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button id="submit" onclick="sendMessage()" type="button" class="btn btn-primary rounded-sm">Gửi thông tin</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xl-4 col-lg-5 mb-5 mb-lg-0 order-0 order-lg-1">
+                <div class="mb-5">
+                    <h2 class="text-secondary font-weight-bold mb-2">Download tài liệu</h2>
+                    <p>Lựa chọn kho tài liệu miễn phí theo trình độ của bạn</p>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-phone fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Chi tiết liên hệ</h4>
+                        <p>Điện thoại: <a href="tel:@contact.phone_number" class="text-dark">@contact.phone_number</a></p>
+                        <p>Email: <a href="mailto:@contact.email" class="text-dark">@contact.email</a></p>
+                    </div>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Địa chỉ</h4>
+                        <p>@contact.address</p>
+                    </div>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-user-clock fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Thời gian làm việc</h4>
+                        <p>@contact.working_day</p>
+                        <p>@contact.working_hour</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

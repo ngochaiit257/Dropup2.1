@@ -18,12 +18,12 @@ namespace VinaFocus.Controllers
         public ActionResult Index()
         {
             var list_return = new List<ProductVariationInCartModel>();
-            if (Request.Cookies["ELYSIEN_CART"] != null)
+            if (Request.Cookies["VINAFOCUS_CART"] != null)
             {
-                //var request_cookie = JsonConvert.SerializeObject(Request.Cookies["ELYSIEN_CART"].Value);
+                //var request_cookie = JsonConvert.SerializeObject(Request.Cookies["VINAFOCUS_CART"].Value);
                 //ViewData["CartInCookie"] = request_cookie;
 
-                string objCartListString = HttpUtility.UrlDecode(Request.Cookies["ELYSIEN_CART"].Value.ToString());
+                string objCartListString = HttpUtility.UrlDecode(Request.Cookies["VINAFOCUS_CART"].Value.ToString());
                 list_return = JsonConvert.DeserializeObject<List<ProductVariationInCartModel>>(objCartListString);
             }
 

@@ -27,7 +27,7 @@ namespace DropupManagement
             #region Sql Cache Dependency
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["sqlConString"].ConnectionString;
             string[] arr_table_cache = { "product", "product_variation" ,"product_variation_in_order", "order", "system_log", "store_message", "system_notification" };
-            //System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connectionString);
+            System.Web.Caching.SqlCacheDependencyAdmin.EnableNotifications(connectionString);
             System.Web.Caching.SqlCacheDependencyAdmin.EnableTableForNotifications(connectionString, arr_table_cache);
 
             #endregion

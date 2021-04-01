@@ -1,0 +1,552 @@
+﻿@model IEnumerable<ProductVariationModel>
+@using QuynhBoki.Models;
+@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    var contact = new StoreContactProvider().get1Contact();
+
+}
+
+<div class="row">
+    <div class="col-lg-8 col-md-12">
+
+        <div class="table-responsive">
+            <table class="table add_to_cart">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pv in Model)
+                    {
+                        var product = new ProductProvider().getById(pv.product_id);
+                        <tr>
+                            <td><div class="tb_course_thumb"><img src="@urlCMS/@product.product_image" class="img-fluid" alt="@product.alt_image" /></div></td>
+                            <th>@product.product_name</th>
+                            <td><span class="wish_price theme-cl showNumeric">@product.promotion_price</span></td>
+                            <td>
+                                <p>1</p>
+                            </td>
+                            <td><a href="javascript:void(0)" onclick="removeFromQuickViewCart('@pv.product_variation_id')" class="btn btn-remove">Xóa</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cart_totals checkout light_form mb-4">
+            <h4>Thông tin đặt hàng</h4>
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label>Tên của bạn</label>
+                        <input type="text" class="form-control" placeholder="Nhập tên của bạn" id="customer_shipping_full_name">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" placeholder="Nhập email" id="checkout_user_email">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Điện thoại</label>
+                        <input type="text" class="form-control" placeholder="Nhập số điện thoại" id="customer_shipping_phone">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Chọn Tỉnh/Thành phố</label>
+                        <select class="form-control" id="customer_shipping_province" name="customer_shipping_province">
+                            <option value="-1">Chọn Tỉnh/Thành phố</option>
+                            @foreach (var province in new LocalProvider().GetAllProvince())
+                            {
+                                <option value="@province.Id">@province.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Chọn Quận/Huyện/Thị Trấn</label>
+                        <select id="customer_shipping_district" name="customer_shipping_district" class="form-control">
+                            <option value="-1" selected>Chọn Quận/Huyện</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Chọn Xã/Phường</label>
+                        <select id="customer_shipping_ward" name="customer_shipping_ward" class="form-control">
+                            <option value="-1" selected>Chọn Xã/Phường</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Địa chỉ chi tiết</label>
+                        <input type="text" class="form-control" placeholder="Nhập địa chỉ chi tiết" id="customer_shipping_address_detail">
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label>Bạn nhắn nhủ điều gì cho Quỳnh không?</label>
+                        <textarea class="form-control" placeholder="Lời nhắn..." id="customer_shipping_note"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="cart_totals checkout light_form">
+            <h4>Lựa chọn phương thức thanh toán</h4>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="choose_payment_mt active">
+                        <img src="~/Assets/common-img/techcombank-banking.jpg" class="mb-4" />
+                        <div class="payment-info">
+                            <h3>Tại Việt Nam</h3>
+                            <p>
+                                <strong>Chủ tài khoản:</strong> Bùi Thị Quỳnh
+                            </p>
+                            <p>
+                                <strong>Số tài khoản:</strong> 19036886638014
+                            </p>
+                            <p class="bank_name">
+                                <strong>Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)</strong>
+                            </p>
+                            <p>
+                                <strong>Chi nhánh:</strong> Gia Lâm
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="choose_payment_mt">
+                        <img src="~/Assets/common-img/yucho-banking.png" class="mb-4" />
+                        <div class="payment-info">
+                            <h3>Tại Nhật Bản</h3>
+                            <p>
+                                <strong>Chủ tài khoản:</strong> Bùi Tuấn Anh <br />( ブイ　トゥアン　アイン )
+                            </p>
+                            <p>
+                                <strong>Số tài khoản:</strong> 10190-56538521
+                            </p>
+                            <p class="bank_name">
+                                <strong>Ngân hàng Yucho banking</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var bank_name = "Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)";
+                $('.choose_payment_mt').on('click', function () {
+                    $('.choose_payment_mt.active').removeClass('active');
+                    $(this).addClass('active');
+                    bank_name = $('.choose_payment_mt.active .bank_name strong').text();
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+        <div class="prc_wrap">
+
+            <div class="prc_wrap_header">
+                <a class="text-danger mb-4" style="text-align:justify"><i class="fa fa-exclamation-triangle"></i>&nbsp; Ngoài ra không có bất kỳ 1 tài khoản thanh toán nào hết, nếu có thì sẽ thông báo đến học viên, nếu có gì bất thường mọi người có thể liên hệ theo thông tin dưới đây.</a>
+            </div>
+
+            <div class="prc_wrap-body">
+                <div class="">
+                    <h3>Thông tin liên hệ</h3>
+
+                    <div class="cn-info-detail">
+                        <div class="cn-info-icon">
+                            <i class="ti-facebook"></i>
+                        </div>
+                        <div class="cn-info-content">
+                            <h4 class="cn-info-title">Facebook</h4>
+                            <a href="https://www.facebook.com/Quynh.May.2112/">Quỳnh May</a>
+                        </div>
+                    </div>
+
+                    <div class="cn-info-detail">
+                        <div class="cn-info-icon">
+                            <i class="ti-email"></i>
+                        </div>
+                        <div class="cn-info-content">
+                            <h4 class="cn-info-title">Email</h4>
+                            @contact.email
+                        </div>
+                    </div>
+
+                    <div class="cn-info-detail">
+                        <div class="cn-info-icon">
+                            <i class="ti-headphone"></i>
+                        </div>
+                        <div class="cn-info-content">
+                            <h4 class="cn-info-title">Hotline</h4>
+                            @contact.phone_number
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Cart -->
+        <div class="cart_totals checkout" style="padding-top: 30px;">
+            <h4>Hóa đơn</h4>
+            <div class="cart-wrap">
+                <div class="flex_cart">
+                    <div class="flex_cart_1">
+                        Tổng tính
+                    </div>
+                    <div class="flex_cart_2 showNumeric">@ViewBag.CostAllProduct</div>
+                </div>
+                <button type="button" class="btn checkout_btn" onclick="makeOrderPending()">Đặt Mua</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .modal-window {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.25);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        visibility: inherit;
+        opacity:1;
+        pointer-events: none;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+        .modal-window:target {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background: #000;
+        }
+
+        .modal-window header {
+            font-weight: bold;
+        }
+
+        .modal-window h1 {
+            color: #fff;
+            font-size: 16px;
+            margin: 0 0 15px;
+            position: relative;
+            bottom: 55px;
+        }
+</style>
+
+<div id="open-modal" class="modal-window">
+    <div style="text-align: center; width:225px;">
+        <img src="~/Assets/images/loader/loader-order.gif" />
+        <h1>Vui lòng chờ trong giây lát...</h1>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+    });
+
+    //// truyền id của district vào
+        $("#customer_shipping_province").on('change', function () {
+            var id = $(this).val();
+            //$('#customer_shipping_province').removeClass('invalid');
+            //$('#feedback_customer_shipping_province').addClass('hidden');
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllDistrictByProvinceId", "GetLocal")',
+                success: function (data) {
+                    $("#customer_shipping_district").empty();
+                    $("#customer_shipping_ward").empty();
+                    $("#customer_shipping_district").append('<option value="-1">-- Chọn Quận/Huyện --</option>');
+                    $("#customer_shipping_ward").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#customer_shipping_district").append('<option value="' + value.district_id + '"> ' + value.district_type + " " + value.district_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    alert('Error!');
+                }
+            });
+        });
+
+    $("#customer_shipping_district").on('change', function () {
+        var id = $(this).val();
+        //$('#customer_shipping_district').removeClass('invalid');
+         //$('#feedback_customer_shipping_district').addClass('hidden');
+        $.ajax({
+
+            type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllWardByDistrictId", "GetLocal")',
+                success: function (data) {
+                    $("#customer_shipping_ward").empty();
+                    $("#customer_shipping_ward").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#customer_shipping_ward").append('<option value="' + value.ward_id + '"> ' + value.ward_type + " " + value.ward_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    alert('Error!');
+                }
+        });
+    });
+
+    $("#customer_shipping_ward").on('change', function () {
+            var id = $(this).val();
+        //$('#customer_shipping_ward').removeClass('invalid');
+        //$('#feedback_customer_shipping_ward').addClass('hidden');
+    });
+
+
+    function makeOrderPending() {
+        var status = true;
+        var cost_shipping_value_selected = 0;
+        var name_of_shipping = "";
+
+        var last_name = $('#customer_shipping_full_name').val();
+        var customer_email = $('#checkout_user_email').val();
+        var phone_number = $('#customer_shipping_phone').val();
+        var province_id = $('#customer_shipping_province').val();
+        var district_id = $('#customer_shipping_district').val();
+        var ward_id = $('#customer_shipping_ward').val();
+        var address_detail = $('#customer_shipping_address_detail').val();
+        var customer_note = $('#customer_shipping_note').val();
+        var total_cost_product = '@ViewBag.CostAllProduct';
+
+        var amount_received = total_cost_product;
+        var payment_method_id = 4;
+        var cost_of_shipping = 0;
+        var discount_amount = 0;
+        var coupon_code = "";
+        var reason_of_promotion = ""
+        if (coupon_code.length > 0) {
+            reason_of_promotion = "Mã giảm giá: " + coupon_code;
+         }
+
+         if (last_name == "" || last_name == null) {
+             status = false;
+             alert("Bạn cần nhập tên.");
+         }
+         if (customer_email == "" || customer_email == null) {
+             status = false;
+             alert("Bạn cần nhập email.");
+         }
+         else {
+             if (!isEmail(customer_email)) {
+                 status = false;
+                 alert("Bạn cần nhập email");
+             }
+         }
+
+         if (phone_number == "" || phone_number == null) {
+             alert("Bạn cần nhập số điện thoại");
+             status = false;
+         }
+         else {
+             if (!phonenumber(phone_number)) {
+                 alert("Số điện thoại không đúng định dạng");
+                 status = false;
+             }
+         }
+
+         if (address_detail == "" || address_detail == null) {
+             alert("Bạn cần nhập địa chỉ chi tiết");
+             status = false;
+         }
+         if (province_id == -1) {
+             alert("Bạn cần chọn Tỉnh/Thành phố");
+             status = false;
+         }
+         if (district_id == -1) {
+             alert("Bạn cần chọn Quận/Huyện/Thị trấn");
+             status = false;
+         }
+         if (ward_id == -1) {
+             alert("Bạn cần chọn Xã/Phường");
+             status = false;
+         }
+
+         if (status == true) {
+             $.ajax({
+            url: '@Url.Action("MakeOrderPending", "Checkout")',
+            data: {
+                last_name: last_name,
+                customer_email: customer_email,
+                phone_number: phone_number,
+                province_id: province_id,
+                district_id: district_id,
+                ward_id: ward_id,
+                address_detail: address_detail,
+                customer_note: customer_note,
+
+                discount_amount: discount_amount,
+                reason_of_promotion: reason_of_promotion,
+                name_of_shipping: name_of_shipping,
+                cost_of_shipping: cost_of_shipping,
+                payment_method_id: payment_method_id,
+                amount_received: amount_received,
+                coupon_id: 0,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            beforeSend: function () {
+                $('.modal-window').css({ opacity: "1" });
+                $('input, button').prop('disabled', true);
+            },
+            success: function (data) {
+                var data_json = JSON.parse(data);
+                var order_id = data_json.order_id;
+                if (Cookies.get("QUYNHBOKI_CART") != null) {
+                    Cookies.remove("QUYNHBOKI_CART");
+                }
+                alert("Bạn đã đặt hàng thành công. Quỳnh Boki sẽ liên hệ lại với bạn sớm.");
+            },
+            error: function (xhr, status) {
+                alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+            },
+            complete: function (xhr, status) {
+                $('.modal-window').css({ opacity: "0" });
+                $('input, button').prop('disabled', false);
+            }
+        });
+         }
+
+        
+    }
+
+
+    function decreaseQuantity(product_variation_id) {
+        var quantity_value = $('#Quantity_' + product_variation_id).val();
+        if (quantity_value > 1) {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+            $.each(list_product_variation_in_cart, function (index, value) {
+                if (value.id == product_variation_id) {
+                    value.quantity--;
+                }
+            });
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+            loadCart();
+            updateCartForUserLoged();
+        }
+    }
+
+    function increaseQuantity(product_variation_id) {
+        var quantity_value = $('#Quantity_' + product_variation_id).val();
+        var product_variation_in_stock = $('#product_variation_in_stock_' + product_variation_id).val();
+        var allow_ordering_while_out_of_stock_status = $('#allow_ordering_while_out_of_stock_status_' + product_variation_id).text();
+        var warehouse_management_status = $('#warehouse_management_status_' + product_variation_id).text();
+        if (warehouse_management_status == "True") {
+            if (allow_ordering_while_out_of_stock_status == "True") {
+                var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+                $.each(list_product_variation_in_cart, function (index, value) {
+                    if (value.id == product_variation_id) {
+                        value.quantity++;
+                    }
+                });
+                var date_obj = new Date();
+                var minutes = 525600;
+                date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+                loadCart();
+                updateCartForUserLoged();
+            }
+            else {
+                if (quantity_value < product_variation_in_stock) {
+                    var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+                    $.each(list_product_variation_in_cart, function (index, value) {
+                        if (value.id == product_variation_id) {
+                            value.quantity++;
+                        }
+                    });
+                    var date_obj = new Date();
+                    var minutes = 525600;
+                    date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                    Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+                    loadCart();
+                    updateCartForUserLoged();
+                }
+            }
+        }
+        else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+            $.each(list_product_variation_in_cart, function (index, value) {
+                if (value.id == product_variation_id) {
+                    value.quantity++;
+                }
+            });
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+            loadCart();
+            updateCartForUserLoged();
+        }
+    }
+
+    function removeFromQuickViewCart(product_variation_id) {
+        var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+        $.each(list_product_variation_in_cart, function (index, value) {
+            if (value.id == product_variation_id) {
+                list_product_variation_in_cart = list_product_variation_in_cart.filter(function (el) { return el.id != product_variation_id });
+            }
+        });
+        if (list_product_variation_in_cart.length > 0) {
+            var date_obj = new Date();
+            var minutes = 525600;
+            date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+            Cookies.set("QUYNHBOKI_CART", JSON.stringify(list_product_variation_in_cart), { expires: date_obj, path: '/' });
+
+
+        } else {
+            Cookies.remove("QUYNHBOKI_CART");
+        }
+        loadCart();
+        getNumOfItemInCart();
+        updateCartForUserLoged();
+    }
+
+    $(".quantity_input").keypress(function (event) {
+        if (event.which != 8 && event.which != 0 && (event.which < 48 || event.which > 57)) {
+            return false;
+        }
+    });
+</script>

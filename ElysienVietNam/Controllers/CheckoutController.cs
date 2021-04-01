@@ -765,7 +765,9 @@ namespace ElysienVietNam.Controllers
 
             content = content.Replace("{{order_list_product}}", order_list_product);
 
+
             await new MailHelper().SendMail(email_receiver, "[DROPUP] Đơn hàng #" + order_id.ToString() + " được đặt bởi " + customer_fullname, content);
+
             return true;
         }
 

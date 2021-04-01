@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "PageContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">@Model.page_title</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        @if (page_parent != null && page_parent.page_id > 0)
+                        {
+                            <li class="breadcrumb-item">
+                                <a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">@Model.page_title</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-gray">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-7 order-1 order-lg-0">
+                <div class="mb-5">
+                    <h2 class="text-secondary font-weight-bold mb-2">Đăng ký tư vấn</h2>
+                    <p>Điền đầy đủ các thông tin dưới đây, EPlus sẽ liên hệ lại với bạn</p>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="name">Họ tên*</label>
+                                <input type="text" class="form-control rounded-sm" id="cname" placeholder="Nhập tên của bạn">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="email">Email*</label>
+                                <input type="email" class="form-control rounded-sm" id="cemail" placeholder="Nhập Email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="sub">Số điện thoại</label>
+                                <input type="text" class="form-control rounded-sm" id="cphone" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="sub">Bạn quan tâm điều gì tại EPlus?</label>
+                                <input type="text" class="form-control rounded-sm" id="csubject" placeholder="Nhập tiêu đều bạn quan tâm">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-30">
+                                <label for="message">Ghi chú</label>
+                                <textarea class="form-control rounded-sm" id="cmessage" rows="5" placeholder="Để lại lời nhắn"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary rounded-sm">Gửi thông tin</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xl-4 col-lg-5 mb-5 mb-lg-0 order-0 order-lg-1">
+                <div class="mb-5">
+                    <h2 class="text-secondary font-weight-bold mb-2">Thông tin</h2>
+                    <p>Hoặc liên hệ theo thông tin dưới đây</p>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-phone fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Chi tiết liên hệ</h4>
+                        <p>Điện thoại: <a href="tel:0968.888.888 - 0983.555.555                                                                                                                                                                                                                                    " class="text-dark">0968.888.888 - 0983.555.555                                                                                                                                                                                                                                    </a></p>
+                        <p>Email: <a href="mailto:eplusvietnam@gmail.com" class="text-dark">eplusvietnam@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Địa chỉ</h4>
+                        <p>Đại Kim, Quận Hoàng Mai, Hà Nội</p>
+                    </div>
+                </div>
+                <div class="shadow-sm p-20 mt-4 rounded-sm bg-white d-block d-sm-flex align-items-center">
+                    <i class="fas fa-user-clock fa-2x text-primary"></i>
+                    <div class="ml-sm-4 mt-3 mt-sm-0">
+                        <h4 class="text-secondary font-weight-600 mb-1">Thời gian làm việc</h4>
+                        <p>Thứ 2 - Thứ 7</p>
+                        <p>8:00 - 17:30</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

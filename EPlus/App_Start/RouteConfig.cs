@@ -26,9 +26,21 @@ namespace EPlus
            );
 
             routes.MapRoute(
+              name: "Download",
+              url: "download",
+              defaults: new { controller = "Download", action = "Index", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
                name: "Contact",
                url: "pages/lien-he",
                defaults: new { controller = "Page", action = "PageContact", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "DiemKhacBiet",
+               url: "pages/diem-khac-biet",
+               defaults: new { controller = "Page", action = "PageDiemKhacBiet", id = UrlParameter.Optional }
            );
 
             routes.MapRoute(

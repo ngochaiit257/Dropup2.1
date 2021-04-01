@@ -155,6 +155,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,10 +170,14 @@
     <Content Include="Assets\images\about-img.jpg" />
     <Content Include="Assets\images\admission-open.jpg" />
     <Content Include="Assets\images\app-store-btn.png" />
+    <Content Include="Assets\images\background\bg-e-1.jpg" />
     <Content Include="Assets\images\banner-image-00.jpg" />
     <Content Include="Assets\images\banner-image-01.png" />
     <Content Include="Assets\images\banner-image-02.jpg" />
     <Content Include="Assets\images\banner\bg-feature.jpg" />
+    <Content Include="Assets\images\banner\chan-trang.jpg" />
+    <Content Include="Assets\images\banner\chi-co-tai-eplus.jpg" />
+    <Content Include="Assets\images\banner\noi-dung-khoa-hoc.jpg" />
     <Content Include="Assets\images\blog-single.jpg" />
     <Content Include="Assets\images\blogs\01.jpg" />
     <Content Include="Assets\images\blogs\02.jpg" />
@@ -280,6 +285,9 @@
     <Content Include="Assets\js\autoNumeric.js" />
     <Content Include="Assets\js\custom.js" />
     <Content Include="Assets\js\script.js" />
+    <Content Include="Assets\template\YouHaveFastOrder.html" />
+    <Content Include="Assets\template\YouHaveMessage.html" />
+    <Content Include="Assets\template\YouHaveOrder.html" />
     <Content Include="Assets\vendors\bootstrap\bootstrap.min.css" />
     <Content Include="Assets\vendors\bootstrap\bootstrap.min.js" />
     <Content Include="Assets\vendors\counterup\jquery.counterup.min.js" />
@@ -335,6 +343,8 @@
     <Content Include="Assets\fonts\PoppinsVN-600.eot" />
     <Content Include="Assets\fonts\PoppinsVN-600.ttf" />
     <Content Include="Assets\fonts\PoppinsVN-600.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -364,6 +374,9 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\_PartialViewListBlog.cshtml" />
     <Content Include="Views\Blog\BlogDetail.cshtml" />
+    <Content Include="Views\Page\PageContact.cshtml" />
+    <Content Include="Views\Page\PageDiemKhacBiet.cshtml" />
+    <Content Include="Views\Download\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

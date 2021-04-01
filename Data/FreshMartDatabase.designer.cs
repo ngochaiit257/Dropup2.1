@@ -22,7 +22,7 @@ namespace Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QuynhBoki")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="HMmedia")]
 	public partial class FreshMartDatabaseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -33,6 +33,9 @@ namespace Data
     partial void Insertaddress(address instance);
     partial void Updateaddress(address instance);
     partial void Deleteaddress(address instance);
+    partial void Insertward(ward instance);
+    partial void Updateward(ward instance);
+    partial void Deleteward(ward instance);
     partial void InsertAspNet_SqlCacheTablesForChangeNotification(AspNet_SqlCacheTablesForChangeNotification instance);
     partial void UpdateAspNet_SqlCacheTablesForChangeNotification(AspNet_SqlCacheTablesForChangeNotification instance);
     partial void DeleteAspNet_SqlCacheTablesForChangeNotification(AspNet_SqlCacheTablesForChangeNotification instance);
@@ -255,13 +258,10 @@ namespace Data
     partial void Insertuser_group_action(user_group_action instance);
     partial void Updateuser_group_action(user_group_action instance);
     partial void Deleteuser_group_action(user_group_action instance);
-    partial void Insertward(ward instance);
-    partial void Updateward(ward instance);
-    partial void Deleteward(ward instance);
     #endregion
 		
 		public FreshMartDatabaseDataContext() : 
-				base(global::Data.Properties.Settings.Default.QuynhBokiConnectionString, mappingSource)
+				base(global::Data.Properties.Settings.Default.HMmediaConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -295,6 +295,14 @@ namespace Data
 			get
 			{
 				return this.GetTable<address>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ward> wards
+		{
+			get
+			{
+				return this.GetTable<ward>();
 			}
 		}
 		
@@ -889,14 +897,6 @@ namespace Data
 				return this.GetTable<user_group_action>();
 			}
 		}
-		
-		public System.Data.Linq.Table<ward> wards
-		{
-			get
-			{
-				return this.GetTable<ward>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.address")]
@@ -1071,6 +1071,361 @@ namespace Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ward")]
+	public partial class ward : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Type;
+		
+		private string _LatiLongTude;
+		
+		private int _DistrictID;
+		
+		private int _SortOrder;
+		
+		private System.Nullable<bool> _IsPublished;
+		
+		private System.Nullable<bool> _IsDeleted;
+		
+		private EntitySet<customer> _customers;
+		
+		private EntitySet<delivery_address> _delivery_addresses;
+		
+		private EntitySet<user> _users;
+		
+		private EntityRef<district> _district;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnLatiLongTudeChanging(string value);
+    partial void OnLatiLongTudeChanged();
+    partial void OnDistrictIDChanging(int value);
+    partial void OnDistrictIDChanged();
+    partial void OnSortOrderChanging(int value);
+    partial void OnSortOrderChanged();
+    partial void OnIsPublishedChanging(System.Nullable<bool> value);
+    partial void OnIsPublishedChanged();
+    partial void OnIsDeletedChanging(System.Nullable<bool> value);
+    partial void OnIsDeletedChanged();
+    #endregion
+		
+		public ward()
+		{
+			this._customers = new EntitySet<customer>(new Action<customer>(this.attach_customers), new Action<customer>(this.detach_customers));
+			this._delivery_addresses = new EntitySet<delivery_address>(new Action<delivery_address>(this.attach_delivery_addresses), new Action<delivery_address>(this.detach_delivery_addresses));
+			this._users = new EntitySet<user>(new Action<user>(this.attach_users), new Action<user>(this.detach_users));
+			this._district = default(EntityRef<district>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LatiLongTude", DbType="NVarChar(50)")]
+		public string LatiLongTude
+		{
+			get
+			{
+				return this._LatiLongTude;
+			}
+			set
+			{
+				if ((this._LatiLongTude != value))
+				{
+					this.OnLatiLongTudeChanging(value);
+					this.SendPropertyChanging();
+					this._LatiLongTude = value;
+					this.SendPropertyChanged("LatiLongTude");
+					this.OnLatiLongTudeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DistrictID", DbType="Int NOT NULL")]
+		public int DistrictID
+		{
+			get
+			{
+				return this._DistrictID;
+			}
+			set
+			{
+				if ((this._DistrictID != value))
+				{
+					if (this._district.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDistrictIDChanging(value);
+					this.SendPropertyChanging();
+					this._DistrictID = value;
+					this.SendPropertyChanged("DistrictID");
+					this.OnDistrictIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortOrder", DbType="Int NOT NULL")]
+		public int SortOrder
+		{
+			get
+			{
+				return this._SortOrder;
+			}
+			set
+			{
+				if ((this._SortOrder != value))
+				{
+					this.OnSortOrderChanging(value);
+					this.SendPropertyChanging();
+					this._SortOrder = value;
+					this.SendPropertyChanged("SortOrder");
+					this.OnSortOrderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPublished", DbType="Bit")]
+		public System.Nullable<bool> IsPublished
+		{
+			get
+			{
+				return this._IsPublished;
+			}
+			set
+			{
+				if ((this._IsPublished != value))
+				{
+					this.OnIsPublishedChanging(value);
+					this.SendPropertyChanging();
+					this._IsPublished = value;
+					this.SendPropertyChanged("IsPublished");
+					this.OnIsPublishedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit")]
+		public System.Nullable<bool> IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this.OnIsDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsDeleted = value;
+					this.SendPropertyChanged("IsDeleted");
+					this.OnIsDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_customer", Storage="_customers", ThisKey="Id", OtherKey="ward_id")]
+		public EntitySet<customer> customers
+		{
+			get
+			{
+				return this._customers;
+			}
+			set
+			{
+				this._customers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_delivery_address", Storage="_delivery_addresses", ThisKey="Id", OtherKey="ward_id")]
+		public EntitySet<delivery_address> delivery_addresses
+		{
+			get
+			{
+				return this._delivery_addresses;
+			}
+			set
+			{
+				this._delivery_addresses.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_user", Storage="_users", ThisKey="Id", OtherKey="ward_id")]
+		public EntitySet<user> users
+		{
+			get
+			{
+				return this._users;
+			}
+			set
+			{
+				this._users.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_ward", Storage="_district", ThisKey="DistrictID", OtherKey="Id", IsForeignKey=true)]
+		public district district
+		{
+			get
+			{
+				return this._district.Entity;
+			}
+			set
+			{
+				district previousValue = this._district.Entity;
+				if (((previousValue != value) 
+							|| (this._district.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._district.Entity = null;
+						previousValue.wards.Remove(this);
+					}
+					this._district.Entity = value;
+					if ((value != null))
+					{
+						value.wards.Add(this);
+						this._DistrictID = value.Id;
+					}
+					else
+					{
+						this._DistrictID = default(int);
+					}
+					this.SendPropertyChanged("district");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_customers(customer entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = this;
+		}
+		
+		private void detach_customers(customer entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = null;
+		}
+		
+		private void attach_delivery_addresses(delivery_address entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = this;
+		}
+		
+		private void detach_delivery_addresses(delivery_address entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = null;
+		}
+		
+		private void attach_users(user entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = this;
+		}
+		
+		private void detach_users(user entity)
+		{
+			this.SendPropertyChanging();
+			entity.ward = null;
 		}
 	}
 	
@@ -6164,6 +6519,8 @@ namespace Data
 		
 		private EntitySet<tag_customer> _tag_customers;
 		
+		private EntityRef<ward> _ward;
+		
 		private EntityRef<district> _district;
 		
 		private EntityRef<gender> _gender;
@@ -6171,8 +6528,6 @@ namespace Data
 		private EntityRef<province> _province;
 		
 		private EntityRef<user> _user;
-		
-		private EntityRef<ward> _ward;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6221,11 +6576,11 @@ namespace Data
 			this._orders = new EntitySet<order>(new Action<order>(this.attach_orders), new Action<order>(this.detach_orders));
 			this._orders1 = new EntitySet<order>(new Action<order>(this.attach_orders1), new Action<order>(this.detach_orders1));
 			this._tag_customers = new EntitySet<tag_customer>(new Action<tag_customer>(this.attach_tag_customers), new Action<tag_customer>(this.detach_tag_customers));
+			this._ward = default(EntityRef<ward>);
 			this._district = default(EntityRef<district>);
 			this._gender = default(EntityRef<gender>);
 			this._province = default(EntityRef<province>);
 			this._user = default(EntityRef<user>);
-			this._ward = default(EntityRef<ward>);
 			OnCreated();
 		}
 		
@@ -6654,6 +7009,40 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_customer", Storage="_ward", ThisKey="ward_id", OtherKey="Id", IsForeignKey=true)]
+		public ward ward
+		{
+			get
+			{
+				return this._ward.Entity;
+			}
+			set
+			{
+				ward previousValue = this._ward.Entity;
+				if (((previousValue != value) 
+							|| (this._ward.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ward.Entity = null;
+						previousValue.customers.Remove(this);
+					}
+					this._ward.Entity = value;
+					if ((value != null))
+					{
+						value.customers.Add(this);
+						this._ward_id = value.Id;
+					}
+					else
+					{
+						this._ward_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ward");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_customer", Storage="_district", ThisKey="district_id", OtherKey="Id", IsForeignKey=true)]
 		public district district
 		{
@@ -6790,40 +7179,6 @@ namespace Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_customer", Storage="_ward", ThisKey="ward_id", OtherKey="Id", IsForeignKey=true)]
-		public ward ward
-		{
-			get
-			{
-				return this._ward.Entity;
-			}
-			set
-			{
-				ward previousValue = this._ward.Entity;
-				if (((previousValue != value) 
-							|| (this._ward.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ward.Entity = null;
-						previousValue.customers.Remove(this);
-					}
-					this._ward.Entity = value;
-					if ((value != null))
-					{
-						value.customers.Add(this);
-						this._ward_id = value.Id;
-					}
-					else
-					{
-						this._ward_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("ward");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -6939,11 +7294,11 @@ namespace Data
 		
 		private EntityRef<customer> _customer;
 		
+		private EntityRef<ward> _ward;
+		
 		private EntityRef<district> _district;
 		
 		private EntityRef<province> _province;
-		
-		private EntityRef<ward> _ward;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6979,9 +7334,9 @@ namespace Data
 		{
 			this._orders = new EntitySet<order>(new Action<order>(this.attach_orders), new Action<order>(this.detach_orders));
 			this._customer = default(EntityRef<customer>);
+			this._ward = default(EntityRef<ward>);
 			this._district = default(EntityRef<district>);
 			this._province = default(EntityRef<province>);
-			this._ward = default(EntityRef<ward>);
 			OnCreated();
 		}
 		
@@ -7288,6 +7643,40 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_delivery_address", Storage="_ward", ThisKey="ward_id", OtherKey="Id", IsForeignKey=true)]
+		public ward ward
+		{
+			get
+			{
+				return this._ward.Entity;
+			}
+			set
+			{
+				ward previousValue = this._ward.Entity;
+				if (((previousValue != value) 
+							|| (this._ward.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ward.Entity = null;
+						previousValue.delivery_addresses.Remove(this);
+					}
+					this._ward.Entity = value;
+					if ((value != null))
+					{
+						value.delivery_addresses.Add(this);
+						this._ward_id = value.Id;
+					}
+					else
+					{
+						this._ward_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ward");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_delivery_address", Storage="_district", ThisKey="district_id", OtherKey="Id", IsForeignKey=true)]
 		public district district
 		{
@@ -7352,40 +7741,6 @@ namespace Data
 						this._province_id = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("province");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_delivery_address", Storage="_ward", ThisKey="ward_id", OtherKey="Id", IsForeignKey=true)]
-		public ward ward
-		{
-			get
-			{
-				return this._ward.Entity;
-			}
-			set
-			{
-				ward previousValue = this._ward.Entity;
-				if (((previousValue != value) 
-							|| (this._ward.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ward.Entity = null;
-						previousValue.delivery_addresses.Remove(this);
-					}
-					this._ward.Entity = value;
-					if ((value != null))
-					{
-						value.delivery_addresses.Add(this);
-						this._ward_id = value.Id;
-					}
-					else
-					{
-						this._ward_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("ward");
 				}
 			}
 		}
@@ -7611,6 +7966,8 @@ namespace Data
 		
 		private System.Nullable<bool> _IsDeleted;
 		
+		private EntitySet<ward> _wards;
+		
 		private EntitySet<cost_for_district_shipping> _cost_for_district_shippings;
 		
 		private EntitySet<customer> _customers;
@@ -7618,8 +7975,6 @@ namespace Data
 		private EntitySet<delivery_address> _delivery_addresses;
 		
 		private EntitySet<user> _users;
-		
-		private EntitySet<ward> _wards;
 		
 		private EntityRef<province> _province;
 		
@@ -7647,11 +8002,11 @@ namespace Data
 		
 		public district()
 		{
+			this._wards = new EntitySet<ward>(new Action<ward>(this.attach_wards), new Action<ward>(this.detach_wards));
 			this._cost_for_district_shippings = new EntitySet<cost_for_district_shipping>(new Action<cost_for_district_shipping>(this.attach_cost_for_district_shippings), new Action<cost_for_district_shipping>(this.detach_cost_for_district_shippings));
 			this._customers = new EntitySet<customer>(new Action<customer>(this.attach_customers), new Action<customer>(this.detach_customers));
 			this._delivery_addresses = new EntitySet<delivery_address>(new Action<delivery_address>(this.attach_delivery_addresses), new Action<delivery_address>(this.detach_delivery_addresses));
 			this._users = new EntitySet<user>(new Action<user>(this.attach_users), new Action<user>(this.detach_users));
-			this._wards = new EntitySet<ward>(new Action<ward>(this.attach_wards), new Action<ward>(this.detach_wards));
 			this._province = default(EntityRef<province>);
 			OnCreated();
 		}
@@ -7820,6 +8175,19 @@ namespace Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_ward", Storage="_wards", ThisKey="Id", OtherKey="DistrictID")]
+		public EntitySet<ward> wards
+		{
+			get
+			{
+				return this._wards;
+			}
+			set
+			{
+				this._wards.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_cost_for_district_shipping", Storage="_cost_for_district_shippings", ThisKey="Id", OtherKey="district_id")]
 		public EntitySet<cost_for_district_shipping> cost_for_district_shippings
 		{
@@ -7869,19 +8237,6 @@ namespace Data
 			set
 			{
 				this._users.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_ward", Storage="_wards", ThisKey="Id", OtherKey="DistrictID")]
-		public EntitySet<ward> wards
-		{
-			get
-			{
-				return this._wards;
-			}
-			set
-			{
-				this._wards.Assign(value);
 			}
 		}
 		
@@ -7939,6 +8294,18 @@ namespace Data
 			}
 		}
 		
+		private void attach_wards(ward entity)
+		{
+			this.SendPropertyChanging();
+			entity.district = this;
+		}
+		
+		private void detach_wards(ward entity)
+		{
+			this.SendPropertyChanging();
+			entity.district = null;
+		}
+		
 		private void attach_cost_for_district_shippings(cost_for_district_shipping entity)
 		{
 			this.SendPropertyChanging();
@@ -7982,18 +8349,6 @@ namespace Data
 		}
 		
 		private void detach_users(user entity)
-		{
-			this.SendPropertyChanging();
-			entity.district = null;
-		}
-		
-		private void attach_wards(ward entity)
-		{
-			this.SendPropertyChanging();
-			entity.district = this;
-		}
-		
-		private void detach_wards(ward entity)
 		{
 			this.SendPropertyChanging();
 			entity.district = null;
@@ -22544,361 +22899,6 @@ namespace Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ward")]
-	public partial class ward : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private string _Type;
-		
-		private string _LatiLongTude;
-		
-		private int _DistrictID;
-		
-		private int _SortOrder;
-		
-		private System.Nullable<bool> _IsPublished;
-		
-		private System.Nullable<bool> _IsDeleted;
-		
-		private EntitySet<customer> _customers;
-		
-		private EntitySet<delivery_address> _delivery_addresses;
-		
-		private EntitySet<user> _users;
-		
-		private EntityRef<district> _district;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
-    partial void OnLatiLongTudeChanging(string value);
-    partial void OnLatiLongTudeChanged();
-    partial void OnDistrictIDChanging(int value);
-    partial void OnDistrictIDChanged();
-    partial void OnSortOrderChanging(int value);
-    partial void OnSortOrderChanged();
-    partial void OnIsPublishedChanging(System.Nullable<bool> value);
-    partial void OnIsPublishedChanged();
-    partial void OnIsDeletedChanging(System.Nullable<bool> value);
-    partial void OnIsDeletedChanged();
-    #endregion
-		
-		public ward()
-		{
-			this._customers = new EntitySet<customer>(new Action<customer>(this.attach_customers), new Action<customer>(this.detach_customers));
-			this._delivery_addresses = new EntitySet<delivery_address>(new Action<delivery_address>(this.attach_delivery_addresses), new Action<delivery_address>(this.detach_delivery_addresses));
-			this._users = new EntitySet<user>(new Action<user>(this.attach_users), new Action<user>(this.detach_users));
-			this._district = default(EntityRef<district>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50)")]
-		public string Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LatiLongTude", DbType="NVarChar(50)")]
-		public string LatiLongTude
-		{
-			get
-			{
-				return this._LatiLongTude;
-			}
-			set
-			{
-				if ((this._LatiLongTude != value))
-				{
-					this.OnLatiLongTudeChanging(value);
-					this.SendPropertyChanging();
-					this._LatiLongTude = value;
-					this.SendPropertyChanged("LatiLongTude");
-					this.OnLatiLongTudeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DistrictID", DbType="Int NOT NULL")]
-		public int DistrictID
-		{
-			get
-			{
-				return this._DistrictID;
-			}
-			set
-			{
-				if ((this._DistrictID != value))
-				{
-					if (this._district.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnDistrictIDChanging(value);
-					this.SendPropertyChanging();
-					this._DistrictID = value;
-					this.SendPropertyChanged("DistrictID");
-					this.OnDistrictIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortOrder", DbType="Int NOT NULL")]
-		public int SortOrder
-		{
-			get
-			{
-				return this._SortOrder;
-			}
-			set
-			{
-				if ((this._SortOrder != value))
-				{
-					this.OnSortOrderChanging(value);
-					this.SendPropertyChanging();
-					this._SortOrder = value;
-					this.SendPropertyChanged("SortOrder");
-					this.OnSortOrderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPublished", DbType="Bit")]
-		public System.Nullable<bool> IsPublished
-		{
-			get
-			{
-				return this._IsPublished;
-			}
-			set
-			{
-				if ((this._IsPublished != value))
-				{
-					this.OnIsPublishedChanging(value);
-					this.SendPropertyChanging();
-					this._IsPublished = value;
-					this.SendPropertyChanged("IsPublished");
-					this.OnIsPublishedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit")]
-		public System.Nullable<bool> IsDeleted
-		{
-			get
-			{
-				return this._IsDeleted;
-			}
-			set
-			{
-				if ((this._IsDeleted != value))
-				{
-					this.OnIsDeletedChanging(value);
-					this.SendPropertyChanging();
-					this._IsDeleted = value;
-					this.SendPropertyChanged("IsDeleted");
-					this.OnIsDeletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_customer", Storage="_customers", ThisKey="Id", OtherKey="ward_id")]
-		public EntitySet<customer> customers
-		{
-			get
-			{
-				return this._customers;
-			}
-			set
-			{
-				this._customers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_delivery_address", Storage="_delivery_addresses", ThisKey="Id", OtherKey="ward_id")]
-		public EntitySet<delivery_address> delivery_addresses
-		{
-			get
-			{
-				return this._delivery_addresses;
-			}
-			set
-			{
-				this._delivery_addresses.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ward_user", Storage="_users", ThisKey="Id", OtherKey="ward_id")]
-		public EntitySet<user> users
-		{
-			get
-			{
-				return this._users;
-			}
-			set
-			{
-				this._users.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="district_ward", Storage="_district", ThisKey="DistrictID", OtherKey="Id", IsForeignKey=true)]
-		public district district
-		{
-			get
-			{
-				return this._district.Entity;
-			}
-			set
-			{
-				district previousValue = this._district.Entity;
-				if (((previousValue != value) 
-							|| (this._district.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._district.Entity = null;
-						previousValue.wards.Remove(this);
-					}
-					this._district.Entity = value;
-					if ((value != null))
-					{
-						value.wards.Add(this);
-						this._DistrictID = value.Id;
-					}
-					else
-					{
-						this._DistrictID = default(int);
-					}
-					this.SendPropertyChanged("district");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_customers(customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = this;
-		}
-		
-		private void detach_customers(customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = null;
-		}
-		
-		private void attach_delivery_addresses(delivery_address entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = this;
-		}
-		
-		private void detach_delivery_addresses(delivery_address entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = null;
-		}
-		
-		private void attach_users(user entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = this;
-		}
-		
-		private void detach_users(user entity)
-		{
-			this.SendPropertyChanging();
-			entity.ward = null;
 		}
 	}
 }

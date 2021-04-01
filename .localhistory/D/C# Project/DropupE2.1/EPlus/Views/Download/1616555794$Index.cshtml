@@ -1,0 +1,89 @@
+﻿@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = "Tải tài liệu EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var newest_blog = new BlogProvider().getNewest().Take(5).ToList();
+    var list_bc = new BlogCategoryProvider().getAll();
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+
+    ViewBag.Keywords = ViewBag.BlogCategory.blog_category_name;
+    ViewBag.Description = ViewBag.BlogCategory.blog_category_seo_description;
+    ViewBag.Canonical = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Alternate = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    ViewBag.Url = urlSite + "/blog-categories/" + ViewBag.BlogCategory.blog_category_seo_alias;
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">Download tài liệu</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Download tài liệu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- start of courses-details -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="data_table">
+                    @{Html.RenderAction("GetBlog", "Blog", new { page_num = ViewBag.page_num, bc_seo_alias = ViewBag.BlogCategory.blog_category_seo_alias });}
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="widget">
+                    <h4 class="widget-title">Bài viết mới nhất</h4>
+                    @foreach (var blog in newest_blog)
+                    {
+                        <div class="mt-25 px-3">
+                            <div class="post-meta font-weight-500 small mb-2">
+                                <span class="mr-4"><i class="far fa-calendar-alt text-primary mr-2"></i> @blog.create_datetime.Value.ToString("dd/MM/yyyy")</span>
+                                <span><i class="fa fa-tags text-primary mr-2"></i> @blog.blog_category.blog_category_name</span>
+                            </div>
+                            <a href="/articles/@blog.blog_seo_alias" class="text-secondary font-weight-600 h5">@blog.blog_title</a>
+                        </div>
+                    }
+                </div>
+
+                <div class="widget">
+                    <h4 class="widget-title">Danh mục bài viết</h4>
+                    <ul class="widget-list list-unstyled">
+                        @foreach (var bc in list_bc)
+                        {
+                            int count_bc = new BlogProvider().getByCategoryIdShowing(bc.blog_category_id).Count();
+                            <li>
+                                <a href="/blog-categories/@bc.blog_category_seo_alias"><i class="fas fa-caret-right mr-2"></i>@bc.blog_category_name</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="widget">
+                    <h4 class="widget-title">Các khóa học tại EPlus</h4>
+                    <ul class="widget-list list-unstyled">
+                        @foreach (var kh in list_khoa_hoc)
+                        {
+                            <li><a href="/@kh.seo_alias"><i class="fas fa-caret-right mr-2"></i>@kh.product_name</a></li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of courses-details -->

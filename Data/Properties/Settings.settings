@@ -506,5 +506,53 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=DESKTOP-A9CMMFQ;Initial Catalog=QuynhBoki;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="epl54749_eplusdbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.50,1433;Initial Catalog=epl54749_eplusdb;Persist Security Info=True;User ID=epl54749_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.50,1433;Initial Catalog=epl54749_eplusdb;Persist Security Info=True;User ID=epl54749_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="epl54749_eplusdbConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.50;Initial Catalog=epl54749_eplusdb;Persist Security Info=True;User ID=epl54749_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.50;Initial Catalog=epl54749_eplusdb;Persist Security Info=True;User ID=epl54749_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="lis81258_lispharmadbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.146,1433;Initial Catalog=lis81258_lispharmadb;Persist Security Info=True;User ID=lis81258_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.146,1433;Initial Catalog=lis81258_lispharmadb;Persist Security Info=True;User ID=lis81258_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="hoc32280_quynhbokidbConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.146;Initial Catalog=hoc32280_quynhbokidb;Persist Security Info=True;User ID=hoc32280_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.146;Initial Catalog=hoc32280_quynhbokidb;Persist Security Info=True;User ID=hoc32280_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="hoc32280_quynhbokidbConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.146,1433;Initial Catalog=hoc32280_quynhbokidb;Persist Security Info=True;User ID=hoc32280_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.146,1433;Initial Catalog=hoc32280_quynhbokidb;Persist Security Info=True;User ID=hoc32280_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
+    <Setting Name="ely60663_elysiendbConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=112.78.2.42;Initial Catalog=ely60663_elysiendb;Persist Security Info=True;User ID=ely60663_haiit;Password=Ngochaiit257!&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=112.78.2.42;Initial Catalog=ely60663_elysiendb;Persist Security Info=True;User ID=ely60663_haiit;Password=Ngochaiit257!</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

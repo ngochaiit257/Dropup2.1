@@ -1,0 +1,173 @@
+﻿@model IEnumerable<Data.order>
+@using Data;
+@using Data.Providers;
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng nháp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Danh sách đơn hàng nháp</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Đơn hàng
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Danh sách đơn hàng nháp</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+
+<div class="gr-btn-action row">
+    <div class="btn-group-left col-md-6">
+        <a href="@Url.Action("ExportToExcel", "Product")" class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;">Export &nbsp;<i class="nav-icon ti ti-download"></i></a>
+        <a class="btn btn-square btn-inverse-light button-custom" style="background-color: none; padding-left: 0px;" data-toggle="modal" data-target="#modalImportExcel">Import &nbsp;<i class="nav-icon ti ti-upload"></i></a>
+    </div>
+    <div class="btn-group-right col-md-6" style="text-align: right">
+        <a class="btn btn-square btn-primary" href="@Url.Action("InsertOrder", "Order")">Tạo đơn hàng &nbsp;<i class="nav-icon ion ion-md-arrow-round-forward"></i></a>
+    </div>
+
+    <div class="modal fade hide in" data-keyboard="false" data-backdrop="static" id="modalImportExcel" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nhập danh sách sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="file" id="importExcel" name="importExcel" style="display: none" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <label for="importExcel" class="btn btn-primary">Chọn tệp .xlsx</label>
+                        <a id="fileName">Không có tệp nào được chọn.</a>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        Tải file mẫu nhập danh sách sản phẩm <a href="~/Assets/file/form-import-product.xlsx" download class="text-info font-weight-bold">tại đây</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success">Nhập danh sách sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="tab nav-border-bottom" style="width:100%; padding: 10px 15px;" id="tab_list_customer">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link show active" id="tab_all_customer" data-toggle="tab" href="#all_customer" role="tab" aria-controls="all_customer" aria-selected="true">
+                    <i class="fa fa-list-ul"></i> Tất cả đơn hàng nháp
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link show" id="tab_marketing_customer" data-toggle="tab" href="#marketing_customer" role="tab" aria-controls="marketing_customer" aria-selected="false">
+                    <i class="fa fa-times"></i> Đơn hàng nháp chưa hoàn tất
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link show" id="tab_close_customer" data-toggle="tab" href="#close_customer" role="tab" aria-controls="close_customer" aria-selected="false">
+                    <i class="fa fa-check"></i> Đơn hàng nháp đã hoàn tất
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="div_list_in_tab">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="input-group mb-3">
+                            <form id="form_filter">
+                                <div class="btn-group">
+                                    <select class="custom-select" id="select_filter">
+                                        <option value="all" selected="">Lọc khách hàng theo</option>
+                                        <option value="money_purchased">Trạng thái thanh toán</option>
+                                        <option value="number_of_order">Trạng thái giao hàng</option>
+                                        <option value="time_to_order">Thời điểm đặt hàng</option>
+                                        <option value="customer_tag">Thẻ tag</option>
+                                        <option value="customer_address">Kênh bán hàng</option>
+                                        <option value="customer_month_of_birth">Trạng thái thu COD</option>
+                                        <option value="customer_month_of_birth">Nhà vận chuyển</option>
+                                        <option value="customer_month_of_birth">Trạng thái xác thực</option>
+                                        <option value="customer_month_of_birth">Phương thức thanh toán</option>
+                                        <option value="customer_month_of_birth">Người tạo</option>
+                                        <option value="customer_month_of_birth">Phương thức vận chuyển</option>
+                                    </select>
+
+                                    <select class="custom-select" id="select_condition_filter" style="display: none">
+                                        <option selected="" value="-1" disabled>Chọn điều kiện lọc...</option>
+                                    </select>
+
+                                    <input type="text" class="form-control input_no_border_radius" value="0" id="value_select_condition" name="value_select_condition" style="display: none">
+                                </div>
+                            </form>
+
+                            <input type="text" class="form-control" id="search_input" name="search_input" value="@ViewBag.FilterValue" placeholder="Tìm kiếm đơn hàng theo mã đơn hàng..." aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="btn_search" onclick="searchCustomer()">
+                                    <i class="nav-icon ti ti-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="text-align:right">
+                        <form id="set_condition_show">
+                            <div class="btn-group">
+                                <select class="custom-select" id="sort_list_return_select">
+                                    <option selected="" value="name_az" disabled>Sắp xếp thứ tự theo</option>
+                                    <option value="count_order_asc">Đơn hàng mới nhất</option>
+                                    <option value="count_order_dec">Đơn hàng cũ nhất</option>
+                                    <option disabled>------------------------------------------</option>
+                                    <option value="count_order_asc">Tổng tiền mua: Tăng</option>
+                                    <option value="count_order_dec">Tổng tiền mua: Giảm</option>
+                                </select>
+                            </div>
+                            <div class="btn-group">
+                                <select class="custom-select" id="size_of_page_select">
+                                    <option selected="" value="10" disabled>Hiển thị</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="data_table">
+                @*@{Html.RenderAction("GetCustomer", "Customer", new { page_num = ViewBag.page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = 0, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn });}*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#order').addClass('active');
+        $('#list_draft_order').addClass('active');
+
+        $('form').trigger('reset');
+        //$("#value_select_condition").val(0);
+
+        //tabFilter();
+    });
+</script>

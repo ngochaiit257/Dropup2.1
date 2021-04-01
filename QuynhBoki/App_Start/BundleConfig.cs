@@ -5,26 +5,37 @@ namespace QuynhBoki
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jsCoreFirst").Include(
+                "~/Assets/js/jquery.min.js"
+                ));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jsCoreSecond").Include(
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                "~/Assets/js/popper.min.js",
+                "~/Assets/js/jquery.cookie.js",
+                "~/Assets/js/bootstrap.min.js",
+                "~/Assets/js/slick.js",
+                "~/Assets/js/jquery.counterup.min.js",
+                "~/Assets/js/counterup.min.js",
+                "~/Assets/js/swiper.min.js",
+                "~/Assets/js/swiper-bundle.min.js",
+                "~/Assets/js/toaster-box.js",
+                "~/Assets/js/autoNumeric.js",
+                "~/Assets/js/custom.js"
+                ));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            bundles.Add(new StyleBundle("~/bundles/styleCore").Include(
+               "~/Assets/css/styles.css",
+               "~/Assets/css/swiper.min.css",
+               "~/Assets/css/swiper-bundle.min.css",
+               "~/Assets/css/colors.css",
+               "~/Assets/css/toaster-box.css",
+               "~/Assets/css/custom.css"
+           ));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

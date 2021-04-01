@@ -1,0 +1,480 @@
+﻿@using Data;
+@using Data.Providers;
+
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    long user_id_loged = 0;
+    string email_loged = "";
+    var userLoged = new user();
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+        userLoged = new UserProvider().GetByUserName(username);
+        user_id_loged = userLoged.user_id;
+        email_loged = username;
+    }
+    else
+    {
+        userLoged = null;
+    }
+
+    var favicon = new StoreLogoProvider().getFavicon();
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+    var logo_footer = new StoreLogoProvider().getLogoFooter();
+    var logo_mobile = new StoreLogoProvider().getLogoMobile();
+    var contact = new StoreContactProvider().get1Contact();
+    var list_page_link = new PageProvider().getListShow();
+    var list_page_parent = list_page_link.Where(p => p.page_parent_id == null).ToList();
+
+    var list_bg = new ProductProvider().getByCategoryIdOnSite(59).OrderBy(bg => bg.create_date).ToList();
+    var list_tl = new ProductProvider().getByCategoryIdOnSite(60).OrderBy(bg => bg.create_date).ToList();
+
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="@urlCMS/@favicon.image" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+
+    <meta name="keywords" content="@ViewBag.Keywords">
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="HaiDN - ngochaiit257@gmail.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="revisit" content="1 days">
+    <meta name="robots" content="noodp,index,follow" />
+
+    <!-- Helpers ================================================== -->
+    <meta name="apple-mobile-web-app-title" content="Dino Store">
+    <meta name="application-name" content="Dino Store">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="theme-color" content="#000">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noodp,index, follow" />
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    <link rel="alternate" href="@ViewBag.Alternate" hreflang="vi-vn" />
+    <meta itemprop="name" content="@ViewBag.Title">
+    <meta itemprop="description" content="@ViewBag.Description">
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content="@ViewBag.Url" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:site_name" content="Dino Store" />
+    <meta property="og:image" content="@ViewBag.Image" />
+    <meta property="og:type" content="website">
+    <meta property="og:image:secure_url" content="@ViewBag.Image" />
+
+    <!-- Custom CSS -->
+    <link href="../Assets/css/styles.css" rel="stylesheet">
+
+    <!-- Custom Color Option -->
+    <link href="~/Assets/css/swiper.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="../Assets/css/colors.css" rel="stylesheet">
+    <link href="~/Assets/css/toaster-box.css" rel="stylesheet" />
+    <link href="~/Assets/css/custom.css" rel="stylesheet" />
+
+    <script src="../Assets/js/jquery.min.js"></script>
+
+</head>
+
+<body class="red-skin">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=1651727185215538&autoLogAppEvents=1" nonce="iPk1uh7M"></script>
+
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        <div class="alert alert_top alert-dismissible fade show" role="alert">
+            <div class="container">
+                <div class="alert_caption">
+                    <div class="alert_rate">
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                        <i class="fas fa-star filled"></i>
+                    </div>
+                    <p>Cam kết đủ năng lực để làm việc <a href="#">Sau khóa học</a></p>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <!-- Start Navigation -->
+        <div class="header header-light head-shadow">
+            <div class="container">
+                <nav id="navigation" class="navigation navigation-landscape">
+                    <div class="nav-header">
+                        <a class="nav-brand" href="/">
+                            <img src="~/Assets/common-img/logo-quynh-boki.png" class="logo" />
+                        </a>
+                        <div class="nav-toggle"></div>
+                    </div>
+                    <div class="nav-menus-wrapper" style="transition-property: none;">
+                        <ul class="nav-menu align-to-right">
+
+                            <li id="home">
+                                <a href="/">Trang chủ</a>
+                            </li>
+
+                            @foreach (var page in list_page_parent)
+                            {
+                                var list_page_child = new PageProvider().getListShow().Where(p => p.page_parent_id == page.page_id).ToList();
+                                if (list_page_child.Count > 0)
+                                {
+                                    <li id="page_@page.page_id">
+                                        <a><span>@page.page_title</span><span class="submenu-indicator"></span></a>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            @foreach (var page_child in list_page_child)
+                                            {
+                                                <li><a href="/pages/@page_child.page_seo_alias">@page_child.page_title</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li id="page_@page.page_id">
+                                        <a href="/pages/@page.page_seo_alias"><span>@page.page_title</span></a>
+                                    </li>
+                                }
+
+                            }
+
+                            <li id="collections">
+                                <a href="/collections">Khóa học và Tài liệu<span class="submenu-indicator"></span></a>
+                                <ul class="nav-dropdown nav-submenu">
+                                    <li>
+                                        <a href="#">Danh sách bài giảng<span class="submenu-indicator"></span></a>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            @foreach (var bg in list_bg)
+                                            {
+                                                <li><a href="/courses/@bg.seo_alias">@bg.product_name</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">Danh sách tài liệu<span class="submenu-indicator"></span></a>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            @foreach (var tl in list_tl)
+                                            {
+                                                <li><a href="/documents/@tl.seo_alias">@tl.product_name</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="blogs">
+                                <a href="/blogs">Kiến thức hữu ích</a>
+                            </li>
+                            <li id="contact"><a href="/pages/lien-he">Liên hệ</a></li>
+                            <li class="cart-icon">
+                                <a href="/cart">
+                                    <i class="fa fa-shopping-basket"></i>
+                                    <span class="num-cart"><span class="cart-count-item">0</span> (items)</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- End Navigation -->
+        <div class="clearfix"></div>
+        <!-- ============================================================== -->
+        <!-- Top header  -->
+        <!-- ============================================================== -->
+        @RenderBody()
+        <!-- ============================ Footer Start ================================== -->
+        <footer class="dark-footer skin-dark-footer">
+            <div>
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-md-3">
+                            <div class="footer-widget">
+                                <img src="../Assets/img/logo-light.png" class="img-footer" alt="" />
+                                <div class="footer-add">
+                                    <p>@contact.address</p>
+                                    <p>@contact.phone_number</p>
+                                    <p>@contact.email</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <div class="footer-widget">
+                                <h4 class="widget-title">Liên kết</h4>
+                                <ul class="footer-menu">
+                                    @foreach (var page in list_page_link)
+                                    {
+                                        <li><a href="about-us.html">About Us</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-3">
+                            <div class="footer-widget">
+                                <h4 class="widget-title">Khóa học và Tài liệu</h4>
+                                <ul class="footer-menu">
+                                    <li><a href="#">Designing</a></li>
+                                    <li><a href="#">Nusiness</a></li>
+                                    <li><a href="#">Software</a></li>
+                                    <li><a href="#">WordPress</a></li>
+                                    <li><a href="#">PHP</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-12">
+                            <div class="footer-widget">
+                                <h4 class="widget-title">Quỳnh Boki Map</h4>
+                                <a href="#" class="other-store-link">
+                                    <div class="other-store-app">
+                                        <div class="os-app-icon">
+                                            <i class="lni-playstore theme-cl"></i>
+                                        </div>
+                                        <div class="os-app-caps">
+                                            Google Play
+                                            <span>Get It Now</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="other-store-link">
+                                    <div class="other-store-app">
+                                        <div class="os-app-icon">
+                                            <i class="lni-apple theme-cl"></i>
+                                        </div>
+                                        <div class="os-app-caps">
+                                            App Store
+                                            <span>Now it Available</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-6 col-md-6">
+                            <p class="mb-0">© 2021 Quỳnh Boki. Designd By <a href="https://diwe.vn/">Diwe.vn</a>.</p>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 text-right">
+                            <ul class="footer-bottom-social">
+                                <li><a href="#"><i class="ti-facebook"></i></a></li>
+                                <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                <li><a href="#"><i class="ti-instagram"></i></a></li>
+                                <li><a href="#"><i class="ti-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ============================ Footer End ================================== -->
+
+
+        <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../Assets/js/popper.min.js"></script>
+    <script src="~/Assets/js/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <script src="../Assets/js/slick.js"></script>
+    <script src="../Assets/js/jquery.counterup.min.js"></script>
+    <script src="../Assets/js/counterup.min.js"></script>
+    <script src="~/Assets/js/swiper.min.js"></script>
+    <script src="~/Assets/js/swiper-bundle.min.js"></script>
+    <script src="~/Assets/js/autoNumeric.js"></script>
+    <script src="~/Assets/js/toaster-box.js"></script>
+    <script src="../Assets/js/custom.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <script>
+        $(document).ready(function () {
+            if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+                $('.cart-count-item').text(0);
+            } else {
+                getNumOfItemInCart();
+            }
+            //$("img.lazyload").lazyload();
+            $(".showNumeric").autoNumeric('init', { aSign: ' ₫', pSign: 's', mDec: '0', aSep: '.', aDec: ',' });
+        });
+
+        function phonenumber(inputtxt) {
+            var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+            if (inputtxt.match(phoneno)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+
+        if (sessionStorage["ShowModal"] != 'show') {
+            setTimeout(function () {
+                $('#modal').prop('hidden', false);
+                sessionStorage["ShowModal"] = 'show';
+                return false;
+            }, 12000);
+        }
+
+        $('.diwe-popup__close-btn').on('click', function () {
+            $('#modal').prop('hidden', true);
+        });
+
+        function getNumOfItemInCart() {
+            var number_in_order = 0;
+            if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+                number_in_order = 0;
+            } else {
+                $.each(JSON.parse(Cookies.get("QUYNHBOKI_CART")), function (index, value) {
+                    number_in_order += parseInt(value.quantity);
+                });
+            }
+            $('.cart-count-item').text(number_in_order);
+        }
+
+        function updateCartForUserLoged() {
+            if (@user_id_loged > 0) {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                if (Cookies.get("QUYNHBOKI_CART") != null || Cookies.get("QUYNHBOKI_CART") != undefined) {
+                    $.each(JSON.parse(Cookies.get("QUYNHBOKI_CART")), function (index, value) {
+                        var obj = {};
+                        obj.id = value.id;
+                        obj.quantity = value.quantity;
+                        list_from_cookie.push(obj);
+                    });
+                }
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: @user_id_loged,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function () {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        function updateCookieCartWhenLogin(user_id) {
+            if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+                //Lấy giỏ hàng từ db ra áp vào cookie
+                $.ajax({
+                    url: '/Cart/GetCartFromDbToUpdateCookie/',
+                    data: {
+                        user_id: user_id,
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        var data_json = JSON.parse(data);
+                        var list_product_variation_in_cart = [];
+                        $.each(data_json.list_return, function (i, model) {
+                            var product_variation_add_to_cart = {};
+                            product_variation_add_to_cart.id = model.id;
+                            product_variation_add_to_cart.quantity = model.quantity;
+                            list_product_variation_in_cart.push(product_variation_add_to_cart);
+                        });
+                        var date_obj = new Date();
+                        var minutes = 525600;
+                        date_obj.setTime(date_obj.getTime() + (minutes * 60 * 1000));
+                        var obj_cart = JSON.stringify(list_product_variation_in_cart)
+                        Cookies.set("QUYNHBOKI_CART", obj_cart, { expires: date_obj, path: '/' });
+                    },
+                    error: function (xhr) {
+                        //alert("Có lỗi xảy ra.");
+                    }
+                });
+            } else {
+                //Lấy cookie để update giỏ hàng trong db
+                var list_from_cookie = [];
+                $.each(JSON.parse(Cookies.get("QUYNHBOKI_CART")), function (index, value) {
+                    var obj = {};
+                    obj.id = value.id;
+                    obj.quantity = value.quantity;
+                    list_from_cookie.push(obj);
+                });
+                $.ajax({
+                    url: '/Cart/UpdateCartWhenLogin',
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        user_id: user_id,
+                        list_from_cookie: list_from_cookie
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (xhr, status) {
+                        alert("Có lỗi xảy ra.");
+                    }
+                });
+            }
+        }
+
+        //LOGIN WITH FACEBOOK ACCOUNT
+        function loginFacebook() {
+            document.location = '@Url.Action("Facebook", "User")';
+        }
+
+
+        var swiper = new Swiper('.slideshow', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+    </script>
+</body>
+</html>

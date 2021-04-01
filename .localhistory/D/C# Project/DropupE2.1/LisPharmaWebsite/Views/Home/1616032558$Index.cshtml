@@ -1,0 +1,545 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Công ty cổ phần y dược Lis Pharma";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var lp_linhvucgiacong = new PageProvider().getByPageParentId(2);
+    var lp_dichvutrongnuoc = new PageProvider().getByPageParentId(7);
+    var lp_dichvungoainuoc = new PageProvider().getByPageParentId(8);
+
+    var list_category = new CategoryProvider().getListCategoryAreShowing();
+    var list_product = new ProductProvider().getNewestShowing().Take(8).ToList();
+
+    var list_baochi = new BlogProvider().getByCategoryIdShowing(4).Take(5);
+    var list_blog = new BlogProvider().getIsShowing().Where(b => b.blog_category_id != 4).Take(7).ToList();
+    var newest_blog = list_blog.FirstOrDefault();
+    var page_au = new PageProvider().getById(1);
+    var banner = new StoreBannerProvider().getbyId(1);
+
+    var list_testi = new StoreCustomerSayProvider().getAll();
+    var list_team = new StoreMembershipProvider().getAll();
+    var list_partner = new StorePartnerProvider().getAll();
+
+    var list_slide = new StoreSlideProvider().getIsShowing();
+
+}
+<div class="slideshow">
+    <div class="swiper-wrapper">
+        @foreach (var slide in list_slide)
+        {
+            <div class="swiper-slide">
+                <img class="swiper-slide" src="@urlCMS/@slide.image" alt="@slide.alt" />
+            </div>
+        }
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+
+<!-- Our Fetures -->
+<section class="content-inner-2 section-intro">
+    <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Lis Pharma</h6>
+            <h2 class="title m-t10">Tại sao lựa chọn chúng tôi?</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row align-items-center about-wraper-2">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+                        <div class="icon-bx-wraper left m-b50 icon-up">
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-group"></i></a>
+                            </div>
+                            <div class="icon-content-feature icon-content">
+                                <h4 class="dlab-tilte text-capitalize">1. Đội ngũ nghiên cứu</h4>
+                                <p>Lis Pharma hợp tác chiến lược với Viện Nghiên Cứu Novains để có những công thức, đề tài cấp nhà nước, cấp viện. Để cho ra những sản phẩm hiệu quả, chất lượng và an toàn.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+                        <div class="icon-bx-wraper left m-b50 icon-up">
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-cubes"></i></a>
+                            </div>
+                            <div class="icon-content-feature icon-content">
+                                <h4 class="dlab-tilte text-capitalize">3. Sản xuất sản phẩm</h4>
+                                <p>Hỗ trợ tư vấn từ A-Z; Đầy đủ giấy tờ pháp lý; Thiết kế, mẫu mã bao bì đẹp; Sản phẩm hiệu quả theo thời gian mong muốn; Giao hàng nhanh chóng- đúng hẹn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 wow zoomIn" data-wow-duration="2s" data-wow-delay="0.2s">
+                <div class="dz-media text-center m-b30">
+                    <img src="~/Assets/images/common/ban-do.png" style="width: 100%" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+                        <div class="icon-bx-wraper left m-b50 icon-up">
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-commenting-o"></i></a>
+                            </div>
+                            <div class="icon-content-feature icon-content">
+                                <h4 class="dlab-tilte text-capitalize">2. Tư vấn giải pháp</h4>
+                                <p>Hỗ trợ tư vấn nhu cầu thị trường, lựa chọn sản phẩm phù hợp với ngân sách. Đào tạo sản phẩm chiến lược Marketing, kết nối thương hiệu với người dùng.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+                        <div class="icon-bx-wraper left m-b50 icon-up">
+                            <div class="icon-bx-sm radius gradient-sec shadow-primary">
+                                <a href="javascript:void(0);" class="icon-cell text-white"><i class="fa fa-thumbs-o-up"></i></a>
+                            </div>
+                            <div class="icon-content-feature icon-content">
+                                <h4 class="dlab-tilte text-capitalize">4. Nhà máy đạt chuẩn GMP Asian</h4>
+                                <p>Với 2 nhà máy đạt chuẩn GMP Asian, được đặt tại 2 miền Bắc Nam để đáp ứng nhu cầu của quý khách hàng trên khắp cả nước.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section style="background-image:url('../Assets/images/background/bg2.png'); background-size: contain;background-repeat: no-repeat;">
+    <div class="container pt-5">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Về chúng tôi</h6>
+            <h2 class="title m-t10">Công ty cổ phần Y Dược Lis</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 wow fadeInLeft" data-wow-duration="2s" data-wow-delay="0.2s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                <div class="widget">
+                    <div class="content-bottom-video">
+                        <h3> Về chúng tôi </h3>
+                        <p>
+                            @page_au.page_summary
+                        </p>
+                    </div>
+
+                    <div class="video-bx style-3">
+                        <img src="@urlCMS/@page_au.page_image" alt="@page_au.page_image_alt">
+                        <div class="video-btn">
+                            <a href="@banner.video_url" target="_blank" class="popup-youtube"><i class="flaticon-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6 wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.4s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.4s; animation-name: fadeInRight;">
+                <div class="widget recent-posts-entry recent-posts-entry-au">
+                    <h3> Báo chí đưa tin về chúng tôi </h3>
+                    <div class="widget-post-bx">
+                        @foreach (var blog in list_baochi)
+                        {
+                            <div class="widget-post clearfix">
+                                <div class="dlab-media">
+                                    <a href="/blogs/@blog.blog_seo_alias"><img src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image"></a>
+                                </div>
+                                <div class="dlab-info">
+                                    <h4 class="title"><a href="/blogs/@blog.blog_seo_alias">@blog.blog_title</a></h4>
+                                    <div class="dlab-meta">
+                                        <ul>
+                                            <li class="post-date"> @blog.create_datetime.Value.ToString("dd/MM/yyyy") </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div style="margin:auto;display: inline-block;display: flex; margin-bottom: 30px;">
+                <div class="mt-20 mb-20 text-center">
+                    <a href="/pages/@page_au.page_seo_alias" class="btn btn-lg btn-primary">Giới Thiệu Chi Tiết</a>
+                </div>
+                <div class="mt-20 mb-20 text-center">
+                    <a href="/blogs" class="btn btn-lg btn-primary">Xem Thêm Bài Viết</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Nhà máy -->
+@if (lp_linhvucgiacong.Count > 0)
+{
+    <section class="tab-slider-feature pt-50 pb-50" style="background-attachment: fixed;background-image: url(../Assets/images/background/bg-tab-slider.jpg); background-size: contain; background-position: center; background-repeat: no-repeat;">
+        <div class="container">
+            <div class="tt-2 tt-box" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                <span>Lĩnh vực gia công</span>
+            </div>
+            <div class="mb-10">
+                <div class="sub-header ">
+                    <div class="swipe-tabs">
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Thực phẩm chức năng
+                        </div>
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Thuốc cổ truyền
+                        </div>
+                        <div class="swipe-tab">
+                            Gia công <br />
+                            Mỹ phẩm
+                        </div>
+                        @*<div class="swipe-tab">
+                            Gia công <br />
+                            Men vi sinh
+                        </div>*@
+                    </div>
+                </div>
+                <div class="main-container">
+                    <div class="swipe-tabs-container ">
+                        @foreach (var lvgc in lp_linhvucgiacong)
+                        {
+                            <div class="swipe-tab-content">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <p>@lvgc.page_summary</p>
+                                        <div class="mb-20 text-center">
+                                            <a href="/pages/@lvgc.page_seo_alias" class="btn btn-lg btn-primary">Xem Chi Tiết</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="item-only-img">
+                                            <img src="@urlCMS/@lvgc.page_image" alt="@lvgc.page_image_alt">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+}
+
+
+<!-- Counters -->
+<section class="counter-wraper-1" style="background-image: url(../Assets/images/background/bg-ban-do.png); background-size: contain; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">LisPharma cung cấp</h6>
+            <h2 class="title m-t10">Nguyên liệu & Dược liệu</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="list-nguyen-lieu owl-carousel owl-theme owl-btn-1 owl-btn-center-lr owl-dots-none owl-btn-primary">
+                    @foreach (var team in list_team)
+                    {
+                        <div class="m-b50 m-t50 wow zoomIn" data-wow-duration="2s" data-wow-delay="0.2s">
+                            <div class="dlab-content-bx style-1 text-center">
+                                <img src="@urlCMS/@team.mavatar" />
+                                <div class="icon-content">
+                                    <span class="title">@team.mname</span>
+                                    <p>
+                                        @team.mposition
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trong - Ngoài nước -->
+<section class="content-inner-2">
+    <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Dịch vụ</h6>
+            <h2 class="title m-t10">Gia công sản xuất trong và ngoài nước</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            @if (lp_dichvutrongnuoc.Count > 0)
+            {
+                <div class="col-lg-6">
+                    <div class="blog-slider">
+                        <div class="blog-slider__wrp swiper-wrapper">
+                            @foreach (var page in lp_dichvutrongnuoc)
+                            {
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="@urlCMS/@page.page_image" alt="@page.page_image_alt">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Cung cấp trong nước</span>
+                                        <div class="blog-slider__title">@page.page_title</div>
+                                        <div class="blog-slider__text">@page.page_summary</div>
+                                        <a href="/pages/@page.page_seo_alias" class="blog-slider__button">Đọc Thêm</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        @*<div class="blog-slider__pagination"></div>*@
+                    </div>
+                </div>
+            }
+
+            @if (lp_dichvungoainuoc.Count > 0)
+            {
+                <div class="col-lg-6">
+                    <div class="blog-slider">
+                        <div class="blog-slider__wrp swiper-wrapper">
+                            @foreach (var page in lp_dichvungoainuoc)
+                            {
+                                <div class="blog-slider__item swiper-slide">
+                                    <div class="blog-slider__img">
+                                        <img src="@urlCMS/@page.page_image" alt="@page.page_image_alt">
+                                    </div>
+                                    <div class="blog-slider__content">
+                                        <span class="blog-slider__code">Cung cấp ngoài nước</span>
+                                        <div class="blog-slider__title">@page.page_title</div>
+                                        <div class="blog-slider__text">@page.page_summary</div>
+                                        <a href="/pages/@page.page_seo_alias" class="blog-slider__button">Đọc Thêm</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        @*<div class="blog-slider__pagination"></div>*@
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Đội ngũ cố vấn -->
+<section class="content-inner-2">
+    <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Cơ cấu tổ chức</h6>
+            <h2 class="title m-t10">Đội ngũ cố vấn - nhân sự</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="team-carousel owl-carousel owl-theme owl-btn-1 owl-btn-center-lr owl-dots-none owl-btn-primary">
+
+                    @foreach (var team in list_team)
+                    {
+                        <div class="dlab-team style-1 m-b30">
+                            <div class="dlab-media dlab-img-effect zoom zoom-slow">
+                                <a href="javascript:void(0);">
+                                    <img src="@urlCMS/@team.mavatar" style="height: auto; width: 100%; object-fit: cover" />
+                                </a>
+                            </div>
+                            <div class="dlab-content">
+                                <div class="clearfix">
+                                    <h4 class="dlab-name"><a href="javascript:void(0);">@team.mname</a></h4>
+                                    <span class="dlab-position">@team.mposition</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Danh mục SP -->
+<section class="content-inner-2 section-products">
+    <div class="container">
+        <div class="section-head style-2 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+            <h6 class="sub-title text-primary">Danh mục sản phẩm</h6>
+            <h2 class="title m-t10">Gia công độc quyền</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="list-category owl-carousel owl-theme owl-btn-1 owl-btn-center-lr owl-dots-none owl-btn-primary">
+                    @foreach (var category in list_category)
+                    {
+                        <div class="dlab-team style-2 m-b10 bg-none">
+                            <div class="dlab-media dlab-media-custom">
+                                <a href="javascript:void(0);">
+                                    <img src="@urlCMS/@category.image" alt="@category.alt_image" />
+                                </a>
+                            </div>
+                            <div class="dlab-content">
+                                <div class="clearfix">
+                                    <ul class="star-rating">
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                        <li><i class="fa fa-star text-warning"></i></li>
+                                    </ul>
+                                    <h3 class="dlab-name"><a href="/collections/@category.seo_alias">@category.category_name</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @foreach (var product in list_product)
+            {
+                <div class="col-lg-3 col-md-3 col-6">
+                    <div class="dlab-team style-2 m-b10">
+                        <div>
+                            <a href="/@product.seo_alias">
+                                <img class="img-product" src="@urlCMS/@product.product_image" alt="@product.alt_image" />
+                            </a>
+                        </div>
+                        <div class="dlab-content">
+                            <div class="clearfix">
+                                <h3 class="dlab-name"><a href="/@product.seo_alias">@product.product_name</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Blog -->
+<section class="content-inner blog-section">
+    <div class="container">
+        <div class="section-head style-2 text-center">
+            <h6 class="sub-title text-primary">Lis Pharma</h6>
+            <h2 class="title m-t10">Tin tức và sự kiện</h2>
+            <div class="line-branding">
+                <img src="~/Assets/images/background/line.png" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4 col-md-4 my-2">
+                <div class="position-relative blog-newest-item" style="border-radius:15px;min-height: 430px;background-image: url('@urlCMS/@newest_blog.blog_image'); background-position: center; background-size: cover;">
+                    <div class="position-absolute p-3 d-flex flex-column align-items-start justify-content-end" style="border-radius:15px;background: linear-gradient(to bottom, transparent, rgba(0,0,0,1)); top:0; bottom:0; left:0; right:0;">
+                        <h3 class="h5"><a href="/blogs/@newest_blog.blog_seo_alias" class="text-white" style="line-height: 1.5;">@newest_blog.blog_title</a></h3>
+                        <p>@newest_blog.blog_summary</p>
+                        <span><i class="fa fa-clock-o"></i> @newest_blog.create_datetime.Value.ToString("dd/MM/yyyy") &nbsp; <i class="fa fa-tag"></i> @newest_blog.blog_category.blog_category_name</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8 col-md-8 my-2">
+                <div class="row">
+                    @foreach (var blog in list_blog)
+                    {
+                        if (blog.blog_id != newest_blog.blog_id)
+                        {
+                            <div class="col-12 col-lg-6 col-md-6 my-2">
+                                <div class="d-flex align-items-start mb-3 blog-item">
+                                    <img class="img-fluid mr-3" src="@urlCMS/@blog.blog_image" alt="@blog.blog_alt_image">
+                                    <a href="/blogs/@blog.blog_seo_alias" class="blog-title mb-0">
+                                        <h4>@blog.blog_title</h4>
+                                        <p>@blog.blog_summary</p>
+                                        <span><i class="fa fa-clock-o"></i> @blog.create_datetime.Value.ToString("dd/MM/yyyy") &nbsp; <i class="fa fa-tag"></i> @blog.blog_category.blog_category_name</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="mb-20 text-center">
+            <a href="/blogs" class="btn btn-lg btn-primary">Đọc Tất Cả</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="content-inner bg-testi">
+    <div class="container">
+        <div class="row testimonials-wraper-1">
+            <div class="col-lg-9">
+                <div class="testimonials-carousel1 owl-carousel owl-theme owl-btn-2 owl-btn-white owl-btn-center">
+                    @foreach (var testi in list_testi)
+                    {
+                        <div class="item wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+                            <div class="testimonial-1">
+                                <div class="testimonial-text">
+                                    <p>@testi.ccomment</p>
+                                </div>
+                                <div class="testimonial-detail">
+                                    <div class="testimonial-pic">
+                                        <img src="@urlCMS/@testi.cimage" alt="@testi.cimage_alt">
+                                    </div>
+                                    <div class="clearfix">
+                                        <strong class="testimonial-name">@testi.cname</strong>
+                                        <span class="testimonial-position">@testi.cposition</span>
+                                        <ul class="star-rating">
+                                            <li><i class="fa fa-star text-warning"></i></li>
+                                            <li><i class="fa fa-star text-warning"></i></li>
+                                            <li><i class="fa fa-star text-warning"></i></li>
+                                            <li><i class="fa fa-star text-warning"></i></li>
+                                            <li><i class="fa fa-star text-warning"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-3 wow fadeInRight" data-wow-duration="2s" data-wow-delay="0.8s">
+                <div class="section-head style-1 text-white p-t15">
+                    <h6 class="sub-title bgl-light m-b20">Phản hồi về Lis Pharma</h6>
+                    <h2 class="title m-b30">Đối tác nói gì về chúng tôi?</h2>
+                    <p>Cảm ơn quý đối tác và khách hàng đã tin tưởng, hợp tác và đồng hành với Lis Pharma trong suốt quảng thời gian vữa qua.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clients Logo -->
+<div class="content-inner-3">
+    <div class="container">
+        <div class="clients-carousel owl-none owl-carousel m-b30">
+            @foreach (var partner in list_partner)
+            {
+                <div class="item">
+                    <div class="clients-logo">
+                        <img src="@urlCMS/@partner.image" alt="@partner.alt">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

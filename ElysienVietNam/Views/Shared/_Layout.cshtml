@@ -43,6 +43,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <meta name="google-site-verification" content="eCRPOZMrBVqTxsEyNo8aBU_BQLBd8ljznnjdqEXwPGc" />
     <meta charset="utf-8" />
     <link rel="icon" href="@urlCMS/@favicon.image" type="image/x-icon" />
     <title>@ViewBag.Title</title>
@@ -81,8 +82,9 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700,800|Dancing+Script:400,700|Caveat:400,700|Roboto+Condensed:300,400,700|Quicksand:300,400,500,600,700,800|Montserrat:300,400,500,600,700,800|Playfair+Display:400,400i,700,900&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,600,600i,700,700i,800&amp;display=swap" rel="stylesheet" />
-
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="main">
@@ -213,7 +215,7 @@
                                     <a href="javascript:void(0)"><i class="ion-ios-search-strong"></i></a>
                                     <div class="dropdown_search">
                                         <form>
-                                            <input id="input_search_desktop" placeholder="Tìm kiếm sản phẩm tại đây..." type="text" />
+                                            <input style="margin-bottom:0;" id="input_search_desktop" placeholder="Tìm kiếm sản phẩm tại đây..." type="text" />
                                             <button type="button" onclick="searchDesktop()"><i class="ion-ios-search-strong"></i></button>
                                         </form>
                                     </div>
@@ -348,19 +350,24 @@
                                 <div class="social-info">
                                     <ul>
                                         <li>
-                                            <a href="@fb_link"><i class="ion-social-facebook"></i></a>
+                                            <a href="@get1member.myoutube_url">
+                                                <i class="ion-social-youtube"></i>
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="@twitter_link"><i class="ion-social-twitter"></i></a>
+                                            <a href="@get1member.minstagram_url">
+                                                <i class="ion-social-instagram"></i>
+                                            </a>
                                         </li>
-                                        <li>
-                                            <a href="@youtube_link"><i class="ion-social-youtube"></i></a>
+                                        <li class="after-n">
+                                            <a href="@get1member.mfacebook_url">
+                                                <i class="ion-social-facebook"></i>
+                                            </a>
                                         </li>
-                                        <li>
-                                            <a href="@google_link"><i class="ion-social-google"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="@instagram_link"><i class="ion-social-instagram"></i></a>
+                                        <li class="after-n">
+                                            <a href="@get1member.mtwitter_url">
+                                                <i class="ion-social-twitter"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

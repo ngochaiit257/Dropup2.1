@@ -695,5 +695,71 @@ namespace Data.Properties {
                 return ((string)(this["QuynhBokiConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.50,1433;Initial Catalog=epl54749_eplusdb;Persist Security In" +
+            "fo=True;User ID=epl54749_haiit;Password=Ngochaiit257!")]
+        public string epl54749_eplusdbConnectionString {
+            get {
+                return ((string)(this["epl54749_eplusdbConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.50;Initial Catalog=epl54749_eplusdb;Persist Security Info=Tr" +
+            "ue;User ID=epl54749_haiit;Password=Ngochaiit257!")]
+        public string epl54749_eplusdbConnectionString1 {
+            get {
+                return ((string)(this["epl54749_eplusdbConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.146,1433;Initial Catalog=lis81258_lispharmadb;Persist Securi" +
+            "ty Info=True;User ID=lis81258_haiit;Password=Ngochaiit257!")]
+        public string lis81258_lispharmadbConnectionString {
+            get {
+                return ((string)(this["lis81258_lispharmadbConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.146;Initial Catalog=hoc32280_quynhbokidb;Persist Security In" +
+            "fo=True;User ID=hoc32280_haiit;Password=Ngochaiit257!")]
+        public string hoc32280_quynhbokidbConnectionString {
+            get {
+                return ((string)(this["hoc32280_quynhbokidbConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.146,1433;Initial Catalog=hoc32280_quynhbokidb;Persist Securi" +
+            "ty Info=True;User ID=hoc32280_haiit;Password=Ngochaiit257!")]
+        public string hoc32280_quynhbokidbConnectionString1 {
+            get {
+                return ((string)(this["hoc32280_quynhbokidbConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=112.78.2.42;Initial Catalog=ely60663_elysiendb;Persist Security Info=" +
+            "True;User ID=ely60663_haiit;Password=Ngochaiit257!")]
+        public string ely60663_elysiendbConnectionString1 {
+            get {
+                return ((string)(this["ely60663_elysiendbConnectionString1"]));
+            }
+        }
     }
 }

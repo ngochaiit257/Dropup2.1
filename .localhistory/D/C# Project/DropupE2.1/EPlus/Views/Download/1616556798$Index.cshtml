@@ -1,0 +1,50 @@
+﻿@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = "Tải tài liệu EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var newest_blog = new BlogProvider().getNewest().Take(5).ToList();
+    var list_bc = new BlogCategoryProvider().getAll();
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+
+    ViewBag.Keywords = "Tải tài liệu eplus, eplus tài liệu, tài liệu eplus, tai lieu eplus, download eplus";
+    ViewBag.Description = "Download thư viện tài liệu tiếng Anh khổng lồ từ EPlus";
+    ViewBag.Canonical = urlSite + "/download";
+    ViewBag.Alternate = urlSite + "/download";
+    ViewBag.Url = urlSite + "/download";
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">Download tài liệu</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Download tài liệu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- start of courses-details -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                
+            </div>
+
+            <div class="col-lg-4 mt-5 mt-lg-0">
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -179,11 +179,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\common-img\3.png" />
+    <Content Include="Assets\common-img\300.png" />
+    <Content Include="Assets\common-img\bg-2kyu-banner.png" />
+    <Content Include="Assets\common-img\bg-3kyu-banner.png" />
+    <Content Include="Assets\common-img\bg-gray-banner.png" />
+    <Content Include="Assets\common-img\bg-left-banner.png" />
+    <Content Include="Assets\common-img\bg-right-banner.png" />
     <Content Include="Assets\common-img\circle01.png" />
+    <Content Include="Assets\common-img\img-zoom-min.png" />
     <Content Include="Assets\common-img\logo-quynh-boki.png" />
+    <Content Include="Assets\common-img\quynhboki_ava.jpg" />
     <Content Include="Assets\common-img\slide.jpg" />
     <Content Include="Assets\common-img\team01.png" />
     <Content Include="Assets\common-img\team02.png" />
+    <Content Include="Assets\common-img\techcombank-banking.jpg" />
+    <Content Include="Assets\common-img\testi1-1.jpg" />
+    <Content Include="Assets\common-img\testi1.jpg" />
+    <Content Include="Assets\common-img\testi2-1.jpg" />
+    <Content Include="Assets\common-img\testi2.jpg" />
+    <Content Include="Assets\common-img\yucho-banking.png" />
     <Content Include="Assets\css\colors.css" />
     <Content Include="Assets\css\custom.css" />
     <Content Include="Assets\css\fonts\fa-brands-400.svg" />
@@ -199,9 +214,9 @@
     <Content Include="Assets\css\fonts\houses.svg" />
     <Content Include="Assets\css\fonts\LineIcons5594.svg" />
     <Content Include="Assets\css\fonts\themify9f24.svg" />
-    <Content Include="Assets\css\img\banner-trang-chu-3.jpg" />
-    <Content Include="Assets\css\img\BannerTuyenSinh.jpg" />
+    <Content Include="Assets\common-img\banner-1.png" />
     <Content Include="Assets\css\img\loading.gif" />
+    <Content Include="Assets\css\img\Quynh-boki.png" />
     <Content Include="Assets\css\plugins\ajax-loader.gif" />
     <Content Include="Assets\css\plugins\animation.css" />
     <Content Include="Assets\css\plugins\bootstrap.min.css" />
@@ -224,6 +239,11 @@
     <Content Include="Assets\css\swiper-bundle.min.css" />
     <Content Include="Assets\css\swiper.min.css" />
     <Content Include="Assets\css\toaster-box.css" />
+    <Content Include="Assets\images\loader\cart-loader.gif" />
+    <Content Include="Assets\images\loader\img-loader.gif" />
+    <Content Include="Assets\images\loader\img-loader.jpg" />
+    <Content Include="Assets\images\loader\list-loader.gif" />
+    <Content Include="Assets\images\loader\loader-order.gif" />
     <Content Include="Assets\img\404.png" />
     <Content Include="Assets\img\6518.png" />
     <Content Include="Assets\img\b-1.jpg" />
@@ -234,6 +254,7 @@
     <Content Include="Assets\img\banner-3.jpg" />
     <Content Include="Assets\img\banner-4.jpg" />
     <Content Include="Assets\img\banner-5.jpg" />
+    <Content Include="Assets\common-img\bg2.png" />
     <Content Include="Assets\img\book-1.png" />
     <Content Include="Assets\img\book-2.png" />
     <Content Include="Assets\img\book-3.png" />
@@ -329,6 +350,10 @@
     <Content Include="Assets\js\swiper-bundle.min.js" />
     <Content Include="Assets\js\swiper.min.js" />
     <Content Include="Assets\js\toaster-box.js" />
+    <Content Include="Assets\template\YouHaveFastOrder.html" />
+    <Content Include="Assets\template\YouHaveMessage.html" />
+    <Content Include="Assets\template\YouHaveOrder.html" />
+    <Content Include="Assets\template\YouHaveSmallOrder.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -379,6 +404,10 @@
     <Content Include="Assets\css\fonts\themify9f24.ttf" />
     <Content Include="Assets\css\fonts\themify9f24.woff" />
     <Content Include="Assets\css\fonts\themifyd41d.eot" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -410,13 +439,14 @@
     <Content Include="Views\Blog\_PartialViewListBlog.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\_PartialViewItemInCart.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Page\PageDetail.cshtml" />
+    <Content Include="Views\Page\PageContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Category\" />
     <Folder Include="Views\Checkout\" />
     <Folder Include="Views\GetLocal\" />
-    <Folder Include="Views\Page\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

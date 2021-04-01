@@ -1,0 +1,209 @@
+﻿@using Data;
+@using Data.Providers;
+@using QuynhBoki.Models;
+@{
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+    var logo_header = new StoreLogoProvider().getLogoHeader();
+
+    ViewBag.Title = "Giỏ hàng Quỳnh Boki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title image-cover ed_detail_head lg theme-ov" data-overlay="8">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">Giỏ hàng của bạn</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->
+<!-- ============================ Add To cart ================================== -->
+<section class="pt-0">
+    <div class="container">
+        <div class="container">
+            <div class="show_when_cart_empty" style="display:none">
+                <div class="cart-empty-content text-center" style="margin-top: 100px;">
+                    <h3 class="text-uppercase">Giỏ hàng trống.</h3>
+                    <p>Tiếp tục mua hàng, <a href="/" class="text-info">nhấn vào đây</a>.</p>
+                </div>
+            </div>
+            <div id="data_table" style="margin-top: 50px">
+
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!-- ============================ Add To cart End ================================== -->
+
+<script>
+    $(document).ready(function () {
+        loadCart();
+    });
+
+    function loadCart() {
+        if (Cookies.get("QUYNHBOKI_CART") == null || Cookies.get("QUYNHBOKI_CART") == undefined || $.parseJSON(Cookies.get("QUYNHBOKI_CART")).length == 0) {
+            $('.show_when_cart_empty').css({ display: 'block' });
+            $('#data_table').empty();
+        } else {
+            var list_product_variation_in_cart = $.parseJSON(Cookies.get("QUYNHBOKI_CART"));
+            var list_in_cart = [];
+            $.each(list_product_variation_in_cart, function (index, value) {
+                var obj = {};
+                obj.id = value.id;
+                obj.quantity = value.quantity;
+                list_in_cart.push(obj);
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Cart/GetAllInCart",
+                data: {
+                    list_in_cart: list_in_cart,
+                },
+                context: document.body,
+                dataType: "html",
+                success: function (data) {
+                    $("#data_table").html(data);
+                },
+                error: function (xhr) {
+                    console.log('Error')
+                }
+            });
+        }
+        getNumOfItemInCart();
+    }
+
+    var bank_name = "Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)";
+    $('.choose_payment_mt').on('click', function () {
+        $('.choose_payment_mt.active').removeClass('active');
+        $(this).addClass('active');
+        bank_name = $('.choose_payment_mt.active .bank_name strong').text();
+    });
+
+    function makeOrderPending() {
+        debugger;
+        var status = true;
+        var cost_shipping_value_selected = 0;
+        var name_of_shipping = "";
+        var coupon_id = 0;
+        var last_name = $('#customer_shipping_full_name').val();
+        var customer_email = $('#checkout_user_email').val();
+        var phone_number = $('#customer_shipping_phone').val();
+        var province_id = $('#customer_shipping_province').val();
+        var district_id = $('#customer_shipping_district').val();
+        var ward_id = $('#customer_shipping_ward').val();
+        var address_detail = $('#customer_shipping_address_detail').val();
+        var customer_note = "Ngân hàng chuyển khoản: " + bank_name + "<br/>" + "Lời nhắn: " + $('#customer_shipping_note').val();
+        var total_cost_product = '@ViewBag.CostAllProduct';
+
+        var amount_received = total_cost_product;
+        var payment_method_id = 4;
+        var cost_of_shipping = 0;
+        var discount_amount = 0;
+        var coupon_code = "";
+        var reason_of_promotion = "";
+
+         if (last_name == "" || last_name == null) {
+             status = false;
+             alert("Bạn cần nhập tên.");
+         }
+         if (customer_email == "" || customer_email == null) {
+             status = false;
+             alert("Bạn cần nhập email.");
+         }
+         else {
+             if (!isEmail(customer_email)) {
+                 status = false;
+                 alert("Bạn cần nhập email");
+             }
+         }
+
+         if (phone_number == "" || phone_number == null) {
+             alert("Bạn cần nhập số điện thoại");
+             status = false;
+         }
+         else {
+             if (!phonenumber(phone_number)) {
+                 alert("Số điện thoại không đúng định dạng");
+                 status = false;
+             }
+         }
+
+         if (address_detail == "" || address_detail == null) {
+             alert("Bạn cần nhập địa chỉ chi tiết");
+             status = false;
+         }
+         if (province_id == -1) {
+             alert("Bạn cần chọn Tỉnh/Thành phố");
+             status = false;
+         }
+         if (district_id == -1) {
+             alert("Bạn cần chọn Quận/Huyện/Thị trấn");
+             status = false;
+         }
+         if (ward_id == -1) {
+             alert("Bạn cần chọn Xã/Phường");
+             status = false;
+         }
+
+         if (status == true) {
+             $.ajax({
+                 url: '@Url.Action("GetOrderSuccess", "Checkout")',
+                 type: "POST",
+                data: {
+                    last_name: last_name,
+                    customer_email: customer_email,
+                    phone_number: phone_number,
+                    province_id: province_id,
+                    district_id: district_id,
+                    ward_id: ward_id,
+                    address_detail: address_detail,
+                    customer_note: customer_note,
+
+                    discount_amount: discount_amount,
+                    reason_of_promotion: reason_of_promotion,
+                    name_of_shipping: name_of_shipping,
+                    cost_of_shipping: cost_of_shipping,
+                    payment_method_id: payment_method_id,
+                    amount_received: amount_received,
+                    coupon_id: coupon_id
+                },
+                     beforeSend: function () {
+                         $('.modal-window').css({ opacity: "1" });
+                         $('input, button').attr('disabled', true);
+                },
+                success: function (data) {
+                    var data_json = JSON.parse(data);
+                    var order_id = data_json.order_id;
+                    if (Cookies.get("QUYNHBOKI_CART") != null) {
+                        Cookies.remove("QUYNHBOKI_CART");
+                    }
+                    alert("Bạn đã đặt hàng thành công. Quỳnh Boki sẽ liên hệ lại với bạn sớm.");
+                },
+                error: function (xhr, status) {
+                    alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+                },
+                complete: function (xhr, status) {
+                    $('.modal-window').css({ opacity: "0" });
+                    $('input, button').attr('disabled', false);
+                }
+            });
+         }
+    }
+</script>
+

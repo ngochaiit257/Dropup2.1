@@ -1,0 +1,348 @@
+﻿@model IPagedList<Data.product>
+@using Data.Providers;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+
+}
+
+<div class="table-responsive data-grid">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th align="center" scope="col" style="width:18%;" id="checkHeader" class="col_to_merge">
+                    <form id="form_action">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" value="-1" id="select_all">
+                            <label class="form-check-label checkbox-table check-table" id="label_for_select_all" for="select_all"></label>
+                            <div class="form-group" style="display: none; margin-bottom: -25px;" id="select_action">
+                                <select class="form-control form-control-sm select_action" id="checkToAction">
+                                    <option selected disabled id="number_of_checked" value="-1"></option>
+                                    <option value="1">Ẩn sản phẩm</option>
+                                    <option value="2">Hiện sản phẩm</option>
+                                    <option value="3">Xóa sản phẩm</option>
+                                    <option disabled>----------------------------------</option>
+                                    <option value="4">Thêm tags sản phẩm</option>
+                                    <option value="5">Xóa tags sản phẩm</option>
+                                    <option disabled>----------------------------------</option>
+                                    <option value="6">Thêm vào danh mục</option>
+                                    <option value="7">Xóa khỏi danh mục</option>
+                                    <option value="8">Cập nhật giá đồng loạt</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </th>
+
+                <th scope="col" style="width:10%; text-align:center" align="center">
+                    <p class="th_table">Trạng thái</p>
+                </th>
+                <th scope="col" style="width:12%">
+
+                </th>
+                <th scope="col" style="width:30%">
+                    <p class="th_table">Sản phẩm</p>
+                </th>
+                <th scope="col" style="width:10%; text-align:center">
+                    <p class="th_table">Tồn kho</p>
+                </th>
+                <th scope="col" style="width:20%;">
+                    <p class="th_table">Nhà cung cấp</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td align="center">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@product.product_id" id="Check_@product.product_id" style="border: 1px solid #dee2e6;">
+                            <label class="form-check-label checkbox-table check-table" for="Check_@product.product_id"></label>
+                        </div>
+                    </td>
+
+                    @if (product.status == true)
+                    {
+                        <td align="center">
+                            <p><span class="badge badge-success-inverse px-2 py-1 mt-1">Đang hiển thị</span></p>
+                        </td>
+                    }
+                    else
+                    {
+                        <td align="center">
+                            <p><span class="badge badge-danger-inverse px-2 py-1 mt-1">Đang ẩn</span></p>
+                        </td>
+                    }
+
+                    <td align="center">
+                        <span class="bg-img m-auto ">
+                            <img src="@product.product_image" class="img-fluid bg-img" alt="@product.alt_image">
+                        </span>
+                    </td>
+                    <td><a href="/Product/ProductDetail?id=@product.product_id" class="text-primary">@product.product_name</a></td>
+                    <td align="center">
+                        @if (product.warehouse_management_status == true)
+                        {
+                            @product.view_count
+                            if (product.allow_ordering_while_out_of_stock_status == true)
+                            {
+                                <a href="javascript:void(0)" class="text-info tooltip-wrapper" data-toggle="tooltip" data-placement="bottom" data-original-title="Cho phép đặt hàng ngay cả khi hết hàng"><i class="fa fa-flag"></i></a>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" class="text-secondary tooltip-wrapper" data-toggle="tooltip" data-placement="bottom" data-original-title="Không cho phép đặt hàng khi hết hàng"><i class="fa fa-flag-o"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="javascript:void(0)" class="text-info tooltip-wrapper font-28" data-toggle="tooltip" data-placement="bottom" data-original-title="Không giới hạn số lượng"><i class="ion ion-md-infinite"></i></a>
+                        }
+
+                    </td>
+                    <td>
+                        <a href="/Supplier/SupplierDetail?id=@product.supplier_id" class="text-primary">@product.supplier.supplier_name</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+<div style="text-align:center">
+    <h3>Không có kết quả nào được tìm thấy.</h3>
+    <img src="~/Assets/images/image_system/not_found.png" style="width:50%" />
+</div>
+    <script>
+        $('#label_for_select_all').css({ display: 'none' });
+    </script>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'block' });
+    </script>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetProduct", new { page_num, search_string = ViewBag.FilterValue, quick_filter = ViewBag.QuickFilter, quick_filter_value = ViewBag.QuickFilterValue, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa các sản phẩm này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="cancelBtn()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa các sản phẩm bạn đã chọn. Thao tác này không thể khôi phục.
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelBtn()">Hủy</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteProduct()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $("input[name='checkbox']").each(function () {
+                $(this).prop("checked", false);
+            });
+            $('#form_action').trigger("reset");
+
+            $(function () {
+                var tootlTips = jQuery(".tooltip-wrapper");
+                if (tootlTips.length > 0) {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+        });
+
+        function cancelBtn() {
+            $('#checkToAction').val(-1);
+        }
+
+
+        var number_check = 0;
+        $("input[type='checkbox']").change(function () {
+            var checked = $(this).val();
+            if (checked != -1) {
+                $('.th_table').css('display', 'none');
+                $('#select_action').css('display', 'block');
+                if ($(this).is(':checked')) {
+                    number_check++;
+                    $('#number_of_checked').text("Đã chọn: " + number_check + " sản phẩm");
+                    if (number_check == @check_box_count) {
+                        $("#select_all").prop("checked", true);
+                    }
+                } else {
+                    $("#select_all").prop("checked", false);
+                    number_check--;
+                    $('#number_of_checked').text("Đã chọn: " + number_check + " sản phẩm");
+                    if (number_check == 0) {
+                        $('.th_table').css('display', 'block');
+                        $('#select_action').css('display', 'none');
+                    }
+                }
+            }
+            else {
+                number_check = -1;
+                $('.th_table').css('display', 'none');
+                $('#select_action').css('display', 'block');
+
+                $(':checkbox').prop('checked', $(this).prop("checked"));
+                $(':checkbox').each(function () {
+                    number_check++;
+                });
+
+                $('#number_of_checked').text("Đã chọn: " + number_check + " sản phẩm");
+            }
+        });
+
+        $('#select_all').change(function () {
+            var select_all_value = $(this).val();
+            if ($(this).prop("checked") == false) {
+                number_check = 0;
+                $(':checkbox').prop('checked', $(this).prop("checked"));
+                $('.th_table').css('display', 'block');
+                $('#select_action').css('display', 'none');
+            }
+            else {
+                number_check = -1;
+                $('.th_table').css('display', 'none');
+                $('#select_action').css('display', 'block');
+
+                $(':checkbox').prop('checked', $(this).prop("checked"));
+                $(':checkbox').each(function () {
+                    number_check++;
+                });
+
+                $('#number_of_checked').text("Đã chọn: " + number_check + " sản phẩm");
+            }
+    });
+
+
+        $('#checkToAction').change(function () {
+            var action_value = $(this).val();
+            var page_num = '@ViewBag.page_num';
+            var search_string = '@ViewBag.FilterValue';
+            var quick_filter_value = '@ViewBag.QuickFilterValue';
+            var quick_filter = '@ViewBag.QuickFilter';
+
+            var list_product_id = [];
+
+            $.each($("input[name='checkbox']:checked"), function () {
+                list_product_id.push($(this).val());
+            });
+
+            if (action_value == 1 || action_value == "1") {
+                $.ajax({
+                    url: "/Product/HideStatusProduct",
+                    data: {
+                        list_product_id: list_product_id,
+                        page_num: page_num,
+                        search_string: search_string,
+                        quick_filter_value: quick_filter_value,
+                        quick_filter: quick_filter
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        toastSuccess();
+                        $("#data_table").html($(data).find("#data_table"));
+                    },
+                    error: function (xhr, status) {
+                        toastError();
+                    },
+                    complete: function (xhr, status) {
+                    }
+                });
+            }
+            else if (action_value == 2 || action_value == "2") {
+                $.ajax({
+                    url: "/Product/ShowStatusProduct",
+                    data: {
+                        list_product_id: list_product_id,
+                        page_num: page_num,
+                        search_string: search_string,
+                        quick_filter_value: quick_filter_value,
+                        quick_filter: quick_filter
+                    },
+                    context: document.body,
+                    type: "POST",
+                    dataType: "html",
+                    success: function (data) {
+                        toastSuccess();
+                        $("#data_table").html($(data).find("#data_table"));
+                    },
+                    error: function (xhr, status) {
+                        toastError();
+                    },
+                    complete: function (xhr, status) {
+                    }
+                });
+            }
+            else if (action_value == 3 || action_value == "3") {
+                $('#modalConfirmDelete').modal('show');
+
+            }
+    });
+
+    function deleteProduct() {
+        var page_num = '@ViewBag.page_num';
+        var search_string = '@ViewBag.FilterValue';
+        var quick_filter_value = '@ViewBag.QuickFilterValue';
+        var quick_filter = '@ViewBag.QuickFilter';
+        var size_of_page = '@ViewBag.SizeOfPage';
+        var sort_list_return = '@ViewBag.SortListReturn';
+
+        var list_product_id = [];
+
+        $.each($("input[name='checkbox']:checked"), function () {
+            list_product_id.push($(this).val());
+        });
+
+        $.ajax({
+            url: "/Product/DeleteProduct",
+            data: {
+                list_product_id: list_product_id,
+                page_num: page_num,
+                search_string: search_string,
+                quick_filter_value: quick_filter_value,
+                quick_filter: quick_filter,
+                size_of_page: size_of_page,
+                sort_list_return: sort_list_return
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                showToast("success", 'Các sản phẩm vừa chọn đã được xóa.', "Xóa thành công");
+                showToast("warning", 'Một số sản phẩm đang nằm trong các đơn hàng hoặc mã giảm giá sẽ không được phép xóa.', "Lưu ý");
+                $("#data_table").html($(data).find("#data_table"));
+            },
+            error: function (xhr, status) {
+                toastError();
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+
+</script>

@@ -438,7 +438,6 @@ D:\C# Project\DropupE2.1\FreshMart_Dashboard\bin\Microsoft.AspNet.TelemetryCorre
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\bin\Microsoft.AI.DependencyCollector.xml
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\bin\Microsoft.AI.WindowsServer.xml
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\bin\Microsoft.AI.Web.xml
-D:\C# Project\DropupE2.1\FreshMart_Dashboard\obj\Debug\DropupManagement.csprojAssemblyReference.cache
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\obj\Debug\DropupManagement.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\obj\Debug\DropupManagement.csproj.CopyComplete
 D:\C# Project\DropupE2.1\FreshMart_Dashboard\obj\Debug\FreshMart_Dashboard.dll

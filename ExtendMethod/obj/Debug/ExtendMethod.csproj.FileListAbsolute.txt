@@ -24,7 +24,7 @@ D:\C# Project\DropupE2.0\ExtendMethod\obj\Debug\ExtendMethod.dll
 D:\C# Project\DropupE2.0\ExtendMethod\obj\Debug\ExtendMethod.pdb
 D:\C# Project\DropupE2.1\ExtendMethod\bin\Debug\ExtendMethod.dll
 D:\C# Project\DropupE2.1\ExtendMethod\bin\Debug\ExtendMethod.pdb
+D:\C# Project\DropupE2.1\ExtendMethod\obj\Debug\ExtendMethod.csprojAssemblyReference.cache
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Debug\ExtendMethod.csproj.CoreCompileInputs.cache
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Debug\ExtendMethod.dll
 D:\C# Project\DropupE2.1\ExtendMethod\obj\Debug\ExtendMethod.pdb
-D:\C# Project\DropupE2.1\ExtendMethod\obj\Debug\ExtendMethod.csprojAssemblyReference.cache

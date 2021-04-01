@@ -1,0 +1,35 @@
+﻿@model List<tag>
+@using Data;
+@using Data.Providers;
+
+@if (Model.Count() > 0)
+{
+    foreach (var tag in Model)
+    {
+        <span class="mt-2 mr-2 mb-2 mr-sm-0 mb-sm-0 badge badge-primary-inverse">@tag.tag_name &nbsp;<a href="javascript:void(0)" onclick="removeTagCategory('@tag.tag_id','@ViewBag.CategoryId')" ><i class="fa fa-times"></i></a></span>
+    }
+}
+
+<script>
+    function removeTagCategory(tag_id, category_id) {
+        $.ajax({
+            url: "/Category/DeleteTagCategory",
+            data: {
+                tag_id: tag_id,
+                category_id: category_id,
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                updateTagCategory(@ViewBag.CategoryId);
+                showToast("success", 'Thẻ tag đã được xóa.', "Xóa thành công");
+            },
+            error: function (xhr, status) {
+                toastError();
+            },
+            complete: function (xhr, status) {
+            }
+        });
+    }
+</script>

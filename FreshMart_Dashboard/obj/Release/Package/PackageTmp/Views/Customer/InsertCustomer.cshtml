@@ -1,0 +1,541 @@
+﻿@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = "Thêm khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                <h1>Thêm khách hàng</h1>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Khách hàng
+                        </li>
+                        <li class="breadcrumb-item active text-primary" aria-current="page">Thêm khách hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+
+<div id="show_recommend">
+
+</div>
+
+<div class="row" id="divInput">
+    <div  class="col-xxl-9 col-xl-9 col-lg-9 col-md-9">
+        <div class="card card-statistics">
+            <div class="card-header">
+                <div class="card-heading">
+                    <h4 class="card-title">Thông tin cá nhân</h4>
+                </div>
+            </div>
+            <div class="card-body" id="content_profile">
+                <div>
+                    <form id="formInsertExtra" class="form-horizontal" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstname">Họ và tên đệm <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control inputmask" id="firstname" name="firstname" placeholder="Nhập họ và tên đệm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastname">Tên <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nhập tên">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone_number">Điện thoại <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control inputmask" data-mask="(999) 999-9999" id="phone_number" name="phone_number" placeholder="Nhập số điện thoại" onchange="checkDupplicatePhoneNumber()">
+                                        <div class="invalid-feedback" id="phone_number_feedback">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email <span class="requirement-star-text">&ast;</span></label>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email khách hàng" onchange="checkDupplicateEmail()">
+                                        <div class="invalid-feedback" id="email_feedback">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="gender_id">Giới tính</label>
+                                    <div class="div_sex">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender_id" id="male" value="1">
+                                            <label class="form-check-label" for="male">
+                                                Nam
+                                            </label>
+                                        </div>
+                                        <div class="form-check radio_btn_female">
+                                            <input class="form-check-input" type="radio" name="gender_id" id="female" value="2">
+                                            <label class="form-check-label" for="female">
+                                                Nữ
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="birthday">Ngày sinh</label>
+                                    <div class="input-group date" id="datepicker-bottom-left">
+                                        <input class="form-control inputmask" data-mask="99/99/9999" type="text" id="birthday" name="birthday" placeholder="Nhập ngày sinh">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlCountry">Quốc gia</label>
+                                    <select class="custom-select" id="ddlCountry" style="border-radius: .25rem;" disabled>
+                                        <option value="" selected="">Việt Nam </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlProvince">Tỉnh Thành</label>
+                                    <select class="custom-select" id="ddlProvince" style="border-radius: .25rem;">
+                                        <option value="-1" selected>-- Chọn Tỉnh/Thành phố -- </option>
+                                        @foreach (var province in ViewData["ListProvince"] as List<province>)
+                                        {
+                                            <option value="@province.Id">@province.Type @province.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlDistrict">Quận Huyện</label>
+                                    <select class="custom-select" id="ddlDistrict" style="border-radius: .25rem;">
+                                        <option value="" selected>-- Không chọn --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group bs-select-1">
+                                    <label for="ddlWard">Xã Phường / Thị trấn</label>
+                                    <select class="custom-select" id="ddlWard" style="border-radius: .25rem;">
+                                        <option value="">-- Không chọn -- </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="address_detail">Địa chỉ chi tiết</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="address_detail" placeholder="Nhập địa chỉ" aria-label="Nhập địa chỉ">
+                                
+                                @*<div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            <span id="text_ward"></span><span id="text_district"></span><span id="text_province"></span>
+                                        </span>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 m-b-30 m-b-30">
+        <div class="">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Thông tin thêm</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <div class="form-group">
+                        <label class="control-label" for="customer_description">Ghi chú khách hàng</label>
+                        <div class="mb-2">
+                            <textarea class="form-control" id="customer_note" name="customer_note" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="marketing_status" checked>
+                        <label class="form-check-label" for="marketing_status">Nhận email quảng cáo</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardRightBottom">
+            <div class="card mb-0 o-hidden">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Gắn thẻ khách hàng</h4>
+                    </div>
+                </div>
+                <div class="card-body selects-contant-boots">
+                    <div class="form-group mb-0 bs-select-1">
+                        <input type="text" class="bs-input" value="" placeholder="Nhập thẻ khách hàng" data-role="tagsinput" id="customer_tag" />
+                        <small>VD: Khách hàng VIP, Khách hàng thân thiết,...</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-top: 1px solid rgba(0,0,0,.125);">
+    <div class="col-12" style="margin-top: 15px;">
+        <div class="pb-2" style="text-align:right">
+            <a href="javascript:void(0)" class="btn btn-secondary" onclick="backHistory()">Hủy</a>
+            <a href="javascript:void(0)" class="btn btn-primary" id="btn_insert" onclick="insertCustomer()">Xác nhận</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#customer').addClass('active');
+        $('#add_customer').addClass('active');
+
+        $('form').dirrty({
+            preventLeaving: true
+        }).on("dirty", function () {
+            //$("#btn_insert").removeClass("disabled");
+        }).on("clean", function () {
+            //$("#btn_insert").addClass("disabled");
+        });
+
+        var province_id_start = $("#ddlProvince").val();
+        var text_province_start = $('#ddlProvince option[value="' + province_id_start + '"]').text();
+        $('#text_province').text(" " + text_province_start);
+        if (province_id_start == -1) {
+            $('#text_province').text(" ");
+        }
+        $.ajax({
+                type: "GET",
+                data: { id: province_id_start },
+                url: '@Url.Action("GetAllDistrictByProvinceId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlDistrict").empty();
+                    $("#ddlWard").empty();
+                    $("#ddlDistrict").append('<option value="-1">-- Chọn Quận/Huyện --</option>');
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlDistrict").append('<option value="' + value.district_id + '"> ' + value.district_type + " " + value.district_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+        });
+
+
+        //// truyền id của district vào
+        $("#ddlProvince").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_province').text("");
+                $('#text_district').text("");
+                $('#text_ward').text("");
+            }
+            else {
+                var text_province = $('#ddlProvince option[value="' + id + '"]').text();
+                $('#text_province').text(" " + text_province);
+            }
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllDistrictByProvinceId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlDistrict").empty();
+                    $("#ddlWard").empty();
+                    $("#ddlDistrict").append('<option value="-1">-- Chọn Quận/Huyện --</option>');
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlDistrict").append('<option value="' + value.district_id + '"> ' + value.district_type + " " + value.district_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+            });
+        });
+
+        $("#ddlDistrict").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_district').text("");
+                $('#text_ward').text("");
+            }
+            else {
+                var text_district = $('#ddlDistrict option[value="' + id + '"]').text();
+                $('#text_district').text(" " + text_district + " -");
+            }
+            $.ajax({
+                type: "GET",
+                data: { id: id },
+                url: '@Url.Action("GetAllWardByDistrictId", "GetLocal")',
+                success: function (data) {
+                    $("#ddlWard").empty();
+                    $("#ddlWard").append('<option value="-1">-- Chọn Phường/Xã --</option>');
+                    $.each(data, function (key, value) {
+                        $("#ddlWard").append('<option value="' + value.ward_id + '"> ' + value.ward_type + " " + value.ward_name + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    toastExportError();
+                }
+            });
+        });
+
+         $("#ddlWard").on('change', function () {
+            var id = $(this).val();
+            if (id == -1) {
+                $('#text_ward').text("");
+            }
+            else {
+                var text_ward = $('#ddlWard option[value="' + id + '"]').text();
+                $('#text_ward').text(text_ward + " -");
+            }
+        });
+    });
+
+    $('input[id=email]').keyup(function () {
+        $('#firstname').removeClass('is-invalid');
+        $('#lastname').removeClass('is-invalid');
+        //$('#phone_number').removeClass('is-invalid');
+        var email = $("#email").val();
+
+        if (email != null || email != "") {
+            $("#email").removeClass('is-invalid');
+            $("#email_feedback").css('display', 'none');
+        }
+    });
+
+    $('input[id=phone_number]').keyup(function () {
+        $('#phone_number').removeClass('is-invalid');
+        var phone_number = $("#phone_number").val();
+
+        if (phone_number != null || phone_number != "") {
+            $("#phone_number").removeClass('is-invalid');
+            $("#phone_number_feedback").css('display', 'none');
+        }
+    });
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    function insertCustomer() {
+        //alert(checkEmail)
+        $('#error_show').remove();
+        var firstname = $('#firstname').val();
+        var lastname = $('#lastname').val();
+        var birthday = $("#birthday").val();
+        var phone_number = $("#phone_number").val();
+        var province_id = $('#ddlProvince').val();
+        var district_id = $('#ddlDistrict').val();
+        var ward_id = $('#ddlWard').val();
+        var address_detail = $('#address_detail').val();
+        var email = $('#email').val();
+        var gender_id = $('input[name=gender_id]:checked').val();
+        var marketing_status = $('#marketing_status').is(':checked');
+        var customer_note = $('#customer_note').val();
+        var list_customer_tag = $("#customer_tag").tagsinput('items');
+
+
+        var tags = []
+        for (var i = 0; i < list_customer_tag.length; i++) {
+            tags.push(list_customer_tag[i]);
+        }
+
+        if (firstname == "" && lastname == "" && phone_number == "" && email == "") {
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            $('#show_recommend').append('<div class="row" id="error_show"><div class="col-xxl-12"><div class="card card-statistics"><div class="card-body button-list"><div class="row"><div class="col-12 mb-2"><div class="alert alert-inverse-danger alert-icon" role="alert"><i class="fa fa-close"></i><strong>Lỗi! </strong>Khách hàng phải có họ tên, địa chỉ email hoặc số điện thoại</div></div></div></div></div></div></div>');
+
+            $('#firstname').addClass('is-invalid');
+            $('#lastname').addClass('is-invalid');
+            $('#phone_number').addClass('is-invalid');
+            $('#email').addClass('is-invalid');
+        }
+        else if (email != "" && !isEmail(email)) {
+            $('#firstname').removeClass('is-invalid');
+            $('#lastname').removeClass('is-invalid');
+            $('#error_show').remove();
+            $("#email_feedback").css('display', 'block');
+            $("#email").addClass('is-invalid');
+            $("#email_feedback").text("Email không hợp lệ.");
+        }
+        else if (email != "" && checkEmail == false) {
+            $('#firstname').removeClass('is-invalid');
+            $('#lastname').removeClass('is-invalid');
+            $('#error_show').remove();
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            $("#email").addClass('is-invalid');
+            $("#email_feedback").css('display', 'block');
+            $("#email_feedback").text("Email đã được sử dụng.");
+            $('#show_recommend').append('<div class="row" id="error_show"><div class="col-xxl-12"><div class="card card-statistics"><div class="card-body button-list"><div class="row"><div class="col-12 mb-2"><div class="alert alert-danger alert-icon" role="alert"><i class="fa fa-close"></i><strong>Lỗi! </strong>Email đã tồn tại trong cơ sở dữ liệu. Hãy nhập email khác.</div></div></div></div></div></div></div>');
+        }
+        else if (checkPhoneNumber == false) {
+            $('#firstname').removeClass('is-invalid');
+            $('#lastname').removeClass('is-invalid');
+            $('#error_show').remove();
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            $("#phone_number").addClass('is-invalid');
+            $("#phone_number_feedback").css('display', 'block');
+            $("#phone_number_feedback").text("Số điện thoại đã được sử dụng.");
+            $('#show_recommend').append('<div class="row" id="error_show"><div class="col-xxl-12"><div class="card card-statistics"><div class="card-body button-list"><div class="row"><div class="col-12 mb-2"><div class="alert alert-danger alert-icon" role="alert"><i class="fa fa-close"></i><strong>Lỗi! </strong>Số điện thoại đã tồn tại trong cơ sở dữ liệu. Hãy nhập số điện thoại khác.</div></div></div></div></div></div></div>');
+        }
+        else {
+            $('#firstname').removeClass('is-invalid');
+            $('#lastname').removeClass('is-invalid');
+            $('#phone_number').removeClass('is-invalid');
+            $('#email').removeClass('is-invalid');
+            $.ajax({
+                url: "/Customer/InsertCustomer",
+                data: {
+                    first_name: firstname,
+                    last_name: lastname,
+                    customer_birthday: birthday,
+                    gender_id: gender_id,
+                    customer_phone_number: phone_number,
+                    customer_email: email,
+                    customer_note: customer_note,
+                    address_detail: address_detail,
+                    province_id: province_id,
+                    district_id: district_id,
+                    ward_id: ward_id,
+                    marketing_status: marketing_status,
+                    tags: tags
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    toastSuccess();
+                    $('#show_recommend').append('<div class="row" id="success_show"><div class="col-xxl-12"><div class="card card-statistics"><div class="card-body button-list"><div class="row"><div class="col-12 mb-2"><div class="alert alert-success alert-icon" role="alert"><i class="fa fa-check-circle"></i>Khách hàng vừa được thêm thành công. <strong><a href="/Customer/Index" class="text_recommend">Xem trong danh sách khách hàng </a></strong>hoặc <strong><a class="text_recommend" href="/Customer/InsertCustomer">tạo khách hàng mới</a></strong></div></div></div></div></div></div></div>');
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                    $("#btn_insert").addClass("disabled");
+
+                    $('.text_recommend').click(function () {
+                        $('form').trigger('reset');
+                    });
+                },
+                error: function (xhr) {
+                    toastError();
+                }
+            });
+        }
+    }
+
+    var checkEmail = true;
+    function checkDupplicateEmail() {
+        var customer_email = $("#email").val().trim();
+        //$('#error_show').remove();
+        $.ajax({
+            url: "/Customer/checkDuplicateEmail",
+            data: {
+                customer_email: customer_email
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                if (data != "True") {
+                    checkEmail = true;
+                    $('#error_show').remove();
+                    $("#email").removeClass('is-invalid');
+                    $("#email_feedback").css('display', 'none');
+                }
+                else {
+                    checkEmail = false;
+
+                    $("#email").addClass('is-invalid');
+                    $("#email_feedback").css('display', 'block');
+                    $("#email_feedback").text("Email đã được sử dụng.");
+
+                }
+            },
+            error: function (xhr, status) {
+                $("#valid-feedback").val("Lỗi");
+            },
+            complete: function (xhr, status) {
+                //$('#showresults').slideDown('slow')
+            }
+        });
+    }
+
+    var checkPhoneNumber = true;
+    function checkDupplicatePhoneNumber() {
+        var customer_phone_number = $("#phone_number").val().trim();
+        //$('#error_show').remove();
+        $.ajax({
+            url: "/Customer/checkDuplicatePhoneNumber",
+            data: {
+                customer_phone_number: customer_phone_number
+            },
+            context: document.body,
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                if (data != "True") {
+                    checkPhoneNumber = true;
+                    $('#error_show').remove();
+                    $("#phone_number").removeClass('is-invalid');
+                    $("#phone_number_feedback").css('display', 'none');
+                }
+                else {
+                    checkPhoneNumber = false;
+                    $("#phone_number").addClass('is-invalid');
+                    $("#phone_number_feedback").css('display', 'block');
+                    $("#phone_number_feedback").text("Số điện thoại đã được sử dụng.");
+                }
+            },
+            error: function (xhr, status) {
+                $("#valid-feedback").val("Lỗi");
+            },
+            complete: function (xhr, status) {
+                //$('#showresults').slideDown('slow')
+            }
+        });
+    }
+</script>

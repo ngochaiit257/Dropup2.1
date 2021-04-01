@@ -1,4 +1,7 @@
-﻿
+﻿:root {
+    --mainColor: #dd0313;
+    --childColor: #1a2253;
+}
 
 .section-title h2 {
     font-weight: 800;
@@ -455,4 +458,321 @@ body {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1300px;
     }
+}
+
+.banner-item:before {
+    background: unset;
+}
+
+
+
+/*===TAB1===*/
+
+.slick-initialized .swipe-tab-content {
+    position: relative;
+}
+
+.slick-initialized .swipe-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background: none;
+    border: 0;
+    color: var(--mainColor);
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    transition: all 0.5s;
+    font-weight: 700;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.slick-initialized .swipe-tab-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background: none;
+    border: 0;
+    color: var(--mainColor);
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    transition: all 0.5s;
+    font-weight: 700;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.slick-initialized .swipe-tab:hover {
+    color: var(--mainColor);
+}
+
+.slick-initialized .swipe-tab-2:hover {
+    color: var(--mainColor);
+}
+
+.slick-initialized .swipe-tab:hover:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: 75%;
+    margin-left: 25px;
+    border-style: solid;
+    border-width: 20px 15px 0 15px;
+    border-color: var(--mainColor) transparent transparent transparent;
+    position: absolute;
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    visibility: visible;
+    opacity: 0.75;
+}
+
+.slick-initialized .swipe-tab-2:hover:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: 75%;
+    margin-left: 25px;
+    border-style: solid;
+    border-width: 20px 15px 0 15px;
+    border-color: var(--mainColor) transparent transparent transparent;
+    position: absolute;
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    visibility: visible;
+    opacity: 0.75;
+}
+
+.slick-initialized .swipe-tab.active-tab {
+    color: var(--mainColor);
+    font-weight: 700;
+}
+
+    .slick-initialized .swipe-tab.active-tab:focus {
+        border: none;
+        outline: none;
+    }
+
+.slick-initialized .swipe-tab-2.active-tab {
+    color: var(--mainColor);
+    font-weight: 700;
+}
+
+.slick-initialized .swipe-tab.active-tab:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: 75%;
+    margin-left: 25px;
+    border-style: solid;
+    border-width: 20px 15px 0 15px;
+    border-color: var(--mainColor) transparent transparent transparent;
+    position: absolute;
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    visibility: visible;
+    opacity: 1;
+}
+
+.slick-initialized .swipe-tab-2.active-tab:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: 75%;
+    margin-left: 25px;
+    border-style: solid;
+    border-width: 20px 15px 0 15px;
+    border-color: var(--mainColor) transparent transparent transparent;
+    position: absolute;
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -moz-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+    visibility: visible;
+    opacity: 1;
+}
+
+.main-container {
+    padding: 25px;
+    background: #f1f1f1;
+    margin-top: -25px;
+    border-radius: 15px;
+}
+
+.main-container-2 {
+    padding: 25px;
+    background: #f1f1f1;
+    margin-top: -25px;
+    max-height: 500px;
+    border-radius: 15px;
+}
+
+.slick-prev.slick-arrow {
+    position: absolute;
+    top: calc(50% - 35px);
+    left: 10px;
+    z-index: 1;
+    background-color: #ffffff;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
+}
+
+.slick-next.slick-arrow {
+    position: absolute;
+    top: calc(50% - 35px);
+    z-index: 1;
+    background-color: #ffffff;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--mainColor);
+    color: var(--mainColor);
+    right: 0;
+}
+
+.slick-prev.slick-prev-content {
+    left: -60px !important;
+}
+
+.slick-next.slick-next-content {
+    right: -60px !important;
+}
+
+.slick-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.swipe-tab-content .item-only-img img, .swipe-tab-content-2 .item-only-img img {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.swipe-tab-content p {
+    height: 320px;
+    overflow-y: scroll;
+    align-items: center;
+    margin-top: 20px;
+    text-align: justify;
+}
+
+
+
+
+/*TAB SLIDER ABOUT US*/
+.swipe-tabs-au.slick-initialized .swipe-tab.active-tab {
+    color: #dd0313;
+    font-weight: 700;
+}
+
+.swipe-tabs-au.slick-initialized .swipe-tab {
+    color: #dd0313;
+}
+
+    .swipe-tabs-au.slick-initialized .swipe-tab:hover {
+        color: #dd0313;
+    }
+
+    .swipe-tabs-au.slick-initialized .swipe-tab.active-tab:before {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 0;
+        top: 75%;
+        margin-left: 25px;
+        border-style: solid;
+        border-width: 20px 15px 0 15px;
+        border-color: #dd0313 transparent transparent transparent;
+        position: absolute;
+        -moz-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        -moz-transition: 0.5s ease;
+        -o-transition: 0.5s ease;
+        -webkit-transition: 0.5s ease;
+        transition: 0.5s ease;
+        visibility: visible;
+        opacity: 1;
+    }
+
+        .swipe-tabs-au.slick-initialized .swipe-tab.active-tab:before:hover {
+            border-color: #dd0313 transparent transparent transparent;
+        }
+
+.slick-prev.slick-arrow {
+    position: absolute;
+    top: calc(50% - 35px);
+    left: 10px;
+    z-index: 1;
+    background-color: #ffffff;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #dd0313;
+    color: #dd0313;
+}
+
+.slick-next.slick-arrow {
+    position: absolute;
+    top: calc(50% - 35px);
+    z-index: 1;
+    background-color: #ffffff;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #dd0313;
+    color: #dd0313;
+    right: 0;
+}
+
+.slick-prev.slick-prev-content {
+    left: -60px !important;
+}
+
+.slick-next.slick-next-content {
+    right: -60px !important;
+}
+
+.slick-disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }

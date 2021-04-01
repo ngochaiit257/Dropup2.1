@@ -18,9 +18,6 @@ namespace ElysienVietNam.Controllers
            "SiteCache:store_partner;SiteCache:store_contact")]
         public ActionResult Index()
         {
-            ViewData["ListMyPham"] = product_provider.getByCategoryIdOnSite(55);
-            ViewData["ListMayMoc"] = product_provider.getByCategoryIdOnSite(56);
-            ViewData["ListDacBiet"] = product_provider.getByCategoryIdOnSite(57);
             return View();
         }
 

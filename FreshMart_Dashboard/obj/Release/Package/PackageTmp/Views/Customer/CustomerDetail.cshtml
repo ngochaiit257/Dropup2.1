@@ -1,0 +1,63 @@
+﻿@model Data.customer
+@using Data;
+@using Data.Providers;
+@{
+    if (Model.customer_last_name == null && Model.customer_first_name == null)
+    {
+        ViewBag.Title = "Khách hàng " + Model.customer_email;
+    }
+    else
+    {
+        ViewBag.Title = "Khách hàng " + Model.customer_first_name + " " + Model.customer_last_name;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-12 m-b-30">
+        <!-- begin page title -->
+        <div class="d-block d-sm-flex flex-nowrap align-items-center">
+            <div class="page-title mb-2 mb-sm-0">
+                @if (Model.customer_last_name == null && Model.customer_first_name == null)
+                {
+                    <h1>Khách hàng / @Model.customer_email</h1>
+                }
+                else
+                {
+                    <h1>Khách hàng / @Model.customer_first_name @Model.customer_last_name</h1>
+                }
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <nav>
+                    <ol class="breadcrumb p-0 m-b-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            Khách hàng
+                        </li>
+                        @if (Model.customer_last_name == null && Model.customer_first_name == null)
+                        {
+                            <li class="breadcrumb-item active text-primary" aria-current="page">@Model.customer_email</li>
+                        }
+                        else
+                        {
+                            <li class="breadcrumb-item active text-primary" aria-current="page">@Model.customer_first_name @Model.customer_last_name</li>
+                        }
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- end page title -->
+    </div>
+</div>
+<!-- end row -->
+
+<script>
+    $(document).ready(function () {
+        $('#customer').addClass('active');
+    });
+
+</script>

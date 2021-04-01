@@ -712,7 +712,11 @@
     <None Include="Properties\PublishProfiles\FolderProfile54.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile55.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile56.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile57.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile58.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile59.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile60.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile7.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile8.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile9.pubxml" />
@@ -868,7 +872,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52810</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64445/</IISUrl>
+          <IISUrl>http://localhost:64446/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

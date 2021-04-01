@@ -1,0 +1,188 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var page_parent = new page();
+    if (Model.page_parent_id > 0)
+    {
+        page_parent = new PageProvider().getById((int)Model.page_parent_id);
+    }
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">@Model.page_title</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        @if (page_parent != null && page_parent.page_id > 0)
+                        {
+                            <li class="breadcrumb-item">
+                                <a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">@Model.page_title</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.page_id == 1)
+{
+    <section class="tab-slider-feature pt-50 pb-50 bg-gray">
+        <div class="container">
+            <div class="mb-10">
+                <div class="sub-header ">
+                    <div class="swipe-tabs swipe-tabs-au">
+                        <div class="swipe-tab">
+                            Tổng quan về <br />
+                            Trung tâm Anh ngữ EPlus
+                        </div>
+                        <div class="swipe-tab">
+                            Tầm nhìn và <br />
+                            Sứ mệnh
+                        </div>
+                        <div class="swipe-tab">
+                            Phương châm <br />
+                            Hoạt động
+                        </div>
+                        <div class="swipe-tab">
+                            Giá trị <br />
+                            Cốt lõi
+                        </div>
+                    </div>
+                </div>
+                <div class="main-container bg-white">
+                    <div class="swipe-tabs-container ">
+                        <div class="swipe-tab-content">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <p class="scrollbar">
+                                        EPlus được đầu tư và phát triển bởi Công ty cổ phần EPlus, hoạt động chủ yếu trong lĩnh vực đào tạo, giảng dạy tiếng Anh và phát triển kỹ năng tư duy toàn diện cho thế hệ trẻ Việt Nam.<br>
+                                        Xuyên suốt chặng hành trình xây dựng và phát triển, chúng tôi luôn không ngừng nỗ lực, sáng tạo nên những giá trị tri thức mới, góp phần nâng cao trình độ ngoại ngữ, tăng cường khả năng tư duy sáng tạo cho trẻ ngay từ lúc khởi đầu.<br>
+                                        EPlus áp dụng giáo trình chuẩn quốc tế, kết hợp cùng phương pháp giảng dạy tiên tiến thông qua việc tối ưu hóa công nghệ nhằm tiếp cận và gắn kết người học. Chúng tôi không chỉ giúp thế hệ trẻ Việt Nam tự tin giao tiếp tiếng Anh, hội nhập cùng bạn bè quốc tế; mà còn cung cấp các kỹ năng sống cần thiết để trẻ trở thành những công dân toàn cầu.
+                                    </p>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <div class="item-only-img">
+                                        <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913816_dsc02597-2.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipe-tab-content">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <p class="scrollbar">
+                                        EPlus xây dựng hệ sinh thái giáo dục giúp trẻ tiếp thu kiến thức và phát triển toàn diện nhất.
+                                        <br>
+                                        <br>
+                                        Một xã hội thu nhỏ được mô phỏng chuyên nghiệp ngay tại khuôn viên của EPlus, như: thư viện, căn-tin, khu mua sắm, ẩm thực,… giúp trẻ có những trải nghiệm thực tiễn đáng nhớ, gia tăng hiểu biết trên nhiều lĩnh vực và phát triển khả năng giao tiếp của trẻ.
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <div class="item-only-img">
+                                        <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913816_dsc02597-2.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipe-tab-content">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <p class="scrollbar">
+                                        Chương trình giáo dục kỹ năng &amp; ứng dụng 7 tính cách thành công, được EPlus xây dựng và đào tạo giúp trẻ hướng tới thay đổi tư duy toàn diện từ bên trong, hình thành thói quen tốt, phát huy tiềm năng và xây dựng tinh thần lãnh đạo bản thân.
+                                    </p>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <div class="item-only-img">
+                                        <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913831_dsc02716-2.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipe-tab-content">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <p class="scrollbar">
+                                        EPlus xây dựng hệ sinh thái giáo dục giúp trẻ tiếp thu kiến thức và phát triển toàn diện nhất.
+                                        <br>
+                                        <br>
+                                        Một xã hội thu nhỏ được mô phỏng chuyên nghiệp ngay tại khuôn viên của EPlus, như: thư viện, căn-tin, khu mua sắm, ẩm thực,… giúp trẻ có những trải nghiệm thực tiễn đáng nhớ, gia tăng hiểu biết trên nhiều lĩnh vực và phát triển khả năng giao tiếp của trẻ.
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <div class="item-only-img">
+                                        <img src="http://www.apaxleaders.edu.vn/static/uploads/differentiation/1538913816_dsc02597-2.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-30">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="text-center text-blue font-weight-700">Đội ngũ giáo viên và trợ giảng</h2>
+            </div>
+            <div class="row">
+                @foreach (var team in list_team)
+                {
+                    <div class="col-lg-3 mt-20">
+                        <div class="card instructors-item border-0">
+                            <div class="position-relative">
+                                <img src="@urlCMS/@team.mavatar" alt="@team.mname" class="card-img-top">
+                                <div class="instructor-social text-center">
+                                    <a href="@team.mfacebook_url" class="p-3 text-link"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="@team.mtwitter_url" class="p-3 text-link"><i class="fab fa-twitter"></i></a>
+                                    <a href="@team.minstagram_url" class="p-3 text-link"><i class="fab fa-instagram"></i></a>
+                                    <a href="@team.mzalo_url" class="p-3 text-link"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body px-0 pb-0">
+                                <h4 class="font-weight-600 text-blue mb-1">@team.mname</h4>
+                                <p>@team.mposition</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-lg-12 mt-30 text-center">
+                <a href="#register" class="btn bg-blue text-white btn-register rounded-pill">Đăng ký ngay</a>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="section-padding">
+        <div class="container">
+            @Html.Raw(Model.page_content)
+        </div>
+    </section>
+}
+

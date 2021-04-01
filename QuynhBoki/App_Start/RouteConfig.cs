@@ -99,7 +99,7 @@ namespace QuynhBoki
 
             routes.MapRoute(
                 name: "Category",
-                url: "collections/{seo_alias}",
+                url: "collections",
                 defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }
             );
 

@@ -1,0 +1,378 @@
+﻿@model IPagedList<Data.coupon>
+@using Data.Providers;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    var check_box_count = Model.Count();
+    var current_datetime = System.DateTime.Now;
+}
+
+<div class="table-responsive data-grid">
+    <table class="table table-striped mb-0">
+        <thead>
+            <tr>
+                <th align="center" scope="col" style="width:10%;" id="checkHeader" class="col_to_merge" colspan="2">
+                    <form id="form_action">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" value="-1" id="select_all">
+                            <label class="form-check-label checkbox-table check-table" id="label_for_select_all" for="select_all"></label>
+                            <div class="form-group" style="display: none; margin-bottom: -25px;" id="select_action">
+                                <select class="form-control form-control-sm select_action" id="checkToAction">
+                                    <option selected disabled id="number_of_checked" value="-1"></option>
+                                    <option value="1">Ngừng áp dụng khuyến mãi</option>
+                                    <option value="1">Áp dụng khuyến mãi</option>
+                                    <option value="1">Xóa các mã giảm giá đã chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </th>
+                @*<th scope="col" style="width:45%; text-align: center">
+                        <p class="th_table">Mô tả</p>
+                    </th>*@
+                <th scope="col" style="width:5%">
+                    <p class="th_table">Sử dụng</p>
+                </th>
+                <th scope="col" style="width:20%; text-align:center">
+                    <p class="th_table">Bắt đầu</p>
+                </th>
+                <th scope="col" style="width:20%; text-align:center">
+                    <p class="th_table">Kết thúc</p>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var coupon in Model)
+            {
+                <tr>
+                    <td align="center">
+                        <div class="form-check">
+                            <input class="form-check-input checkbox" type="checkbox" name="checkbox" value="@coupon.coupon_id" id="Check_@coupon.coupon_id" style="border: 1px solid #dee2e6;">
+                            <label class="form-check-label checkbox-table check-table" for="Check_@coupon.coupon_id"></label>
+                        </div>
+                    </td>
+                    <td align="center">
+                        @if ((coupon.coupon_status == true && current_datetime >= coupon.coupon_start_date && current_datetime <= coupon.coupon_end_date) || (coupon.coupon_status == true && current_datetime >= coupon.coupon_start_date && coupon.coupon_end_date == null))
+                        {
+                            if (coupon.count_used < coupon.coupon_number_of_uses || coupon.coupon_number_of_uses == null)
+                            {
+                                <div class="alert alert-icon alert-inverse-info coupon_description_card" role="alert">
+                                    Mã giảm giá: <strong>@coupon.coupon_code</strong><br />
+                                    @coupon.coupon_description <br />
+                                    @if (coupon.allow_use_with_promotion_status == true)
+                                    {
+                                        <a class="text-danger">Mã giảm giá <strong>được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="text-danger">Mã giảm giá <strong>không được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                    }
+                                    <br />
+                                    Đối tượng áp dụng: @coupon.object_of_coupon.group_customer_name
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-icon alert-inverse-secondary coupon_description_card" role="alert">
+                                    <span class="coupon_expired">Đã hết lượt sử dụng</span>
+                                    <a class="text_expried">Mã giảm giá: <strong>@coupon.coupon_code</strong></a><br />
+                                    <a class="text_expried">@coupon.coupon_description</a> <br />
+                                    @if (coupon.allow_use_with_promotion_status == true)
+                                    {
+                                        <a class="text_expried">Mã giảm giá<strong> được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="text_expried">Mã giảm giá<strong> không được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                    }
+                                    <br />
+                                    <a class="text_expried">Đối tượng áp dụng: @coupon.object_of_coupon.group_customer_name</a>
+                                </div>
+                            }
+
+                        }
+                        @if ((coupon.coupon_status == true && current_datetime < coupon.coupon_start_date) || (coupon.coupon_status == false && current_datetime >= coupon.coupon_start_date && current_datetime <= coupon.coupon_start_date))
+                        {
+                            <div class="alert alert-icon alert-inverse-primary coupon_description_card" role="alert">
+                                Mã giảm giá: <strong>@coupon.coupon_code</strong><br />
+                                @coupon.coupon_description <br />
+                                @if (coupon.allow_use_with_promotion_status == true)
+                                {
+                                    <a class="text-danger">Mã giảm giá <strong>được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                }
+                                else
+                                {
+                                    <a class="text-danger">Mã giảm giá <strong>không được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                }
+                                <br />
+                                Đối tượng áp dụng: @coupon.object_of_coupon.group_customer_name
+                            </div>
+                        }
+                        @if (coupon.coupon_end_date < current_datetime)
+                        {
+                            <div class="alert alert-icon alert-inverse-secondary coupon_description_card" role="alert">
+                                <span class="coupon_expired">Đã hết hạn</span>
+                                <a class="text_expried">Mã giảm giá: <strong>@coupon.coupon_code</strong></a><br />
+                                <a class="text_expried">@coupon.coupon_description</a> <br />
+                                @if (coupon.allow_use_with_promotion_status == true)
+                                {
+                                    <a class="text_expried">Mã giảm giá<strong> được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                }
+                                else
+                                {
+                                    <a class="text_expried">Mã giảm giá<strong> không được phép</strong> sử dụng cùng chương trình khuyến mãi</a>
+                                }
+                                <br />
+                                <a class="text_expried">Đối tượng áp dụng: @coupon.object_of_coupon.group_customer_name</a>
+                            </div>
+                        }
+                    </td>
+                    <td align="center">
+                        @if (coupon.coupon_number_of_uses != null)
+                        {
+                            <a>@coupon.count_used/@coupon.coupon_number_of_uses</a>
+                        }
+                        else
+                        {
+                            <a href="javascript:void(0)" class="text-info tooltip-wrapper font-22" data-toggle="tooltip" data-placement="bottom" data-original-title="Không giới hạn số lần sử dụng"><i class="ion ion-md-infinite"></i></a>
+                        }
+                    </td>
+
+                    <td align="center">
+                        <span class="time-log-system font-15">
+                            @if (coupon.coupon_start_date.Date == current_datetime.Date)
+                            {
+                                <span>Hôm nay @coupon.coupon_start_date.ToString("HH:mm")</span>
+                            }
+                            else if (coupon.coupon_start_date.Date == current_datetime.Date.AddDays(1))
+                            {
+                                <span>Ngày mai @coupon.coupon_start_date.ToString("HH:mm")</span>
+                            }
+                            else if (coupon.coupon_start_date.Date == current_datetime.Date.AddDays(-1))
+                            {
+                                <span>Hôm qua @coupon.coupon_start_date.ToString("HH:mm")</span>
+                            }
+                            else
+                            {
+                                <span>Ngày @coupon.coupon_start_date.ToString("dd/M/yyyy") @coupon.coupon_start_date.ToString("HH:mm")</span>
+                            }
+
+                        </span>
+                    </td>
+
+                    <td align="center">
+                        @if (coupon.coupon_end_date != null)
+                        {
+                            if (coupon.coupon_end_date.Value.Date == current_datetime.Date)
+                            {
+                                <span>Hôm nay @coupon.coupon_end_date.Value.ToString("HH:mm")</span>
+                            }
+                            else if (coupon.coupon_end_date.Value.Date == current_datetime.Date.AddDays(1))
+                            {
+                                <span>Ngày mai @coupon.coupon_end_date.Value.ToString("HH:mm")</span>
+                            }
+                            else if (coupon.coupon_end_date.Value.Date == current_datetime.Date.AddDays(-1))
+                            {
+                                <span>Hôm qua @coupon.coupon_end_date.Value.ToString("HH:mm")</span>
+                            }
+                            else
+                            {
+                                <span>Ngày @coupon.coupon_end_date.Value.ToString("dd/M/yyyy") @coupon.coupon_end_date.Value.ToString("HH:mm")</span>
+                            }
+                        }
+                        else
+                        {
+                            <a>--</a>
+                        }
+                    </td>
+                    @*<td align="center">
+                            <a class="btn btn-square btn-outline-primary" href="javascript:void(0)">Ngừng</a><a class="btn btn-square btn-outline-primary" href="javascript:void(0)"><i class="fa fa-times"></i></a>
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br>
+@if (check_box_count == 0)
+{
+    <div style="text-align:center">
+        <h3>Không có kết quả nào được tìm thấy.</h3>
+        <img src="~/Assets/images/image_system/not_found.png" style="width:50%" />
+    </div>
+    <script>
+        $('#label_for_select_all').css({ display: 'none' });
+    </script>
+}
+else
+{
+    <a>Hiển thị kết quả từ 1 - @check_box_count trong tổng số @ViewBag.NumberOfList</a>
+    <script>
+        $('#label_for_select_all').css({ display: 'block' });
+    </script>
+}
+@Html.PagedListPager(Model, page_num => Url.Action("GetCoupon", new { page_num, search_string = ViewBag.FilterValue, quick_filter_select = ViewBag.QuickFilterSelect, quick_filter_condition = ViewBag.QuickFilterCondition, quick_filter_value = ViewBag.QuickFilterValue, quick_filer_tab = ViewBag.QuickFilterTab, size_of_page = ViewBag.SizeOfPage, sort_list_return = ViewBag.SortListReturn }),
+PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "data_table" }))
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="defaultModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Bạn chắc chắn muốn xóa các mã giảm giá này này?
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" onclick="cancelBtn()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a>
+                    Thao tác này sẽ xóa vĩnh viễn các mã giảm giá bạn đã chọn. Thao tác này không thể khôi phụcoupon.
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelBtn()">Hủy</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="deleteCategory()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("input[name='checkbox']").each(function () {
+            $(this).prop("checked", false);
+        });
+        $('#form_action').trigger("reset");
+    });
+
+    function cancelBtn() {
+        $('#checkToAction').val(-1);
+    }
+
+    var number_check = 0;
+    $("input[type='checkbox']").change(function () {
+        var checked = $(this).val();
+        if (checked != -1) {
+            $('.th_table').css('display', 'none');
+            $('#select_action').css('display', 'block');
+            if ($(this).is(':checked')) {
+                number_check++;
+                $('#number_of_checked').text("Đã chọn: " + number_check + " mã giảm giá");
+                if (number_check == @check_box_count) {
+                    $("#select_all").prop("checked", true);
+                }
+            } else {
+                $("#select_all").prop("checked", false);
+                number_check--;
+                $('#number_of_checked').text("Đã chọn: " + number_check + " mã giảm giá");
+                if (number_check == 0) {
+                    $('.th_table').css('display', 'block');
+                    $('#select_action').css('display', 'none');
+                }
+            }
+        }
+        else {
+            number_check = -1;
+            $('.th_table').css('display', 'none');
+            $('#select_action').css('display', 'block');
+            $(':checkbox').prop('checked', $(this).prop("checked"));
+            $(':checkbox').each(function () {
+                number_check++;
+            });
+            $('#number_of_checked').text("Đã chọn: " + number_check + " mã giảm giá");
+        }
+
+    });
+
+
+    $('#select_all').change(function () {
+        var select_all_value = $(this).val();
+        if ($(this).prop("checked") == false) {
+            number_check = 0;
+            $(':checkbox').prop('checked', $(this).prop("checked"));
+            $('.th_table').css('display', 'block');
+            $('#select_action').css('display', 'none');
+        }
+        else {
+            number_check = -1;
+            $('.th_table').css('display', 'none');
+            $('#select_action').css('display', 'block');
+
+            $(':checkbox').prop('checked', $(this).prop("checked"));
+            $(':checkbox').each(function () {
+                number_check++;
+            });
+
+            $('#number_of_checked').text("Đã chọn: " + number_check + " mã giảm giá");
+        }
+    });
+
+    $('#checkToAction').change(function () {
+        var action_value = $(this).val();
+        var page_num = '@ViewBag.page_num';
+        var search_string = '@ViewBag.FilterValue';
+        var quick_filter_value = '@ViewBag.QuickFilterValue';
+        var quick_filter = '@ViewBag.QuickFilter';
+        var list_product_id = [];
+        $.each($("input[name='checkbox']:checked"), function () {
+            list_product_id.push($(this).val());
+        });
+        if (action_value == 1 || action_value == "1") {
+            $.ajax({
+                url: "/Product/HideStatusProduct",
+                data: {
+                    list_product_id: list_product_id,
+                    page_num: page_num,
+                    search_string: search_string,
+                    quick_filter_value: quick_filter_value,
+                    quick_filter: quick_filter
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    toastSuccess();
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                    toastError();
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        }
+        else if (action_value == 2 || action_value == "2") {
+            $.ajax({
+                url: "/Product/ShowStatusProduct",
+                data: {
+                    list_product_id: list_product_id,
+                    page_num: page_num,
+                    search_string: search_string,
+                    quick_filter_value: quick_filter_value,
+                    quick_filter: quick_filter
+                },
+                context: document.body,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    toastSuccess();
+                    $("#data_table").html($(data).find("#data_table"));
+                },
+                error: function (xhr, status) {
+                    toastError();
+                },
+                complete: function (xhr, status) {
+                }
+            });
+        }
+        else if (action_value == 3 || action_value == "3") {
+            $('#modalConfirmDelete').modal('show');
+        }
+    });
+
+</script>

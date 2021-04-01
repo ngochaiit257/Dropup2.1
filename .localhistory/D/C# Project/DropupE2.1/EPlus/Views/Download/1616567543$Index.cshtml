@@ -1,0 +1,107 @@
+﻿@using Data
+@using Data.Providers
+@{
+    ViewBag.Title = "Tải tài liệu EPlus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var newest_blog = new BlogProvider().getNewest().Take(5).ToList();
+    var list_bc = new BlogCategoryProvider().getAll();
+    var list_khoa_hoc = new ProductProvider().getByCategoryIdOnSite(55);
+
+    ViewBag.Keywords = "Tải tài liệu eplus, eplus tài liệu, tài liệu eplus, tai lieu eplus, download eplus";
+    ViewBag.Description = "Download thư viện tài liệu tiếng Anh khổng lồ từ EPlus";
+    ViewBag.Canonical = urlSite + "/download";
+    ViewBag.Alternate = urlSite + "/download";
+    ViewBag.Url = urlSite + "/download";
+    //ViewBag.Image = urlCMS + "/" + ViewBag.Category.image;
+}
+
+<section class="page-header bg-cover has-overlay" style="background-image: url('../Assets/images/page-header-05.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-white font-weight-bold mb-20">Download tài liệu</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent justify-content-center p-0 font-weight-600 mb-0">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Download tài liệu</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- start of courses-details -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-8">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cname">Họ tên *</label>
+                                <input type="text" class="form-control rounded-sm" id="cname" placeholder="Nhập tên của bạn">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="csubject">Năm sinh</label>
+                                <input type="text" class="form-control rounded-sm" id="csubject" placeholder="Nhập năm sinh">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cemail">Email *</label>
+                                <input type="email" class="form-control rounded-sm" id="cemail" placeholder="Nhập Email">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-30">
+                                <label for="cphone">Số điện thoại *</label>
+                                <input type="text" class="form-control rounded-sm" id="cphone" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-30">
+                                <label for="csubject">Lựa chọn tài liệu *</label>
+                                <select name="" id="">
+                                    <option selected disabled>Lựa chọn tài liệu</option>
+                                    <option value="Kho tài liệu cho học sinh mất gốc">
+                                        <a href="https://drive.google.com/drive/folders/1nq33scjTAy78bkGwTTQKHyAnW8_S8muS?usp=sharing">Kho tài liệu cho học sinh mất gốc</a>
+                                    </option>
+                                    <option value="Kho tài liệu cho trình độ mầm non">
+                                        <a href="https://drive.google.com/drive/folders/1nq33scjTAy78bkGwTTQKHyAnW8_S8muS?usp=sharing">Kho tài liệu cho trình độ mầm non</a>
+                                    </option>
+                                    <option value="Kho tài liệu cho trình độ Tiểu học">
+                                        <a href="https://drive.google.com/drive/folders/1nq33scjTAy78bkGwTTQKHyAnW8_S8muS?usp=sharing">Kho tài liệu cho trình độ Tiểu học</a>
+                                    </option>
+                                    <option value="Kho tài liệu cho trình độ Trung học Cơ sở">Kho tài liệu cho trình độ Trung học Cơ sở</option>
+                                    <option value="Kho tài liệu luyện thi">Kho tài liệu luyện thi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb-30">
+                                <label for="cmessage">Ghi chú *</label>
+                                <textarea class="form-control rounded-sm" id="cmessage" rows="5" placeholder="Để lại lời nhắn"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align: center;">
+                            <button id="submit" onclick="sendMessage()" type="button" class="btn btn-primary rounded-sm">Gửi thông tin</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+    </div>
+</section>

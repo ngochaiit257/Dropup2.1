@@ -1,0 +1,136 @@
+﻿@model Data.page
+@using Data;
+@using Data.Providers;
+@{
+    ViewBag.Title = Model.page_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string urlCMS = System.Configuration.ConfigurationManager.AppSettings["urlCMS"];
+    string urlSite = System.Configuration.ConfigurationManager.AppSettings["urlSite"];
+
+    var page_parent = new page();
+    if (Model.page_parent_id > 0)
+    {
+        page_parent = new PageProvider().getById((int)Model.page_parent_id);
+    }
+
+    ViewBag.Keywords = Model.page_seo_header;
+    ViewBag.Description = Model.page_seo_description;
+    ViewBag.Canonical = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Alternate = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Url = urlSite + "/pages/" + Model.page_seo_alias;
+    ViewBag.Image = urlCMS + "/" + Model.page_image;
+}
+
+<!-- ============================ Page Title Start================================== -->
+<section class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="breadcrumbs-wrap">
+                    <h1 class="breadcrumb-title">@Model.page_title</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            @if (page_parent != null && page_parent.page_id > 0)
+                            {
+                                <li class="breadcrumb-item"><a href="/pages/@page_parent.page_seo_alias">@page_parent.page_title</a>></li>
+                            }
+                            <li class="breadcrumb-item active" aria-current="page">@Model.page_title</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================ Page Title End ================================== -->
+
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <!-- Overview -->
+                <div class="edu_wraper">
+                    <h3 class="edu_title">Lời mở đầu</h3>
+                    <p>
+                        Mối quan hệ của Nhật Bản và Việt Nam phát triển như hiện nay, thì việc mà giới trẻ Việt đang đổ xô đi học tiếng Nhật, và du học Nhật là điều không còn hiếm thấy. Việc đó đồng nghĩa đó là người biết tiếng Nhật ngày càng nhiều, vậy trong số những người đang biết tiếng Nhật, thì <strong>giá trị</strong> bạn đang có là bao nhiêu.
+                    </p>
+                    <p>
+                        Để trả lời cho câu hỏi này, trước hết bạn nên đặt câu hỏi đó là ngoài tiếng Nhật thì còn gì nữa. Có rất nhiều các chứng chỉ mà hiện nay ở Nhật đang rất <strong>hot</strong>.
+                    </p>
+                    <h6>Và trong số đó...</h6>
+                    <ul class="lists-3">
+                        <li>Chứng chỉ <strong>Boki – Kế toán</strong></li>
+                    </ul>
+                    <p>
+                        Vậy bạn sẽ được gì khi học boki?
+                    </p>
+                </div>
+                <div class="edu_wraper">
+                    <h3 class="edu_title">Học viên của Quỳnh Boki nghĩ gì về trung tâm?</h3>
+                   <div class="row">
+                       <div class="col-md-6 col-12">
+                           <div class="row">
+                               <div class="col-md-6 col-6 col-img-au">
+                                   <img src="~/Assets/common-img/testi1.jpg" />
+                               </div>
+                               <div class="col-md-6 col-6 col-img-au">
+                                   <img src="~/Assets/common-img/testi1-1.jpg" />
+                               </div>
+                           </div>
+                       </div>
+                       <div class="col-md-6 col-12">
+                           <h3>Nguyễn Thành Nhân</h3>
+                           <p>
+                               Mặc dù không làm việc trong ngành kế toán nhưng do đặc thù công việc mà mình đã bắt đầu tự học boki. Sau một thời gian tự học không có kết quả ( do lười ) thì qua 1 lần tình cơ mà mình đã biết đến lớp học boki của chị giáo Quỳnh.
+                               Phải công nhận sensei dạy rất nhiệt tình và có tâm. Học sinh nào mà không làm bài tập thì sẽ được “quan tâm” đặc biệt ngay. Bài tập nộp hàng tuần được sensei kiểm tra cho rất kĩ, không hiểu gì sẽ được giải đáp cho đến khi nào ngộ ra mới thôi.
+                               Kết thúc khoá học 2 tháng mình đã hạ cánh an toàn trong kì thi 3級 với số điểm là 93/100.
+                           </p>
+                           <p>
+                               Sau đó mình được chị giáo “dụ dỗ” học lên 2kyu, và đã hoàn thành xong cả mục tiêu đó nhanh trong chớp nhoáng trong kỳ thi onl.
+                           </p>
+                           <p>
+                               Cảm ơn chị giáo Quỳnh rất nhiều !!!
+                           </p>
+                       </div>
+                   </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4 col-md-4">
+
+                <div class="ed_view_box style_2">
+
+                    <div class="ed_author">
+                        <div class="ed_author_thumb">
+                            <img class="img-fluid" src="../Assets/common-img/quynhboki_ava.jpg" alt="founder">
+                        </div>
+                        <div class="ed_author_box">
+                            <h4><strong>Mrs. Quỳnh May</strong></h4>
+                            <span>Founder Quỳnh Boki</span>
+                        </div>
+                    </div>
+
+                    <div class="ed_view_features pl-4">
+                        <span>Quyền lợi học viên</span>
+                        <ul>
+                            <li><i class="ti-angle-right"></i>Bao gồm cả học online và video</li>
+                            <li><i class="ti-angle-right"></i>Được học tất cả các kiến thức liên quan đến khóa học đã đăng ký</li>
+                            <li><i class="ti-angle-right"></i>Được đôn đốc học bài và check bài tập</li>
+                            <li><i class="ti-angle-right"></i>Được giải đáp tất cả mọi thắc mắc liên quan đến bài học và các nội dung liên quan đến boki, thậm chí nếu có khó khăn gì trong quá trình ở Nhật, cần tư vấn, tham khảo ý kiến về đi shyushoku, chuyển việc…</li>
+                            <li><i class="ti-angle-right"></i>Được luyện đề và hỗ trợ đến khi đỗ, đương nhiên là cả 2 bên bao gồm học sinh và giáo viên cùng đồng lòng cố gắng </li>
+                        </ul>
+                    </div>
+                    <div class="ed_view_link">
+                        <a href="#" class="btn btn-theme enroll-btn">Enroll Now<i class="ti-angle-right"></i></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
